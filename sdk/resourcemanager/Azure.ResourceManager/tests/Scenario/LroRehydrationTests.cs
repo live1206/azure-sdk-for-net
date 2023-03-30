@@ -32,13 +32,11 @@ namespace Azure.ResourceManager.Tests
             var orgData = new ResourceGroupData(AzureLocation.WestUS2);
             orgData.Tags.ReplaceWith(tags);
             var rgOp = await subscription.GetResourceGroups().CreateOrUpdateAsync(WaitUntil.Started, rgName, orgData);
-            var temp = await rgOp.UpdateStatusAsync();
-            await rgOp.WaitForCompletionAsync();
-            temp = await rgOp.UpdateStatusAsync();
-            //await rgOp.WaitForCompletionAsync();
             var rgOpId = rgOp.Id;
             var rg = rgOp.Value;
-            Assert.Throws<ArgumentException>(() => new ArmOperation<ResourceGroupData>(Client, rgOpId));
+            var rehydratedOrgOperation = new ArmOperation<ResourceGroupData>(Client, rgOpId);
+            await rgOp.WaitForCompletionAsync();
+            var rehydratedOrgResponse = await rehydratedOrgOperation.UpdateStatusAsync();
             var response = rgOp.GetRawResponse();
 
             // Template exportation is a real LRO with generic type

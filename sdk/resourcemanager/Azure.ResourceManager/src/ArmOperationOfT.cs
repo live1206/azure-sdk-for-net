@@ -69,7 +69,7 @@ namespace Azure.ResourceManager
         }
 
         /// <inheritdoc />
-        public override string Id => HasCompleted ? string.Empty : _operation.GetOperationId();
+        public override string Id => _operation.GetOperationId();
 
         /// <inheritdoc />
         public override T Value => _operation.Value;
