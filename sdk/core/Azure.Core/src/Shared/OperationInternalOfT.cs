@@ -273,7 +273,7 @@ namespace Azure.Core
                 }
 
                 asyncLock.SetValue(state);
-                return GetResponseFromState(state);
+                return GetResponseFromState(state, NextLinkOperationImplementation.GetHttpMethodFromOperationId(_operation.GetOperationId()));
             }
             catch (Exception e)
             {
@@ -287,9 +287,15 @@ namespace Azure.Core
             return _operation.GetOperationId();
         }
 
-        private static Response GetResponseFromState(OperationState<T> state)
+        private static Response GetResponseFromState(OperationState<T> state, RequestMethod? requestmethod = null)
         {
             if (state.HasSucceeded)
+            {
+                return state.RawResponse;
+            }
+
+            // if this is a fake delete lro with 404, just return response
+            if (RequestMethod.Delete == requestmethod && state.RawResponse.Status == 404)
             {
                 return state.RawResponse;
             }

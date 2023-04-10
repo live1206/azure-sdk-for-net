@@ -52,7 +52,7 @@ namespace Azure.Core
         /// </summary>
         /// <param name="rawResponse">The final value of <see cref="OperationInternalBase.RawResponse"/>.</param>
         /// <param name="operationId"></param>
-        public static OperationInternal Succeeded(Response rawResponse, string? operationId = null) => new(OperationState.Success(rawResponse, operationId), operationId);
+        public static OperationInternal Succeeded(Response rawResponse, string? operationId) => new(OperationState.Success(rawResponse, operationId), operationId);
 
         /// <summary>
         /// Initializes a new instance of the <see cref="OperationInternal"/> class in a final failed state.
@@ -229,7 +229,7 @@ namespace Azure.Core
         /// <param name="operationId">operation id</param>
         /// <returns>A new <see cref="OperationState"/> instance.</returns>
         /// <exception cref="ArgumentNullException">Thrown if <paramref name="rawResponse"/> is <c>null</c>.</exception>
-        public static OperationState Success(Response rawResponse, string? operationId)
+        public static OperationState Success(Response rawResponse, string? operationId = null)
         {
             Argument.AssertNotNull(rawResponse, nameof(rawResponse));
             return new OperationState(rawResponse, true, true, default, operationId);
