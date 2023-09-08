@@ -5,15 +5,21 @@
 
 #nullable disable
 
+using System;
 using System.Collections.Generic;
 using System.Text.Json;
 using Azure.Core;
+using Azure.Core.Serialization;
 using Azure.ResourceManager.Compute;
 
 namespace Azure.ResourceManager.Compute.Models
 {
-    internal partial class SharedGalleryImageList
+    internal partial class SharedGalleryImageList : IModelSerializable
     {
+        BinaryData IModelSerializable.Serialize(ModelSerializerOptions options) => throw new NotImplementedException();
+
+        object IModelSerializable.Deserialize(BinaryData data, ModelSerializerOptions options) => DeserializeSharedGalleryImageList(JsonDocument.Parse(data).RootElement);
+
         internal static SharedGalleryImageList DeserializeSharedGalleryImageList(JsonElement element)
         {
             if (element.ValueKind == JsonValueKind.Null)

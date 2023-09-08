@@ -5,15 +5,21 @@
 
 #nullable disable
 
+using System;
 using System.Collections.Generic;
 using System.Text.Json;
 using Azure.Core;
+using Azure.Core.Serialization;
 using Azure.ResourceManager.Resources.Models;
 
 namespace Azure.ResourceManager.Resources
 {
-    public partial class ResourceProviderData
+    public partial class ResourceProviderData : IModelSerializable
     {
+        BinaryData IModelSerializable.Serialize(ModelSerializerOptions options) => throw new NotImplementedException();
+
+        object IModelSerializable.Deserialize(BinaryData data, ModelSerializerOptions options) => DeserializeResourceProviderData(JsonDocument.Parse(data).RootElement);
+
         internal static ResourceProviderData DeserializeResourceProviderData(JsonElement element)
         {
             if (element.ValueKind == JsonValueKind.Null)

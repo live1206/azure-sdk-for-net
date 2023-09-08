@@ -5,13 +5,19 @@
 
 #nullable disable
 
+using System;
 using System.Text.Json;
 using Azure.Core;
+using Azure.Core.Serialization;
 
 namespace Azure.ResourceManager.Resources.Models
 {
-    public partial class PredefinedTagCount
+    public partial class PredefinedTagCount : IModelSerializable
     {
+        BinaryData IModelSerializable.Serialize(ModelSerializerOptions options) => throw new NotImplementedException();
+
+        object IModelSerializable.Deserialize(BinaryData data, ModelSerializerOptions options) => DeserializePredefinedTagCount(JsonDocument.Parse(data).RootElement);
+
         internal static PredefinedTagCount DeserializePredefinedTagCount(JsonElement element)
         {
             if (element.ValueKind == JsonValueKind.Null)

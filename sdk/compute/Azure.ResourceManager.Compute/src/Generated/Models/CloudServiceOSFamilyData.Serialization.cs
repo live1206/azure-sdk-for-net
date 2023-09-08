@@ -5,16 +5,22 @@
 
 #nullable disable
 
+using System;
 using System.Collections.Generic;
 using System.Text.Json;
 using Azure.Core;
+using Azure.Core.Serialization;
 using Azure.ResourceManager.Compute.Models;
 using Azure.ResourceManager.Models;
 
 namespace Azure.ResourceManager.Compute
 {
-    public partial class CloudServiceOSFamilyData
+    public partial class CloudServiceOSFamilyData : IModelSerializable
     {
+        BinaryData IModelSerializable.Serialize(ModelSerializerOptions options) => throw new NotImplementedException();
+
+        object IModelSerializable.Deserialize(BinaryData data, ModelSerializerOptions options) => DeserializeCloudServiceOSFamilyData(JsonDocument.Parse(data).RootElement);
+
         internal static CloudServiceOSFamilyData DeserializeCloudServiceOSFamilyData(JsonElement element)
         {
             if (element.ValueKind == JsonValueKind.Null)

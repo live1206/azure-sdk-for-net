@@ -5,15 +5,21 @@
 
 #nullable disable
 
+using System;
 using System.Collections.Generic;
 using System.Text.Json;
 using Azure.Core;
+using Azure.Core.Serialization;
 using Azure.ResourceManager.Compute;
 
 namespace Azure.ResourceManager.Compute.Models
 {
-    internal partial class VirtualMachineScaleSetVmListResult
+    internal partial class VirtualMachineScaleSetVmListResult : IModelSerializable
     {
+        BinaryData IModelSerializable.Serialize(ModelSerializerOptions options) => throw new NotImplementedException();
+
+        object IModelSerializable.Deserialize(BinaryData data, ModelSerializerOptions options) => DeserializeVirtualMachineScaleSetVmListResult(JsonDocument.Parse(data).RootElement);
+
         internal static VirtualMachineScaleSetVmListResult DeserializeVirtualMachineScaleSetVmListResult(JsonElement element)
         {
             if (element.ValueKind == JsonValueKind.Null)

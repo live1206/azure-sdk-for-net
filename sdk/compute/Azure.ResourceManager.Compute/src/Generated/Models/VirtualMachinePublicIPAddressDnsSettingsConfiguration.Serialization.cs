@@ -5,12 +5,14 @@
 
 #nullable disable
 
+using System;
 using System.Text.Json;
 using Azure.Core;
+using Azure.Core.Serialization;
 
 namespace Azure.ResourceManager.Compute.Models
 {
-    public partial class VirtualMachinePublicIPAddressDnsSettingsConfiguration : IUtf8JsonSerializable
+    public partial class VirtualMachinePublicIPAddressDnsSettingsConfiguration : IUtf8JsonSerializable, IJsonModelSerializable
     {
         void IUtf8JsonSerializable.Write(Utf8JsonWriter writer)
         {
@@ -24,6 +26,14 @@ namespace Azure.ResourceManager.Compute.Models
             }
             writer.WriteEndObject();
         }
+
+        object IJsonModelSerializable.Deserialize(ref Utf8JsonReader reader, ModelSerializerOptions options) => throw new NotImplementedException();
+
+        void IJsonModelSerializable.Serialize(Utf8JsonWriter writer, ModelSerializerOptions options) => ((IUtf8JsonSerializable)this).Write(writer);
+
+        BinaryData IModelSerializable.Serialize(ModelSerializerOptions options) => throw new NotImplementedException();
+
+        object IModelSerializable.Deserialize(BinaryData data, ModelSerializerOptions options) => DeserializeVirtualMachinePublicIPAddressDnsSettingsConfiguration(JsonDocument.Parse(data).RootElement);
 
         internal static VirtualMachinePublicIPAddressDnsSettingsConfiguration DeserializeVirtualMachinePublicIPAddressDnsSettingsConfiguration(JsonElement element)
         {

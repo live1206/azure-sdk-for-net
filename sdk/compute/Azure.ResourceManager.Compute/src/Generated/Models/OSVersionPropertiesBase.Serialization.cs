@@ -5,13 +5,19 @@
 
 #nullable disable
 
+using System;
 using System.Text.Json;
 using Azure.Core;
+using Azure.Core.Serialization;
 
 namespace Azure.ResourceManager.Compute.Models
 {
-    public partial class OSVersionPropertiesBase
+    public partial class OSVersionPropertiesBase : IModelSerializable
     {
+        BinaryData IModelSerializable.Serialize(ModelSerializerOptions options) => throw new NotImplementedException();
+
+        object IModelSerializable.Deserialize(BinaryData data, ModelSerializerOptions options) => DeserializeOSVersionPropertiesBase(JsonDocument.Parse(data).RootElement);
+
         internal static OSVersionPropertiesBase DeserializeOSVersionPropertiesBase(JsonElement element)
         {
             if (element.ValueKind == JsonValueKind.Null)

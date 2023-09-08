@@ -5,13 +5,19 @@
 
 #nullable disable
 
+using System;
 using System.Text.Json;
 using Azure.Core;
+using Azure.Core.Serialization;
 
 namespace Azure.ResourceManager.Compute.Models
 {
-    internal partial class VirtualMachineHealthStatus
+    internal partial class VirtualMachineHealthStatus : IModelSerializable
     {
+        BinaryData IModelSerializable.Serialize(ModelSerializerOptions options) => throw new NotImplementedException();
+
+        object IModelSerializable.Deserialize(BinaryData data, ModelSerializerOptions options) => DeserializeVirtualMachineHealthStatus(JsonDocument.Parse(data).RootElement);
+
         internal static VirtualMachineHealthStatus DeserializeVirtualMachineHealthStatus(JsonElement element)
         {
             if (element.ValueKind == JsonValueKind.Null)

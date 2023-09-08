@@ -5,13 +5,19 @@
 
 #nullable disable
 
+using System;
 using System.Text.Json;
 using Azure.Core;
+using Azure.Core.Serialization;
 
 namespace Azure.ResourceManager.Compute.Models
 {
-    public partial class UpgradeOperationHistoricalStatusInfo
+    public partial class UpgradeOperationHistoricalStatusInfo : IModelSerializable
     {
+        BinaryData IModelSerializable.Serialize(ModelSerializerOptions options) => throw new NotImplementedException();
+
+        object IModelSerializable.Deserialize(BinaryData data, ModelSerializerOptions options) => DeserializeUpgradeOperationHistoricalStatusInfo(JsonDocument.Parse(data).RootElement);
+
         internal static UpgradeOperationHistoricalStatusInfo DeserializeUpgradeOperationHistoricalStatusInfo(JsonElement element)
         {
             if (element.ValueKind == JsonValueKind.Null)

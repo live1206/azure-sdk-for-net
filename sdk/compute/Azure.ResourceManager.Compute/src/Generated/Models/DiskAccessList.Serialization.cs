@@ -5,15 +5,21 @@
 
 #nullable disable
 
+using System;
 using System.Collections.Generic;
 using System.Text.Json;
 using Azure.Core;
+using Azure.Core.Serialization;
 using Azure.ResourceManager.Compute;
 
 namespace Azure.ResourceManager.Compute.Models
 {
-    internal partial class DiskAccessList
+    internal partial class DiskAccessList : IModelSerializable
     {
+        BinaryData IModelSerializable.Serialize(ModelSerializerOptions options) => throw new NotImplementedException();
+
+        object IModelSerializable.Deserialize(BinaryData data, ModelSerializerOptions options) => DeserializeDiskAccessList(JsonDocument.Parse(data).RootElement);
+
         internal static DiskAccessList DeserializeDiskAccessList(JsonElement element)
         {
             if (element.ValueKind == JsonValueKind.Null)

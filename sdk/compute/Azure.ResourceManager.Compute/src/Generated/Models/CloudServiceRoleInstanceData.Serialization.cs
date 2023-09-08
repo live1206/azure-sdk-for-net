@@ -5,16 +5,22 @@
 
 #nullable disable
 
+using System;
 using System.Collections.Generic;
 using System.Text.Json;
 using Azure.Core;
+using Azure.Core.Serialization;
 using Azure.ResourceManager.Compute.Models;
 using Azure.ResourceManager.Models;
 
 namespace Azure.ResourceManager.Compute
 {
-    public partial class CloudServiceRoleInstanceData
+    public partial class CloudServiceRoleInstanceData : IModelSerializable
     {
+        BinaryData IModelSerializable.Serialize(ModelSerializerOptions options) => throw new NotImplementedException();
+
+        object IModelSerializable.Deserialize(BinaryData data, ModelSerializerOptions options) => DeserializeCloudServiceRoleInstanceData(JsonDocument.Parse(data).RootElement);
+
         internal static CloudServiceRoleInstanceData DeserializeCloudServiceRoleInstanceData(JsonElement element)
         {
             if (element.ValueKind == JsonValueKind.Null)

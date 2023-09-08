@@ -5,13 +5,19 @@
 
 #nullable disable
 
+using System;
 using System.Text.Json;
 using Azure.Core;
+using Azure.Core.Serialization;
 
 namespace Azure.ResourceManager.Compute
 {
-    public partial class CommunityGalleryData
+    public partial class CommunityGalleryData : IModelSerializable
     {
+        BinaryData IModelSerializable.Serialize(ModelSerializerOptions options) => throw new NotImplementedException();
+
+        object IModelSerializable.Deserialize(BinaryData data, ModelSerializerOptions options) => DeserializeCommunityGalleryData(JsonDocument.Parse(data).RootElement);
+
         internal static CommunityGalleryData DeserializeCommunityGalleryData(JsonElement element)
         {
             if (element.ValueKind == JsonValueKind.Null)

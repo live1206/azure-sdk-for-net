@@ -9,12 +9,17 @@ using System;
 using System.Collections.Generic;
 using System.Text.Json;
 using Azure.Core;
+using Azure.Core.Serialization;
 using Azure.ResourceManager.Resources.Models;
 
 namespace Azure.ResourceManager.Resources
 {
-    public partial class TenantData
+    public partial class TenantData : IModelSerializable
     {
+        BinaryData IModelSerializable.Serialize(ModelSerializerOptions options) => throw new NotImplementedException();
+
+        object IModelSerializable.Deserialize(BinaryData data, ModelSerializerOptions options) => DeserializeTenantData(JsonDocument.Parse(data).RootElement);
+
         internal static TenantData DeserializeTenantData(JsonElement element)
         {
             if (element.ValueKind == JsonValueKind.Null)

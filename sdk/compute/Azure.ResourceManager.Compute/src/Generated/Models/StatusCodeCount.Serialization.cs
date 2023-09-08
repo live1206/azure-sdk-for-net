@@ -5,13 +5,19 @@
 
 #nullable disable
 
+using System;
 using System.Text.Json;
 using Azure.Core;
+using Azure.Core.Serialization;
 
 namespace Azure.ResourceManager.Compute.Models
 {
-    public partial class StatusCodeCount
+    public partial class StatusCodeCount : IModelSerializable
     {
+        BinaryData IModelSerializable.Serialize(ModelSerializerOptions options) => throw new NotImplementedException();
+
+        object IModelSerializable.Deserialize(BinaryData data, ModelSerializerOptions options) => DeserializeStatusCodeCount(JsonDocument.Parse(data).RootElement);
+
         internal static StatusCodeCount DeserializeStatusCodeCount(JsonElement element)
         {
             if (element.ValueKind == JsonValueKind.Null)

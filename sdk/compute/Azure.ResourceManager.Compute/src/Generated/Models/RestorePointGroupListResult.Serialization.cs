@@ -5,15 +5,21 @@
 
 #nullable disable
 
+using System;
 using System.Collections.Generic;
 using System.Text.Json;
 using Azure.Core;
+using Azure.Core.Serialization;
 using Azure.ResourceManager.Compute;
 
 namespace Azure.ResourceManager.Compute.Models
 {
-    internal partial class RestorePointGroupListResult
+    internal partial class RestorePointGroupListResult : IModelSerializable
     {
+        BinaryData IModelSerializable.Serialize(ModelSerializerOptions options) => throw new NotImplementedException();
+
+        object IModelSerializable.Deserialize(BinaryData data, ModelSerializerOptions options) => DeserializeRestorePointGroupListResult(JsonDocument.Parse(data).RootElement);
+
         internal static RestorePointGroupListResult DeserializeRestorePointGroupListResult(JsonElement element)
         {
             if (element.ValueKind == JsonValueKind.Null)

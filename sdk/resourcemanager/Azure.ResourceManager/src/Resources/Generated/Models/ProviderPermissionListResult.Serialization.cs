@@ -5,14 +5,20 @@
 
 #nullable disable
 
+using System;
 using System.Collections.Generic;
 using System.Text.Json;
 using Azure.Core;
+using Azure.Core.Serialization;
 
 namespace Azure.ResourceManager.Resources.Models
 {
-    internal partial class ProviderPermissionListResult
+    internal partial class ProviderPermissionListResult : IModelSerializable
     {
+        BinaryData IModelSerializable.Serialize(ModelSerializerOptions options) => throw new NotImplementedException();
+
+        object IModelSerializable.Deserialize(BinaryData data, ModelSerializerOptions options) => DeserializeProviderPermissionListResult(JsonDocument.Parse(data).RootElement);
+
         internal static ProviderPermissionListResult DeserializeProviderPermissionListResult(JsonElement element)
         {
             if (element.ValueKind == JsonValueKind.Null)

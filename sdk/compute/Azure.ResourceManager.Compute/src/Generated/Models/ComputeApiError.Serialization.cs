@@ -5,14 +5,20 @@
 
 #nullable disable
 
+using System;
 using System.Collections.Generic;
 using System.Text.Json;
 using Azure.Core;
+using Azure.Core.Serialization;
 
 namespace Azure.ResourceManager.Compute.Models
 {
-    public partial class ComputeApiError
+    public partial class ComputeApiError : IModelSerializable
     {
+        BinaryData IModelSerializable.Serialize(ModelSerializerOptions options) => throw new NotImplementedException();
+
+        object IModelSerializable.Deserialize(BinaryData data, ModelSerializerOptions options) => DeserializeComputeApiError(JsonDocument.Parse(data).RootElement);
+
         internal static ComputeApiError DeserializeComputeApiError(JsonElement element)
         {
             if (element.ValueKind == JsonValueKind.Null)

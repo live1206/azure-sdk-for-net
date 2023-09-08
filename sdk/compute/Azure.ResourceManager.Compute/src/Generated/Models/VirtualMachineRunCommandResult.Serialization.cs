@@ -5,14 +5,20 @@
 
 #nullable disable
 
+using System;
 using System.Collections.Generic;
 using System.Text.Json;
 using Azure.Core;
+using Azure.Core.Serialization;
 
 namespace Azure.ResourceManager.Compute.Models
 {
-    public partial class VirtualMachineRunCommandResult
+    public partial class VirtualMachineRunCommandResult : IModelSerializable
     {
+        BinaryData IModelSerializable.Serialize(ModelSerializerOptions options) => throw new NotImplementedException();
+
+        object IModelSerializable.Deserialize(BinaryData data, ModelSerializerOptions options) => DeserializeVirtualMachineRunCommandResult(JsonDocument.Parse(data).RootElement);
+
         internal static VirtualMachineRunCommandResult DeserializeVirtualMachineRunCommandResult(JsonElement element)
         {
             if (element.ValueKind == JsonValueKind.Null)

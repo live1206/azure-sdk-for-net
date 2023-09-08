@@ -5,15 +5,21 @@
 
 #nullable disable
 
+using System;
 using System.Collections.Generic;
 using System.Text.Json;
 using Azure.Core;
+using Azure.Core.Serialization;
 using Azure.ResourceManager.Compute;
 
 namespace Azure.ResourceManager.Compute.Models
 {
-    internal partial class CapacityReservationGroupListResult
+    internal partial class CapacityReservationGroupListResult : IModelSerializable
     {
+        BinaryData IModelSerializable.Serialize(ModelSerializerOptions options) => throw new NotImplementedException();
+
+        object IModelSerializable.Deserialize(BinaryData data, ModelSerializerOptions options) => DeserializeCapacityReservationGroupListResult(JsonDocument.Parse(data).RootElement);
+
         internal static CapacityReservationGroupListResult DeserializeCapacityReservationGroupListResult(JsonElement element)
         {
             if (element.ValueKind == JsonValueKind.Null)

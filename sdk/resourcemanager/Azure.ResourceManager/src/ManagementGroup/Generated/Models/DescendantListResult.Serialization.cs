@@ -5,14 +5,20 @@
 
 #nullable disable
 
+using System;
 using System.Collections.Generic;
 using System.Text.Json;
 using Azure.Core;
+using Azure.Core.Serialization;
 
 namespace Azure.ResourceManager.ManagementGroups.Models
 {
-    internal partial class DescendantListResult
+    internal partial class DescendantListResult : IModelSerializable
     {
+        BinaryData IModelSerializable.Serialize(ModelSerializerOptions options) => throw new NotImplementedException();
+
+        object IModelSerializable.Deserialize(BinaryData data, ModelSerializerOptions options) => DeserializeDescendantListResult(JsonDocument.Parse(data).RootElement);
+
         internal static DescendantListResult DeserializeDescendantListResult(JsonElement element)
         {
             if (element.ValueKind == JsonValueKind.Null)

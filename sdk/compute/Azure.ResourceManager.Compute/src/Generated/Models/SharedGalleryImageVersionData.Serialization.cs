@@ -8,12 +8,17 @@
 using System;
 using System.Text.Json;
 using Azure.Core;
+using Azure.Core.Serialization;
 using Azure.ResourceManager.Compute.Models;
 
 namespace Azure.ResourceManager.Compute
 {
-    public partial class SharedGalleryImageVersionData
+    public partial class SharedGalleryImageVersionData : IModelSerializable
     {
+        BinaryData IModelSerializable.Serialize(ModelSerializerOptions options) => throw new NotImplementedException();
+
+        object IModelSerializable.Deserialize(BinaryData data, ModelSerializerOptions options) => DeserializeSharedGalleryImageVersionData(JsonDocument.Parse(data).RootElement);
+
         internal static SharedGalleryImageVersionData DeserializeSharedGalleryImageVersionData(JsonElement element)
         {
             if (element.ValueKind == JsonValueKind.Null)

@@ -8,11 +8,16 @@
 using System;
 using System.Text.Json;
 using Azure.Core;
+using Azure.Core.Serialization;
 
 namespace Azure.ResourceManager.Compute.Models
 {
-    public partial class BootDiagnosticsInstanceView
+    public partial class BootDiagnosticsInstanceView : IModelSerializable
     {
+        BinaryData IModelSerializable.Serialize(ModelSerializerOptions options) => throw new NotImplementedException();
+
+        object IModelSerializable.Deserialize(BinaryData data, ModelSerializerOptions options) => DeserializeBootDiagnosticsInstanceView(JsonDocument.Parse(data).RootElement);
+
         internal static BootDiagnosticsInstanceView DeserializeBootDiagnosticsInstanceView(JsonElement element)
         {
             if (element.ValueKind == JsonValueKind.Null)

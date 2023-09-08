@@ -9,13 +9,18 @@ using System;
 using System.Collections.Generic;
 using System.Text.Json;
 using Azure.Core;
+using Azure.Core.Serialization;
 using Azure.ResourceManager.ManagementGroups.Models;
 using Azure.ResourceManager.Models;
 
 namespace Azure.ResourceManager.ManagementGroups
 {
-    public partial class ManagementGroupData
+    public partial class ManagementGroupData : IModelSerializable
     {
+        BinaryData IModelSerializable.Serialize(ModelSerializerOptions options) => throw new NotImplementedException();
+
+        object IModelSerializable.Deserialize(BinaryData data, ModelSerializerOptions options) => DeserializeManagementGroupData(JsonDocument.Parse(data).RootElement);
+
         internal static ManagementGroupData DeserializeManagementGroupData(JsonElement element)
         {
             if (element.ValueKind == JsonValueKind.Null)
@@ -92,7 +97,6 @@ namespace Azure.ResourceManager.ManagementGroups
                         {
                             if (property0.Value.ValueKind == JsonValueKind.Null)
                             {
-                                children = null;
                                 continue;
                             }
                             List<ManagementGroupChildInfo> array = new List<ManagementGroupChildInfo>();

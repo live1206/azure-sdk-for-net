@@ -8,11 +8,16 @@
 using System;
 using System.Text.Json;
 using Azure.Core;
+using Azure.Core.Serialization;
 
 namespace Azure.ResourceManager.Compute.Models
 {
-    public partial class LastPatchInstallationSummary
+    public partial class LastPatchInstallationSummary : IModelSerializable
     {
+        BinaryData IModelSerializable.Serialize(ModelSerializerOptions options) => throw new NotImplementedException();
+
+        object IModelSerializable.Deserialize(BinaryData data, ModelSerializerOptions options) => DeserializeLastPatchInstallationSummary(JsonDocument.Parse(data).RootElement);
+
         internal static LastPatchInstallationSummary DeserializeLastPatchInstallationSummary(JsonElement element)
         {
             if (element.ValueKind == JsonValueKind.Null)

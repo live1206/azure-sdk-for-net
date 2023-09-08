@@ -5,14 +5,20 @@
 
 #nullable disable
 
+using System;
 using System.Collections.Generic;
 using System.Text.Json;
 using Azure.Core;
+using Azure.Core.Serialization;
 
 namespace Azure.ResourceManager.Resources.Models
 {
-    public partial class ProviderExtendedLocation
+    public partial class ProviderExtendedLocation : IModelSerializable
     {
+        BinaryData IModelSerializable.Serialize(ModelSerializerOptions options) => throw new NotImplementedException();
+
+        object IModelSerializable.Deserialize(BinaryData data, ModelSerializerOptions options) => DeserializeProviderExtendedLocation(JsonDocument.Parse(data).RootElement);
+
         internal static ProviderExtendedLocation DeserializeProviderExtendedLocation(JsonElement element)
         {
             if (element.ValueKind == JsonValueKind.Null)

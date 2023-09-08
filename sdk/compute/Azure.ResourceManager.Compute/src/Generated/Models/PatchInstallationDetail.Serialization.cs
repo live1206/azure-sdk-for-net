@@ -5,14 +5,20 @@
 
 #nullable disable
 
+using System;
 using System.Collections.Generic;
 using System.Text.Json;
 using Azure.Core;
+using Azure.Core.Serialization;
 
 namespace Azure.ResourceManager.Compute.Models
 {
-    public partial class PatchInstallationDetail
+    public partial class PatchInstallationDetail : IModelSerializable
     {
+        BinaryData IModelSerializable.Serialize(ModelSerializerOptions options) => throw new NotImplementedException();
+
+        object IModelSerializable.Deserialize(BinaryData data, ModelSerializerOptions options) => DeserializePatchInstallationDetail(JsonDocument.Parse(data).RootElement);
+
         internal static PatchInstallationDetail DeserializePatchInstallationDetail(JsonElement element)
         {
             if (element.ValueKind == JsonValueKind.Null)

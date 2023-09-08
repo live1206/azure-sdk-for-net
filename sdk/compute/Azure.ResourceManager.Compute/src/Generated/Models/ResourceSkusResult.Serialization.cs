@@ -5,14 +5,20 @@
 
 #nullable disable
 
+using System;
 using System.Collections.Generic;
 using System.Text.Json;
 using Azure.Core;
+using Azure.Core.Serialization;
 
 namespace Azure.ResourceManager.Compute.Models
 {
-    internal partial class ResourceSkusResult
+    internal partial class ResourceSkusResult : IModelSerializable
     {
+        BinaryData IModelSerializable.Serialize(ModelSerializerOptions options) => throw new NotImplementedException();
+
+        object IModelSerializable.Deserialize(BinaryData data, ModelSerializerOptions options) => DeserializeResourceSkusResult(JsonDocument.Parse(data).RootElement);
+
         internal static ResourceSkusResult DeserializeResourceSkusResult(JsonElement element)
         {
             if (element.ValueKind == JsonValueKind.Null)

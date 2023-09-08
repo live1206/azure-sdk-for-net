@@ -5,13 +5,19 @@
 
 #nullable disable
 
+using System;
 using System.Text.Json;
 using Azure.Core;
+using Azure.Core.Serialization;
 
 namespace Azure.ResourceManager.Compute.Models
 {
-    public partial class RunCommandParameterDefinition
+    public partial class RunCommandParameterDefinition : IModelSerializable
     {
+        BinaryData IModelSerializable.Serialize(ModelSerializerOptions options) => throw new NotImplementedException();
+
+        object IModelSerializable.Deserialize(BinaryData data, ModelSerializerOptions options) => DeserializeRunCommandParameterDefinition(JsonDocument.Parse(data).RootElement);
+
         internal static RunCommandParameterDefinition DeserializeRunCommandParameterDefinition(JsonElement element)
         {
             if (element.ValueKind == JsonValueKind.Null)

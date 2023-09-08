@@ -5,13 +5,19 @@
 
 #nullable disable
 
+using System;
 using System.Text.Json;
 using Azure.Core;
+using Azure.Core.Serialization;
 
 namespace Azure.ResourceManager.Resources.Models
 {
-    public partial class PairedRegion
+    public partial class PairedRegion : IModelSerializable
     {
+        BinaryData IModelSerializable.Serialize(ModelSerializerOptions options) => throw new NotImplementedException();
+
+        object IModelSerializable.Deserialize(BinaryData data, ModelSerializerOptions options) => DeserializePairedRegion(JsonDocument.Parse(data).RootElement);
+
         internal static PairedRegion DeserializePairedRegion(JsonElement element)
         {
             if (element.ValueKind == JsonValueKind.Null)

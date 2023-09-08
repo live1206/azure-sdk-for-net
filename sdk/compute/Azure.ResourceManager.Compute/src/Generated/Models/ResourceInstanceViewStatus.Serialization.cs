@@ -8,11 +8,16 @@
 using System;
 using System.Text.Json;
 using Azure.Core;
+using Azure.Core.Serialization;
 
 namespace Azure.ResourceManager.Compute.Models
 {
-    public partial class ResourceInstanceViewStatus
+    public partial class ResourceInstanceViewStatus : IModelSerializable
     {
+        BinaryData IModelSerializable.Serialize(ModelSerializerOptions options) => throw new NotImplementedException();
+
+        object IModelSerializable.Deserialize(BinaryData data, ModelSerializerOptions options) => DeserializeResourceInstanceViewStatus(JsonDocument.Parse(data).RootElement);
+
         internal static ResourceInstanceViewStatus DeserializeResourceInstanceViewStatus(JsonElement element)
         {
             if (element.ValueKind == JsonValueKind.Null)

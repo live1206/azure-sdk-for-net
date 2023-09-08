@@ -5,15 +5,21 @@
 
 #nullable disable
 
+using System;
 using System.Collections.Generic;
 using System.Text.Json;
 using Azure.Core;
+using Azure.Core.Serialization;
 using Azure.ResourceManager.Resources.Models;
 
 namespace Azure.ResourceManager.Compute.Models
 {
-    internal partial class RoleInstanceNetworkProfile
+    internal partial class RoleInstanceNetworkProfile : IModelSerializable
     {
+        BinaryData IModelSerializable.Serialize(ModelSerializerOptions options) => throw new NotImplementedException();
+
+        object IModelSerializable.Deserialize(BinaryData data, ModelSerializerOptions options) => DeserializeRoleInstanceNetworkProfile(JsonDocument.Parse(data).RootElement);
+
         internal static RoleInstanceNetworkProfile DeserializeRoleInstanceNetworkProfile(JsonElement element)
         {
             if (element.ValueKind == JsonValueKind.Null)

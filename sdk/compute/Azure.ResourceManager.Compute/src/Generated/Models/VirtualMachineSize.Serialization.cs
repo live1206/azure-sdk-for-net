@@ -5,13 +5,19 @@
 
 #nullable disable
 
+using System;
 using System.Text.Json;
 using Azure.Core;
+using Azure.Core.Serialization;
 
 namespace Azure.ResourceManager.Compute.Models
 {
-    public partial class VirtualMachineSize
+    public partial class VirtualMachineSize : IModelSerializable
     {
+        BinaryData IModelSerializable.Serialize(ModelSerializerOptions options) => throw new NotImplementedException();
+
+        object IModelSerializable.Deserialize(BinaryData data, ModelSerializerOptions options) => DeserializeVirtualMachineSize(JsonDocument.Parse(data).RootElement);
+
         internal static VirtualMachineSize DeserializeVirtualMachineSize(JsonElement element)
         {
             if (element.ValueKind == JsonValueKind.Null)

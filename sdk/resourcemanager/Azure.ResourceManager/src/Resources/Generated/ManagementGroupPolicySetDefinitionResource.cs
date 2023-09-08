@@ -23,7 +23,7 @@ namespace Azure.ResourceManager.Resources
     /// from an instance of <see cref="ArmClient" /> using the GetManagementGroupPolicySetDefinitionResource method.
     /// Otherwise you can get one from its parent resource <see cref="ManagementGroupResource" /> using the GetManagementGroupPolicySetDefinition method.
     /// </summary>
-    public partial class ManagementGroupPolicySetDefinitionResource : ArmResource
+    public partial class ManagementGroupPolicySetDefinitionResource : ArmResource, ResourceManager.IResource
     {
         /// <summary> Generate the resource identifier of a <see cref="ManagementGroupPolicySetDefinitionResource"/> instance. </summary>
         public static ResourceIdentifier CreateResourceIdentifier(string managementGroupId, string policySetDefinitionName)
@@ -173,7 +173,9 @@ namespace Azure.ResourceManager.Resources
             try
             {
                 var response = await _managementGroupPolicySetDefinitionPolicySetDefinitionsRestClient.DeleteAtManagementGroupAsync(Id.Parent.Name, Id.Name, cancellationToken).ConfigureAwait(false);
-                var operation = new ResourcesArmOperation(response);
+                var uri = _managementGroupPolicySetDefinitionPolicySetDefinitionsRestClient.CreateDeleteAtManagementGroupRequestUri(Id.Parent.Name, Id.Name);
+                var operationId = NextLinkOperationImplementation.GetOperationId(RequestMethod.Delete, uri.ToUri(), uri.ToString(), NextLinkOperationImplementation.HeaderSource.None, false, null, OperationFinalStateVia.OriginalUri);
+                var operation = new ResourcesArmOperation(response, operationId);
                 if (waitUntil == WaitUntil.Completed)
                     await operation.WaitForCompletionResponseAsync(cancellationToken).ConfigureAwait(false);
                 return operation;
@@ -207,7 +209,9 @@ namespace Azure.ResourceManager.Resources
             try
             {
                 var response = _managementGroupPolicySetDefinitionPolicySetDefinitionsRestClient.DeleteAtManagementGroup(Id.Parent.Name, Id.Name, cancellationToken);
-                var operation = new ResourcesArmOperation(response);
+                var uri = _managementGroupPolicySetDefinitionPolicySetDefinitionsRestClient.CreateDeleteAtManagementGroupRequestUri(Id.Parent.Name, Id.Name);
+                var operationId = NextLinkOperationImplementation.GetOperationId(RequestMethod.Delete, uri.ToUri(), uri.ToString(), NextLinkOperationImplementation.HeaderSource.None, false, null, OperationFinalStateVia.OriginalUri);
+                var operation = new ResourcesArmOperation(response, operationId);
                 if (waitUntil == WaitUntil.Completed)
                     operation.WaitForCompletionResponse(cancellationToken);
                 return operation;
@@ -245,7 +249,9 @@ namespace Azure.ResourceManager.Resources
             try
             {
                 var response = await _managementGroupPolicySetDefinitionPolicySetDefinitionsRestClient.CreateOrUpdateAtManagementGroupAsync(Id.Parent.Name, Id.Name, data, cancellationToken).ConfigureAwait(false);
-                var operation = new ResourcesArmOperation<ManagementGroupPolicySetDefinitionResource>(Response.FromValue(new ManagementGroupPolicySetDefinitionResource(Client, response), response.GetRawResponse()));
+                var uri = _managementGroupPolicySetDefinitionPolicySetDefinitionsRestClient.CreateCreateOrUpdateAtManagementGroupRequestUri(Id.Parent.Name, Id.Name, data);
+                var operationId = NextLinkOperationImplementation.GetOperationId(RequestMethod.Put, uri.ToUri(), uri.ToString(), NextLinkOperationImplementation.HeaderSource.None, false, null, OperationFinalStateVia.OriginalUri);
+                var operation = new ResourcesArmOperation<ManagementGroupPolicySetDefinitionResource>(Response.FromValue(new ManagementGroupPolicySetDefinitionResource(Client, response), response.GetRawResponse()), operationId);
                 if (waitUntil == WaitUntil.Completed)
                     await operation.WaitForCompletionAsync(cancellationToken).ConfigureAwait(false);
                 return operation;
@@ -283,7 +289,9 @@ namespace Azure.ResourceManager.Resources
             try
             {
                 var response = _managementGroupPolicySetDefinitionPolicySetDefinitionsRestClient.CreateOrUpdateAtManagementGroup(Id.Parent.Name, Id.Name, data, cancellationToken);
-                var operation = new ResourcesArmOperation<ManagementGroupPolicySetDefinitionResource>(Response.FromValue(new ManagementGroupPolicySetDefinitionResource(Client, response), response.GetRawResponse()));
+                var uri = _managementGroupPolicySetDefinitionPolicySetDefinitionsRestClient.CreateCreateOrUpdateAtManagementGroupRequestUri(Id.Parent.Name, Id.Name, data);
+                var operationId = NextLinkOperationImplementation.GetOperationId(RequestMethod.Put, uri.ToUri(), uri.ToString(), NextLinkOperationImplementation.HeaderSource.None, false, null, OperationFinalStateVia.OriginalUri);
+                var operation = new ResourcesArmOperation<ManagementGroupPolicySetDefinitionResource>(Response.FromValue(new ManagementGroupPolicySetDefinitionResource(Client, response), response.GetRawResponse()), operationId);
                 if (waitUntil == WaitUntil.Completed)
                     operation.WaitForCompletion(cancellationToken);
                 return operation;

@@ -5,14 +5,20 @@
 
 #nullable disable
 
+using System;
 using System.Collections.Generic;
 using System.Text.Json;
 using Azure.Core;
+using Azure.Core.Serialization;
 
 namespace Azure.ResourceManager.Compute.Models
 {
-    public partial class CloudServiceInstanceView
+    public partial class CloudServiceInstanceView : IModelSerializable
     {
+        BinaryData IModelSerializable.Serialize(ModelSerializerOptions options) => throw new NotImplementedException();
+
+        object IModelSerializable.Deserialize(BinaryData data, ModelSerializerOptions options) => DeserializeCloudServiceInstanceView(JsonDocument.Parse(data).RootElement);
+
         internal static CloudServiceInstanceView DeserializeCloudServiceInstanceView(JsonElement element)
         {
             if (element.ValueKind == JsonValueKind.Null)

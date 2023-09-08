@@ -9,12 +9,17 @@ using System;
 using System.Collections.Generic;
 using System.Text.Json;
 using Azure.Core;
+using Azure.Core.Serialization;
 using Azure.ResourceManager.Resources.Models;
 
 namespace Azure.ResourceManager.Resources
 {
-    public partial class SubscriptionData
+    public partial class SubscriptionData : IModelSerializable
     {
+        BinaryData IModelSerializable.Serialize(ModelSerializerOptions options) => throw new NotImplementedException();
+
+        object IModelSerializable.Deserialize(BinaryData data, ModelSerializerOptions options) => DeserializeSubscriptionData(JsonDocument.Parse(data).RootElement);
+
         internal static SubscriptionData DeserializeSubscriptionData(JsonElement element)
         {
             if (element.ValueKind == JsonValueKind.Null)

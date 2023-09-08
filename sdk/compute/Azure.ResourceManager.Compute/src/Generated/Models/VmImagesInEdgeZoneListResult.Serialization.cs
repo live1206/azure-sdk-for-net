@@ -5,14 +5,20 @@
 
 #nullable disable
 
+using System;
 using System.Collections.Generic;
 using System.Text.Json;
 using Azure.Core;
+using Azure.Core.Serialization;
 
 namespace Azure.ResourceManager.Compute.Models
 {
-    internal partial class VmImagesInEdgeZoneListResult
+    internal partial class VmImagesInEdgeZoneListResult : IModelSerializable
     {
+        BinaryData IModelSerializable.Serialize(ModelSerializerOptions options) => throw new NotImplementedException();
+
+        object IModelSerializable.Deserialize(BinaryData data, ModelSerializerOptions options) => DeserializeVmImagesInEdgeZoneListResult(JsonDocument.Parse(data).RootElement);
+
         internal static VmImagesInEdgeZoneListResult DeserializeVmImagesInEdgeZoneListResult(JsonElement element)
         {
             if (element.ValueKind == JsonValueKind.Null)

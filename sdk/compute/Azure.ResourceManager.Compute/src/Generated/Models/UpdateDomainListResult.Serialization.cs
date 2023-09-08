@@ -5,14 +5,20 @@
 
 #nullable disable
 
+using System;
 using System.Collections.Generic;
 using System.Text.Json;
 using Azure.Core;
+using Azure.Core.Serialization;
 
 namespace Azure.ResourceManager.Compute.Models
 {
-    internal partial class UpdateDomainListResult
+    internal partial class UpdateDomainListResult : IModelSerializable
     {
+        BinaryData IModelSerializable.Serialize(ModelSerializerOptions options) => throw new NotImplementedException();
+
+        object IModelSerializable.Deserialize(BinaryData data, ModelSerializerOptions options) => DeserializeUpdateDomainListResult(JsonDocument.Parse(data).RootElement);
+
         internal static UpdateDomainListResult DeserializeUpdateDomainListResult(JsonElement element)
         {
             if (element.ValueKind == JsonValueKind.Null)
