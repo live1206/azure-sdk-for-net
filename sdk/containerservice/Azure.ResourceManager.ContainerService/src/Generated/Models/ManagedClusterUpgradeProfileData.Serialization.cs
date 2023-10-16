@@ -26,7 +26,7 @@ namespace Azure.ResourceManager.ContainerService
             ResourceType type = default;
             Optional<SystemData> systemData = default;
             ManagedClusterPoolUpgradeProfile controlPlaneProfile = default;
-            IReadOnlyList<ManagedClusterPoolUpgradeProfile> agentPoolProfiles = default;
+            Optional<IReadOnlyList<ManagedClusterPoolUpgradeProfile>> agentPoolProfiles = default;
             foreach (var property in element.EnumerateObject())
             {
                 if (property.NameEquals("id"u8))
@@ -69,6 +69,10 @@ namespace Azure.ResourceManager.ContainerService
                         }
                         if (property0.NameEquals("agentPoolProfiles"u8))
                         {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
                             List<ManagedClusterPoolUpgradeProfile> array = new List<ManagedClusterPoolUpgradeProfile>();
                             foreach (var item in property0.Value.EnumerateArray())
                             {
@@ -81,7 +85,7 @@ namespace Azure.ResourceManager.ContainerService
                     continue;
                 }
             }
-            return new ManagedClusterUpgradeProfileData(id, name, type, systemData.Value, controlPlaneProfile, agentPoolProfiles);
+            return new ManagedClusterUpgradeProfileData(id, name, type, systemData.Value, controlPlaneProfile, Optional.ToList(agentPoolProfiles));
         }
     }
 }

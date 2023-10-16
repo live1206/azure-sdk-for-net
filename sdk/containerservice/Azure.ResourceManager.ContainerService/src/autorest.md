@@ -241,4 +241,8 @@ directive:
       $.ManagedClusterProperties.properties.autoScalerProfile.properties['scan-interval']['x-ms-client-name'] = 'ScanIntervalInSeconds';
       $.ManagedClusterWindowsProfile.properties.enableCSIProxy['x-ms-client-name'] = 'IsCsiProxyEnabled';
       $.ManagedClusterAADProfile.properties.adminGroupObjectIDs.items.format = 'uuid';
+  - from: managedClusters.json
+    where: $.definitions.ManagedClusterUpgradeProfileProperties
+    transform: >
+      $.required = ["controlPlaneProfile"]
 ```

@@ -7,7 +7,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using Azure.Core;
 using Azure.ResourceManager.ContainerService.Models;
 using Azure.ResourceManager.Models;
@@ -22,15 +21,13 @@ namespace Azure.ResourceManager.ContainerService
     {
         /// <summary> Initializes a new instance of ManagedClusterUpgradeProfileData. </summary>
         /// <param name="controlPlaneProfile"> The list of available upgrade versions for the control plane. </param>
-        /// <param name="agentPoolProfiles"> The list of available upgrade versions for agent pools. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="controlPlaneProfile"/> or <paramref name="agentPoolProfiles"/> is null. </exception>
-        internal ManagedClusterUpgradeProfileData(ManagedClusterPoolUpgradeProfile controlPlaneProfile, IEnumerable<ManagedClusterPoolUpgradeProfile> agentPoolProfiles)
+        /// <exception cref="ArgumentNullException"> <paramref name="controlPlaneProfile"/> is null. </exception>
+        internal ManagedClusterUpgradeProfileData(ManagedClusterPoolUpgradeProfile controlPlaneProfile)
         {
             Argument.AssertNotNull(controlPlaneProfile, nameof(controlPlaneProfile));
-            Argument.AssertNotNull(agentPoolProfiles, nameof(agentPoolProfiles));
 
             ControlPlaneProfile = controlPlaneProfile;
-            AgentPoolProfiles = agentPoolProfiles.ToList();
+            AgentPoolProfiles = new ChangeTrackingList<ManagedClusterPoolUpgradeProfile>();
         }
 
         /// <summary> Initializes a new instance of ManagedClusterUpgradeProfileData. </summary>
