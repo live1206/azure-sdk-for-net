@@ -19,8 +19,8 @@ namespace Azure.ResourceManager.ScVmm
 {
     /// <summary>
     /// A class representing a collection of <see cref="ScVmmInventoryItemResource"/> and their operations.
-    /// Each <see cref="ScVmmInventoryItemResource"/> in the collection will belong to the same instance of <see cref="ScVmmServerResource"/>.
-    /// To get a <see cref="ScVmmInventoryItemCollection"/> instance call the GetScVmmInventoryItems method from an instance of <see cref="ScVmmServerResource"/>.
+    /// Each <see cref="ScVmmInventoryItemResource"/> in the collection will belong to the same instance of <see cref="VmmServerResource"/>.
+    /// To get a <see cref="ScVmmInventoryItemCollection"/> instance call the GetScVmmInventoryItems method from an instance of <see cref="VmmServerResource"/>.
     /// </summary>
     public partial class ScVmmInventoryItemCollection : ArmCollection, IEnumerable<ScVmmInventoryItemResource>, IAsyncEnumerable<ScVmmInventoryItemResource>
     {
@@ -47,8 +47,8 @@ namespace Azure.ResourceManager.ScVmm
 
         internal static void ValidateResourceId(ResourceIdentifier id)
         {
-            if (id.ResourceType != ScVmmServerResource.ResourceType)
-                throw new ArgumentException(string.Format(CultureInfo.CurrentCulture, "Invalid resource type {0} expected {1}", id.ResourceType, ScVmmServerResource.ResourceType), nameof(id));
+            if (id.ResourceType != VmmServerResource.ResourceType)
+                throw new ArgumentException(string.Format(CultureInfo.CurrentCulture, "Invalid resource type {0} expected {1}", id.ResourceType, VmmServerResource.ResourceType), nameof(id));
         }
 
         /// <summary>
@@ -74,7 +74,7 @@ namespace Azure.ResourceManager.ScVmm
         /// </summary>
         /// <param name="waitUntil"> <see cref="WaitUntil.Completed"/> if the method should wait to return until the long-running operation has completed on the service; <see cref="WaitUntil.Started"/> if it should return after starting the operation. For more information on long-running operations, please see <see href="https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/core/Azure.Core/samples/LongRunningOperations.md"> Azure.Core Long-Running Operation samples</see>. </param>
         /// <param name="inventoryItemResourceName"> Name of the inventoryItem. </param>
-        /// <param name="data"> Request payload. </param>
+        /// <param name="data"> Resource create parameters. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentException"> <paramref name="inventoryItemResourceName"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="ArgumentNullException"> <paramref name="inventoryItemResourceName"/> or <paramref name="data"/> is null. </exception>
@@ -125,7 +125,7 @@ namespace Azure.ResourceManager.ScVmm
         /// </summary>
         /// <param name="waitUntil"> <see cref="WaitUntil.Completed"/> if the method should wait to return until the long-running operation has completed on the service; <see cref="WaitUntil.Started"/> if it should return after starting the operation. For more information on long-running operations, please see <see href="https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/core/Azure.Core/samples/LongRunningOperations.md"> Azure.Core Long-Running Operation samples</see>. </param>
         /// <param name="inventoryItemResourceName"> Name of the inventoryItem. </param>
-        /// <param name="data"> Request payload. </param>
+        /// <param name="data"> Resource create parameters. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentException"> <paramref name="inventoryItemResourceName"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="ArgumentNullException"> <paramref name="inventoryItemResourceName"/> or <paramref name="data"/> is null. </exception>
@@ -244,7 +244,7 @@ namespace Azure.ResourceManager.ScVmm
         }
 
         /// <summary>
-        /// Returns the list of inventoryItems in the given VMMServer.
+        /// Returns the list of inventoryItems in the given VmmServer.
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
@@ -274,7 +274,7 @@ namespace Azure.ResourceManager.ScVmm
         }
 
         /// <summary>
-        /// Returns the list of inventoryItems in the given VMMServer.
+        /// Returns the list of inventoryItems in the given VmmServer.
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>

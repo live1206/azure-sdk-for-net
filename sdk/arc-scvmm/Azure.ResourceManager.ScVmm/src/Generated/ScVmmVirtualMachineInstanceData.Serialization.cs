@@ -11,7 +11,6 @@ using System.Collections.Generic;
 using System.Text.Json;
 using Azure.Core;
 using Azure.ResourceManager.Models;
-using Azure.ResourceManager.Resources.Models;
 using Azure.ResourceManager.ScVmm.Models;
 
 namespace Azure.ResourceManager.ScVmm
@@ -29,8 +28,13 @@ namespace Azure.ResourceManager.ScVmm
             }
 
             writer.WriteStartObject();
+            if (Optional.IsDefined(Properties))
+            {
+                writer.WritePropertyName("properties"u8);
+                writer.WriteObjectValue(Properties, options);
+            }
             writer.WritePropertyName("extendedLocation"u8);
-            JsonSerializer.Serialize(writer, ExtendedLocation);
+            writer.WriteObjectValue(ExtendedLocation, options);
             if (options.Format != "W")
             {
                 writer.WritePropertyName("id"u8);
@@ -51,54 +55,6 @@ namespace Azure.ResourceManager.ScVmm
                 writer.WritePropertyName("systemData"u8);
                 JsonSerializer.Serialize(writer, SystemData);
             }
-            writer.WritePropertyName("properties"u8);
-            writer.WriteStartObject();
-            if (Optional.IsCollectionDefined(AvailabilitySets))
-            {
-                writer.WritePropertyName("availabilitySets"u8);
-                writer.WriteStartArray();
-                foreach (var item in AvailabilitySets)
-                {
-                    writer.WriteObjectValue(item, options);
-                }
-                writer.WriteEndArray();
-            }
-            if (Optional.IsDefined(OSProfile))
-            {
-                writer.WritePropertyName("osProfile"u8);
-                writer.WriteObjectValue(OSProfile, options);
-            }
-            if (Optional.IsDefined(HardwareProfile))
-            {
-                writer.WritePropertyName("hardwareProfile"u8);
-                writer.WriteObjectValue(HardwareProfile, options);
-            }
-            if (Optional.IsDefined(NetworkProfile))
-            {
-                writer.WritePropertyName("networkProfile"u8);
-                writer.WriteObjectValue(NetworkProfile, options);
-            }
-            if (Optional.IsDefined(StorageProfile))
-            {
-                writer.WritePropertyName("storageProfile"u8);
-                writer.WriteObjectValue(StorageProfile, options);
-            }
-            if (Optional.IsDefined(InfrastructureProfile))
-            {
-                writer.WritePropertyName("infrastructureProfile"u8);
-                writer.WriteObjectValue(InfrastructureProfile, options);
-            }
-            if (options.Format != "W" && Optional.IsDefined(PowerState))
-            {
-                writer.WritePropertyName("powerState"u8);
-                writer.WriteStringValue(PowerState);
-            }
-            if (options.Format != "W" && Optional.IsDefined(ProvisioningState))
-            {
-                writer.WritePropertyName("provisioningState"u8);
-                writer.WriteStringValue(ProvisioningState.Value.ToString());
-            }
-            writer.WriteEndObject();
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
                 foreach (var item in _serializedAdditionalRawData)
@@ -137,26 +93,28 @@ namespace Azure.ResourceManager.ScVmm
             {
                 return null;
             }
-            ExtendedLocation extendedLocation = default;
+            VirtualMachineInstanceProperties properties = default;
+            ScVmmExtendedLocation extendedLocation = default;
             ResourceIdentifier id = default;
             string name = default;
             ResourceType type = default;
             SystemData systemData = default;
-            IList<ScVmmAvailabilitySetItem> availabilitySets = default;
-            OSProfileForVmInstance osProfile = default;
-            ScVmmHardwareProfile hardwareProfile = default;
-            ScVmmNetworkProfile networkProfile = default;
-            ScVmmStorageProfile storageProfile = default;
-            ScVmmInfrastructureProfile infrastructureProfile = default;
-            string powerState = default;
-            ScVmmProvisioningState? provisioningState = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
             {
+                if (property.NameEquals("properties"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    properties = VirtualMachineInstanceProperties.DeserializeVirtualMachineInstanceProperties(property.Value, options);
+                    continue;
+                }
                 if (property.NameEquals("extendedLocation"u8))
                 {
-                    extendedLocation = JsonSerializer.Deserialize<ExtendedLocation>(property.Value.GetRawText());
+                    extendedLocation = ScVmmExtendedLocation.DeserializeScVmmExtendedLocation(property.Value, options);
                     continue;
                 }
                 if (property.NameEquals("id"u8))
@@ -183,91 +141,6 @@ namespace Azure.ResourceManager.ScVmm
                     systemData = JsonSerializer.Deserialize<SystemData>(property.Value.GetRawText());
                     continue;
                 }
-                if (property.NameEquals("properties"u8))
-                {
-                    if (property.Value.ValueKind == JsonValueKind.Null)
-                    {
-                        property.ThrowNonNullablePropertyIsNull();
-                        continue;
-                    }
-                    foreach (var property0 in property.Value.EnumerateObject())
-                    {
-                        if (property0.NameEquals("availabilitySets"u8))
-                        {
-                            if (property0.Value.ValueKind == JsonValueKind.Null)
-                            {
-                                continue;
-                            }
-                            List<ScVmmAvailabilitySetItem> array = new List<ScVmmAvailabilitySetItem>();
-                            foreach (var item in property0.Value.EnumerateArray())
-                            {
-                                array.Add(ScVmmAvailabilitySetItem.DeserializeScVmmAvailabilitySetItem(item, options));
-                            }
-                            availabilitySets = array;
-                            continue;
-                        }
-                        if (property0.NameEquals("osProfile"u8))
-                        {
-                            if (property0.Value.ValueKind == JsonValueKind.Null)
-                            {
-                                continue;
-                            }
-                            osProfile = OSProfileForVmInstance.DeserializeOSProfileForVmInstance(property0.Value, options);
-                            continue;
-                        }
-                        if (property0.NameEquals("hardwareProfile"u8))
-                        {
-                            if (property0.Value.ValueKind == JsonValueKind.Null)
-                            {
-                                continue;
-                            }
-                            hardwareProfile = ScVmmHardwareProfile.DeserializeScVmmHardwareProfile(property0.Value, options);
-                            continue;
-                        }
-                        if (property0.NameEquals("networkProfile"u8))
-                        {
-                            if (property0.Value.ValueKind == JsonValueKind.Null)
-                            {
-                                continue;
-                            }
-                            networkProfile = ScVmmNetworkProfile.DeserializeScVmmNetworkProfile(property0.Value, options);
-                            continue;
-                        }
-                        if (property0.NameEquals("storageProfile"u8))
-                        {
-                            if (property0.Value.ValueKind == JsonValueKind.Null)
-                            {
-                                continue;
-                            }
-                            storageProfile = ScVmmStorageProfile.DeserializeScVmmStorageProfile(property0.Value, options);
-                            continue;
-                        }
-                        if (property0.NameEquals("infrastructureProfile"u8))
-                        {
-                            if (property0.Value.ValueKind == JsonValueKind.Null)
-                            {
-                                continue;
-                            }
-                            infrastructureProfile = ScVmmInfrastructureProfile.DeserializeScVmmInfrastructureProfile(property0.Value, options);
-                            continue;
-                        }
-                        if (property0.NameEquals("powerState"u8))
-                        {
-                            powerState = property0.Value.GetString();
-                            continue;
-                        }
-                        if (property0.NameEquals("provisioningState"u8))
-                        {
-                            if (property0.Value.ValueKind == JsonValueKind.Null)
-                            {
-                                continue;
-                            }
-                            provisioningState = new ScVmmProvisioningState(property0.Value.GetString());
-                            continue;
-                        }
-                    }
-                    continue;
-                }
                 if (options.Format != "W")
                 {
                     rawDataDictionary.Add(property.Name, BinaryData.FromString(property.Value.GetRawText()));
@@ -279,15 +152,8 @@ namespace Azure.ResourceManager.ScVmm
                 name,
                 type,
                 systemData,
+                properties,
                 extendedLocation,
-                availabilitySets ?? new ChangeTrackingList<ScVmmAvailabilitySetItem>(),
-                osProfile,
-                hardwareProfile,
-                networkProfile,
-                storageProfile,
-                infrastructureProfile,
-                powerState,
-                provisioningState,
                 serializedAdditionalRawData);
         }
 

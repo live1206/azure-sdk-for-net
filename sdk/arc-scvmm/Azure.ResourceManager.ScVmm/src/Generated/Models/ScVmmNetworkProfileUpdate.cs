@@ -10,7 +10,7 @@ using System.Collections.Generic;
 
 namespace Azure.ResourceManager.ScVmm.Models
 {
-    /// <summary> Defines the resource properties. </summary>
+    /// <summary> Defines the resource update properties. </summary>
     internal partial class ScVmmNetworkProfileUpdate
     {
         /// <summary>

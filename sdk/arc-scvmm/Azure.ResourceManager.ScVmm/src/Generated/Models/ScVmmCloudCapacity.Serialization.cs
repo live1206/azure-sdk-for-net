@@ -26,17 +26,17 @@ namespace Azure.ResourceManager.ScVmm.Models
             }
 
             writer.WriteStartObject();
-            if (Optional.IsDefined(CpuCount))
+            if (options.Format != "W" && Optional.IsDefined(CpuCount))
             {
                 writer.WritePropertyName("cpuCount"u8);
                 writer.WriteNumberValue(CpuCount.Value);
             }
-            if (Optional.IsDefined(MemoryMB))
+            if (options.Format != "W" && Optional.IsDefined(MemoryMB))
             {
                 writer.WritePropertyName("memoryMB"u8);
                 writer.WriteNumberValue(MemoryMB.Value);
             }
-            if (Optional.IsDefined(VmCount))
+            if (options.Format != "W" && Optional.IsDefined(VmCount))
             {
                 writer.WritePropertyName("vmCount"u8);
                 writer.WriteNumberValue(VmCount.Value);

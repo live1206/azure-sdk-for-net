@@ -7,10 +7,11 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Azure.ResourceManager.ScVmm.Models
 {
-    /// <summary> List of AvailabilitySets. </summary>
+    /// <summary> The response of a AvailabilitySet list operation. </summary>
     internal partial class AvailabilitySetListResult
     {
         /// <summary>
@@ -46,14 +47,18 @@ namespace Azure.ResourceManager.ScVmm.Models
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
         /// <summary> Initializes a new instance of <see cref="AvailabilitySetListResult"/>. </summary>
-        internal AvailabilitySetListResult()
+        /// <param name="value"> The AvailabilitySet items on this page. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="value"/> is null. </exception>
+        internal AvailabilitySetListResult(IEnumerable<ScVmmAvailabilitySetData> value)
         {
-            Value = new ChangeTrackingList<ScVmmAvailabilitySetData>();
+            Argument.AssertNotNull(value, nameof(value));
+
+            Value = value.ToList();
         }
 
         /// <summary> Initializes a new instance of <see cref="AvailabilitySetListResult"/>. </summary>
-        /// <param name="value"> List of AvailabilitySets. </param>
-        /// <param name="nextLink"> Url to follow for getting next page of resources. </param>
+        /// <param name="value"> The AvailabilitySet items on this page. </param>
+        /// <param name="nextLink"> The link to the next page of items. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
         internal AvailabilitySetListResult(IReadOnlyList<ScVmmAvailabilitySetData> value, Uri nextLink, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
@@ -62,9 +67,14 @@ namespace Azure.ResourceManager.ScVmm.Models
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
-        /// <summary> List of AvailabilitySets. </summary>
+        /// <summary> Initializes a new instance of <see cref="AvailabilitySetListResult"/> for deserialization. </summary>
+        internal AvailabilitySetListResult()
+        {
+        }
+
+        /// <summary> The AvailabilitySet items on this page. </summary>
         public IReadOnlyList<ScVmmAvailabilitySetData> Value { get; }
-        /// <summary> Url to follow for getting next page of resources. </summary>
+        /// <summary> The link to the next page of items. </summary>
         public Uri NextLink { get; }
     }
 }

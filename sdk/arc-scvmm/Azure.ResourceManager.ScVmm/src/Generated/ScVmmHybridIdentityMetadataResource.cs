@@ -30,8 +30,8 @@ namespace Azure.ResourceManager.ScVmm
             return new ResourceIdentifier(resourceId);
         }
 
-        private readonly ClientDiagnostics _scVmmHybridIdentityMetadataVirtualMachineInstanceHybridIdentityMetadataClientDiagnostics;
-        private readonly VirtualMachineInstanceHybridIdentityMetadataRestOperations _scVmmHybridIdentityMetadataVirtualMachineInstanceHybridIdentityMetadataRestClient;
+        private readonly ClientDiagnostics _scVmmHybridIdentityMetadataVmInstanceHybridIdentityMetadatasClientDiagnostics;
+        private readonly VmInstanceHybridIdentityMetadatasRestOperations _scVmmHybridIdentityMetadataVmInstanceHybridIdentityMetadatasRestClient;
         private readonly ScVmmHybridIdentityMetadataData _data;
 
         /// <summary> Gets the resource type for the operations. </summary>
@@ -56,9 +56,9 @@ namespace Azure.ResourceManager.ScVmm
         /// <param name="id"> The identifier of the resource that is the target of operations. </param>
         internal ScVmmHybridIdentityMetadataResource(ArmClient client, ResourceIdentifier id) : base(client, id)
         {
-            _scVmmHybridIdentityMetadataVirtualMachineInstanceHybridIdentityMetadataClientDiagnostics = new ClientDiagnostics("Azure.ResourceManager.ScVmm", ResourceType.Namespace, Diagnostics);
-            TryGetApiVersion(ResourceType, out string scVmmHybridIdentityMetadataVirtualMachineInstanceHybridIdentityMetadataApiVersion);
-            _scVmmHybridIdentityMetadataVirtualMachineInstanceHybridIdentityMetadataRestClient = new VirtualMachineInstanceHybridIdentityMetadataRestOperations(Pipeline, Diagnostics.ApplicationId, Endpoint, scVmmHybridIdentityMetadataVirtualMachineInstanceHybridIdentityMetadataApiVersion);
+            _scVmmHybridIdentityMetadataVmInstanceHybridIdentityMetadatasClientDiagnostics = new ClientDiagnostics("Azure.ResourceManager.ScVmm", ResourceType.Namespace, Diagnostics);
+            TryGetApiVersion(ResourceType, out string scVmmHybridIdentityMetadataVmInstanceHybridIdentityMetadatasApiVersion);
+            _scVmmHybridIdentityMetadataVmInstanceHybridIdentityMetadatasRestClient = new VmInstanceHybridIdentityMetadatasRestOperations(Pipeline, Diagnostics.ApplicationId, Endpoint, scVmmHybridIdentityMetadataVmInstanceHybridIdentityMetadatasApiVersion);
 #if DEBUG
 			ValidateResourceId(Id);
 #endif
@@ -94,7 +94,7 @@ namespace Azure.ResourceManager.ScVmm
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>VirtualMachineInstanceHybridIdentityMetadata_Get</description>
+        /// <description>VmInstanceHybridIdentityMetadatas_Get</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
@@ -109,11 +109,11 @@ namespace Azure.ResourceManager.ScVmm
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         public virtual async Task<Response<ScVmmHybridIdentityMetadataResource>> GetAsync(CancellationToken cancellationToken = default)
         {
-            using var scope = _scVmmHybridIdentityMetadataVirtualMachineInstanceHybridIdentityMetadataClientDiagnostics.CreateScope("ScVmmHybridIdentityMetadataResource.Get");
+            using var scope = _scVmmHybridIdentityMetadataVmInstanceHybridIdentityMetadatasClientDiagnostics.CreateScope("ScVmmHybridIdentityMetadataResource.Get");
             scope.Start();
             try
             {
-                var response = await _scVmmHybridIdentityMetadataVirtualMachineInstanceHybridIdentityMetadataRestClient.GetAsync(Id.Parent.Parent, cancellationToken).ConfigureAwait(false);
+                var response = await _scVmmHybridIdentityMetadataVmInstanceHybridIdentityMetadatasRestClient.GetAsync(Id.Parent.Parent, cancellationToken).ConfigureAwait(false);
                 if (response.Value == null)
                     throw new RequestFailedException(response.GetRawResponse());
                 return Response.FromValue(new ScVmmHybridIdentityMetadataResource(Client, response.Value), response.GetRawResponse());
@@ -134,7 +134,7 @@ namespace Azure.ResourceManager.ScVmm
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>VirtualMachineInstanceHybridIdentityMetadata_Get</description>
+        /// <description>VmInstanceHybridIdentityMetadatas_Get</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
@@ -149,11 +149,11 @@ namespace Azure.ResourceManager.ScVmm
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         public virtual Response<ScVmmHybridIdentityMetadataResource> Get(CancellationToken cancellationToken = default)
         {
-            using var scope = _scVmmHybridIdentityMetadataVirtualMachineInstanceHybridIdentityMetadataClientDiagnostics.CreateScope("ScVmmHybridIdentityMetadataResource.Get");
+            using var scope = _scVmmHybridIdentityMetadataVmInstanceHybridIdentityMetadatasClientDiagnostics.CreateScope("ScVmmHybridIdentityMetadataResource.Get");
             scope.Start();
             try
             {
-                var response = _scVmmHybridIdentityMetadataVirtualMachineInstanceHybridIdentityMetadataRestClient.Get(Id.Parent.Parent, cancellationToken);
+                var response = _scVmmHybridIdentityMetadataVmInstanceHybridIdentityMetadatasRestClient.Get(Id.Parent.Parent, cancellationToken);
                 if (response.Value == null)
                     throw new RequestFailedException(response.GetRawResponse());
                 return Response.FromValue(new ScVmmHybridIdentityMetadataResource(Client, response.Value), response.GetRawResponse());

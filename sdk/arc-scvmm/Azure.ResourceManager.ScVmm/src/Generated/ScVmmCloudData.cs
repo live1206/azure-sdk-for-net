@@ -9,7 +9,6 @@ using System;
 using System.Collections.Generic;
 using Azure.Core;
 using Azure.ResourceManager.Models;
-using Azure.ResourceManager.Resources.Models;
 using Azure.ResourceManager.ScVmm.Models;
 
 namespace Azure.ResourceManager.ScVmm
@@ -56,12 +55,11 @@ namespace Azure.ResourceManager.ScVmm
         /// <param name="location"> The location. </param>
         /// <param name="extendedLocation"> The extended location. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="extendedLocation"/> is null. </exception>
-        public ScVmmCloudData(AzureLocation location, ExtendedLocation extendedLocation) : base(location)
+        public ScVmmCloudData(AzureLocation location, ScVmmExtendedLocation extendedLocation) : base(location)
         {
             Argument.AssertNotNull(extendedLocation, nameof(extendedLocation));
 
             ExtendedLocation = extendedLocation;
-            StorageQosPolicies = new ChangeTrackingList<ScVmmStorageQosPolicy>();
         }
 
         /// <summary> Initializes a new instance of <see cref="ScVmmCloudData"/>. </summary>
@@ -71,25 +69,13 @@ namespace Azure.ResourceManager.ScVmm
         /// <param name="systemData"> The systemData. </param>
         /// <param name="tags"> The tags. </param>
         /// <param name="location"> The location. </param>
+        /// <param name="properties"> The resource-specific properties for this resource. </param>
         /// <param name="extendedLocation"> The extended location. </param>
-        /// <param name="inventoryItemId"> Gets or sets the inventory Item ID for the resource. </param>
-        /// <param name="uuid"> Unique ID of the cloud. </param>
-        /// <param name="vmmServerId"> ARM Id of the vmmServer resource in which this resource resides. </param>
-        /// <param name="cloudName"> Name of the cloud in VMMServer. </param>
-        /// <param name="cloudCapacity"> Capacity of the cloud. </param>
-        /// <param name="storageQosPolicies"> List of QoS policies available for the cloud. </param>
-        /// <param name="provisioningState"> Provisioning state of the resource. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal ScVmmCloudData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, IDictionary<string, string> tags, AzureLocation location, ExtendedLocation extendedLocation, string inventoryItemId, string uuid, ResourceIdentifier vmmServerId, string cloudName, ScVmmCloudCapacity cloudCapacity, IReadOnlyList<ScVmmStorageQosPolicy> storageQosPolicies, ScVmmProvisioningState? provisioningState, IDictionary<string, BinaryData> serializedAdditionalRawData) : base(id, name, resourceType, systemData, tags, location)
+        internal ScVmmCloudData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, IDictionary<string, string> tags, AzureLocation location, CloudProperties properties, ScVmmExtendedLocation extendedLocation, IDictionary<string, BinaryData> serializedAdditionalRawData) : base(id, name, resourceType, systemData, tags, location)
         {
+            Properties = properties;
             ExtendedLocation = extendedLocation;
-            InventoryItemId = inventoryItemId;
-            Uuid = uuid;
-            VmmServerId = vmmServerId;
-            CloudName = cloudName;
-            CloudCapacity = cloudCapacity;
-            StorageQosPolicies = storageQosPolicies;
-            ProvisioningState = provisioningState;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
@@ -98,21 +84,9 @@ namespace Azure.ResourceManager.ScVmm
         {
         }
 
+        /// <summary> The resource-specific properties for this resource. </summary>
+        public CloudProperties Properties { get; set; }
         /// <summary> The extended location. </summary>
-        public ExtendedLocation ExtendedLocation { get; set; }
-        /// <summary> Gets or sets the inventory Item ID for the resource. </summary>
-        public string InventoryItemId { get; set; }
-        /// <summary> Unique ID of the cloud. </summary>
-        public string Uuid { get; set; }
-        /// <summary> ARM Id of the vmmServer resource in which this resource resides. </summary>
-        public ResourceIdentifier VmmServerId { get; set; }
-        /// <summary> Name of the cloud in VMMServer. </summary>
-        public string CloudName { get; }
-        /// <summary> Capacity of the cloud. </summary>
-        public ScVmmCloudCapacity CloudCapacity { get; }
-        /// <summary> List of QoS policies available for the cloud. </summary>
-        public IReadOnlyList<ScVmmStorageQosPolicy> StorageQosPolicies { get; }
-        /// <summary> Provisioning state of the resource. </summary>
-        public ScVmmProvisioningState? ProvisioningState { get; }
+        public ScVmmExtendedLocation ExtendedLocation { get; set; }
     }
 }

@@ -22,13 +22,13 @@ namespace Azure.ResourceManager.ScVmm.Models
             _value = value ?? throw new ArgumentNullException(nameof(value));
         }
 
-        private const string FalseValue = "false";
         private const string TrueValue = "true";
+        private const string FalseValue = "false";
 
-        /// <summary> false. </summary>
-        public static SkipShutdown False { get; } = new SkipShutdown(FalseValue);
-        /// <summary> true. </summary>
+        /// <summary> Enable skip shutdown. </summary>
         public static SkipShutdown True { get; } = new SkipShutdown(TrueValue);
+        /// <summary> Disable skip shutdown. </summary>
+        public static SkipShutdown False { get; } = new SkipShutdown(FalseValue);
         /// <summary> Determines if two <see cref="SkipShutdown"/> values are the same. </summary>
         public static bool operator ==(SkipShutdown left, SkipShutdown right) => left.Equals(right);
         /// <summary> Determines if two <see cref="SkipShutdown"/> values are not the same. </summary>

@@ -10,7 +10,7 @@ using System.Collections.Generic;
 
 namespace Azure.ResourceManager.ScVmm.Models
 {
-    /// <summary> Virtual disk model. </summary>
+    /// <summary> Virtual Disk Update model. </summary>
     public partial class ScVmmVirtualDiskUpdate
     {
         /// <summary>
@@ -60,7 +60,7 @@ namespace Azure.ResourceManager.ScVmm.Models
         /// <param name="vhdType"> Gets or sets the disk vhd type. </param>
         /// <param name="storageQosPolicy"> The QoS policy for the disk. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal ScVmmVirtualDiskUpdate(string name, string diskId, int? diskSizeGB, int? bus, int? lun, string busType, string vhdType, ScVmmStorageQosPolicyDetails storageQosPolicy, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal ScVmmVirtualDiskUpdate(string name, string diskId, int? diskSizeGB, int? bus, int? lun, string busType, string vhdType, StorageQosPolicyDetails storageQosPolicy, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             Name = name;
             DiskId = diskId;
@@ -88,6 +88,6 @@ namespace Azure.ResourceManager.ScVmm.Models
         /// <summary> Gets or sets the disk vhd type. </summary>
         public string VhdType { get; set; }
         /// <summary> The QoS policy for the disk. </summary>
-        public ScVmmStorageQosPolicyDetails StorageQosPolicy { get; set; }
+        public StorageQosPolicyDetails StorageQosPolicy { get; set; }
     }
 }

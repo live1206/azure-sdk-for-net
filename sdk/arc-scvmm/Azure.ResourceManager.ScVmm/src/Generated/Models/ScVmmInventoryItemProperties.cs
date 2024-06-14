@@ -57,11 +57,11 @@ namespace Azure.ResourceManager.ScVmm.Models
         /// <summary> Initializes a new instance of <see cref="ScVmmInventoryItemProperties"/>. </summary>
         /// <param name="inventoryType"> They inventory type. </param>
         /// <param name="managedResourceId"> Gets the tracked resource id corresponding to the inventory resource. </param>
-        /// <param name="uuid"> Gets the UUID (which is assigned by VMM) for the inventory item. </param>
-        /// <param name="inventoryItemName"> Gets the Managed Object name in VMM for the inventory item. </param>
+        /// <param name="uuid"> Gets the UUID (which is assigned by Vmm) for the inventory item. </param>
+        /// <param name="inventoryItemName"> Gets the Managed Object name in Vmm for the inventory item. </param>
         /// <param name="provisioningState"> Provisioning state of the resource. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal ScVmmInventoryItemProperties(ScVmmInventoryType inventoryType, string managedResourceId, string uuid, string inventoryItemName, ScVmmProvisioningState? provisioningState, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal ScVmmInventoryItemProperties(ScVmmInventoryType inventoryType, string managedResourceId, string uuid, string inventoryItemName, ResourceProvisioningState? provisioningState, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             InventoryType = inventoryType;
             ManagedResourceId = managedResourceId;
@@ -75,11 +75,11 @@ namespace Azure.ResourceManager.ScVmm.Models
         internal ScVmmInventoryType InventoryType { get; set; }
         /// <summary> Gets the tracked resource id corresponding to the inventory resource. </summary>
         public string ManagedResourceId { get; }
-        /// <summary> Gets the UUID (which is assigned by VMM) for the inventory item. </summary>
+        /// <summary> Gets the UUID (which is assigned by Vmm) for the inventory item. </summary>
         public string Uuid { get; }
-        /// <summary> Gets the Managed Object name in VMM for the inventory item. </summary>
+        /// <summary> Gets the Managed Object name in Vmm for the inventory item. </summary>
         public string InventoryItemName { get; }
         /// <summary> Provisioning state of the resource. </summary>
-        public ScVmmProvisioningState? ProvisioningState { get; }
+        public ResourceProvisioningState? ProvisioningState { get; }
     }
 }

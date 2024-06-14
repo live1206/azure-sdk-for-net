@@ -10,7 +10,7 @@ using System.ComponentModel;
 
 namespace Azure.ResourceManager.ScVmm.Models
 {
-    /// <summary> Allocation method. </summary>
+    /// <summary> Network address allocation method. </summary>
     public readonly partial struct AllocationMethod : IEquatable<AllocationMethod>
     {
         private readonly string _value;
@@ -25,9 +25,9 @@ namespace Azure.ResourceManager.ScVmm.Models
         private const string DynamicValue = "Dynamic";
         private const string StaticValue = "Static";
 
-        /// <summary> Dynamic. </summary>
+        /// <summary> Dynamically allocated address. </summary>
         public static AllocationMethod Dynamic { get; } = new AllocationMethod(DynamicValue);
-        /// <summary> Static. </summary>
+        /// <summary> Statically allocated address. </summary>
         public static AllocationMethod Static { get; } = new AllocationMethod(StaticValue);
         /// <summary> Determines if two <see cref="AllocationMethod"/> values are the same. </summary>
         public static bool operator ==(AllocationMethod left, AllocationMethod right) => left.Equals(right);

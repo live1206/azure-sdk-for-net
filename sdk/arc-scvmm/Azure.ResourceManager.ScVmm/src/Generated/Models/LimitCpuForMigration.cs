@@ -10,7 +10,7 @@ using System.ComponentModel;
 
 namespace Azure.ResourceManager.ScVmm.Models
 {
-    /// <summary> Gets or sets a value indicating whether to enable processor compatibility mode for live migration of VMs. </summary>
+    /// <summary> Limit CPU for migration. </summary>
     public readonly partial struct LimitCpuForMigration : IEquatable<LimitCpuForMigration>
     {
         private readonly string _value;
@@ -22,13 +22,13 @@ namespace Azure.ResourceManager.ScVmm.Models
             _value = value ?? throw new ArgumentNullException(nameof(value));
         }
 
-        private const string FalseValue = "false";
         private const string TrueValue = "true";
+        private const string FalseValue = "false";
 
-        /// <summary> false. </summary>
-        public static LimitCpuForMigration False { get; } = new LimitCpuForMigration(FalseValue);
-        /// <summary> true. </summary>
+        /// <summary> Enable limit CPU for migration. </summary>
         public static LimitCpuForMigration True { get; } = new LimitCpuForMigration(TrueValue);
+        /// <summary> Disable limit CPU for migration. </summary>
+        public static LimitCpuForMigration False { get; } = new LimitCpuForMigration(FalseValue);
         /// <summary> Determines if two <see cref="LimitCpuForMigration"/> values are the same. </summary>
         public static bool operator ==(LimitCpuForMigration left, LimitCpuForMigration right) => left.Equals(right);
         /// <summary> Determines if two <see cref="LimitCpuForMigration"/> values are not the same. </summary>

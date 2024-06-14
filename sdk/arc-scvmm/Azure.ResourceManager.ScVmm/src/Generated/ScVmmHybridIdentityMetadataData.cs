@@ -61,23 +61,15 @@ namespace Azure.ResourceManager.ScVmm
         /// <param name="name"> The name. </param>
         /// <param name="resourceType"> The resourceType. </param>
         /// <param name="systemData"> The systemData. </param>
-        /// <param name="resourceUid"> The unique identifier for the resource. </param>
-        /// <param name="publicKey"> Gets or sets the Public Key. </param>
-        /// <param name="provisioningState"> Provisioning state of the resource. </param>
+        /// <param name="properties"> The resource-specific properties for this resource. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal ScVmmHybridIdentityMetadataData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, string resourceUid, string publicKey, ScVmmProvisioningState? provisioningState, IDictionary<string, BinaryData> serializedAdditionalRawData) : base(id, name, resourceType, systemData)
+        internal ScVmmHybridIdentityMetadataData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, VmInstanceHybridIdentityMetadataProperties properties, IDictionary<string, BinaryData> serializedAdditionalRawData) : base(id, name, resourceType, systemData)
         {
-            ResourceUid = resourceUid;
-            PublicKey = publicKey;
-            ProvisioningState = provisioningState;
+            Properties = properties;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
-        /// <summary> The unique identifier for the resource. </summary>
-        public string ResourceUid { get; set; }
-        /// <summary> Gets or sets the Public Key. </summary>
-        public string PublicKey { get; set; }
-        /// <summary> Provisioning state of the resource. </summary>
-        public ScVmmProvisioningState? ProvisioningState { get; }
+        /// <summary> The resource-specific properties for this resource. </summary>
+        public VmInstanceHybridIdentityMetadataProperties Properties { get; set; }
     }
 }

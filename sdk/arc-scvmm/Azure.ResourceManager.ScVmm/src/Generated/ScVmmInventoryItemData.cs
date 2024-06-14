@@ -52,17 +52,8 @@ namespace Azure.ResourceManager.ScVmm
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
         /// <summary> Initializes a new instance of <see cref="ScVmmInventoryItemData"/>. </summary>
-        /// <param name="properties">
-        /// Resource properties.
-        /// Please note <see cref="ScVmmInventoryItemProperties"/> is the base class. According to the scenario, a derived class of the base class might need to be assigned here, or this property needs to be casted to one of the possible derived classes.
-        /// The available derived classes include <see cref="CloudInventoryItem"/>, <see cref="VirtualMachineInventoryItem"/>, <see cref="VirtualMachineTemplateInventoryItem"/> and <see cref="VirtualNetworkInventoryItem"/>.
-        /// </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="properties"/> is null. </exception>
-        public ScVmmInventoryItemData(ScVmmInventoryItemProperties properties)
+        public ScVmmInventoryItemData()
         {
-            Argument.AssertNotNull(properties, nameof(properties));
-
-            Properties = properties;
         }
 
         /// <summary> Initializes a new instance of <see cref="ScVmmInventoryItemData"/>. </summary>
@@ -71,7 +62,7 @@ namespace Azure.ResourceManager.ScVmm
         /// <param name="resourceType"> The resourceType. </param>
         /// <param name="systemData"> The systemData. </param>
         /// <param name="properties">
-        /// Resource properties.
+        /// The resource-specific properties for this resource.
         /// Please note <see cref="ScVmmInventoryItemProperties"/> is the base class. According to the scenario, a derived class of the base class might need to be assigned here, or this property needs to be casted to one of the possible derived classes.
         /// The available derived classes include <see cref="CloudInventoryItem"/>, <see cref="VirtualMachineInventoryItem"/>, <see cref="VirtualMachineTemplateInventoryItem"/> and <see cref="VirtualNetworkInventoryItem"/>.
         /// </param>
@@ -84,13 +75,8 @@ namespace Azure.ResourceManager.ScVmm
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
-        /// <summary> Initializes a new instance of <see cref="ScVmmInventoryItemData"/> for deserialization. </summary>
-        internal ScVmmInventoryItemData()
-        {
-        }
-
         /// <summary>
-        /// Resource properties.
+        /// The resource-specific properties for this resource.
         /// Please note <see cref="ScVmmInventoryItemProperties"/> is the base class. According to the scenario, a derived class of the base class might need to be assigned here, or this property needs to be casted to one of the possible derived classes.
         /// The available derived classes include <see cref="CloudInventoryItem"/>, <see cref="VirtualMachineInventoryItem"/>, <see cref="VirtualMachineTemplateInventoryItem"/> and <see cref="VirtualNetworkInventoryItem"/>.
         /// </summary>

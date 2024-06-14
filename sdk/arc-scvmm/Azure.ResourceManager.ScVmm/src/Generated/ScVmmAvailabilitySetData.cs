@@ -9,7 +9,6 @@ using System;
 using System.Collections.Generic;
 using Azure.Core;
 using Azure.ResourceManager.Models;
-using Azure.ResourceManager.Resources.Models;
 using Azure.ResourceManager.ScVmm.Models;
 
 namespace Azure.ResourceManager.ScVmm
@@ -56,7 +55,7 @@ namespace Azure.ResourceManager.ScVmm
         /// <param name="location"> The location. </param>
         /// <param name="extendedLocation"> The extended location. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="extendedLocation"/> is null. </exception>
-        public ScVmmAvailabilitySetData(AzureLocation location, ExtendedLocation extendedLocation) : base(location)
+        public ScVmmAvailabilitySetData(AzureLocation location, ScVmmExtendedLocation extendedLocation) : base(location)
         {
             Argument.AssertNotNull(extendedLocation, nameof(extendedLocation));
 
@@ -70,17 +69,13 @@ namespace Azure.ResourceManager.ScVmm
         /// <param name="systemData"> The systemData. </param>
         /// <param name="tags"> The tags. </param>
         /// <param name="location"> The location. </param>
+        /// <param name="properties"> The resource-specific properties for this resource. </param>
         /// <param name="extendedLocation"> The extended location. </param>
-        /// <param name="availabilitySetName"> Name of the availability set. </param>
-        /// <param name="vmmServerId"> ARM Id of the vmmServer resource in which this resource resides. </param>
-        /// <param name="provisioningState"> Provisioning state of the resource. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal ScVmmAvailabilitySetData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, IDictionary<string, string> tags, AzureLocation location, ExtendedLocation extendedLocation, string availabilitySetName, ResourceIdentifier vmmServerId, ScVmmProvisioningState? provisioningState, IDictionary<string, BinaryData> serializedAdditionalRawData) : base(id, name, resourceType, systemData, tags, location)
+        internal ScVmmAvailabilitySetData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, IDictionary<string, string> tags, AzureLocation location, AvailabilitySetProperties properties, ScVmmExtendedLocation extendedLocation, IDictionary<string, BinaryData> serializedAdditionalRawData) : base(id, name, resourceType, systemData, tags, location)
         {
+            Properties = properties;
             ExtendedLocation = extendedLocation;
-            AvailabilitySetName = availabilitySetName;
-            VmmServerId = vmmServerId;
-            ProvisioningState = provisioningState;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
@@ -89,13 +84,9 @@ namespace Azure.ResourceManager.ScVmm
         {
         }
 
+        /// <summary> The resource-specific properties for this resource. </summary>
+        public AvailabilitySetProperties Properties { get; set; }
         /// <summary> The extended location. </summary>
-        public ExtendedLocation ExtendedLocation { get; set; }
-        /// <summary> Name of the availability set. </summary>
-        public string AvailabilitySetName { get; set; }
-        /// <summary> ARM Id of the vmmServer resource in which this resource resides. </summary>
-        public ResourceIdentifier VmmServerId { get; set; }
-        /// <summary> Provisioning state of the resource. </summary>
-        public ScVmmProvisioningState? ProvisioningState { get; }
+        public ScVmmExtendedLocation ExtendedLocation { get; set; }
     }
 }

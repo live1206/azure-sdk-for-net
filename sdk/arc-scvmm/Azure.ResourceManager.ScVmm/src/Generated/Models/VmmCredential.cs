@@ -10,7 +10,7 @@ using System.Collections.Generic;
 
 namespace Azure.ResourceManager.ScVmm.Models
 {
-    /// <summary> Credentials to connect to VMMServer. </summary>
+    /// <summary> Credentials to connect to VmmServer. </summary>
     public partial class VmmCredential
     {
         /// <summary>
@@ -51,8 +51,8 @@ namespace Azure.ResourceManager.ScVmm.Models
         }
 
         /// <summary> Initializes a new instance of <see cref="VmmCredential"/>. </summary>
-        /// <param name="username"> Username to use to connect to VMMServer. </param>
-        /// <param name="password"> Password to use to connect to VMMServer. </param>
+        /// <param name="username"> Username to use to connect to VmmServer. </param>
+        /// <param name="password"> Password to use to connect to VmmServer. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
         internal VmmCredential(string username, string password, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
@@ -61,9 +61,9 @@ namespace Azure.ResourceManager.ScVmm.Models
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
-        /// <summary> Username to use to connect to VMMServer. </summary>
+        /// <summary> Username to use to connect to VmmServer. </summary>
         public string Username { get; set; }
-        /// <summary> Password to use to connect to VMMServer. </summary>
+        /// <summary> Password to use to connect to VmmServer. </summary>
         public string Password { get; set; }
     }
 }

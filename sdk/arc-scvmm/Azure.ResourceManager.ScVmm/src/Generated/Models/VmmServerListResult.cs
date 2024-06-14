@@ -7,10 +7,11 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Azure.ResourceManager.ScVmm.Models
 {
-    /// <summary> List of VmmServers. </summary>
+    /// <summary> The response of a VmmServer list operation. </summary>
     internal partial class VmmServerListResult
     {
         /// <summary>
@@ -46,25 +47,34 @@ namespace Azure.ResourceManager.ScVmm.Models
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
         /// <summary> Initializes a new instance of <see cref="VmmServerListResult"/>. </summary>
-        internal VmmServerListResult()
+        /// <param name="value"> The VmmServer items on this page. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="value"/> is null. </exception>
+        internal VmmServerListResult(IEnumerable<VmmServerData> value)
         {
-            Value = new ChangeTrackingList<ScVmmServerData>();
+            Argument.AssertNotNull(value, nameof(value));
+
+            Value = value.ToList();
         }
 
         /// <summary> Initializes a new instance of <see cref="VmmServerListResult"/>. </summary>
-        /// <param name="value"> List of VmmServers. </param>
-        /// <param name="nextLink"> Url to follow for getting next page of resources. </param>
+        /// <param name="value"> The VmmServer items on this page. </param>
+        /// <param name="nextLink"> The link to the next page of items. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal VmmServerListResult(IReadOnlyList<ScVmmServerData> value, Uri nextLink, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal VmmServerListResult(IReadOnlyList<VmmServerData> value, Uri nextLink, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             Value = value;
             NextLink = nextLink;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
-        /// <summary> List of VmmServers. </summary>
-        public IReadOnlyList<ScVmmServerData> Value { get; }
-        /// <summary> Url to follow for getting next page of resources. </summary>
+        /// <summary> Initializes a new instance of <see cref="VmmServerListResult"/> for deserialization. </summary>
+        internal VmmServerListResult()
+        {
+        }
+
+        /// <summary> The VmmServer items on this page. </summary>
+        public IReadOnlyList<VmmServerData> Value { get; }
+        /// <summary> The link to the next page of items. </summary>
         public Uri NextLink { get; }
     }
 }

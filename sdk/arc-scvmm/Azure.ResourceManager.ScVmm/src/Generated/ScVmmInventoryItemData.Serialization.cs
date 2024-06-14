@@ -28,8 +28,11 @@ namespace Azure.ResourceManager.ScVmm
             }
 
             writer.WriteStartObject();
-            writer.WritePropertyName("properties"u8);
-            writer.WriteObjectValue(Properties, options);
+            if (Optional.IsDefined(Properties))
+            {
+                writer.WritePropertyName("properties"u8);
+                writer.WriteObjectValue(Properties, options);
+            }
             if (Optional.IsDefined(Kind))
             {
                 writer.WritePropertyName("kind"u8);
@@ -105,6 +108,10 @@ namespace Azure.ResourceManager.ScVmm
             {
                 if (property.NameEquals("properties"u8))
                 {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
                     properties = ScVmmInventoryItemProperties.DeserializeScVmmInventoryItemProperties(property.Value, options);
                     continue;
                 }

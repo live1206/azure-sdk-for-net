@@ -7,10 +7,11 @@
 
 using System;
 using System.Collections.Generic;
+using Azure.Core;
 
 namespace Azure.ResourceManager.ScVmm.Models
 {
-    /// <summary> Network Interface model. </summary>
+    /// <summary> Network Interface Update model. </summary>
     public partial class ScVmmNetworkInterfaceUpdate
     {
         /// <summary>
@@ -59,7 +60,7 @@ namespace Azure.ResourceManager.ScVmm.Models
         /// <param name="macAddressType"> Gets or sets the mac address type. </param>
         /// <param name="nicId"> Gets or sets the nic id. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal ScVmmNetworkInterfaceUpdate(string name, string macAddress, string virtualNetworkId, AllocationMethod? ipv4AddressType, AllocationMethod? ipv6AddressType, AllocationMethod? macAddressType, string nicId, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal ScVmmNetworkInterfaceUpdate(string name, string macAddress, ResourceIdentifier virtualNetworkId, AllocationMethod? ipv4AddressType, AllocationMethod? ipv6AddressType, AllocationMethod? macAddressType, string nicId, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             Name = name;
             MacAddress = macAddress;
@@ -76,7 +77,7 @@ namespace Azure.ResourceManager.ScVmm.Models
         /// <summary> Gets or sets the nic MAC address. </summary>
         public string MacAddress { get; set; }
         /// <summary> Gets or sets the ARM Id of the Microsoft.ScVmm/virtualNetwork resource to connect the nic. </summary>
-        public string VirtualNetworkId { get; set; }
+        public ResourceIdentifier VirtualNetworkId { get; set; }
         /// <summary> Gets or sets the ipv4 address type. </summary>
         public AllocationMethod? IPv4AddressType { get; set; }
         /// <summary> Gets or sets the ipv6 address type. </summary>

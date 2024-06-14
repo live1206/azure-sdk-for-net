@@ -10,7 +10,7 @@ using System.ComponentModel;
 
 namespace Azure.ResourceManager.ScVmm.Models
 {
-    /// <summary> Gets or sets a value indicating diff disk. </summary>
+    /// <summary> Create diff disk. </summary>
     public readonly partial struct CreateDiffDisk : IEquatable<CreateDiffDisk>
     {
         private readonly string _value;
@@ -22,13 +22,13 @@ namespace Azure.ResourceManager.ScVmm.Models
             _value = value ?? throw new ArgumentNullException(nameof(value));
         }
 
-        private const string FalseValue = "false";
         private const string TrueValue = "true";
+        private const string FalseValue = "false";
 
-        /// <summary> false. </summary>
-        public static CreateDiffDisk False { get; } = new CreateDiffDisk(FalseValue);
-        /// <summary> true. </summary>
+        /// <summary> Enable create diff disk. </summary>
         public static CreateDiffDisk True { get; } = new CreateDiffDisk(TrueValue);
+        /// <summary> Disable create diff disk. </summary>
+        public static CreateDiffDisk False { get; } = new CreateDiffDisk(FalseValue);
         /// <summary> Determines if two <see cref="CreateDiffDisk"/> values are the same. </summary>
         public static bool operator ==(CreateDiffDisk left, CreateDiffDisk right) => left.Equals(right);
         /// <summary> Determines if two <see cref="CreateDiffDisk"/> values are not the same. </summary>

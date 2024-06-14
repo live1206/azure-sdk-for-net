@@ -9,7 +9,6 @@ using System;
 using System.Collections.Generic;
 using Azure.Core;
 using Azure.ResourceManager.Models;
-using Azure.ResourceManager.Resources.Models;
 using Azure.ResourceManager.ScVmm.Models;
 
 namespace Azure.ResourceManager.ScVmm
@@ -56,13 +55,11 @@ namespace Azure.ResourceManager.ScVmm
         /// <param name="location"> The location. </param>
         /// <param name="extendedLocation"> The extended location. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="extendedLocation"/> is null. </exception>
-        public ScVmmVirtualMachineTemplateData(AzureLocation location, ExtendedLocation extendedLocation) : base(location)
+        public ScVmmVirtualMachineTemplateData(AzureLocation location, ScVmmExtendedLocation extendedLocation) : base(location)
         {
             Argument.AssertNotNull(extendedLocation, nameof(extendedLocation));
 
             ExtendedLocation = extendedLocation;
-            NetworkInterfaces = new ChangeTrackingList<ScVmmNetworkInterface>();
-            Disks = new ChangeTrackingList<ScVmmVirtualDisk>();
         }
 
         /// <summary> Initializes a new instance of <see cref="ScVmmVirtualMachineTemplateData"/>. </summary>
@@ -72,47 +69,13 @@ namespace Azure.ResourceManager.ScVmm
         /// <param name="systemData"> The systemData. </param>
         /// <param name="tags"> The tags. </param>
         /// <param name="location"> The location. </param>
+        /// <param name="properties"> The resource-specific properties for this resource. </param>
         /// <param name="extendedLocation"> The extended location. </param>
-        /// <param name="inventoryItemId"> Gets or sets the inventory Item ID for the resource. </param>
-        /// <param name="uuid"> Unique ID of the virtual machine template. </param>
-        /// <param name="vmmServerId"> ARM Id of the vmmServer resource in which this resource resides. </param>
-        /// <param name="osType"> Gets the type of the os. </param>
-        /// <param name="osName"> Gets os name. </param>
-        /// <param name="computerName"> Gets computer name. </param>
-        /// <param name="memoryMB"> MemoryMB is the desired size of a virtual machine's memory, in MB. </param>
-        /// <param name="cpuCount"> Gets the desired number of vCPUs for the vm. </param>
-        /// <param name="limitCpuForMigration"> Gets a value indicating whether to enable processor compatibility mode for live migration of VMs. </param>
-        /// <param name="dynamicMemoryEnabled"> Gets a value indicating whether to enable dynamic memory or not. </param>
-        /// <param name="isCustomizable"> Gets a value indicating whether the vm template is customizable or not. </param>
-        /// <param name="dynamicMemoryMaxMB"> Gets the max dynamic memory for the vm. </param>
-        /// <param name="dynamicMemoryMinMB"> Gets the min dynamic memory for the vm. </param>
-        /// <param name="isHighlyAvailable"> Gets highly available property. </param>
-        /// <param name="generation"> Gets the generation for the vm. </param>
-        /// <param name="networkInterfaces"> Gets the network interfaces of the template. </param>
-        /// <param name="disks"> Gets the disks of the template. </param>
-        /// <param name="provisioningState"> Provisioning state of the resource. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal ScVmmVirtualMachineTemplateData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, IDictionary<string, string> tags, AzureLocation location, ExtendedLocation extendedLocation, string inventoryItemId, string uuid, ResourceIdentifier vmmServerId, ScVmmOSType? osType, string osName, string computerName, int? memoryMB, int? cpuCount, LimitCpuForMigration? limitCpuForMigration, DynamicMemoryEnabled? dynamicMemoryEnabled, IsCustomizable? isCustomizable, int? dynamicMemoryMaxMB, int? dynamicMemoryMinMB, IsHighlyAvailable? isHighlyAvailable, int? generation, IReadOnlyList<ScVmmNetworkInterface> networkInterfaces, IReadOnlyList<ScVmmVirtualDisk> disks, ScVmmProvisioningState? provisioningState, IDictionary<string, BinaryData> serializedAdditionalRawData) : base(id, name, resourceType, systemData, tags, location)
+        internal ScVmmVirtualMachineTemplateData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, IDictionary<string, string> tags, AzureLocation location, VirtualMachineTemplateProperties properties, ScVmmExtendedLocation extendedLocation, IDictionary<string, BinaryData> serializedAdditionalRawData) : base(id, name, resourceType, systemData, tags, location)
         {
+            Properties = properties;
             ExtendedLocation = extendedLocation;
-            InventoryItemId = inventoryItemId;
-            Uuid = uuid;
-            VmmServerId = vmmServerId;
-            OSType = osType;
-            OSName = osName;
-            ComputerName = computerName;
-            MemoryMB = memoryMB;
-            CpuCount = cpuCount;
-            LimitCpuForMigration = limitCpuForMigration;
-            DynamicMemoryEnabled = dynamicMemoryEnabled;
-            IsCustomizable = isCustomizable;
-            DynamicMemoryMaxMB = dynamicMemoryMaxMB;
-            DynamicMemoryMinMB = dynamicMemoryMinMB;
-            IsHighlyAvailable = isHighlyAvailable;
-            Generation = generation;
-            NetworkInterfaces = networkInterfaces;
-            Disks = disks;
-            ProvisioningState = provisioningState;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
@@ -121,43 +84,9 @@ namespace Azure.ResourceManager.ScVmm
         {
         }
 
+        /// <summary> The resource-specific properties for this resource. </summary>
+        public VirtualMachineTemplateProperties Properties { get; set; }
         /// <summary> The extended location. </summary>
-        public ExtendedLocation ExtendedLocation { get; set; }
-        /// <summary> Gets or sets the inventory Item ID for the resource. </summary>
-        public string InventoryItemId { get; set; }
-        /// <summary> Unique ID of the virtual machine template. </summary>
-        public string Uuid { get; set; }
-        /// <summary> ARM Id of the vmmServer resource in which this resource resides. </summary>
-        public ResourceIdentifier VmmServerId { get; set; }
-        /// <summary> Gets the type of the os. </summary>
-        public ScVmmOSType? OSType { get; }
-        /// <summary> Gets os name. </summary>
-        public string OSName { get; }
-        /// <summary> Gets computer name. </summary>
-        public string ComputerName { get; }
-        /// <summary> MemoryMB is the desired size of a virtual machine's memory, in MB. </summary>
-        public int? MemoryMB { get; }
-        /// <summary> Gets the desired number of vCPUs for the vm. </summary>
-        public int? CpuCount { get; }
-        /// <summary> Gets a value indicating whether to enable processor compatibility mode for live migration of VMs. </summary>
-        public LimitCpuForMigration? LimitCpuForMigration { get; }
-        /// <summary> Gets a value indicating whether to enable dynamic memory or not. </summary>
-        public DynamicMemoryEnabled? DynamicMemoryEnabled { get; }
-        /// <summary> Gets a value indicating whether the vm template is customizable or not. </summary>
-        public IsCustomizable? IsCustomizable { get; }
-        /// <summary> Gets the max dynamic memory for the vm. </summary>
-        public int? DynamicMemoryMaxMB { get; }
-        /// <summary> Gets the min dynamic memory for the vm. </summary>
-        public int? DynamicMemoryMinMB { get; }
-        /// <summary> Gets highly available property. </summary>
-        public IsHighlyAvailable? IsHighlyAvailable { get; }
-        /// <summary> Gets the generation for the vm. </summary>
-        public int? Generation { get; }
-        /// <summary> Gets the network interfaces of the template. </summary>
-        public IReadOnlyList<ScVmmNetworkInterface> NetworkInterfaces { get; }
-        /// <summary> Gets the disks of the template. </summary>
-        public IReadOnlyList<ScVmmVirtualDisk> Disks { get; }
-        /// <summary> Provisioning state of the resource. </summary>
-        public ScVmmProvisioningState? ProvisioningState { get; }
+        public ScVmmExtendedLocation ExtendedLocation { get; set; }
     }
 }

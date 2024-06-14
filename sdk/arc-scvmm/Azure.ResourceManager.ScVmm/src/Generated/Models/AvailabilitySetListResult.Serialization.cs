@@ -26,16 +26,13 @@ namespace Azure.ResourceManager.ScVmm.Models
             }
 
             writer.WriteStartObject();
-            if (Optional.IsCollectionDefined(Value))
+            writer.WritePropertyName("value"u8);
+            writer.WriteStartArray();
+            foreach (var item in Value)
             {
-                writer.WritePropertyName("value"u8);
-                writer.WriteStartArray();
-                foreach (var item in Value)
-                {
-                    writer.WriteObjectValue(item, options);
-                }
-                writer.WriteEndArray();
+                writer.WriteObjectValue(item, options);
             }
+            writer.WriteEndArray();
             if (options.Format != "W" && Optional.IsDefined(NextLink))
             {
                 writer.WritePropertyName("nextLink"u8);
@@ -87,10 +84,6 @@ namespace Azure.ResourceManager.ScVmm.Models
             {
                 if (property.NameEquals("value"u8))
                 {
-                    if (property.Value.ValueKind == JsonValueKind.Null)
-                    {
-                        continue;
-                    }
                     List<ScVmmAvailabilitySetData> array = new List<ScVmmAvailabilitySetData>();
                     foreach (var item in property.Value.EnumerateArray())
                     {
@@ -114,7 +107,7 @@ namespace Azure.ResourceManager.ScVmm.Models
                 }
             }
             serializedAdditionalRawData = rawDataDictionary;
-            return new AvailabilitySetListResult(value ?? new ChangeTrackingList<ScVmmAvailabilitySetData>(), nextLink, serializedAdditionalRawData);
+            return new AvailabilitySetListResult(value, nextLink, serializedAdditionalRawData);
         }
 
         BinaryData IPersistableModel<AvailabilitySetListResult>.Write(ModelReaderWriterOptions options)

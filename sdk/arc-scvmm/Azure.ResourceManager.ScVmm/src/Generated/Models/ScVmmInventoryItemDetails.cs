@@ -52,7 +52,7 @@ namespace Azure.ResourceManager.ScVmm.Models
 
         /// <summary> Initializes a new instance of <see cref="ScVmmInventoryItemDetails"/>. </summary>
         /// <param name="inventoryItemId"> Gets or sets the inventory Item ID for the resource. </param>
-        /// <param name="inventoryItemName"> Gets or sets the Managed Object name in VMM for the resource. </param>
+        /// <param name="inventoryItemName"> Gets or sets the Managed Object name in Vmm for the resource. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
         internal ScVmmInventoryItemDetails(string inventoryItemId, string inventoryItemName, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
@@ -63,7 +63,7 @@ namespace Azure.ResourceManager.ScVmm.Models
 
         /// <summary> Gets or sets the inventory Item ID for the resource. </summary>
         public string InventoryItemId { get; set; }
-        /// <summary> Gets or sets the Managed Object name in VMM for the resource. </summary>
+        /// <summary> Gets or sets the Managed Object name in Vmm for the resource. </summary>
         public string InventoryItemName { get; set; }
     }
 }

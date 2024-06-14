@@ -11,7 +11,6 @@ using System.Collections.Generic;
 using System.Text.Json;
 using Azure.Core;
 using Azure.ResourceManager.Models;
-using Azure.ResourceManager.Resources.Models;
 using Azure.ResourceManager.ScVmm.Models;
 
 namespace Azure.ResourceManager.ScVmm
@@ -29,8 +28,13 @@ namespace Azure.ResourceManager.ScVmm
             }
 
             writer.WriteStartObject();
+            if (Optional.IsDefined(Properties))
+            {
+                writer.WritePropertyName("properties"u8);
+                writer.WriteObjectValue(Properties, options);
+            }
             writer.WritePropertyName("extendedLocation"u8);
-            JsonSerializer.Serialize(writer, ExtendedLocation);
+            writer.WriteObjectValue(ExtendedLocation, options);
             if (Optional.IsCollectionDefined(Tags))
             {
                 writer.WritePropertyName("tags"u8);
@@ -64,109 +68,6 @@ namespace Azure.ResourceManager.ScVmm
                 writer.WritePropertyName("systemData"u8);
                 JsonSerializer.Serialize(writer, SystemData);
             }
-            writer.WritePropertyName("properties"u8);
-            writer.WriteStartObject();
-            if (Optional.IsDefined(InventoryItemId))
-            {
-                writer.WritePropertyName("inventoryItemId"u8);
-                writer.WriteStringValue(InventoryItemId);
-            }
-            if (Optional.IsDefined(Uuid))
-            {
-                writer.WritePropertyName("uuid"u8);
-                writer.WriteStringValue(Uuid);
-            }
-            if (Optional.IsDefined(VmmServerId))
-            {
-                writer.WritePropertyName("vmmServerId"u8);
-                writer.WriteStringValue(VmmServerId);
-            }
-            if (options.Format != "W" && Optional.IsDefined(OSType))
-            {
-                writer.WritePropertyName("osType"u8);
-                writer.WriteStringValue(OSType.Value.ToString());
-            }
-            if (options.Format != "W" && Optional.IsDefined(OSName))
-            {
-                writer.WritePropertyName("osName"u8);
-                writer.WriteStringValue(OSName);
-            }
-            if (options.Format != "W" && Optional.IsDefined(ComputerName))
-            {
-                writer.WritePropertyName("computerName"u8);
-                writer.WriteStringValue(ComputerName);
-            }
-            if (options.Format != "W" && Optional.IsDefined(MemoryMB))
-            {
-                writer.WritePropertyName("memoryMB"u8);
-                writer.WriteNumberValue(MemoryMB.Value);
-            }
-            if (options.Format != "W" && Optional.IsDefined(CpuCount))
-            {
-                writer.WritePropertyName("cpuCount"u8);
-                writer.WriteNumberValue(CpuCount.Value);
-            }
-            if (options.Format != "W" && Optional.IsDefined(LimitCpuForMigration))
-            {
-                writer.WritePropertyName("limitCpuForMigration"u8);
-                writer.WriteStringValue(LimitCpuForMigration.Value.ToString());
-            }
-            if (options.Format != "W" && Optional.IsDefined(DynamicMemoryEnabled))
-            {
-                writer.WritePropertyName("dynamicMemoryEnabled"u8);
-                writer.WriteStringValue(DynamicMemoryEnabled.Value.ToString());
-            }
-            if (options.Format != "W" && Optional.IsDefined(IsCustomizable))
-            {
-                writer.WritePropertyName("isCustomizable"u8);
-                writer.WriteStringValue(IsCustomizable.Value.ToString());
-            }
-            if (options.Format != "W" && Optional.IsDefined(DynamicMemoryMaxMB))
-            {
-                writer.WritePropertyName("dynamicMemoryMaxMB"u8);
-                writer.WriteNumberValue(DynamicMemoryMaxMB.Value);
-            }
-            if (options.Format != "W" && Optional.IsDefined(DynamicMemoryMinMB))
-            {
-                writer.WritePropertyName("dynamicMemoryMinMB"u8);
-                writer.WriteNumberValue(DynamicMemoryMinMB.Value);
-            }
-            if (options.Format != "W" && Optional.IsDefined(IsHighlyAvailable))
-            {
-                writer.WritePropertyName("isHighlyAvailable"u8);
-                writer.WriteStringValue(IsHighlyAvailable.Value.ToString());
-            }
-            if (options.Format != "W" && Optional.IsDefined(Generation))
-            {
-                writer.WritePropertyName("generation"u8);
-                writer.WriteNumberValue(Generation.Value);
-            }
-            if (options.Format != "W" && Optional.IsCollectionDefined(NetworkInterfaces))
-            {
-                writer.WritePropertyName("networkInterfaces"u8);
-                writer.WriteStartArray();
-                foreach (var item in NetworkInterfaces)
-                {
-                    writer.WriteObjectValue(item, options);
-                }
-                writer.WriteEndArray();
-            }
-            if (options.Format != "W" && Optional.IsCollectionDefined(Disks))
-            {
-                writer.WritePropertyName("disks"u8);
-                writer.WriteStartArray();
-                foreach (var item in Disks)
-                {
-                    writer.WriteObjectValue(item, options);
-                }
-                writer.WriteEndArray();
-            }
-            if (options.Format != "W" && Optional.IsDefined(ProvisioningState))
-            {
-                writer.WritePropertyName("provisioningState"u8);
-                writer.WriteStringValue(ProvisioningState.Value.ToString());
-            }
-            writer.WriteEndObject();
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
                 foreach (var item in _serializedAdditionalRawData)
@@ -205,38 +106,30 @@ namespace Azure.ResourceManager.ScVmm
             {
                 return null;
             }
-            ExtendedLocation extendedLocation = default;
+            VirtualMachineTemplateProperties properties = default;
+            ScVmmExtendedLocation extendedLocation = default;
             IDictionary<string, string> tags = default;
             AzureLocation location = default;
             ResourceIdentifier id = default;
             string name = default;
             ResourceType type = default;
             SystemData systemData = default;
-            string inventoryItemId = default;
-            string uuid = default;
-            ResourceIdentifier vmmServerId = default;
-            ScVmmOSType? osType = default;
-            string osName = default;
-            string computerName = default;
-            int? memoryMB = default;
-            int? cpuCount = default;
-            LimitCpuForMigration? limitCpuForMigration = default;
-            DynamicMemoryEnabled? dynamicMemoryEnabled = default;
-            IsCustomizable? isCustomizable = default;
-            int? dynamicMemoryMaxMB = default;
-            int? dynamicMemoryMinMB = default;
-            IsHighlyAvailable? isHighlyAvailable = default;
-            int? generation = default;
-            IReadOnlyList<ScVmmNetworkInterface> networkInterfaces = default;
-            IReadOnlyList<ScVmmVirtualDisk> disks = default;
-            ScVmmProvisioningState? provisioningState = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
             {
+                if (property.NameEquals("properties"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    properties = VirtualMachineTemplateProperties.DeserializeVirtualMachineTemplateProperties(property.Value, options);
+                    continue;
+                }
                 if (property.NameEquals("extendedLocation"u8))
                 {
-                    extendedLocation = JsonSerializer.Deserialize<ExtendedLocation>(property.Value.GetRawText());
+                    extendedLocation = ScVmmExtendedLocation.DeserializeScVmmExtendedLocation(property.Value, options);
                     continue;
                 }
                 if (property.NameEquals("tags"u8))
@@ -282,174 +175,6 @@ namespace Azure.ResourceManager.ScVmm
                     systemData = JsonSerializer.Deserialize<SystemData>(property.Value.GetRawText());
                     continue;
                 }
-                if (property.NameEquals("properties"u8))
-                {
-                    if (property.Value.ValueKind == JsonValueKind.Null)
-                    {
-                        property.ThrowNonNullablePropertyIsNull();
-                        continue;
-                    }
-                    foreach (var property0 in property.Value.EnumerateObject())
-                    {
-                        if (property0.NameEquals("inventoryItemId"u8))
-                        {
-                            inventoryItemId = property0.Value.GetString();
-                            continue;
-                        }
-                        if (property0.NameEquals("uuid"u8))
-                        {
-                            uuid = property0.Value.GetString();
-                            continue;
-                        }
-                        if (property0.NameEquals("vmmServerId"u8))
-                        {
-                            if (property0.Value.ValueKind == JsonValueKind.Null)
-                            {
-                                continue;
-                            }
-                            vmmServerId = new ResourceIdentifier(property0.Value.GetString());
-                            continue;
-                        }
-                        if (property0.NameEquals("osType"u8))
-                        {
-                            if (property0.Value.ValueKind == JsonValueKind.Null)
-                            {
-                                continue;
-                            }
-                            osType = new ScVmmOSType(property0.Value.GetString());
-                            continue;
-                        }
-                        if (property0.NameEquals("osName"u8))
-                        {
-                            osName = property0.Value.GetString();
-                            continue;
-                        }
-                        if (property0.NameEquals("computerName"u8))
-                        {
-                            computerName = property0.Value.GetString();
-                            continue;
-                        }
-                        if (property0.NameEquals("memoryMB"u8))
-                        {
-                            if (property0.Value.ValueKind == JsonValueKind.Null)
-                            {
-                                continue;
-                            }
-                            memoryMB = property0.Value.GetInt32();
-                            continue;
-                        }
-                        if (property0.NameEquals("cpuCount"u8))
-                        {
-                            if (property0.Value.ValueKind == JsonValueKind.Null)
-                            {
-                                continue;
-                            }
-                            cpuCount = property0.Value.GetInt32();
-                            continue;
-                        }
-                        if (property0.NameEquals("limitCpuForMigration"u8))
-                        {
-                            if (property0.Value.ValueKind == JsonValueKind.Null)
-                            {
-                                continue;
-                            }
-                            limitCpuForMigration = new LimitCpuForMigration(property0.Value.GetString());
-                            continue;
-                        }
-                        if (property0.NameEquals("dynamicMemoryEnabled"u8))
-                        {
-                            if (property0.Value.ValueKind == JsonValueKind.Null)
-                            {
-                                continue;
-                            }
-                            dynamicMemoryEnabled = new DynamicMemoryEnabled(property0.Value.GetString());
-                            continue;
-                        }
-                        if (property0.NameEquals("isCustomizable"u8))
-                        {
-                            if (property0.Value.ValueKind == JsonValueKind.Null)
-                            {
-                                continue;
-                            }
-                            isCustomizable = new IsCustomizable(property0.Value.GetString());
-                            continue;
-                        }
-                        if (property0.NameEquals("dynamicMemoryMaxMB"u8))
-                        {
-                            if (property0.Value.ValueKind == JsonValueKind.Null)
-                            {
-                                continue;
-                            }
-                            dynamicMemoryMaxMB = property0.Value.GetInt32();
-                            continue;
-                        }
-                        if (property0.NameEquals("dynamicMemoryMinMB"u8))
-                        {
-                            if (property0.Value.ValueKind == JsonValueKind.Null)
-                            {
-                                continue;
-                            }
-                            dynamicMemoryMinMB = property0.Value.GetInt32();
-                            continue;
-                        }
-                        if (property0.NameEquals("isHighlyAvailable"u8))
-                        {
-                            if (property0.Value.ValueKind == JsonValueKind.Null)
-                            {
-                                continue;
-                            }
-                            isHighlyAvailable = new IsHighlyAvailable(property0.Value.GetString());
-                            continue;
-                        }
-                        if (property0.NameEquals("generation"u8))
-                        {
-                            if (property0.Value.ValueKind == JsonValueKind.Null)
-                            {
-                                continue;
-                            }
-                            generation = property0.Value.GetInt32();
-                            continue;
-                        }
-                        if (property0.NameEquals("networkInterfaces"u8))
-                        {
-                            if (property0.Value.ValueKind == JsonValueKind.Null)
-                            {
-                                continue;
-                            }
-                            List<ScVmmNetworkInterface> array = new List<ScVmmNetworkInterface>();
-                            foreach (var item in property0.Value.EnumerateArray())
-                            {
-                                array.Add(ScVmmNetworkInterface.DeserializeScVmmNetworkInterface(item, options));
-                            }
-                            networkInterfaces = array;
-                            continue;
-                        }
-                        if (property0.NameEquals("disks"u8))
-                        {
-                            if (property0.Value.ValueKind == JsonValueKind.Null)
-                            {
-                                continue;
-                            }
-                            List<ScVmmVirtualDisk> array = new List<ScVmmVirtualDisk>();
-                            foreach (var item in property0.Value.EnumerateArray())
-                            {
-                                array.Add(ScVmmVirtualDisk.DeserializeScVmmVirtualDisk(item, options));
-                            }
-                            disks = array;
-                            continue;
-                        }
-                        if (property0.NameEquals("provisioningState"u8))
-                        {
-                            if (property0.Value.ValueKind == JsonValueKind.Null)
-                            {
-                                continue;
-                            }
-                            provisioningState = new ScVmmProvisioningState(property0.Value.GetString());
-                            continue;
-                        }
-                    }
-                    continue;
-                }
                 if (options.Format != "W")
                 {
                     rawDataDictionary.Add(property.Name, BinaryData.FromString(property.Value.GetRawText()));
@@ -463,25 +188,8 @@ namespace Azure.ResourceManager.ScVmm
                 systemData,
                 tags ?? new ChangeTrackingDictionary<string, string>(),
                 location,
+                properties,
                 extendedLocation,
-                inventoryItemId,
-                uuid,
-                vmmServerId,
-                osType,
-                osName,
-                computerName,
-                memoryMB,
-                cpuCount,
-                limitCpuForMigration,
-                dynamicMemoryEnabled,
-                isCustomizable,
-                dynamicMemoryMaxMB,
-                dynamicMemoryMinMB,
-                isHighlyAvailable,
-                generation,
-                networkInterfaces ?? new ChangeTrackingList<ScVmmNetworkInterface>(),
-                disks ?? new ChangeTrackingList<ScVmmVirtualDisk>(),
-                provisioningState,
                 serializedAdditionalRawData);
         }
 

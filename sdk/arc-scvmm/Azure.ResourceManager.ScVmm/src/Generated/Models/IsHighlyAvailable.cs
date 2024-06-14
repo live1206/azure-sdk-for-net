@@ -10,7 +10,7 @@ using System.ComponentModel;
 
 namespace Azure.ResourceManager.ScVmm.Models
 {
-    /// <summary> Gets highly available property. </summary>
+    /// <summary> Highly available. </summary>
     public readonly partial struct IsHighlyAvailable : IEquatable<IsHighlyAvailable>
     {
         private readonly string _value;
@@ -22,13 +22,13 @@ namespace Azure.ResourceManager.ScVmm.Models
             _value = value ?? throw new ArgumentNullException(nameof(value));
         }
 
-        private const string FalseValue = "false";
         private const string TrueValue = "true";
+        private const string FalseValue = "false";
 
-        /// <summary> false. </summary>
-        public static IsHighlyAvailable False { get; } = new IsHighlyAvailable(FalseValue);
-        /// <summary> true. </summary>
+        /// <summary> Enable highly available. </summary>
         public static IsHighlyAvailable True { get; } = new IsHighlyAvailable(TrueValue);
+        /// <summary> Disable highly available. </summary>
+        public static IsHighlyAvailable False { get; } = new IsHighlyAvailable(FalseValue);
         /// <summary> Determines if two <see cref="IsHighlyAvailable"/> values are the same. </summary>
         public static bool operator ==(IsHighlyAvailable left, IsHighlyAvailable right) => left.Equals(right);
         /// <summary> Determines if two <see cref="IsHighlyAvailable"/> values are not the same. </summary>

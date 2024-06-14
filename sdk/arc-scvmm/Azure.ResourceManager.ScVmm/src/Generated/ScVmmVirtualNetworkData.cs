@@ -9,7 +9,6 @@ using System;
 using System.Collections.Generic;
 using Azure.Core;
 using Azure.ResourceManager.Models;
-using Azure.ResourceManager.Resources.Models;
 using Azure.ResourceManager.ScVmm.Models;
 
 namespace Azure.ResourceManager.ScVmm
@@ -56,7 +55,7 @@ namespace Azure.ResourceManager.ScVmm
         /// <param name="location"> The location. </param>
         /// <param name="extendedLocation"> The extended location. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="extendedLocation"/> is null. </exception>
-        public ScVmmVirtualNetworkData(AzureLocation location, ExtendedLocation extendedLocation) : base(location)
+        public ScVmmVirtualNetworkData(AzureLocation location, ScVmmExtendedLocation extendedLocation) : base(location)
         {
             Argument.AssertNotNull(extendedLocation, nameof(extendedLocation));
 
@@ -70,21 +69,13 @@ namespace Azure.ResourceManager.ScVmm
         /// <param name="systemData"> The systemData. </param>
         /// <param name="tags"> The tags. </param>
         /// <param name="location"> The location. </param>
+        /// <param name="properties"> The resource-specific properties for this resource. </param>
         /// <param name="extendedLocation"> The extended location. </param>
-        /// <param name="inventoryItemId"> Gets or sets the inventory Item ID for the resource. </param>
-        /// <param name="uuid"> Unique ID of the virtual network. </param>
-        /// <param name="vmmServerId"> ARM Id of the vmmServer resource in which this resource resides. </param>
-        /// <param name="networkName"> Name of the virtual network in vmmServer. </param>
-        /// <param name="provisioningState"> Provisioning state of the resource. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal ScVmmVirtualNetworkData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, IDictionary<string, string> tags, AzureLocation location, ExtendedLocation extendedLocation, string inventoryItemId, string uuid, ResourceIdentifier vmmServerId, string networkName, ScVmmProvisioningState? provisioningState, IDictionary<string, BinaryData> serializedAdditionalRawData) : base(id, name, resourceType, systemData, tags, location)
+        internal ScVmmVirtualNetworkData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, IDictionary<string, string> tags, AzureLocation location, VirtualNetworkProperties properties, ScVmmExtendedLocation extendedLocation, IDictionary<string, BinaryData> serializedAdditionalRawData) : base(id, name, resourceType, systemData, tags, location)
         {
+            Properties = properties;
             ExtendedLocation = extendedLocation;
-            InventoryItemId = inventoryItemId;
-            Uuid = uuid;
-            VmmServerId = vmmServerId;
-            NetworkName = networkName;
-            ProvisioningState = provisioningState;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
@@ -93,17 +84,9 @@ namespace Azure.ResourceManager.ScVmm
         {
         }
 
+        /// <summary> The resource-specific properties for this resource. </summary>
+        public VirtualNetworkProperties Properties { get; set; }
         /// <summary> The extended location. </summary>
-        public ExtendedLocation ExtendedLocation { get; set; }
-        /// <summary> Gets or sets the inventory Item ID for the resource. </summary>
-        public string InventoryItemId { get; set; }
-        /// <summary> Unique ID of the virtual network. </summary>
-        public string Uuid { get; set; }
-        /// <summary> ARM Id of the vmmServer resource in which this resource resides. </summary>
-        public ResourceIdentifier VmmServerId { get; set; }
-        /// <summary> Name of the virtual network in vmmServer. </summary>
-        public string NetworkName { get; }
-        /// <summary> Provisioning state of the resource. </summary>
-        public ScVmmProvisioningState? ProvisioningState { get; }
+        public ScVmmExtendedLocation ExtendedLocation { get; set; }
     }
 }

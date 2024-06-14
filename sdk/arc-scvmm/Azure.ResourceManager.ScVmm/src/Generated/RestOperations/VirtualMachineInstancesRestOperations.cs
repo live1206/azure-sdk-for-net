@@ -36,6 +36,82 @@ namespace Azure.ResourceManager.ScVmm
             _userAgent = new TelemetryDetails(GetType().Assembly, applicationId);
         }
 
+        internal RequestUriBuilder CreateListRequestUri(string resourceUri)
+        {
+            var uri = new RawRequestUriBuilder();
+            uri.Reset(_endpoint);
+            uri.AppendPath("/", false);
+            uri.AppendPath(resourceUri, false);
+            uri.AppendPath("/providers/Microsoft.ScVmm/virtualMachineInstances", false);
+            uri.AppendQuery("api-version", _apiVersion, true);
+            return uri;
+        }
+
+        internal HttpMessage CreateListRequest(string resourceUri)
+        {
+            var message = _pipeline.CreateMessage();
+            var request = message.Request;
+            request.Method = RequestMethod.Get;
+            var uri = new RawRequestUriBuilder();
+            uri.Reset(_endpoint);
+            uri.AppendPath("/", false);
+            uri.AppendPath(resourceUri, false);
+            uri.AppendPath("/providers/Microsoft.ScVmm/virtualMachineInstances", false);
+            uri.AppendQuery("api-version", _apiVersion, true);
+            request.Uri = uri;
+            request.Headers.Add("Accept", "application/json");
+            _userAgent.Apply(message);
+            return message;
+        }
+
+        /// <summary> Lists all of the virtual machine instances within the specified parent resource. </summary>
+        /// <param name="resourceUri"> The fully qualified Azure Resource manager identifier of the resource. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceUri"/> is null. </exception>
+        public async Task<Response<VirtualMachineInstanceListResult>> ListAsync(string resourceUri, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNull(resourceUri, nameof(resourceUri));
+
+            using var message = CreateListRequest(resourceUri);
+            await _pipeline.SendAsync(message, cancellationToken).ConfigureAwait(false);
+            switch (message.Response.Status)
+            {
+                case 200:
+                    {
+                        VirtualMachineInstanceListResult value = default;
+                        using var document = await JsonDocument.ParseAsync(message.Response.ContentStream, default, cancellationToken).ConfigureAwait(false);
+                        value = VirtualMachineInstanceListResult.DeserializeVirtualMachineInstanceListResult(document.RootElement);
+                        return Response.FromValue(value, message.Response);
+                    }
+                default:
+                    throw new RequestFailedException(message.Response);
+            }
+        }
+
+        /// <summary> Lists all of the virtual machine instances within the specified parent resource. </summary>
+        /// <param name="resourceUri"> The fully qualified Azure Resource manager identifier of the resource. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceUri"/> is null. </exception>
+        public Response<VirtualMachineInstanceListResult> List(string resourceUri, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNull(resourceUri, nameof(resourceUri));
+
+            using var message = CreateListRequest(resourceUri);
+            _pipeline.Send(message, cancellationToken);
+            switch (message.Response.Status)
+            {
+                case 200:
+                    {
+                        VirtualMachineInstanceListResult value = default;
+                        using var document = JsonDocument.Parse(message.Response.ContentStream);
+                        value = VirtualMachineInstanceListResult.DeserializeVirtualMachineInstanceListResult(document.RootElement);
+                        return Response.FromValue(value, message.Response);
+                    }
+                default:
+                    throw new RequestFailedException(message.Response);
+            }
+        }
+
         internal RequestUriBuilder CreateGetRequestUri(string resourceUri)
         {
             var uri = new RawRequestUriBuilder();
@@ -65,7 +141,7 @@ namespace Azure.ResourceManager.ScVmm
         }
 
         /// <summary> Retrieves information about a virtual machine instance. </summary>
-        /// <param name="resourceUri"> The fully qualified Azure Resource manager identifier of the Hybrid Compute machine resource to be extended. </param>
+        /// <param name="resourceUri"> The fully qualified Azure Resource manager identifier of the resource. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="resourceUri"/> is null. </exception>
         public async Task<Response<ScVmmVirtualMachineInstanceData>> GetAsync(string resourceUri, CancellationToken cancellationToken = default)
@@ -91,7 +167,7 @@ namespace Azure.ResourceManager.ScVmm
         }
 
         /// <summary> Retrieves information about a virtual machine instance. </summary>
-        /// <param name="resourceUri"> The fully qualified Azure Resource manager identifier of the Hybrid Compute machine resource to be extended. </param>
+        /// <param name="resourceUri"> The fully qualified Azure Resource manager identifier of the resource. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="resourceUri"/> is null. </exception>
         public Response<ScVmmVirtualMachineInstanceData> Get(string resourceUri, CancellationToken cancellationToken = default)
@@ -149,8 +225,8 @@ namespace Azure.ResourceManager.ScVmm
         }
 
         /// <summary> The operation to create or update a virtual machine instance. Please note some properties can be set only during virtual machine instance creation. </summary>
-        /// <param name="resourceUri"> The fully qualified Azure Resource manager identifier of the Hybrid Compute machine resource to be extended. </param>
-        /// <param name="data"> Request payload. </param>
+        /// <param name="resourceUri"> The fully qualified Azure Resource manager identifier of the resource. </param>
+        /// <param name="data"> Resource create parameters. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="resourceUri"/> or <paramref name="data"/> is null. </exception>
         public async Task<Response> CreateOrUpdateAsync(string resourceUri, ScVmmVirtualMachineInstanceData data, CancellationToken cancellationToken = default)
@@ -171,8 +247,8 @@ namespace Azure.ResourceManager.ScVmm
         }
 
         /// <summary> The operation to create or update a virtual machine instance. Please note some properties can be set only during virtual machine instance creation. </summary>
-        /// <param name="resourceUri"> The fully qualified Azure Resource manager identifier of the Hybrid Compute machine resource to be extended. </param>
-        /// <param name="data"> Request payload. </param>
+        /// <param name="resourceUri"> The fully qualified Azure Resource manager identifier of the resource. </param>
+        /// <param name="data"> Resource create parameters. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="resourceUri"/> or <paramref name="data"/> is null. </exception>
         public Response CreateOrUpdate(string resourceUri, ScVmmVirtualMachineInstanceData data, CancellationToken cancellationToken = default)
@@ -225,8 +301,8 @@ namespace Azure.ResourceManager.ScVmm
         }
 
         /// <summary> The operation to update a virtual machine instance. </summary>
-        /// <param name="resourceUri"> The fully qualified Azure Resource manager identifier of the Hybrid Compute machine resource to be extended. </param>
-        /// <param name="patch"> Resource properties to update. </param>
+        /// <param name="resourceUri"> The fully qualified Azure Resource manager identifier of the resource. </param>
+        /// <param name="patch"> The resource properties to be updated. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="resourceUri"/> or <paramref name="patch"/> is null. </exception>
         public async Task<Response> UpdateAsync(string resourceUri, ScVmmVirtualMachineInstancePatch patch, CancellationToken cancellationToken = default)
@@ -247,8 +323,8 @@ namespace Azure.ResourceManager.ScVmm
         }
 
         /// <summary> The operation to update a virtual machine instance. </summary>
-        /// <param name="resourceUri"> The fully qualified Azure Resource manager identifier of the Hybrid Compute machine resource to be extended. </param>
-        /// <param name="patch"> Resource properties to update. </param>
+        /// <param name="resourceUri"> The fully qualified Azure Resource manager identifier of the resource. </param>
+        /// <param name="patch"> The resource properties to be updated. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="resourceUri"/> or <paramref name="patch"/> is null. </exception>
         public Response Update(string resourceUri, ScVmmVirtualMachineInstancePatch patch, CancellationToken cancellationToken = default)
@@ -268,7 +344,7 @@ namespace Azure.ResourceManager.ScVmm
             }
         }
 
-        internal RequestUriBuilder CreateDeleteRequestUri(string resourceUri, ScVmmForceDeletion? force, DeleteFromHost? deleteFromHost)
+        internal RequestUriBuilder CreateDeleteRequestUri(string resourceUri, ForceDelete? force, DeleteFromHost? deleteFromHost)
         {
             var uri = new RawRequestUriBuilder();
             uri.Reset(_endpoint);
@@ -287,7 +363,7 @@ namespace Azure.ResourceManager.ScVmm
             return uri;
         }
 
-        internal HttpMessage CreateDeleteRequest(string resourceUri, ScVmmForceDeletion? force, DeleteFromHost? deleteFromHost)
+        internal HttpMessage CreateDeleteRequest(string resourceUri, ForceDelete? force, DeleteFromHost? deleteFromHost)
         {
             var message = _pipeline.CreateMessage();
             var request = message.Request;
@@ -313,12 +389,12 @@ namespace Azure.ResourceManager.ScVmm
         }
 
         /// <summary> The operation to delete a virtual machine instance. </summary>
-        /// <param name="resourceUri"> The fully qualified Azure Resource manager identifier of the Hybrid Compute machine resource to be extended. </param>
-        /// <param name="force"> Whether force delete was specified. </param>
-        /// <param name="deleteFromHost"> Whether to disable the VM from azure and also delete it from VMM. </param>
+        /// <param name="resourceUri"> The fully qualified Azure Resource manager identifier of the resource. </param>
+        /// <param name="force"> Forces the resource to be deleted. </param>
+        /// <param name="deleteFromHost"> Whether to disable the VM from azure and also delete it from Vmm. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="resourceUri"/> is null. </exception>
-        public async Task<Response> DeleteAsync(string resourceUri, ScVmmForceDeletion? force = null, DeleteFromHost? deleteFromHost = null, CancellationToken cancellationToken = default)
+        public async Task<Response> DeleteAsync(string resourceUri, ForceDelete? force = null, DeleteFromHost? deleteFromHost = null, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNull(resourceUri, nameof(resourceUri));
 
@@ -335,12 +411,12 @@ namespace Azure.ResourceManager.ScVmm
         }
 
         /// <summary> The operation to delete a virtual machine instance. </summary>
-        /// <param name="resourceUri"> The fully qualified Azure Resource manager identifier of the Hybrid Compute machine resource to be extended. </param>
-        /// <param name="force"> Whether force delete was specified. </param>
-        /// <param name="deleteFromHost"> Whether to disable the VM from azure and also delete it from VMM. </param>
+        /// <param name="resourceUri"> The fully qualified Azure Resource manager identifier of the resource. </param>
+        /// <param name="force"> Forces the resource to be deleted. </param>
+        /// <param name="deleteFromHost"> Whether to disable the VM from azure and also delete it from Vmm. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="resourceUri"/> is null. </exception>
-        public Response Delete(string resourceUri, ScVmmForceDeletion? force = null, DeleteFromHost? deleteFromHost = null, CancellationToken cancellationToken = default)
+        public Response Delete(string resourceUri, ForceDelete? force = null, DeleteFromHost? deleteFromHost = null, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNull(resourceUri, nameof(resourceUri));
 
@@ -356,94 +432,18 @@ namespace Azure.ResourceManager.ScVmm
             }
         }
 
-        internal RequestUriBuilder CreateListRequestUri(string resourceUri)
+        internal RequestUriBuilder CreateCreateCheckpointRequestUri(string resourceUri, VirtualMachineCreateCheckpointContent content)
         {
             var uri = new RawRequestUriBuilder();
             uri.Reset(_endpoint);
             uri.AppendPath("/", false);
             uri.AppendPath(resourceUri, false);
-            uri.AppendPath("/providers/Microsoft.ScVmm/virtualMachineInstances", false);
+            uri.AppendPath("/providers/Microsoft.ScVmm/virtualMachineInstances/default/createCheckpoint", false);
             uri.AppendQuery("api-version", _apiVersion, true);
             return uri;
         }
 
-        internal HttpMessage CreateListRequest(string resourceUri)
-        {
-            var message = _pipeline.CreateMessage();
-            var request = message.Request;
-            request.Method = RequestMethod.Get;
-            var uri = new RawRequestUriBuilder();
-            uri.Reset(_endpoint);
-            uri.AppendPath("/", false);
-            uri.AppendPath(resourceUri, false);
-            uri.AppendPath("/providers/Microsoft.ScVmm/virtualMachineInstances", false);
-            uri.AppendQuery("api-version", _apiVersion, true);
-            request.Uri = uri;
-            request.Headers.Add("Accept", "application/json");
-            _userAgent.Apply(message);
-            return message;
-        }
-
-        /// <summary> Lists all of the virtual machine instances within the specified parent resource. </summary>
-        /// <param name="resourceUri"> The fully qualified Azure Resource manager identifier of the Hybrid Compute machine resource to be extended. </param>
-        /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="resourceUri"/> is null. </exception>
-        public async Task<Response<VirtualMachineInstanceListResult>> ListAsync(string resourceUri, CancellationToken cancellationToken = default)
-        {
-            Argument.AssertNotNull(resourceUri, nameof(resourceUri));
-
-            using var message = CreateListRequest(resourceUri);
-            await _pipeline.SendAsync(message, cancellationToken).ConfigureAwait(false);
-            switch (message.Response.Status)
-            {
-                case 200:
-                    {
-                        VirtualMachineInstanceListResult value = default;
-                        using var document = await JsonDocument.ParseAsync(message.Response.ContentStream, default, cancellationToken).ConfigureAwait(false);
-                        value = VirtualMachineInstanceListResult.DeserializeVirtualMachineInstanceListResult(document.RootElement);
-                        return Response.FromValue(value, message.Response);
-                    }
-                default:
-                    throw new RequestFailedException(message.Response);
-            }
-        }
-
-        /// <summary> Lists all of the virtual machine instances within the specified parent resource. </summary>
-        /// <param name="resourceUri"> The fully qualified Azure Resource manager identifier of the Hybrid Compute machine resource to be extended. </param>
-        /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="resourceUri"/> is null. </exception>
-        public Response<VirtualMachineInstanceListResult> List(string resourceUri, CancellationToken cancellationToken = default)
-        {
-            Argument.AssertNotNull(resourceUri, nameof(resourceUri));
-
-            using var message = CreateListRequest(resourceUri);
-            _pipeline.Send(message, cancellationToken);
-            switch (message.Response.Status)
-            {
-                case 200:
-                    {
-                        VirtualMachineInstanceListResult value = default;
-                        using var document = JsonDocument.Parse(message.Response.ContentStream);
-                        value = VirtualMachineInstanceListResult.DeserializeVirtualMachineInstanceListResult(document.RootElement);
-                        return Response.FromValue(value, message.Response);
-                    }
-                default:
-                    throw new RequestFailedException(message.Response);
-            }
-        }
-
-        internal RequestUriBuilder CreateStopRequestUri(string resourceUri, StopVirtualMachineContent content)
-        {
-            var uri = new RawRequestUriBuilder();
-            uri.Reset(_endpoint);
-            uri.AppendPath("/", false);
-            uri.AppendPath(resourceUri, false);
-            uri.AppendPath("/providers/Microsoft.ScVmm/virtualMachineInstances/default/stop", false);
-            uri.AppendQuery("api-version", _apiVersion, true);
-            return uri;
-        }
-
-        internal HttpMessage CreateStopRequest(string resourceUri, StopVirtualMachineContent content)
+        internal HttpMessage CreateCreateCheckpointRequest(string resourceUri, VirtualMachineCreateCheckpointContent content)
         {
             var message = _pipeline.CreateMessage();
             var request = message.Request;
@@ -452,31 +452,29 @@ namespace Azure.ResourceManager.ScVmm
             uri.Reset(_endpoint);
             uri.AppendPath("/", false);
             uri.AppendPath(resourceUri, false);
-            uri.AppendPath("/providers/Microsoft.ScVmm/virtualMachineInstances/default/stop", false);
+            uri.AppendPath("/providers/Microsoft.ScVmm/virtualMachineInstances/default/createCheckpoint", false);
             uri.AppendQuery("api-version", _apiVersion, true);
             request.Uri = uri;
             request.Headers.Add("Accept", "application/json");
-            if (content != null)
-            {
-                request.Headers.Add("Content-Type", "application/json");
-                var content0 = new Utf8JsonRequestContent();
-                content0.JsonWriter.WriteObjectValue(content, ModelSerializationExtensions.WireOptions);
-                request.Content = content0;
-            }
+            request.Headers.Add("Content-Type", "application/json");
+            var content0 = new Utf8JsonRequestContent();
+            content0.JsonWriter.WriteObjectValue(content, ModelSerializationExtensions.WireOptions);
+            request.Content = content0;
             _userAgent.Apply(message);
             return message;
         }
 
-        /// <summary> The operation to power off (stop) a virtual machine instance. </summary>
-        /// <param name="resourceUri"> The fully qualified Azure Resource manager identifier of the Hybrid Compute machine resource to be extended. </param>
-        /// <param name="content"> Virtualmachine stop action payload. </param>
+        /// <summary> Creates a checkpoint in virtual machine instance. </summary>
+        /// <param name="resourceUri"> The fully qualified Azure Resource manager identifier of the resource. </param>
+        /// <param name="content"> The content of the action request. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="resourceUri"/> is null. </exception>
-        public async Task<Response> StopAsync(string resourceUri, StopVirtualMachineContent content = null, CancellationToken cancellationToken = default)
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceUri"/> or <paramref name="content"/> is null. </exception>
+        public async Task<Response> CreateCheckpointAsync(string resourceUri, VirtualMachineCreateCheckpointContent content, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNull(resourceUri, nameof(resourceUri));
+            Argument.AssertNotNull(content, nameof(content));
 
-            using var message = CreateStopRequest(resourceUri, content);
+            using var message = CreateCreateCheckpointRequest(resourceUri, content);
             await _pipeline.SendAsync(message, cancellationToken).ConfigureAwait(false);
             switch (message.Response.Status)
             {
@@ -487,16 +485,17 @@ namespace Azure.ResourceManager.ScVmm
             }
         }
 
-        /// <summary> The operation to power off (stop) a virtual machine instance. </summary>
-        /// <param name="resourceUri"> The fully qualified Azure Resource manager identifier of the Hybrid Compute machine resource to be extended. </param>
-        /// <param name="content"> Virtualmachine stop action payload. </param>
+        /// <summary> Creates a checkpoint in virtual machine instance. </summary>
+        /// <param name="resourceUri"> The fully qualified Azure Resource manager identifier of the resource. </param>
+        /// <param name="content"> The content of the action request. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="resourceUri"/> is null. </exception>
-        public Response Stop(string resourceUri, StopVirtualMachineContent content = null, CancellationToken cancellationToken = default)
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceUri"/> or <paramref name="content"/> is null. </exception>
+        public Response CreateCheckpoint(string resourceUri, VirtualMachineCreateCheckpointContent content, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNull(resourceUri, nameof(resourceUri));
+            Argument.AssertNotNull(content, nameof(content));
 
-            using var message = CreateStopRequest(resourceUri, content);
+            using var message = CreateCreateCheckpointRequest(resourceUri, content);
             _pipeline.Send(message, cancellationToken);
             switch (message.Response.Status)
             {
@@ -507,18 +506,18 @@ namespace Azure.ResourceManager.ScVmm
             }
         }
 
-        internal RequestUriBuilder CreateStartRequestUri(string resourceUri)
+        internal RequestUriBuilder CreateDeleteCheckpointRequestUri(string resourceUri, VirtualMachineDeleteCheckpointContent content)
         {
             var uri = new RawRequestUriBuilder();
             uri.Reset(_endpoint);
             uri.AppendPath("/", false);
             uri.AppendPath(resourceUri, false);
-            uri.AppendPath("/providers/Microsoft.ScVmm/virtualMachineInstances/default/start", false);
+            uri.AppendPath("/providers/Microsoft.ScVmm/virtualMachineInstances/default/deleteCheckpoint", false);
             uri.AppendQuery("api-version", _apiVersion, true);
             return uri;
         }
 
-        internal HttpMessage CreateStartRequest(string resourceUri)
+        internal HttpMessage CreateDeleteCheckpointRequest(string resourceUri, VirtualMachineDeleteCheckpointContent content)
         {
             var message = _pipeline.CreateMessage();
             var request = message.Request;
@@ -527,23 +526,29 @@ namespace Azure.ResourceManager.ScVmm
             uri.Reset(_endpoint);
             uri.AppendPath("/", false);
             uri.AppendPath(resourceUri, false);
-            uri.AppendPath("/providers/Microsoft.ScVmm/virtualMachineInstances/default/start", false);
+            uri.AppendPath("/providers/Microsoft.ScVmm/virtualMachineInstances/default/deleteCheckpoint", false);
             uri.AppendQuery("api-version", _apiVersion, true);
             request.Uri = uri;
             request.Headers.Add("Accept", "application/json");
+            request.Headers.Add("Content-Type", "application/json");
+            var content0 = new Utf8JsonRequestContent();
+            content0.JsonWriter.WriteObjectValue(content, ModelSerializationExtensions.WireOptions);
+            request.Content = content0;
             _userAgent.Apply(message);
             return message;
         }
 
-        /// <summary> The operation to start a virtual machine instance. </summary>
-        /// <param name="resourceUri"> The fully qualified Azure Resource manager identifier of the Hybrid Compute machine resource to be extended. </param>
+        /// <summary> Deletes a checkpoint in virtual machine instance. </summary>
+        /// <param name="resourceUri"> The fully qualified Azure Resource manager identifier of the resource. </param>
+        /// <param name="content"> The content of the action request. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="resourceUri"/> is null. </exception>
-        public async Task<Response> StartAsync(string resourceUri, CancellationToken cancellationToken = default)
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceUri"/> or <paramref name="content"/> is null. </exception>
+        public async Task<Response> DeleteCheckpointAsync(string resourceUri, VirtualMachineDeleteCheckpointContent content, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNull(resourceUri, nameof(resourceUri));
+            Argument.AssertNotNull(content, nameof(content));
 
-            using var message = CreateStartRequest(resourceUri);
+            using var message = CreateDeleteCheckpointRequest(resourceUri, content);
             await _pipeline.SendAsync(message, cancellationToken).ConfigureAwait(false);
             switch (message.Response.Status)
             {
@@ -554,15 +559,17 @@ namespace Azure.ResourceManager.ScVmm
             }
         }
 
-        /// <summary> The operation to start a virtual machine instance. </summary>
-        /// <param name="resourceUri"> The fully qualified Azure Resource manager identifier of the Hybrid Compute machine resource to be extended. </param>
+        /// <summary> Deletes a checkpoint in virtual machine instance. </summary>
+        /// <param name="resourceUri"> The fully qualified Azure Resource manager identifier of the resource. </param>
+        /// <param name="content"> The content of the action request. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="resourceUri"/> is null. </exception>
-        public Response Start(string resourceUri, CancellationToken cancellationToken = default)
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceUri"/> or <paramref name="content"/> is null. </exception>
+        public Response DeleteCheckpoint(string resourceUri, VirtualMachineDeleteCheckpointContent content, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNull(resourceUri, nameof(resourceUri));
+            Argument.AssertNotNull(content, nameof(content));
 
-            using var message = CreateStartRequest(resourceUri);
+            using var message = CreateDeleteCheckpointRequest(resourceUri, content);
             _pipeline.Send(message, cancellationToken);
             switch (message.Response.Status)
             {
@@ -602,7 +609,7 @@ namespace Azure.ResourceManager.ScVmm
         }
 
         /// <summary> The operation to restart a virtual machine instance. </summary>
-        /// <param name="resourceUri"> The fully qualified Azure Resource manager identifier of the Hybrid Compute machine resource to be extended. </param>
+        /// <param name="resourceUri"> The fully qualified Azure Resource manager identifier of the resource. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="resourceUri"/> is null. </exception>
         public async Task<Response> RestartAsync(string resourceUri, CancellationToken cancellationToken = default)
@@ -621,7 +628,7 @@ namespace Azure.ResourceManager.ScVmm
         }
 
         /// <summary> The operation to restart a virtual machine instance. </summary>
-        /// <param name="resourceUri"> The fully qualified Azure Resource manager identifier of the Hybrid Compute machine resource to be extended. </param>
+        /// <param name="resourceUri"> The fully qualified Azure Resource manager identifier of the resource. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="resourceUri"/> is null. </exception>
         public Response Restart(string resourceUri, CancellationToken cancellationToken = default)
@@ -629,156 +636,6 @@ namespace Azure.ResourceManager.ScVmm
             Argument.AssertNotNull(resourceUri, nameof(resourceUri));
 
             using var message = CreateRestartRequest(resourceUri);
-            _pipeline.Send(message, cancellationToken);
-            switch (message.Response.Status)
-            {
-                case 202:
-                    return message.Response;
-                default:
-                    throw new RequestFailedException(message.Response);
-            }
-        }
-
-        internal RequestUriBuilder CreateCreateCheckpointRequestUri(string resourceUri, VirtualMachineCreateCheckpointContent content)
-        {
-            var uri = new RawRequestUriBuilder();
-            uri.Reset(_endpoint);
-            uri.AppendPath("/", false);
-            uri.AppendPath(resourceUri, false);
-            uri.AppendPath("/providers/Microsoft.ScVmm/virtualMachineInstances/default/createCheckpoint", false);
-            uri.AppendQuery("api-version", _apiVersion, true);
-            return uri;
-        }
-
-        internal HttpMessage CreateCreateCheckpointRequest(string resourceUri, VirtualMachineCreateCheckpointContent content)
-        {
-            var message = _pipeline.CreateMessage();
-            var request = message.Request;
-            request.Method = RequestMethod.Post;
-            var uri = new RawRequestUriBuilder();
-            uri.Reset(_endpoint);
-            uri.AppendPath("/", false);
-            uri.AppendPath(resourceUri, false);
-            uri.AppendPath("/providers/Microsoft.ScVmm/virtualMachineInstances/default/createCheckpoint", false);
-            uri.AppendQuery("api-version", _apiVersion, true);
-            request.Uri = uri;
-            request.Headers.Add("Accept", "application/json");
-            if (content != null)
-            {
-                request.Headers.Add("Content-Type", "application/json");
-                var content0 = new Utf8JsonRequestContent();
-                content0.JsonWriter.WriteObjectValue(content, ModelSerializationExtensions.WireOptions);
-                request.Content = content0;
-            }
-            _userAgent.Apply(message);
-            return message;
-        }
-
-        /// <summary> Creates a checkpoint in virtual machine instance. </summary>
-        /// <param name="resourceUri"> The fully qualified Azure Resource manager identifier of the Hybrid Compute machine resource to be extended. </param>
-        /// <param name="content"> Virtualmachine create checkpoint action payload. </param>
-        /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="resourceUri"/> is null. </exception>
-        public async Task<Response> CreateCheckpointAsync(string resourceUri, VirtualMachineCreateCheckpointContent content = null, CancellationToken cancellationToken = default)
-        {
-            Argument.AssertNotNull(resourceUri, nameof(resourceUri));
-
-            using var message = CreateCreateCheckpointRequest(resourceUri, content);
-            await _pipeline.SendAsync(message, cancellationToken).ConfigureAwait(false);
-            switch (message.Response.Status)
-            {
-                case 202:
-                    return message.Response;
-                default:
-                    throw new RequestFailedException(message.Response);
-            }
-        }
-
-        /// <summary> Creates a checkpoint in virtual machine instance. </summary>
-        /// <param name="resourceUri"> The fully qualified Azure Resource manager identifier of the Hybrid Compute machine resource to be extended. </param>
-        /// <param name="content"> Virtualmachine create checkpoint action payload. </param>
-        /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="resourceUri"/> is null. </exception>
-        public Response CreateCheckpoint(string resourceUri, VirtualMachineCreateCheckpointContent content = null, CancellationToken cancellationToken = default)
-        {
-            Argument.AssertNotNull(resourceUri, nameof(resourceUri));
-
-            using var message = CreateCreateCheckpointRequest(resourceUri, content);
-            _pipeline.Send(message, cancellationToken);
-            switch (message.Response.Status)
-            {
-                case 202:
-                    return message.Response;
-                default:
-                    throw new RequestFailedException(message.Response);
-            }
-        }
-
-        internal RequestUriBuilder CreateDeleteCheckpointRequestUri(string resourceUri, VirtualMachineDeleteCheckpointContent content)
-        {
-            var uri = new RawRequestUriBuilder();
-            uri.Reset(_endpoint);
-            uri.AppendPath("/", false);
-            uri.AppendPath(resourceUri, false);
-            uri.AppendPath("/providers/Microsoft.ScVmm/virtualMachineInstances/default/deleteCheckpoint", false);
-            uri.AppendQuery("api-version", _apiVersion, true);
-            return uri;
-        }
-
-        internal HttpMessage CreateDeleteCheckpointRequest(string resourceUri, VirtualMachineDeleteCheckpointContent content)
-        {
-            var message = _pipeline.CreateMessage();
-            var request = message.Request;
-            request.Method = RequestMethod.Post;
-            var uri = new RawRequestUriBuilder();
-            uri.Reset(_endpoint);
-            uri.AppendPath("/", false);
-            uri.AppendPath(resourceUri, false);
-            uri.AppendPath("/providers/Microsoft.ScVmm/virtualMachineInstances/default/deleteCheckpoint", false);
-            uri.AppendQuery("api-version", _apiVersion, true);
-            request.Uri = uri;
-            request.Headers.Add("Accept", "application/json");
-            if (content != null)
-            {
-                request.Headers.Add("Content-Type", "application/json");
-                var content0 = new Utf8JsonRequestContent();
-                content0.JsonWriter.WriteObjectValue(content, ModelSerializationExtensions.WireOptions);
-                request.Content = content0;
-            }
-            _userAgent.Apply(message);
-            return message;
-        }
-
-        /// <summary> Deletes a checkpoint in virtual machine instance. </summary>
-        /// <param name="resourceUri"> The fully qualified Azure Resource manager identifier of the Hybrid Compute machine resource to be extended. </param>
-        /// <param name="content"> Virtualmachine delete checkpoint action payload. </param>
-        /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="resourceUri"/> is null. </exception>
-        public async Task<Response> DeleteCheckpointAsync(string resourceUri, VirtualMachineDeleteCheckpointContent content = null, CancellationToken cancellationToken = default)
-        {
-            Argument.AssertNotNull(resourceUri, nameof(resourceUri));
-
-            using var message = CreateDeleteCheckpointRequest(resourceUri, content);
-            await _pipeline.SendAsync(message, cancellationToken).ConfigureAwait(false);
-            switch (message.Response.Status)
-            {
-                case 202:
-                    return message.Response;
-                default:
-                    throw new RequestFailedException(message.Response);
-            }
-        }
-
-        /// <summary> Deletes a checkpoint in virtual machine instance. </summary>
-        /// <param name="resourceUri"> The fully qualified Azure Resource manager identifier of the Hybrid Compute machine resource to be extended. </param>
-        /// <param name="content"> Virtualmachine delete checkpoint action payload. </param>
-        /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="resourceUri"/> is null. </exception>
-        public Response DeleteCheckpoint(string resourceUri, VirtualMachineDeleteCheckpointContent content = null, CancellationToken cancellationToken = default)
-        {
-            Argument.AssertNotNull(resourceUri, nameof(resourceUri));
-
-            using var message = CreateDeleteCheckpointRequest(resourceUri, content);
             _pipeline.Send(message, cancellationToken);
             switch (message.Response.Status)
             {
@@ -813,25 +670,23 @@ namespace Azure.ResourceManager.ScVmm
             uri.AppendQuery("api-version", _apiVersion, true);
             request.Uri = uri;
             request.Headers.Add("Accept", "application/json");
-            if (content != null)
-            {
-                request.Headers.Add("Content-Type", "application/json");
-                var content0 = new Utf8JsonRequestContent();
-                content0.JsonWriter.WriteObjectValue(content, ModelSerializationExtensions.WireOptions);
-                request.Content = content0;
-            }
+            request.Headers.Add("Content-Type", "application/json");
+            var content0 = new Utf8JsonRequestContent();
+            content0.JsonWriter.WriteObjectValue(content, ModelSerializationExtensions.WireOptions);
+            request.Content = content0;
             _userAgent.Apply(message);
             return message;
         }
 
         /// <summary> Restores to a checkpoint in virtual machine instance. </summary>
-        /// <param name="resourceUri"> The fully qualified Azure Resource manager identifier of the Hybrid Compute machine resource to be extended. </param>
-        /// <param name="content"> Virtualmachine restore checkpoint action payload. </param>
+        /// <param name="resourceUri"> The fully qualified Azure Resource manager identifier of the resource. </param>
+        /// <param name="content"> The content of the action request. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="resourceUri"/> is null. </exception>
-        public async Task<Response> RestoreCheckpointAsync(string resourceUri, VirtualMachineRestoreCheckpointContent content = null, CancellationToken cancellationToken = default)
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceUri"/> or <paramref name="content"/> is null. </exception>
+        public async Task<Response> RestoreCheckpointAsync(string resourceUri, VirtualMachineRestoreCheckpointContent content, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNull(resourceUri, nameof(resourceUri));
+            Argument.AssertNotNull(content, nameof(content));
 
             using var message = CreateRestoreCheckpointRequest(resourceUri, content);
             await _pipeline.SendAsync(message, cancellationToken).ConfigureAwait(false);
@@ -845,15 +700,156 @@ namespace Azure.ResourceManager.ScVmm
         }
 
         /// <summary> Restores to a checkpoint in virtual machine instance. </summary>
-        /// <param name="resourceUri"> The fully qualified Azure Resource manager identifier of the Hybrid Compute machine resource to be extended. </param>
-        /// <param name="content"> Virtualmachine restore checkpoint action payload. </param>
+        /// <param name="resourceUri"> The fully qualified Azure Resource manager identifier of the resource. </param>
+        /// <param name="content"> The content of the action request. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceUri"/> or <paramref name="content"/> is null. </exception>
+        public Response RestoreCheckpoint(string resourceUri, VirtualMachineRestoreCheckpointContent content, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNull(resourceUri, nameof(resourceUri));
+            Argument.AssertNotNull(content, nameof(content));
+
+            using var message = CreateRestoreCheckpointRequest(resourceUri, content);
+            _pipeline.Send(message, cancellationToken);
+            switch (message.Response.Status)
+            {
+                case 202:
+                    return message.Response;
+                default:
+                    throw new RequestFailedException(message.Response);
+            }
+        }
+
+        internal RequestUriBuilder CreateStartRequestUri(string resourceUri)
+        {
+            var uri = new RawRequestUriBuilder();
+            uri.Reset(_endpoint);
+            uri.AppendPath("/", false);
+            uri.AppendPath(resourceUri, false);
+            uri.AppendPath("/providers/Microsoft.ScVmm/virtualMachineInstances/default/start", false);
+            uri.AppendQuery("api-version", _apiVersion, true);
+            return uri;
+        }
+
+        internal HttpMessage CreateStartRequest(string resourceUri)
+        {
+            var message = _pipeline.CreateMessage();
+            var request = message.Request;
+            request.Method = RequestMethod.Post;
+            var uri = new RawRequestUriBuilder();
+            uri.Reset(_endpoint);
+            uri.AppendPath("/", false);
+            uri.AppendPath(resourceUri, false);
+            uri.AppendPath("/providers/Microsoft.ScVmm/virtualMachineInstances/default/start", false);
+            uri.AppendQuery("api-version", _apiVersion, true);
+            request.Uri = uri;
+            request.Headers.Add("Accept", "application/json");
+            _userAgent.Apply(message);
+            return message;
+        }
+
+        /// <summary> The operation to start a virtual machine instance. </summary>
+        /// <param name="resourceUri"> The fully qualified Azure Resource manager identifier of the resource. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="resourceUri"/> is null. </exception>
-        public Response RestoreCheckpoint(string resourceUri, VirtualMachineRestoreCheckpointContent content = null, CancellationToken cancellationToken = default)
+        public async Task<Response> StartAsync(string resourceUri, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNull(resourceUri, nameof(resourceUri));
 
-            using var message = CreateRestoreCheckpointRequest(resourceUri, content);
+            using var message = CreateStartRequest(resourceUri);
+            await _pipeline.SendAsync(message, cancellationToken).ConfigureAwait(false);
+            switch (message.Response.Status)
+            {
+                case 202:
+                    return message.Response;
+                default:
+                    throw new RequestFailedException(message.Response);
+            }
+        }
+
+        /// <summary> The operation to start a virtual machine instance. </summary>
+        /// <param name="resourceUri"> The fully qualified Azure Resource manager identifier of the resource. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceUri"/> is null. </exception>
+        public Response Start(string resourceUri, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNull(resourceUri, nameof(resourceUri));
+
+            using var message = CreateStartRequest(resourceUri);
+            _pipeline.Send(message, cancellationToken);
+            switch (message.Response.Status)
+            {
+                case 202:
+                    return message.Response;
+                default:
+                    throw new RequestFailedException(message.Response);
+            }
+        }
+
+        internal RequestUriBuilder CreateStopRequestUri(string resourceUri, StopVirtualMachineContent content)
+        {
+            var uri = new RawRequestUriBuilder();
+            uri.Reset(_endpoint);
+            uri.AppendPath("/", false);
+            uri.AppendPath(resourceUri, false);
+            uri.AppendPath("/providers/Microsoft.ScVmm/virtualMachineInstances/default/stop", false);
+            uri.AppendQuery("api-version", _apiVersion, true);
+            return uri;
+        }
+
+        internal HttpMessage CreateStopRequest(string resourceUri, StopVirtualMachineContent content)
+        {
+            var message = _pipeline.CreateMessage();
+            var request = message.Request;
+            request.Method = RequestMethod.Post;
+            var uri = new RawRequestUriBuilder();
+            uri.Reset(_endpoint);
+            uri.AppendPath("/", false);
+            uri.AppendPath(resourceUri, false);
+            uri.AppendPath("/providers/Microsoft.ScVmm/virtualMachineInstances/default/stop", false);
+            uri.AppendQuery("api-version", _apiVersion, true);
+            request.Uri = uri;
+            request.Headers.Add("Accept", "application/json");
+            request.Headers.Add("Content-Type", "application/json");
+            var content0 = new Utf8JsonRequestContent();
+            content0.JsonWriter.WriteObjectValue(content, ModelSerializationExtensions.WireOptions);
+            request.Content = content0;
+            _userAgent.Apply(message);
+            return message;
+        }
+
+        /// <summary> The operation to power off (stop) a virtual machine instance. </summary>
+        /// <param name="resourceUri"> The fully qualified Azure Resource manager identifier of the resource. </param>
+        /// <param name="content"> The content of the action request. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceUri"/> or <paramref name="content"/> is null. </exception>
+        public async Task<Response> StopAsync(string resourceUri, StopVirtualMachineContent content, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNull(resourceUri, nameof(resourceUri));
+            Argument.AssertNotNull(content, nameof(content));
+
+            using var message = CreateStopRequest(resourceUri, content);
+            await _pipeline.SendAsync(message, cancellationToken).ConfigureAwait(false);
+            switch (message.Response.Status)
+            {
+                case 202:
+                    return message.Response;
+                default:
+                    throw new RequestFailedException(message.Response);
+            }
+        }
+
+        /// <summary> The operation to power off (stop) a virtual machine instance. </summary>
+        /// <param name="resourceUri"> The fully qualified Azure Resource manager identifier of the resource. </param>
+        /// <param name="content"> The content of the action request. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceUri"/> or <paramref name="content"/> is null. </exception>
+        public Response Stop(string resourceUri, StopVirtualMachineContent content, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNull(resourceUri, nameof(resourceUri));
+            Argument.AssertNotNull(content, nameof(content));
+
+            using var message = CreateStopRequest(resourceUri, content);
             _pipeline.Send(message, cancellationToken);
             switch (message.Response.Status)
             {
@@ -888,7 +884,7 @@ namespace Azure.ResourceManager.ScVmm
 
         /// <summary> Lists all of the virtual machine instances within the specified parent resource. </summary>
         /// <param name="nextLink"> The URL to the next page of results. </param>
-        /// <param name="resourceUri"> The fully qualified Azure Resource manager identifier of the Hybrid Compute machine resource to be extended. </param>
+        /// <param name="resourceUri"> The fully qualified Azure Resource manager identifier of the resource. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="nextLink"/> or <paramref name="resourceUri"/> is null. </exception>
         public async Task<Response<VirtualMachineInstanceListResult>> ListNextPageAsync(string nextLink, string resourceUri, CancellationToken cancellationToken = default)
@@ -914,7 +910,7 @@ namespace Azure.ResourceManager.ScVmm
 
         /// <summary> Lists all of the virtual machine instances within the specified parent resource. </summary>
         /// <param name="nextLink"> The URL to the next page of results. </param>
-        /// <param name="resourceUri"> The fully qualified Azure Resource manager identifier of the Hybrid Compute machine resource to be extended. </param>
+        /// <param name="resourceUri"> The fully qualified Azure Resource manager identifier of the resource. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="nextLink"/> or <paramref name="resourceUri"/> is null. </exception>
         public Response<VirtualMachineInstanceListResult> ListNextPage(string nextLink, string resourceUri, CancellationToken cancellationToken = default)

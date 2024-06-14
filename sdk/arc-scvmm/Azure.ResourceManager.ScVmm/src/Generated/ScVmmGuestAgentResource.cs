@@ -30,8 +30,8 @@ namespace Azure.ResourceManager.ScVmm
             return new ResourceIdentifier(resourceId);
         }
 
-        private readonly ClientDiagnostics _scVmmGuestAgentVmInstanceGuestAgentsClientDiagnostics;
-        private readonly VMInstanceGuestAgentsRestOperations _scVmmGuestAgentVmInstanceGuestAgentsRestClient;
+        private readonly ClientDiagnostics _scVmmGuestAgentGuestAgentsClientDiagnostics;
+        private readonly GuestAgentsRestOperations _scVmmGuestAgentGuestAgentsRestClient;
         private readonly ScVmmGuestAgentData _data;
 
         /// <summary> Gets the resource type for the operations. </summary>
@@ -56,9 +56,9 @@ namespace Azure.ResourceManager.ScVmm
         /// <param name="id"> The identifier of the resource that is the target of operations. </param>
         internal ScVmmGuestAgentResource(ArmClient client, ResourceIdentifier id) : base(client, id)
         {
-            _scVmmGuestAgentVmInstanceGuestAgentsClientDiagnostics = new ClientDiagnostics("Azure.ResourceManager.ScVmm", ResourceType.Namespace, Diagnostics);
-            TryGetApiVersion(ResourceType, out string scVmmGuestAgentVmInstanceGuestAgentsApiVersion);
-            _scVmmGuestAgentVmInstanceGuestAgentsRestClient = new VMInstanceGuestAgentsRestOperations(Pipeline, Diagnostics.ApplicationId, Endpoint, scVmmGuestAgentVmInstanceGuestAgentsApiVersion);
+            _scVmmGuestAgentGuestAgentsClientDiagnostics = new ClientDiagnostics("Azure.ResourceManager.ScVmm", ResourceType.Namespace, Diagnostics);
+            TryGetApiVersion(ResourceType, out string scVmmGuestAgentGuestAgentsApiVersion);
+            _scVmmGuestAgentGuestAgentsRestClient = new GuestAgentsRestOperations(Pipeline, Diagnostics.ApplicationId, Endpoint, scVmmGuestAgentGuestAgentsApiVersion);
 #if DEBUG
 			ValidateResourceId(Id);
 #endif
@@ -94,7 +94,7 @@ namespace Azure.ResourceManager.ScVmm
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>VMInstanceGuestAgents_Get</description>
+        /// <description>GuestAgents_Get</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
@@ -109,11 +109,11 @@ namespace Azure.ResourceManager.ScVmm
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         public virtual async Task<Response<ScVmmGuestAgentResource>> GetAsync(CancellationToken cancellationToken = default)
         {
-            using var scope = _scVmmGuestAgentVmInstanceGuestAgentsClientDiagnostics.CreateScope("ScVmmGuestAgentResource.Get");
+            using var scope = _scVmmGuestAgentGuestAgentsClientDiagnostics.CreateScope("ScVmmGuestAgentResource.Get");
             scope.Start();
             try
             {
-                var response = await _scVmmGuestAgentVmInstanceGuestAgentsRestClient.GetAsync(Id.Parent.Parent, cancellationToken).ConfigureAwait(false);
+                var response = await _scVmmGuestAgentGuestAgentsRestClient.GetAsync(Id.Parent.Parent, cancellationToken).ConfigureAwait(false);
                 if (response.Value == null)
                     throw new RequestFailedException(response.GetRawResponse());
                 return Response.FromValue(new ScVmmGuestAgentResource(Client, response.Value), response.GetRawResponse());
@@ -134,7 +134,7 @@ namespace Azure.ResourceManager.ScVmm
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>VMInstanceGuestAgents_Get</description>
+        /// <description>GuestAgents_Get</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
@@ -149,11 +149,11 @@ namespace Azure.ResourceManager.ScVmm
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         public virtual Response<ScVmmGuestAgentResource> Get(CancellationToken cancellationToken = default)
         {
-            using var scope = _scVmmGuestAgentVmInstanceGuestAgentsClientDiagnostics.CreateScope("ScVmmGuestAgentResource.Get");
+            using var scope = _scVmmGuestAgentGuestAgentsClientDiagnostics.CreateScope("ScVmmGuestAgentResource.Get");
             scope.Start();
             try
             {
-                var response = _scVmmGuestAgentVmInstanceGuestAgentsRestClient.Get(Id.Parent.Parent, cancellationToken);
+                var response = _scVmmGuestAgentGuestAgentsRestClient.Get(Id.Parent.Parent, cancellationToken);
                 if (response.Value == null)
                     throw new RequestFailedException(response.GetRawResponse());
                 return Response.FromValue(new ScVmmGuestAgentResource(Client, response.Value), response.GetRawResponse());
@@ -174,7 +174,7 @@ namespace Azure.ResourceManager.ScVmm
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>VMInstanceGuestAgents_Delete</description>
+        /// <description>GuestAgents_Delete</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
@@ -190,12 +190,12 @@ namespace Azure.ResourceManager.ScVmm
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         public virtual async Task<ArmOperation> DeleteAsync(WaitUntil waitUntil, CancellationToken cancellationToken = default)
         {
-            using var scope = _scVmmGuestAgentVmInstanceGuestAgentsClientDiagnostics.CreateScope("ScVmmGuestAgentResource.Delete");
+            using var scope = _scVmmGuestAgentGuestAgentsClientDiagnostics.CreateScope("ScVmmGuestAgentResource.Delete");
             scope.Start();
             try
             {
-                var response = await _scVmmGuestAgentVmInstanceGuestAgentsRestClient.DeleteAsync(Id.Parent.Parent, cancellationToken).ConfigureAwait(false);
-                var uri = _scVmmGuestAgentVmInstanceGuestAgentsRestClient.CreateDeleteRequestUri(Id.Parent.Parent);
+                var response = await _scVmmGuestAgentGuestAgentsRestClient.DeleteAsync(Id.Parent.Parent, cancellationToken).ConfigureAwait(false);
+                var uri = _scVmmGuestAgentGuestAgentsRestClient.CreateDeleteRequestUri(Id.Parent.Parent);
                 var rehydrationToken = NextLinkOperationImplementation.GetRehydrationToken(RequestMethod.Delete, uri.ToUri(), uri.ToString(), "None", null, OperationFinalStateVia.OriginalUri.ToString());
                 var operation = new ScVmmArmOperation(response, rehydrationToken);
                 if (waitUntil == WaitUntil.Completed)
@@ -218,7 +218,7 @@ namespace Azure.ResourceManager.ScVmm
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>VMInstanceGuestAgents_Delete</description>
+        /// <description>GuestAgents_Delete</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
@@ -234,12 +234,12 @@ namespace Azure.ResourceManager.ScVmm
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         public virtual ArmOperation Delete(WaitUntil waitUntil, CancellationToken cancellationToken = default)
         {
-            using var scope = _scVmmGuestAgentVmInstanceGuestAgentsClientDiagnostics.CreateScope("ScVmmGuestAgentResource.Delete");
+            using var scope = _scVmmGuestAgentGuestAgentsClientDiagnostics.CreateScope("ScVmmGuestAgentResource.Delete");
             scope.Start();
             try
             {
-                var response = _scVmmGuestAgentVmInstanceGuestAgentsRestClient.Delete(Id.Parent.Parent, cancellationToken);
-                var uri = _scVmmGuestAgentVmInstanceGuestAgentsRestClient.CreateDeleteRequestUri(Id.Parent.Parent);
+                var response = _scVmmGuestAgentGuestAgentsRestClient.Delete(Id.Parent.Parent, cancellationToken);
+                var uri = _scVmmGuestAgentGuestAgentsRestClient.CreateDeleteRequestUri(Id.Parent.Parent);
                 var rehydrationToken = NextLinkOperationImplementation.GetRehydrationToken(RequestMethod.Delete, uri.ToUri(), uri.ToString(), "None", null, OperationFinalStateVia.OriginalUri.ToString());
                 var operation = new ScVmmArmOperation(response, rehydrationToken);
                 if (waitUntil == WaitUntil.Completed)
@@ -262,7 +262,7 @@ namespace Azure.ResourceManager.ScVmm
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>VMInstanceGuestAgents_Create</description>
+        /// <description>GuestAgents_Create</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
@@ -275,19 +275,19 @@ namespace Azure.ResourceManager.ScVmm
         /// </list>
         /// </summary>
         /// <param name="waitUntil"> <see cref="WaitUntil.Completed"/> if the method should wait to return until the long-running operation has completed on the service; <see cref="WaitUntil.Started"/> if it should return after starting the operation. For more information on long-running operations, please see <see href="https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/core/Azure.Core/samples/LongRunningOperations.md"> Azure.Core Long-Running Operation samples</see>. </param>
-        /// <param name="data"> Request payload. </param>
+        /// <param name="data"> Resource create parameters. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="data"/> is null. </exception>
         public virtual async Task<ArmOperation<ScVmmGuestAgentResource>> CreateOrUpdateAsync(WaitUntil waitUntil, ScVmmGuestAgentData data, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNull(data, nameof(data));
 
-            using var scope = _scVmmGuestAgentVmInstanceGuestAgentsClientDiagnostics.CreateScope("ScVmmGuestAgentResource.CreateOrUpdate");
+            using var scope = _scVmmGuestAgentGuestAgentsClientDiagnostics.CreateScope("ScVmmGuestAgentResource.CreateOrUpdate");
             scope.Start();
             try
             {
-                var response = await _scVmmGuestAgentVmInstanceGuestAgentsRestClient.CreateAsync(Id.Parent.Parent, data, cancellationToken).ConfigureAwait(false);
-                var operation = new ScVmmArmOperation<ScVmmGuestAgentResource>(new ScVmmGuestAgentOperationSource(Client), _scVmmGuestAgentVmInstanceGuestAgentsClientDiagnostics, Pipeline, _scVmmGuestAgentVmInstanceGuestAgentsRestClient.CreateCreateRequest(Id.Parent.Parent, data).Request, response, OperationFinalStateVia.AzureAsyncOperation);
+                var response = await _scVmmGuestAgentGuestAgentsRestClient.CreateAsync(Id.Parent.Parent, data, cancellationToken).ConfigureAwait(false);
+                var operation = new ScVmmArmOperation<ScVmmGuestAgentResource>(new ScVmmGuestAgentOperationSource(Client), _scVmmGuestAgentGuestAgentsClientDiagnostics, Pipeline, _scVmmGuestAgentGuestAgentsRestClient.CreateCreateRequest(Id.Parent.Parent, data).Request, response, OperationFinalStateVia.AzureAsyncOperation);
                 if (waitUntil == WaitUntil.Completed)
                     await operation.WaitForCompletionAsync(cancellationToken).ConfigureAwait(false);
                 return operation;
@@ -308,7 +308,7 @@ namespace Azure.ResourceManager.ScVmm
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>VMInstanceGuestAgents_Create</description>
+        /// <description>GuestAgents_Create</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
@@ -321,19 +321,19 @@ namespace Azure.ResourceManager.ScVmm
         /// </list>
         /// </summary>
         /// <param name="waitUntil"> <see cref="WaitUntil.Completed"/> if the method should wait to return until the long-running operation has completed on the service; <see cref="WaitUntil.Started"/> if it should return after starting the operation. For more information on long-running operations, please see <see href="https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/core/Azure.Core/samples/LongRunningOperations.md"> Azure.Core Long-Running Operation samples</see>. </param>
-        /// <param name="data"> Request payload. </param>
+        /// <param name="data"> Resource create parameters. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="data"/> is null. </exception>
         public virtual ArmOperation<ScVmmGuestAgentResource> CreateOrUpdate(WaitUntil waitUntil, ScVmmGuestAgentData data, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNull(data, nameof(data));
 
-            using var scope = _scVmmGuestAgentVmInstanceGuestAgentsClientDiagnostics.CreateScope("ScVmmGuestAgentResource.CreateOrUpdate");
+            using var scope = _scVmmGuestAgentGuestAgentsClientDiagnostics.CreateScope("ScVmmGuestAgentResource.CreateOrUpdate");
             scope.Start();
             try
             {
-                var response = _scVmmGuestAgentVmInstanceGuestAgentsRestClient.Create(Id.Parent.Parent, data, cancellationToken);
-                var operation = new ScVmmArmOperation<ScVmmGuestAgentResource>(new ScVmmGuestAgentOperationSource(Client), _scVmmGuestAgentVmInstanceGuestAgentsClientDiagnostics, Pipeline, _scVmmGuestAgentVmInstanceGuestAgentsRestClient.CreateCreateRequest(Id.Parent.Parent, data).Request, response, OperationFinalStateVia.AzureAsyncOperation);
+                var response = _scVmmGuestAgentGuestAgentsRestClient.Create(Id.Parent.Parent, data, cancellationToken);
+                var operation = new ScVmmArmOperation<ScVmmGuestAgentResource>(new ScVmmGuestAgentOperationSource(Client), _scVmmGuestAgentGuestAgentsClientDiagnostics, Pipeline, _scVmmGuestAgentGuestAgentsRestClient.CreateCreateRequest(Id.Parent.Parent, data).Request, response, OperationFinalStateVia.AzureAsyncOperation);
                 if (waitUntil == WaitUntil.Completed)
                     operation.WaitForCompletion(cancellationToken);
                 return operation;

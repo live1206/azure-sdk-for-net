@@ -10,7 +10,7 @@ using System.ComponentModel;
 
 namespace Azure.ResourceManager.ScVmm.Models
 {
-    /// <summary> Gets or sets a value indicating whether to enable dynamic memory or not. </summary>
+    /// <summary> Dynamic memory enabled. </summary>
     public readonly partial struct DynamicMemoryEnabled : IEquatable<DynamicMemoryEnabled>
     {
         private readonly string _value;
@@ -22,13 +22,13 @@ namespace Azure.ResourceManager.ScVmm.Models
             _value = value ?? throw new ArgumentNullException(nameof(value));
         }
 
-        private const string FalseValue = "false";
         private const string TrueValue = "true";
+        private const string FalseValue = "false";
 
-        /// <summary> false. </summary>
-        public static DynamicMemoryEnabled False { get; } = new DynamicMemoryEnabled(FalseValue);
-        /// <summary> true. </summary>
+        /// <summary> Enable dynamic memory. </summary>
         public static DynamicMemoryEnabled True { get; } = new DynamicMemoryEnabled(TrueValue);
+        /// <summary> Disable dynamic memory. </summary>
+        public static DynamicMemoryEnabled False { get; } = new DynamicMemoryEnabled(FalseValue);
         /// <summary> Determines if two <see cref="DynamicMemoryEnabled"/> values are the same. </summary>
         public static bool operator ==(DynamicMemoryEnabled left, DynamicMemoryEnabled right) => left.Equals(right);
         /// <summary> Determines if two <see cref="DynamicMemoryEnabled"/> values are not the same. </summary>

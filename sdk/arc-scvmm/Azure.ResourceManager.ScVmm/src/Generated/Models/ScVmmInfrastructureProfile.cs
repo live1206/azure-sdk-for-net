@@ -57,7 +57,7 @@ namespace Azure.ResourceManager.ScVmm.Models
         /// <param name="vmmServerId"> ARM Id of the vmmServer resource in which this resource resides. </param>
         /// <param name="cloudId"> ARM Id of the cloud resource to use for deploying the vm. </param>
         /// <param name="templateId"> ARM Id of the template resource to use for deploying the vm. </param>
-        /// <param name="vmName"> VMName is the name of VM on the SCVMM server. </param>
+        /// <param name="vmName"> VMName is the name of VM on the SCVmm server. </param>
         /// <param name="uuid"> Unique ID of the virtual machine. </param>
         /// <param name="lastRestoredVmCheckpoint"> Last restored checkpoint in the vm. </param>
         /// <param name="checkpoints"> Checkpoints in the vm. </param>
@@ -65,7 +65,7 @@ namespace Azure.ResourceManager.ScVmm.Models
         /// <param name="generation"> Gets or sets the generation for the vm. </param>
         /// <param name="biosGuid"> Gets or sets the bios guid for the vm. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal ScVmmInfrastructureProfile(string inventoryItemId, ResourceIdentifier vmmServerId, ResourceIdentifier cloudId, ResourceIdentifier templateId, string vmName, string uuid, ScVmmCheckpoint lastRestoredVmCheckpoint, IList<ScVmmCheckpoint> checkpoints, string checkpointType, int? generation, string biosGuid, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal ScVmmInfrastructureProfile(string inventoryItemId, ResourceIdentifier vmmServerId, ResourceIdentifier cloudId, ResourceIdentifier templateId, string vmName, string uuid, ScVmmCheckpoint lastRestoredVmCheckpoint, IReadOnlyList<ScVmmCheckpoint> checkpoints, string checkpointType, int? generation, string biosGuid, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             InventoryItemId = inventoryItemId;
             VmmServerId = vmmServerId;
@@ -89,14 +89,14 @@ namespace Azure.ResourceManager.ScVmm.Models
         public ResourceIdentifier CloudId { get; set; }
         /// <summary> ARM Id of the template resource to use for deploying the vm. </summary>
         public ResourceIdentifier TemplateId { get; set; }
-        /// <summary> VMName is the name of VM on the SCVMM server. </summary>
+        /// <summary> VMName is the name of VM on the SCVmm server. </summary>
         public string VmName { get; set; }
         /// <summary> Unique ID of the virtual machine. </summary>
         public string Uuid { get; set; }
         /// <summary> Last restored checkpoint in the vm. </summary>
         public ScVmmCheckpoint LastRestoredVmCheckpoint { get; }
         /// <summary> Checkpoints in the vm. </summary>
-        public IList<ScVmmCheckpoint> Checkpoints { get; }
+        public IReadOnlyList<ScVmmCheckpoint> Checkpoints { get; }
         /// <summary> Type of checkpoint supported for the vm. </summary>
         public string CheckpointType { get; set; }
         /// <summary> Gets or sets the generation for the vm. </summary>

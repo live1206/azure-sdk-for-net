@@ -11,7 +11,6 @@ using System.Collections.Generic;
 using System.Text.Json;
 using Azure.Core;
 using Azure.ResourceManager.Models;
-using Azure.ResourceManager.Resources.Models;
 using Azure.ResourceManager.ScVmm.Models;
 
 namespace Azure.ResourceManager.ScVmm
@@ -29,8 +28,13 @@ namespace Azure.ResourceManager.ScVmm
             }
 
             writer.WriteStartObject();
+            if (Optional.IsDefined(Properties))
+            {
+                writer.WritePropertyName("properties"u8);
+                writer.WriteObjectValue(Properties, options);
+            }
             writer.WritePropertyName("extendedLocation"u8);
-            JsonSerializer.Serialize(writer, ExtendedLocation);
+            writer.WriteObjectValue(ExtendedLocation, options);
             if (Optional.IsCollectionDefined(Tags))
             {
                 writer.WritePropertyName("tags"u8);
@@ -64,34 +68,6 @@ namespace Azure.ResourceManager.ScVmm
                 writer.WritePropertyName("systemData"u8);
                 JsonSerializer.Serialize(writer, SystemData);
             }
-            writer.WritePropertyName("properties"u8);
-            writer.WriteStartObject();
-            if (Optional.IsDefined(InventoryItemId))
-            {
-                writer.WritePropertyName("inventoryItemId"u8);
-                writer.WriteStringValue(InventoryItemId);
-            }
-            if (Optional.IsDefined(Uuid))
-            {
-                writer.WritePropertyName("uuid"u8);
-                writer.WriteStringValue(Uuid);
-            }
-            if (Optional.IsDefined(VmmServerId))
-            {
-                writer.WritePropertyName("vmmServerId"u8);
-                writer.WriteStringValue(VmmServerId);
-            }
-            if (options.Format != "W" && Optional.IsDefined(NetworkName))
-            {
-                writer.WritePropertyName("networkName"u8);
-                writer.WriteStringValue(NetworkName);
-            }
-            if (options.Format != "W" && Optional.IsDefined(ProvisioningState))
-            {
-                writer.WritePropertyName("provisioningState"u8);
-                writer.WriteStringValue(ProvisioningState.Value.ToString());
-            }
-            writer.WriteEndObject();
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
                 foreach (var item in _serializedAdditionalRawData)
@@ -130,25 +106,30 @@ namespace Azure.ResourceManager.ScVmm
             {
                 return null;
             }
-            ExtendedLocation extendedLocation = default;
+            VirtualNetworkProperties properties = default;
+            ScVmmExtendedLocation extendedLocation = default;
             IDictionary<string, string> tags = default;
             AzureLocation location = default;
             ResourceIdentifier id = default;
             string name = default;
             ResourceType type = default;
             SystemData systemData = default;
-            string inventoryItemId = default;
-            string uuid = default;
-            ResourceIdentifier vmmServerId = default;
-            string networkName = default;
-            ScVmmProvisioningState? provisioningState = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
             {
+                if (property.NameEquals("properties"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    properties = VirtualNetworkProperties.DeserializeVirtualNetworkProperties(property.Value, options);
+                    continue;
+                }
                 if (property.NameEquals("extendedLocation"u8))
                 {
-                    extendedLocation = JsonSerializer.Deserialize<ExtendedLocation>(property.Value.GetRawText());
+                    extendedLocation = ScVmmExtendedLocation.DeserializeScVmmExtendedLocation(property.Value, options);
                     continue;
                 }
                 if (property.NameEquals("tags"u8))
@@ -194,51 +175,6 @@ namespace Azure.ResourceManager.ScVmm
                     systemData = JsonSerializer.Deserialize<SystemData>(property.Value.GetRawText());
                     continue;
                 }
-                if (property.NameEquals("properties"u8))
-                {
-                    if (property.Value.ValueKind == JsonValueKind.Null)
-                    {
-                        property.ThrowNonNullablePropertyIsNull();
-                        continue;
-                    }
-                    foreach (var property0 in property.Value.EnumerateObject())
-                    {
-                        if (property0.NameEquals("inventoryItemId"u8))
-                        {
-                            inventoryItemId = property0.Value.GetString();
-                            continue;
-                        }
-                        if (property0.NameEquals("uuid"u8))
-                        {
-                            uuid = property0.Value.GetString();
-                            continue;
-                        }
-                        if (property0.NameEquals("vmmServerId"u8))
-                        {
-                            if (property0.Value.ValueKind == JsonValueKind.Null)
-                            {
-                                continue;
-                            }
-                            vmmServerId = new ResourceIdentifier(property0.Value.GetString());
-                            continue;
-                        }
-                        if (property0.NameEquals("networkName"u8))
-                        {
-                            networkName = property0.Value.GetString();
-                            continue;
-                        }
-                        if (property0.NameEquals("provisioningState"u8))
-                        {
-                            if (property0.Value.ValueKind == JsonValueKind.Null)
-                            {
-                                continue;
-                            }
-                            provisioningState = new ScVmmProvisioningState(property0.Value.GetString());
-                            continue;
-                        }
-                    }
-                    continue;
-                }
                 if (options.Format != "W")
                 {
                     rawDataDictionary.Add(property.Name, BinaryData.FromString(property.Value.GetRawText()));
@@ -252,12 +188,8 @@ namespace Azure.ResourceManager.ScVmm
                 systemData,
                 tags ?? new ChangeTrackingDictionary<string, string>(),
                 location,
+                properties,
                 extendedLocation,
-                inventoryItemId,
-                uuid,
-                vmmServerId,
-                networkName,
-                provisioningState,
                 serializedAdditionalRawData);
         }
 

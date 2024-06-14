@@ -101,7 +101,7 @@ namespace Azure.ResourceManager.ScVmm.Models
             }
             string name = default;
             string macAddress = default;
-            string virtualNetworkId = default;
+            ResourceIdentifier virtualNetworkId = default;
             AllocationMethod? ipv4AddressType = default;
             AllocationMethod? ipv6AddressType = default;
             AllocationMethod? macAddressType = default;
@@ -122,7 +122,11 @@ namespace Azure.ResourceManager.ScVmm.Models
                 }
                 if (property.NameEquals("virtualNetworkId"u8))
                 {
-                    virtualNetworkId = property.Value.GetString();
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    virtualNetworkId = new ResourceIdentifier(property.Value.GetString());
                     continue;
                 }
                 if (property.NameEquals("ipv4AddressType"u8))

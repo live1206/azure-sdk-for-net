@@ -8,17 +8,20 @@ azure-arm: true
 csharp: true
 library-name: ScVmm
 namespace: Azure.ResourceManager.ScVmm
-require: https://github.com/Azure/azure-rest-api-specs/blob/1f0722d117a66ec48674c9644f786972d57a29b5/specification/scvmm/resource-manager/readme.md
+require: https://github.com/Azure/azure-rest-api-specs/blob/30c95a2a424a347f27ac78b6bdefd37f71314b7e/specification/scvmm/resource-manager/readme.md
 #tag: package-2023-10
 output-folder: $(this-folder)/Generated
 clear-output-folder: true
 sample-gen:
   output-folder: $(this-folder)/../samples/Generated
   clear-output-folder: true
+  sample: false
 skip-csproj: true
 modelerfour:
   flatten-payloads: false
 use-model-reader-writer: true
+# csharpgen:
+#   attach: true
 
 #mgmt-debug: 
 #  show-serialized-names: true

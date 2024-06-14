@@ -10,7 +10,7 @@ using System.ComponentModel;
 
 namespace Azure.ResourceManager.ScVmm.Models
 {
-    /// <summary> Defines the different types of VM guest operating systems. </summary>
+    /// <summary> Virtual machine operating system type. </summary>
     public readonly partial struct ScVmmOSType : IEquatable<ScVmmOSType>
     {
         private readonly string _value;
@@ -26,11 +26,11 @@ namespace Azure.ResourceManager.ScVmm.Models
         private const string LinuxValue = "Linux";
         private const string OtherValue = "Other";
 
-        /// <summary> Windows. </summary>
+        /// <summary> Windows operating system. </summary>
         public static ScVmmOSType Windows { get; } = new ScVmmOSType(WindowsValue);
-        /// <summary> Linux. </summary>
+        /// <summary> Linux operating system. </summary>
         public static ScVmmOSType Linux { get; } = new ScVmmOSType(LinuxValue);
-        /// <summary> Other. </summary>
+        /// <summary> Other operating system. </summary>
         public static ScVmmOSType Other { get; } = new ScVmmOSType(OtherValue);
         /// <summary> Determines if two <see cref="ScVmmOSType"/> values are the same. </summary>
         public static bool operator ==(ScVmmOSType left, ScVmmOSType right) => left.Equals(right);

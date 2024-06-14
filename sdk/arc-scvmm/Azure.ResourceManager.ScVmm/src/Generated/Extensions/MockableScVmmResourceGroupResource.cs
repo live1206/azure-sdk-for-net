@@ -33,23 +33,23 @@ namespace Azure.ResourceManager.ScVmm.Mocking
             return apiVersion;
         }
 
-        /// <summary> Gets a collection of ScVmmServerResources in the ResourceGroupResource. </summary>
-        /// <returns> An object representing collection of ScVmmServerResources and their operations over a ScVmmServerResource. </returns>
-        public virtual ScVmmServerCollection GetScVmmServers()
+        /// <summary> Gets a collection of ScVmmAvailabilitySetResources in the ResourceGroupResource. </summary>
+        /// <returns> An object representing collection of ScVmmAvailabilitySetResources and their operations over a ScVmmAvailabilitySetResource. </returns>
+        public virtual ScVmmAvailabilitySetCollection GetScVmmAvailabilitySets()
         {
-            return GetCachedClient(client => new ScVmmServerCollection(client, Id));
+            return GetCachedClient(client => new ScVmmAvailabilitySetCollection(client, Id));
         }
 
         /// <summary>
-        /// Implements VMMServer GET method.
+        /// Implements AvailabilitySet GET method.
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ScVmm/vmmServers/{vmmServerName}</description>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ScVmm/availabilitySets/{availabilitySetResourceName}</description>
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>VmmServers_Get</description>
+        /// <description>AvailabilitySets_Get</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
@@ -57,30 +57,30 @@ namespace Azure.ResourceManager.ScVmm.Mocking
         /// </item>
         /// <item>
         /// <term>Resource</term>
-        /// <description><see cref="ScVmmServerResource"/></description>
+        /// <description><see cref="ScVmmAvailabilitySetResource"/></description>
         /// </item>
         /// </list>
         /// </summary>
-        /// <param name="vmmServerName"> Name of the VMMServer. </param>
+        /// <param name="availabilitySetResourceName"> Name of the AvailabilitySet. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="vmmServerName"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="vmmServerName"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="availabilitySetResourceName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="availabilitySetResourceName"/> is an empty string, and was expected to be non-empty. </exception>
         [ForwardsClientCalls]
-        public virtual async Task<Response<ScVmmServerResource>> GetScVmmServerAsync(string vmmServerName, CancellationToken cancellationToken = default)
+        public virtual async Task<Response<ScVmmAvailabilitySetResource>> GetScVmmAvailabilitySetAsync(string availabilitySetResourceName, CancellationToken cancellationToken = default)
         {
-            return await GetScVmmServers().GetAsync(vmmServerName, cancellationToken).ConfigureAwait(false);
+            return await GetScVmmAvailabilitySets().GetAsync(availabilitySetResourceName, cancellationToken).ConfigureAwait(false);
         }
 
         /// <summary>
-        /// Implements VMMServer GET method.
+        /// Implements AvailabilitySet GET method.
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ScVmm/vmmServers/{vmmServerName}</description>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ScVmm/availabilitySets/{availabilitySetResourceName}</description>
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>VmmServers_Get</description>
+        /// <description>AvailabilitySets_Get</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
@@ -88,18 +88,18 @@ namespace Azure.ResourceManager.ScVmm.Mocking
         /// </item>
         /// <item>
         /// <term>Resource</term>
-        /// <description><see cref="ScVmmServerResource"/></description>
+        /// <description><see cref="ScVmmAvailabilitySetResource"/></description>
         /// </item>
         /// </list>
         /// </summary>
-        /// <param name="vmmServerName"> Name of the VMMServer. </param>
+        /// <param name="availabilitySetResourceName"> Name of the AvailabilitySet. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="vmmServerName"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="vmmServerName"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="availabilitySetResourceName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="availabilitySetResourceName"/> is an empty string, and was expected to be non-empty. </exception>
         [ForwardsClientCalls]
-        public virtual Response<ScVmmServerResource> GetScVmmServer(string vmmServerName, CancellationToken cancellationToken = default)
+        public virtual Response<ScVmmAvailabilitySetResource> GetScVmmAvailabilitySet(string availabilitySetResourceName, CancellationToken cancellationToken = default)
         {
-            return GetScVmmServers().Get(vmmServerName, cancellationToken);
+            return GetScVmmAvailabilitySets().Get(availabilitySetResourceName, cancellationToken);
         }
 
         /// <summary> Gets a collection of ScVmmCloudResources in the ResourceGroupResource. </summary>
@@ -171,75 +171,6 @@ namespace Azure.ResourceManager.ScVmm.Mocking
             return GetScVmmClouds().Get(cloudResourceName, cancellationToken);
         }
 
-        /// <summary> Gets a collection of ScVmmVirtualNetworkResources in the ResourceGroupResource. </summary>
-        /// <returns> An object representing collection of ScVmmVirtualNetworkResources and their operations over a ScVmmVirtualNetworkResource. </returns>
-        public virtual ScVmmVirtualNetworkCollection GetScVmmVirtualNetworks()
-        {
-            return GetCachedClient(client => new ScVmmVirtualNetworkCollection(client, Id));
-        }
-
-        /// <summary>
-        /// Implements VirtualNetwork GET method.
-        /// <list type="bullet">
-        /// <item>
-        /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ScVmm/virtualNetworks/{virtualNetworkName}</description>
-        /// </item>
-        /// <item>
-        /// <term>Operation Id</term>
-        /// <description>VirtualNetworks_Get</description>
-        /// </item>
-        /// <item>
-        /// <term>Default Api Version</term>
-        /// <description>2023-10-07</description>
-        /// </item>
-        /// <item>
-        /// <term>Resource</term>
-        /// <description><see cref="ScVmmVirtualNetworkResource"/></description>
-        /// </item>
-        /// </list>
-        /// </summary>
-        /// <param name="virtualNetworkName"> Name of the VirtualNetwork. </param>
-        /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="virtualNetworkName"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="virtualNetworkName"/> is an empty string, and was expected to be non-empty. </exception>
-        [ForwardsClientCalls]
-        public virtual async Task<Response<ScVmmVirtualNetworkResource>> GetScVmmVirtualNetworkAsync(string virtualNetworkName, CancellationToken cancellationToken = default)
-        {
-            return await GetScVmmVirtualNetworks().GetAsync(virtualNetworkName, cancellationToken).ConfigureAwait(false);
-        }
-
-        /// <summary>
-        /// Implements VirtualNetwork GET method.
-        /// <list type="bullet">
-        /// <item>
-        /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ScVmm/virtualNetworks/{virtualNetworkName}</description>
-        /// </item>
-        /// <item>
-        /// <term>Operation Id</term>
-        /// <description>VirtualNetworks_Get</description>
-        /// </item>
-        /// <item>
-        /// <term>Default Api Version</term>
-        /// <description>2023-10-07</description>
-        /// </item>
-        /// <item>
-        /// <term>Resource</term>
-        /// <description><see cref="ScVmmVirtualNetworkResource"/></description>
-        /// </item>
-        /// </list>
-        /// </summary>
-        /// <param name="virtualNetworkName"> Name of the VirtualNetwork. </param>
-        /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="virtualNetworkName"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="virtualNetworkName"/> is an empty string, and was expected to be non-empty. </exception>
-        [ForwardsClientCalls]
-        public virtual Response<ScVmmVirtualNetworkResource> GetScVmmVirtualNetwork(string virtualNetworkName, CancellationToken cancellationToken = default)
-        {
-            return GetScVmmVirtualNetworks().Get(virtualNetworkName, cancellationToken);
-        }
-
         /// <summary> Gets a collection of ScVmmVirtualMachineTemplateResources in the ResourceGroupResource. </summary>
         /// <returns> An object representing collection of ScVmmVirtualMachineTemplateResources and their operations over a ScVmmVirtualMachineTemplateResource. </returns>
         public virtual ScVmmVirtualMachineTemplateCollection GetScVmmVirtualMachineTemplates()
@@ -309,23 +240,23 @@ namespace Azure.ResourceManager.ScVmm.Mocking
             return GetScVmmVirtualMachineTemplates().Get(virtualMachineTemplateName, cancellationToken);
         }
 
-        /// <summary> Gets a collection of ScVmmAvailabilitySetResources in the ResourceGroupResource. </summary>
-        /// <returns> An object representing collection of ScVmmAvailabilitySetResources and their operations over a ScVmmAvailabilitySetResource. </returns>
-        public virtual ScVmmAvailabilitySetCollection GetScVmmAvailabilitySets()
+        /// <summary> Gets a collection of ScVmmVirtualNetworkResources in the ResourceGroupResource. </summary>
+        /// <returns> An object representing collection of ScVmmVirtualNetworkResources and their operations over a ScVmmVirtualNetworkResource. </returns>
+        public virtual ScVmmVirtualNetworkCollection GetScVmmVirtualNetworks()
         {
-            return GetCachedClient(client => new ScVmmAvailabilitySetCollection(client, Id));
+            return GetCachedClient(client => new ScVmmVirtualNetworkCollection(client, Id));
         }
 
         /// <summary>
-        /// Implements AvailabilitySet GET method.
+        /// Implements VirtualNetwork GET method.
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ScVmm/availabilitySets/{availabilitySetResourceName}</description>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ScVmm/virtualNetworks/{virtualNetworkName}</description>
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>AvailabilitySets_Get</description>
+        /// <description>VirtualNetworks_Get</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
@@ -333,30 +264,30 @@ namespace Azure.ResourceManager.ScVmm.Mocking
         /// </item>
         /// <item>
         /// <term>Resource</term>
-        /// <description><see cref="ScVmmAvailabilitySetResource"/></description>
+        /// <description><see cref="ScVmmVirtualNetworkResource"/></description>
         /// </item>
         /// </list>
         /// </summary>
-        /// <param name="availabilitySetResourceName"> Name of the AvailabilitySet. </param>
+        /// <param name="virtualNetworkName"> Name of the VirtualNetwork. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="availabilitySetResourceName"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="availabilitySetResourceName"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="virtualNetworkName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="virtualNetworkName"/> is an empty string, and was expected to be non-empty. </exception>
         [ForwardsClientCalls]
-        public virtual async Task<Response<ScVmmAvailabilitySetResource>> GetScVmmAvailabilitySetAsync(string availabilitySetResourceName, CancellationToken cancellationToken = default)
+        public virtual async Task<Response<ScVmmVirtualNetworkResource>> GetScVmmVirtualNetworkAsync(string virtualNetworkName, CancellationToken cancellationToken = default)
         {
-            return await GetScVmmAvailabilitySets().GetAsync(availabilitySetResourceName, cancellationToken).ConfigureAwait(false);
+            return await GetScVmmVirtualNetworks().GetAsync(virtualNetworkName, cancellationToken).ConfigureAwait(false);
         }
 
         /// <summary>
-        /// Implements AvailabilitySet GET method.
+        /// Implements VirtualNetwork GET method.
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ScVmm/availabilitySets/{availabilitySetResourceName}</description>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ScVmm/virtualNetworks/{virtualNetworkName}</description>
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>AvailabilitySets_Get</description>
+        /// <description>VirtualNetworks_Get</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
@@ -364,18 +295,87 @@ namespace Azure.ResourceManager.ScVmm.Mocking
         /// </item>
         /// <item>
         /// <term>Resource</term>
-        /// <description><see cref="ScVmmAvailabilitySetResource"/></description>
+        /// <description><see cref="ScVmmVirtualNetworkResource"/></description>
         /// </item>
         /// </list>
         /// </summary>
-        /// <param name="availabilitySetResourceName"> Name of the AvailabilitySet. </param>
+        /// <param name="virtualNetworkName"> Name of the VirtualNetwork. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="availabilitySetResourceName"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="availabilitySetResourceName"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="virtualNetworkName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="virtualNetworkName"/> is an empty string, and was expected to be non-empty. </exception>
         [ForwardsClientCalls]
-        public virtual Response<ScVmmAvailabilitySetResource> GetScVmmAvailabilitySet(string availabilitySetResourceName, CancellationToken cancellationToken = default)
+        public virtual Response<ScVmmVirtualNetworkResource> GetScVmmVirtualNetwork(string virtualNetworkName, CancellationToken cancellationToken = default)
         {
-            return GetScVmmAvailabilitySets().Get(availabilitySetResourceName, cancellationToken);
+            return GetScVmmVirtualNetworks().Get(virtualNetworkName, cancellationToken);
+        }
+
+        /// <summary> Gets a collection of VmmServerResources in the ResourceGroupResource. </summary>
+        /// <returns> An object representing collection of VmmServerResources and their operations over a VmmServerResource. </returns>
+        public virtual VmmServerCollection GetVmmServers()
+        {
+            return GetCachedClient(client => new VmmServerCollection(client, Id));
+        }
+
+        /// <summary>
+        /// Implements VmmServer GET method.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ScVmm/vmmServers/{vmmServerName}</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>VmmServers_Get</description>
+        /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2023-10-07</description>
+        /// </item>
+        /// <item>
+        /// <term>Resource</term>
+        /// <description><see cref="VmmServerResource"/></description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="vmmServerName"> Name of the VmmServer. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="vmmServerName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="vmmServerName"/> is an empty string, and was expected to be non-empty. </exception>
+        [ForwardsClientCalls]
+        public virtual async Task<Response<VmmServerResource>> GetVmmServerAsync(string vmmServerName, CancellationToken cancellationToken = default)
+        {
+            return await GetVmmServers().GetAsync(vmmServerName, cancellationToken).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// Implements VmmServer GET method.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ScVmm/vmmServers/{vmmServerName}</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>VmmServers_Get</description>
+        /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2023-10-07</description>
+        /// </item>
+        /// <item>
+        /// <term>Resource</term>
+        /// <description><see cref="VmmServerResource"/></description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="vmmServerName"> Name of the VmmServer. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="vmmServerName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="vmmServerName"/> is an empty string, and was expected to be non-empty. </exception>
+        [ForwardsClientCalls]
+        public virtual Response<VmmServerResource> GetVmmServer(string vmmServerName, CancellationToken cancellationToken = default)
+        {
+            return GetVmmServers().Get(vmmServerName, cancellationToken);
         }
     }
 }

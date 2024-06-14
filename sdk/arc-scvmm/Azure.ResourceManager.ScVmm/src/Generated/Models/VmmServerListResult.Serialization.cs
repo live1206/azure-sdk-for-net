@@ -26,16 +26,13 @@ namespace Azure.ResourceManager.ScVmm.Models
             }
 
             writer.WriteStartObject();
-            if (Optional.IsCollectionDefined(Value))
+            writer.WritePropertyName("value"u8);
+            writer.WriteStartArray();
+            foreach (var item in Value)
             {
-                writer.WritePropertyName("value"u8);
-                writer.WriteStartArray();
-                foreach (var item in Value)
-                {
-                    writer.WriteObjectValue(item, options);
-                }
-                writer.WriteEndArray();
+                writer.WriteObjectValue(item, options);
             }
+            writer.WriteEndArray();
             if (options.Format != "W" && Optional.IsDefined(NextLink))
             {
                 writer.WritePropertyName("nextLink"u8);
@@ -79,7 +76,7 @@ namespace Azure.ResourceManager.ScVmm.Models
             {
                 return null;
             }
-            IReadOnlyList<ScVmmServerData> value = default;
+            IReadOnlyList<VmmServerData> value = default;
             Uri nextLink = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
@@ -87,14 +84,10 @@ namespace Azure.ResourceManager.ScVmm.Models
             {
                 if (property.NameEquals("value"u8))
                 {
-                    if (property.Value.ValueKind == JsonValueKind.Null)
-                    {
-                        continue;
-                    }
-                    List<ScVmmServerData> array = new List<ScVmmServerData>();
+                    List<VmmServerData> array = new List<VmmServerData>();
                     foreach (var item in property.Value.EnumerateArray())
                     {
-                        array.Add(ScVmmServerData.DeserializeScVmmServerData(item, options));
+                        array.Add(VmmServerData.DeserializeVmmServerData(item, options));
                     }
                     value = array;
                     continue;
@@ -114,7 +107,7 @@ namespace Azure.ResourceManager.ScVmm.Models
                 }
             }
             serializedAdditionalRawData = rawDataDictionary;
-            return new VmmServerListResult(value ?? new ChangeTrackingList<ScVmmServerData>(), nextLink, serializedAdditionalRawData);
+            return new VmmServerListResult(value, nextLink, serializedAdditionalRawData);
         }
 
         BinaryData IPersistableModel<VmmServerListResult>.Write(ModelReaderWriterOptions options)

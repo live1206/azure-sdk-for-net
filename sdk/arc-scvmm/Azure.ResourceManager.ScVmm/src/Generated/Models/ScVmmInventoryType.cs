@@ -24,17 +24,17 @@ namespace Azure.ResourceManager.ScVmm.Models
 
         private const string CloudValue = "Cloud";
         private const string VirtualNetworkValue = "VirtualNetwork";
-        private const string VirtualMachineTemplateValue = "VirtualMachineTemplate";
         private const string VirtualMachineValue = "VirtualMachine";
+        private const string VirtualMachineTemplateValue = "VirtualMachineTemplate";
 
-        /// <summary> Cloud. </summary>
+        /// <summary> Cloud inventory type. </summary>
         public static ScVmmInventoryType Cloud { get; } = new ScVmmInventoryType(CloudValue);
-        /// <summary> VirtualNetwork. </summary>
+        /// <summary> VirtualNetwork inventory type. </summary>
         public static ScVmmInventoryType VirtualNetwork { get; } = new ScVmmInventoryType(VirtualNetworkValue);
-        /// <summary> VirtualMachineTemplate. </summary>
-        public static ScVmmInventoryType VirtualMachineTemplate { get; } = new ScVmmInventoryType(VirtualMachineTemplateValue);
-        /// <summary> VirtualMachine. </summary>
+        /// <summary> VirtualMachine inventory type. </summary>
         public static ScVmmInventoryType VirtualMachine { get; } = new ScVmmInventoryType(VirtualMachineValue);
+        /// <summary> VirtualMachineTemplate inventory type. </summary>
+        public static ScVmmInventoryType VirtualMachineTemplate { get; } = new ScVmmInventoryType(VirtualMachineTemplateValue);
         /// <summary> Determines if two <see cref="ScVmmInventoryType"/> values are the same. </summary>
         public static bool operator ==(ScVmmInventoryType left, ScVmmInventoryType right) => left.Equals(right);
         /// <summary> Determines if two <see cref="ScVmmInventoryType"/> values are not the same. </summary>

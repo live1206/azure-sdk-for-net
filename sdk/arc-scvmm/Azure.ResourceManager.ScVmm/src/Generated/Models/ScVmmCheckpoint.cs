@@ -46,7 +46,7 @@ namespace Azure.ResourceManager.ScVmm.Models
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
         /// <summary> Initializes a new instance of <see cref="ScVmmCheckpoint"/>. </summary>
-        public ScVmmCheckpoint()
+        internal ScVmmCheckpoint()
         {
         }
 
@@ -66,12 +66,12 @@ namespace Azure.ResourceManager.ScVmm.Models
         }
 
         /// <summary> Gets ID of parent of the checkpoint. </summary>
-        public string ParentCheckpointId { get; set; }
+        public string ParentCheckpointId { get; }
         /// <summary> Gets ID of the checkpoint. </summary>
-        public string CheckpointId { get; set; }
+        public string CheckpointId { get; }
         /// <summary> Gets name of the checkpoint. </summary>
-        public string Name { get; set; }
+        public string Name { get; }
         /// <summary> Gets description of the checkpoint. </summary>
-        public string Description { get; set; }
+        public string Description { get; }
     }
 }

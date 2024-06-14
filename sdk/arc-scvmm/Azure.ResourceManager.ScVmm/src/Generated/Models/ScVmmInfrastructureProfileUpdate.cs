@@ -10,7 +10,7 @@ using System.Collections.Generic;
 
 namespace Azure.ResourceManager.ScVmm.Models
 {
-    /// <summary> Specifies the vmmServer infrastructure specific settings for the virtual machine instance for update. </summary>
+    /// <summary> Specifies the vmmServer infrastructure specific update settings for the virtual machine instance. </summary>
     internal partial class ScVmmInfrastructureProfileUpdate
     {
         /// <summary>

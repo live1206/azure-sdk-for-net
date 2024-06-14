@@ -61,7 +61,7 @@ namespace Azure.ResourceManager.ScVmm.Models
                 writer.WritePropertyName("lastRestoredVMCheckpoint"u8);
                 writer.WriteObjectValue(LastRestoredVmCheckpoint, options);
             }
-            if (Optional.IsCollectionDefined(Checkpoints))
+            if (options.Format != "W" && Optional.IsCollectionDefined(Checkpoints))
             {
                 writer.WritePropertyName("checkpoints"u8);
                 writer.WriteStartArray();
@@ -131,7 +131,7 @@ namespace Azure.ResourceManager.ScVmm.Models
             string vmName = default;
             string uuid = default;
             ScVmmCheckpoint lastRestoredVmCheckpoint = default;
-            IList<ScVmmCheckpoint> checkpoints = default;
+            IReadOnlyList<ScVmmCheckpoint> checkpoints = default;
             string checkpointType = default;
             int? generation = default;
             string biosGuid = default;

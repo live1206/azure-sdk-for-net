@@ -66,7 +66,7 @@ namespace Azure.ResourceManager.ScVmm.Models
         /// <param name="storageQosPolicy"> The QoS policy for the disk. </param>
         /// <param name="createDiffDisk"> Gets or sets a value indicating diff disk. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal ScVmmVirtualDisk(string name, string displayName, string diskId, int? diskSizeGB, int? maxDiskSizeGB, int? bus, int? lun, string busType, string vhdType, string volumeType, string vhdFormatType, string templateDiskId, ScVmmStorageQosPolicyDetails storageQosPolicy, CreateDiffDisk? createDiffDisk, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal ScVmmVirtualDisk(string name, string displayName, string diskId, int? diskSizeGB, int? maxDiskSizeGB, int? bus, int? lun, string busType, string vhdType, string volumeType, string vhdFormatType, string templateDiskId, StorageQosPolicyDetails storageQosPolicy, CreateDiffDisk? createDiffDisk, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             Name = name;
             DisplayName = displayName;
@@ -110,7 +110,7 @@ namespace Azure.ResourceManager.ScVmm.Models
         /// <summary> Gets or sets the disk id in the template. </summary>
         public string TemplateDiskId { get; set; }
         /// <summary> The QoS policy for the disk. </summary>
-        public ScVmmStorageQosPolicyDetails StorageQosPolicy { get; set; }
+        public StorageQosPolicyDetails StorageQosPolicy { get; set; }
         /// <summary> Gets or sets a value indicating diff disk. </summary>
         public CreateDiffDisk? CreateDiffDisk { get; set; }
     }

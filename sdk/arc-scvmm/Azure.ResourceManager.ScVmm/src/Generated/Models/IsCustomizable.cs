@@ -10,7 +10,7 @@ using System.ComponentModel;
 
 namespace Azure.ResourceManager.ScVmm.Models
 {
-    /// <summary> Gets a value indicating whether the vm template is customizable or not. </summary>
+    /// <summary> Customizable. </summary>
     public readonly partial struct IsCustomizable : IEquatable<IsCustomizable>
     {
         private readonly string _value;
@@ -22,13 +22,13 @@ namespace Azure.ResourceManager.ScVmm.Models
             _value = value ?? throw new ArgumentNullException(nameof(value));
         }
 
-        private const string FalseValue = "false";
         private const string TrueValue = "true";
+        private const string FalseValue = "false";
 
-        /// <summary> false. </summary>
-        public static IsCustomizable False { get; } = new IsCustomizable(FalseValue);
-        /// <summary> true. </summary>
+        /// <summary> Enable customizable. </summary>
         public static IsCustomizable True { get; } = new IsCustomizable(TrueValue);
+        /// <summary> Disable customizable. </summary>
+        public static IsCustomizable False { get; } = new IsCustomizable(FalseValue);
         /// <summary> Determines if two <see cref="IsCustomizable"/> values are the same. </summary>
         public static bool operator ==(IsCustomizable left, IsCustomizable right) => left.Equals(right);
         /// <summary> Determines if two <see cref="IsCustomizable"/> values are not the same. </summary>

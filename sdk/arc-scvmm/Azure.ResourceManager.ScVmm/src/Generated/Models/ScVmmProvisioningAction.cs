@@ -10,7 +10,7 @@ using System.ComponentModel;
 
 namespace Azure.ResourceManager.ScVmm.Models
 {
-    /// <summary> Defines the different types of operations for guest agent. </summary>
+    /// <summary> Guest agent provisioning action. </summary>
     public readonly partial struct ScVmmProvisioningAction : IEquatable<ScVmmProvisioningAction>
     {
         private readonly string _value;
@@ -26,11 +26,11 @@ namespace Azure.ResourceManager.ScVmm.Models
         private const string UninstallValue = "uninstall";
         private const string RepairValue = "repair";
 
-        /// <summary> install. </summary>
+        /// <summary> Install guest agent. </summary>
         public static ScVmmProvisioningAction Install { get; } = new ScVmmProvisioningAction(InstallValue);
-        /// <summary> uninstall. </summary>
+        /// <summary> Uninstall guest agent. </summary>
         public static ScVmmProvisioningAction Uninstall { get; } = new ScVmmProvisioningAction(UninstallValue);
-        /// <summary> repair. </summary>
+        /// <summary> Repair guest agent. </summary>
         public static ScVmmProvisioningAction Repair { get; } = new ScVmmProvisioningAction(RepairValue);
         /// <summary> Determines if two <see cref="ScVmmProvisioningAction"/> values are the same. </summary>
         public static bool operator ==(ScVmmProvisioningAction left, ScVmmProvisioningAction right) => left.Equals(right);

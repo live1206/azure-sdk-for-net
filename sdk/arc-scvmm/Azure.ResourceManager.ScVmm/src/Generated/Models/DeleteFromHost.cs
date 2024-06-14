@@ -22,13 +22,13 @@ namespace Azure.ResourceManager.ScVmm.Models
             _value = value ?? throw new ArgumentNullException(nameof(value));
         }
 
-        private const string FalseValue = "false";
         private const string TrueValue = "true";
+        private const string FalseValue = "false";
 
-        /// <summary> false. </summary>
-        public static DeleteFromHost False { get; } = new DeleteFromHost(FalseValue);
-        /// <summary> true. </summary>
+        /// <summary> Enable delete from host. </summary>
         public static DeleteFromHost True { get; } = new DeleteFromHost(TrueValue);
+        /// <summary> Disable delete from host. </summary>
+        public static DeleteFromHost False { get; } = new DeleteFromHost(FalseValue);
         /// <summary> Determines if two <see cref="DeleteFromHost"/> values are the same. </summary>
         public static bool operator ==(DeleteFromHost left, DeleteFromHost right) => left.Equals(right);
         /// <summary> Determines if two <see cref="DeleteFromHost"/> values are not the same. </summary>
