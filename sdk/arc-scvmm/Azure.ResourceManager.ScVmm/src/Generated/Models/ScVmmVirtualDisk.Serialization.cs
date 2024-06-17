@@ -146,7 +146,7 @@ namespace Azure.ResourceManager.ScVmm.Models
             string volumeType = default;
             string vhdFormatType = default;
             string templateDiskId = default;
-            StorageQosPolicyDetails storageQosPolicy = default;
+            ScVmmStorageQosPolicyDetails storageQosPolicy = default;
             CreateDiffDisk? createDiffDisk = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
@@ -234,7 +234,7 @@ namespace Azure.ResourceManager.ScVmm.Models
                     {
                         continue;
                     }
-                    storageQosPolicy = StorageQosPolicyDetails.DeserializeStorageQosPolicyDetails(property.Value, options);
+                    storageQosPolicy = ScVmmStorageQosPolicyDetails.DeserializeScVmmStorageQosPolicyDetails(property.Value, options);
                     continue;
                 }
                 if (property.NameEquals("createDiffDisk"u8))

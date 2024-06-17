@@ -10,8 +10,8 @@ using System.Collections.Generic;
 
 namespace Azure.ResourceManager.ScVmm.Models
 {
-    /// <summary> The StorageQoSPolicyDetails definition. </summary>
-    public partial class StorageQosPolicyDetails
+    /// <summary> The type used for updating tags in VmmServer resources. </summary>
+    public partial class ScVmmServerPatch
     {
         /// <summary>
         /// Keeps track of any properties unknown to the library.
@@ -45,25 +45,22 @@ namespace Azure.ResourceManager.ScVmm.Models
         /// </summary>
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
-        /// <summary> Initializes a new instance of <see cref="StorageQosPolicyDetails"/>. </summary>
-        public StorageQosPolicyDetails()
+        /// <summary> Initializes a new instance of <see cref="ScVmmServerPatch"/>. </summary>
+        public ScVmmServerPatch()
         {
+            Tags = new ChangeTrackingDictionary<string, string>();
         }
 
-        /// <summary> Initializes a new instance of <see cref="StorageQosPolicyDetails"/>. </summary>
-        /// <param name="name"> The name of the policy. </param>
-        /// <param name="id"> The ID of the QoS policy. </param>
+        /// <summary> Initializes a new instance of <see cref="ScVmmServerPatch"/>. </summary>
+        /// <param name="tags"> Resource tags. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal StorageQosPolicyDetails(string name, string id, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal ScVmmServerPatch(IDictionary<string, string> tags, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
-            Name = name;
-            Id = id;
+            Tags = tags;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
-        /// <summary> The name of the policy. </summary>
-        public string Name { get; set; }
-        /// <summary> The ID of the QoS policy. </summary>
-        public string Id { get; set; }
+        /// <summary> Resource tags. </summary>
+        public IDictionary<string, string> Tags { get; }
     }
 }

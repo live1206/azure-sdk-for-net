@@ -109,7 +109,7 @@ namespace Azure.ResourceManager.ScVmm.Models
             ResourceIdentifier vmmServerId = default;
             string cloudName = default;
             ScVmmCloudCapacity cloudCapacity = default;
-            IReadOnlyList<StorageQosPolicy> storageQosPolicies = default;
+            IReadOnlyList<ScVmmStorageQosPolicy> storageQosPolicies = default;
             ResourceProvisioningState? provisioningState = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
@@ -154,10 +154,10 @@ namespace Azure.ResourceManager.ScVmm.Models
                     {
                         continue;
                     }
-                    List<StorageQosPolicy> array = new List<StorageQosPolicy>();
+                    List<ScVmmStorageQosPolicy> array = new List<ScVmmStorageQosPolicy>();
                     foreach (var item in property.Value.EnumerateArray())
                     {
-                        array.Add(StorageQosPolicy.DeserializeStorageQosPolicy(item, options));
+                        array.Add(ScVmmStorageQosPolicy.DeserializeScVmmStorageQosPolicy(item, options));
                     }
                     storageQosPolicies = array;
                     continue;
@@ -183,7 +183,7 @@ namespace Azure.ResourceManager.ScVmm.Models
                 vmmServerId,
                 cloudName,
                 cloudCapacity,
-                storageQosPolicies ?? new ChangeTrackingList<StorageQosPolicy>(),
+                storageQosPolicies ?? new ChangeTrackingList<ScVmmStorageQosPolicy>(),
                 provisioningState,
                 serializedAdditionalRawData);
         }

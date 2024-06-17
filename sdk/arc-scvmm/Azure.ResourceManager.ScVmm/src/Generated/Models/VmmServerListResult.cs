@@ -49,7 +49,7 @@ namespace Azure.ResourceManager.ScVmm.Models
         /// <summary> Initializes a new instance of <see cref="VmmServerListResult"/>. </summary>
         /// <param name="value"> The VmmServer items on this page. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="value"/> is null. </exception>
-        internal VmmServerListResult(IEnumerable<VmmServerData> value)
+        internal VmmServerListResult(IEnumerable<ScVmmServerData> value)
         {
             Argument.AssertNotNull(value, nameof(value));
 
@@ -60,7 +60,7 @@ namespace Azure.ResourceManager.ScVmm.Models
         /// <param name="value"> The VmmServer items on this page. </param>
         /// <param name="nextLink"> The link to the next page of items. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal VmmServerListResult(IReadOnlyList<VmmServerData> value, Uri nextLink, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal VmmServerListResult(IReadOnlyList<ScVmmServerData> value, Uri nextLink, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             Value = value;
             NextLink = nextLink;
@@ -73,7 +73,7 @@ namespace Azure.ResourceManager.ScVmm.Models
         }
 
         /// <summary> The VmmServer items on this page. </summary>
-        public IReadOnlyList<VmmServerData> Value { get; }
+        public IReadOnlyList<ScVmmServerData> Value { get; }
         /// <summary> The link to the next page of items. </summary>
         public Uri NextLink { get; }
     }

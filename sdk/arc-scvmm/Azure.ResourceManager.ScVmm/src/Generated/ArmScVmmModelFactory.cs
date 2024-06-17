@@ -153,7 +153,7 @@ namespace Azure.ResourceManager.ScVmm.Models
         /// <param name="storageQosPolicy"> The QoS policy for the disk. </param>
         /// <param name="createDiffDisk"> Gets or sets a value indicating diff disk. </param>
         /// <returns> A new <see cref="Models.ScVmmVirtualDisk"/> instance for mocking. </returns>
-        public static ScVmmVirtualDisk ScVmmVirtualDisk(string name = null, string displayName = null, string diskId = null, int? diskSizeGB = null, int? maxDiskSizeGB = null, int? bus = null, int? lun = null, string busType = null, string vhdType = null, string volumeType = null, string vhdFormatType = null, string templateDiskId = null, StorageQosPolicyDetails storageQosPolicy = null, CreateDiffDisk? createDiffDisk = null)
+        public static ScVmmVirtualDisk ScVmmVirtualDisk(string name = null, string displayName = null, string diskId = null, int? diskSizeGB = null, int? maxDiskSizeGB = null, int? bus = null, int? lun = null, string busType = null, string vhdType = null, string volumeType = null, string vhdFormatType = null, string templateDiskId = null, ScVmmStorageQosPolicyDetails storageQosPolicy = null, CreateDiffDisk? createDiffDisk = null)
         {
             return new ScVmmVirtualDisk(
                 name,
@@ -355,9 +355,9 @@ namespace Azure.ResourceManager.ScVmm.Models
         /// <param name="storageQosPolicies"> List of QoS policies available for the cloud. </param>
         /// <param name="provisioningState"> Provisioning state of the resource. </param>
         /// <returns> A new <see cref="Models.CloudProperties"/> instance for mocking. </returns>
-        public static CloudProperties CloudProperties(string inventoryItemId = null, string uuid = null, ResourceIdentifier vmmServerId = null, string cloudName = null, ScVmmCloudCapacity cloudCapacity = null, IEnumerable<StorageQosPolicy> storageQosPolicies = null, ResourceProvisioningState? provisioningState = null)
+        public static CloudProperties CloudProperties(string inventoryItemId = null, string uuid = null, ResourceIdentifier vmmServerId = null, string cloudName = null, ScVmmCloudCapacity cloudCapacity = null, IEnumerable<ScVmmStorageQosPolicy> storageQosPolicies = null, ResourceProvisioningState? provisioningState = null)
         {
-            storageQosPolicies ??= new List<StorageQosPolicy>();
+            storageQosPolicies ??= new List<ScVmmStorageQosPolicy>();
 
             return new CloudProperties(
                 inventoryItemId,
@@ -380,17 +380,17 @@ namespace Azure.ResourceManager.ScVmm.Models
             return new ScVmmCloudCapacity(cpuCount, memoryMB, vmCount, serializedAdditionalRawData: null);
         }
 
-        /// <summary> Initializes a new instance of <see cref="Models.StorageQosPolicy"/>. </summary>
+        /// <summary> Initializes a new instance of <see cref="Models.ScVmmStorageQosPolicy"/>. </summary>
         /// <param name="name"> The name of the policy. </param>
         /// <param name="id"> The ID of the QoS policy. </param>
         /// <param name="iopsMaximum"> The maximum IO operations per second. </param>
         /// <param name="iopsMinimum"> The minimum IO operations per second. </param>
         /// <param name="bandwidthLimit"> The Bandwidth Limit for internet traffic. </param>
         /// <param name="policyId"> The underlying policy. </param>
-        /// <returns> A new <see cref="Models.StorageQosPolicy"/> instance for mocking. </returns>
-        public static StorageQosPolicy StorageQosPolicy(string name = null, string id = null, long? iopsMaximum = null, long? iopsMinimum = null, long? bandwidthLimit = null, string policyId = null)
+        /// <returns> A new <see cref="Models.ScVmmStorageQosPolicy"/> instance for mocking. </returns>
+        public static ScVmmStorageQosPolicy ScVmmStorageQosPolicy(string name = null, string id = null, long? iopsMaximum = null, long? iopsMinimum = null, long? bandwidthLimit = null, string policyId = null)
         {
-            return new StorageQosPolicy(
+            return new ScVmmStorageQosPolicy(
                 name,
                 id,
                 iopsMaximum,
@@ -517,7 +517,7 @@ namespace Azure.ResourceManager.ScVmm.Models
                 serializedAdditionalRawData: null);
         }
 
-        /// <summary> Initializes a new instance of <see cref="ScVmm.VmmServerData"/>. </summary>
+        /// <summary> Initializes a new instance of <see cref="ScVmm.ScVmmServerData"/>. </summary>
         /// <param name="id"> The id. </param>
         /// <param name="name"> The name. </param>
         /// <param name="resourceType"> The resourceType. </param>
@@ -526,12 +526,12 @@ namespace Azure.ResourceManager.ScVmm.Models
         /// <param name="location"> The location. </param>
         /// <param name="properties"> The resource-specific properties for this resource. </param>
         /// <param name="extendedLocation"> The extended location. </param>
-        /// <returns> A new <see cref="ScVmm.VmmServerData"/> instance for mocking. </returns>
-        public static VmmServerData VmmServerData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, IDictionary<string, string> tags = null, AzureLocation location = default, VmmServerProperties properties = null, ScVmmExtendedLocation extendedLocation = null)
+        /// <returns> A new <see cref="ScVmm.ScVmmServerData"/> instance for mocking. </returns>
+        public static ScVmmServerData ScVmmServerData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, IDictionary<string, string> tags = null, AzureLocation location = default, VmmServerProperties properties = null, ScVmmExtendedLocation extendedLocation = null)
         {
             tags ??= new Dictionary<string, string>();
 
-            return new VmmServerData(
+            return new ScVmmServerData(
                 id,
                 name,
                 resourceType,

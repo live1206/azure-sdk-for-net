@@ -205,7 +205,7 @@ namespace Azure.ResourceManager.ScVmm
         /// <param name="force"> Forces the resource to be deleted. </param>
         /// <param name="deleteFromHost"> Whether to disable the VM from azure and also delete it from Vmm. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        public virtual async Task<ArmOperation> DeleteAsync(WaitUntil waitUntil, ForceDelete? force = null, DeleteFromHost? deleteFromHost = null, CancellationToken cancellationToken = default)
+        public virtual async Task<ArmOperation> DeleteAsync(WaitUntil waitUntil, ScVmmForceDeletion? force = null, DeleteFromHost? deleteFromHost = null, CancellationToken cancellationToken = default)
         {
             using var scope = _scVmmVirtualMachineInstanceVirtualMachineInstancesClientDiagnostics.CreateScope("ScVmmVirtualMachineInstanceResource.Delete");
             scope.Start();
@@ -249,7 +249,7 @@ namespace Azure.ResourceManager.ScVmm
         /// <param name="force"> Forces the resource to be deleted. </param>
         /// <param name="deleteFromHost"> Whether to disable the VM from azure and also delete it from Vmm. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        public virtual ArmOperation Delete(WaitUntil waitUntil, ForceDelete? force = null, DeleteFromHost? deleteFromHost = null, CancellationToken cancellationToken = default)
+        public virtual ArmOperation Delete(WaitUntil waitUntil, ScVmmForceDeletion? force = null, DeleteFromHost? deleteFromHost = null, CancellationToken cancellationToken = default)
         {
             using var scope = _scVmmVirtualMachineInstanceVirtualMachineInstancesClientDiagnostics.CreateScope("ScVmmVirtualMachineInstanceResource.Delete");
             scope.Start();

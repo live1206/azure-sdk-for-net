@@ -11,7 +11,7 @@ using System.Collections.Generic;
 namespace Azure.ResourceManager.ScVmm.Models
 {
     /// <summary> The StorageQoSPolicy definition. </summary>
-    public partial class StorageQosPolicy
+    public partial class ScVmmStorageQosPolicy
     {
         /// <summary>
         /// Keeps track of any properties unknown to the library.
@@ -45,12 +45,12 @@ namespace Azure.ResourceManager.ScVmm.Models
         /// </summary>
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
-        /// <summary> Initializes a new instance of <see cref="StorageQosPolicy"/>. </summary>
-        internal StorageQosPolicy()
+        /// <summary> Initializes a new instance of <see cref="ScVmmStorageQosPolicy"/>. </summary>
+        internal ScVmmStorageQosPolicy()
         {
         }
 
-        /// <summary> Initializes a new instance of <see cref="StorageQosPolicy"/>. </summary>
+        /// <summary> Initializes a new instance of <see cref="ScVmmStorageQosPolicy"/>. </summary>
         /// <param name="name"> The name of the policy. </param>
         /// <param name="id"> The ID of the QoS policy. </param>
         /// <param name="iopsMaximum"> The maximum IO operations per second. </param>
@@ -58,7 +58,7 @@ namespace Azure.ResourceManager.ScVmm.Models
         /// <param name="bandwidthLimit"> The Bandwidth Limit for internet traffic. </param>
         /// <param name="policyId"> The underlying policy. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal StorageQosPolicy(string name, string id, long? iopsMaximum, long? iopsMinimum, long? bandwidthLimit, string policyId, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal ScVmmStorageQosPolicy(string name, string id, long? iopsMaximum, long? iopsMinimum, long? bandwidthLimit, string policyId, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             Name = name;
             Id = id;

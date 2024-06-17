@@ -111,7 +111,7 @@ namespace Azure.ResourceManager.ScVmm.Models
             int? lun = default;
             string busType = default;
             string vhdType = default;
-            StorageQosPolicyDetails storageQosPolicy = default;
+            ScVmmStorageQosPolicyDetails storageQosPolicy = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
@@ -169,7 +169,7 @@ namespace Azure.ResourceManager.ScVmm.Models
                     {
                         continue;
                     }
-                    storageQosPolicy = StorageQosPolicyDetails.DeserializeStorageQosPolicyDetails(property.Value, options);
+                    storageQosPolicy = ScVmmStorageQosPolicyDetails.DeserializeScVmmStorageQosPolicyDetails(property.Value, options);
                     continue;
                 }
                 if (options.Format != "W")

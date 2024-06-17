@@ -344,7 +344,7 @@ namespace Azure.ResourceManager.ScVmm
             }
         }
 
-        internal RequestUriBuilder CreateDeleteRequestUri(string resourceUri, ForceDelete? force, DeleteFromHost? deleteFromHost)
+        internal RequestUriBuilder CreateDeleteRequestUri(string resourceUri, ScVmmForceDeletion? force, DeleteFromHost? deleteFromHost)
         {
             var uri = new RawRequestUriBuilder();
             uri.Reset(_endpoint);
@@ -363,7 +363,7 @@ namespace Azure.ResourceManager.ScVmm
             return uri;
         }
 
-        internal HttpMessage CreateDeleteRequest(string resourceUri, ForceDelete? force, DeleteFromHost? deleteFromHost)
+        internal HttpMessage CreateDeleteRequest(string resourceUri, ScVmmForceDeletion? force, DeleteFromHost? deleteFromHost)
         {
             var message = _pipeline.CreateMessage();
             var request = message.Request;
@@ -394,7 +394,7 @@ namespace Azure.ResourceManager.ScVmm
         /// <param name="deleteFromHost"> Whether to disable the VM from azure and also delete it from Vmm. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="resourceUri"/> is null. </exception>
-        public async Task<Response> DeleteAsync(string resourceUri, ForceDelete? force = null, DeleteFromHost? deleteFromHost = null, CancellationToken cancellationToken = default)
+        public async Task<Response> DeleteAsync(string resourceUri, ScVmmForceDeletion? force = null, DeleteFromHost? deleteFromHost = null, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNull(resourceUri, nameof(resourceUri));
 
@@ -416,7 +416,7 @@ namespace Azure.ResourceManager.ScVmm
         /// <param name="deleteFromHost"> Whether to disable the VM from azure and also delete it from Vmm. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="resourceUri"/> is null. </exception>
-        public Response Delete(string resourceUri, ForceDelete? force = null, DeleteFromHost? deleteFromHost = null, CancellationToken cancellationToken = default)
+        public Response Delete(string resourceUri, ScVmmForceDeletion? force = null, DeleteFromHost? deleteFromHost = null, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNull(resourceUri, nameof(resourceUri));
 

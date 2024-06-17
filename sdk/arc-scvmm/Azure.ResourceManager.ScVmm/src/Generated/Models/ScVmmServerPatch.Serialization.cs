@@ -13,16 +13,16 @@ using Azure.Core;
 
 namespace Azure.ResourceManager.ScVmm.Models
 {
-    public partial class VmmServerPatch : IUtf8JsonSerializable, IJsonModel<VmmServerPatch>
+    public partial class ScVmmServerPatch : IUtf8JsonSerializable, IJsonModel<ScVmmServerPatch>
     {
-        void IUtf8JsonSerializable.Write(Utf8JsonWriter writer) => ((IJsonModel<VmmServerPatch>)this).Write(writer, ModelSerializationExtensions.WireOptions);
+        void IUtf8JsonSerializable.Write(Utf8JsonWriter writer) => ((IJsonModel<ScVmmServerPatch>)this).Write(writer, ModelSerializationExtensions.WireOptions);
 
-        void IJsonModel<VmmServerPatch>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
+        void IJsonModel<ScVmmServerPatch>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<VmmServerPatch>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<ScVmmServerPatch>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
-                throw new FormatException($"The model {nameof(VmmServerPatch)} does not support writing '{format}' format.");
+                throw new FormatException($"The model {nameof(ScVmmServerPatch)} does not support writing '{format}' format.");
             }
 
             writer.WriteStartObject();
@@ -55,19 +55,19 @@ namespace Azure.ResourceManager.ScVmm.Models
             writer.WriteEndObject();
         }
 
-        VmmServerPatch IJsonModel<VmmServerPatch>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
+        ScVmmServerPatch IJsonModel<ScVmmServerPatch>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<VmmServerPatch>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<ScVmmServerPatch>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
-                throw new FormatException($"The model {nameof(VmmServerPatch)} does not support reading '{format}' format.");
+                throw new FormatException($"The model {nameof(ScVmmServerPatch)} does not support reading '{format}' format.");
             }
 
             using JsonDocument document = JsonDocument.ParseValue(ref reader);
-            return DeserializeVmmServerPatch(document.RootElement, options);
+            return DeserializeScVmmServerPatch(document.RootElement, options);
         }
 
-        internal static VmmServerPatch DeserializeVmmServerPatch(JsonElement element, ModelReaderWriterOptions options = null)
+        internal static ScVmmServerPatch DeserializeScVmmServerPatch(JsonElement element, ModelReaderWriterOptions options = null)
         {
             options ??= ModelSerializationExtensions.WireOptions;
 
@@ -100,38 +100,38 @@ namespace Azure.ResourceManager.ScVmm.Models
                 }
             }
             serializedAdditionalRawData = rawDataDictionary;
-            return new VmmServerPatch(tags ?? new ChangeTrackingDictionary<string, string>(), serializedAdditionalRawData);
+            return new ScVmmServerPatch(tags ?? new ChangeTrackingDictionary<string, string>(), serializedAdditionalRawData);
         }
 
-        BinaryData IPersistableModel<VmmServerPatch>.Write(ModelReaderWriterOptions options)
+        BinaryData IPersistableModel<ScVmmServerPatch>.Write(ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<VmmServerPatch>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<ScVmmServerPatch>)this).GetFormatFromOptions(options) : options.Format;
 
             switch (format)
             {
                 case "J":
                     return ModelReaderWriter.Write(this, options);
                 default:
-                    throw new FormatException($"The model {nameof(VmmServerPatch)} does not support writing '{options.Format}' format.");
+                    throw new FormatException($"The model {nameof(ScVmmServerPatch)} does not support writing '{options.Format}' format.");
             }
         }
 
-        VmmServerPatch IPersistableModel<VmmServerPatch>.Create(BinaryData data, ModelReaderWriterOptions options)
+        ScVmmServerPatch IPersistableModel<ScVmmServerPatch>.Create(BinaryData data, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<VmmServerPatch>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<ScVmmServerPatch>)this).GetFormatFromOptions(options) : options.Format;
 
             switch (format)
             {
                 case "J":
                     {
                         using JsonDocument document = JsonDocument.Parse(data);
-                        return DeserializeVmmServerPatch(document.RootElement, options);
+                        return DeserializeScVmmServerPatch(document.RootElement, options);
                     }
                 default:
-                    throw new FormatException($"The model {nameof(VmmServerPatch)} does not support reading '{options.Format}' format.");
+                    throw new FormatException($"The model {nameof(ScVmmServerPatch)} does not support reading '{options.Format}' format.");
             }
         }
 
-        string IPersistableModel<VmmServerPatch>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
+        string IPersistableModel<ScVmmServerPatch>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
     }
 }

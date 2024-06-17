@@ -127,15 +127,15 @@ namespace Azure.ResourceManager.ScVmm.Mocking
         }
 
         /// <summary>
-        /// Gets an object representing a <see cref="VmmServerResource"/> along with the instance operations that can be performed on it but with no data.
-        /// You can use <see cref="VmmServerResource.CreateResourceIdentifier" /> to create a <see cref="VmmServerResource"/> <see cref="ResourceIdentifier"/> from its components.
+        /// Gets an object representing a <see cref="ScVmmServerResource"/> along with the instance operations that can be performed on it but with no data.
+        /// You can use <see cref="ScVmmServerResource.CreateResourceIdentifier" /> to create a <see cref="ScVmmServerResource"/> <see cref="ResourceIdentifier"/> from its components.
         /// </summary>
         /// <param name="id"> The resource ID of the resource to get. </param>
-        /// <returns> Returns a <see cref="VmmServerResource"/> object. </returns>
-        public virtual VmmServerResource GetVmmServerResource(ResourceIdentifier id)
+        /// <returns> Returns a <see cref="ScVmmServerResource"/> object. </returns>
+        public virtual ScVmmServerResource GetScVmmServerResource(ResourceIdentifier id)
         {
-            VmmServerResource.ValidateResourceId(id);
-            return new VmmServerResource(Client, id);
+            ScVmmServerResource.ValidateResourceId(id);
+            return new ScVmmServerResource(Client, id);
         }
 
         /// <summary>

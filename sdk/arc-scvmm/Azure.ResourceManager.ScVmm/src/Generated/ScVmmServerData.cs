@@ -14,10 +14,10 @@ using Azure.ResourceManager.ScVmm.Models;
 namespace Azure.ResourceManager.ScVmm
 {
     /// <summary>
-    /// A class representing the VmmServer data model.
+    /// A class representing the ScVmmServer data model.
     /// The VmmServers resource definition.
     /// </summary>
-    public partial class VmmServerData : TrackedResourceData
+    public partial class ScVmmServerData : TrackedResourceData
     {
         /// <summary>
         /// Keeps track of any properties unknown to the library.
@@ -51,18 +51,18 @@ namespace Azure.ResourceManager.ScVmm
         /// </summary>
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
-        /// <summary> Initializes a new instance of <see cref="VmmServerData"/>. </summary>
+        /// <summary> Initializes a new instance of <see cref="ScVmmServerData"/>. </summary>
         /// <param name="location"> The location. </param>
         /// <param name="extendedLocation"> The extended location. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="extendedLocation"/> is null. </exception>
-        public VmmServerData(AzureLocation location, ScVmmExtendedLocation extendedLocation) : base(location)
+        public ScVmmServerData(AzureLocation location, ScVmmExtendedLocation extendedLocation) : base(location)
         {
             Argument.AssertNotNull(extendedLocation, nameof(extendedLocation));
 
             ExtendedLocation = extendedLocation;
         }
 
-        /// <summary> Initializes a new instance of <see cref="VmmServerData"/>. </summary>
+        /// <summary> Initializes a new instance of <see cref="ScVmmServerData"/>. </summary>
         /// <param name="id"> The id. </param>
         /// <param name="name"> The name. </param>
         /// <param name="resourceType"> The resourceType. </param>
@@ -72,15 +72,15 @@ namespace Azure.ResourceManager.ScVmm
         /// <param name="properties"> The resource-specific properties for this resource. </param>
         /// <param name="extendedLocation"> The extended location. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal VmmServerData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, IDictionary<string, string> tags, AzureLocation location, VmmServerProperties properties, ScVmmExtendedLocation extendedLocation, IDictionary<string, BinaryData> serializedAdditionalRawData) : base(id, name, resourceType, systemData, tags, location)
+        internal ScVmmServerData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, IDictionary<string, string> tags, AzureLocation location, VmmServerProperties properties, ScVmmExtendedLocation extendedLocation, IDictionary<string, BinaryData> serializedAdditionalRawData) : base(id, name, resourceType, systemData, tags, location)
         {
             Properties = properties;
             ExtendedLocation = extendedLocation;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
-        /// <summary> Initializes a new instance of <see cref="VmmServerData"/> for deserialization. </summary>
-        internal VmmServerData()
+        /// <summary> Initializes a new instance of <see cref="ScVmmServerData"/> for deserialization. </summary>
+        internal ScVmmServerData()
         {
         }
 

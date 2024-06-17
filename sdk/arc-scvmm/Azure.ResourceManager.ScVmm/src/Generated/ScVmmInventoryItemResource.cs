@@ -18,7 +18,7 @@ namespace Azure.ResourceManager.ScVmm
     /// A Class representing a ScVmmInventoryItem along with the instance operations that can be performed on it.
     /// If you have a <see cref="ResourceIdentifier"/> you can construct a <see cref="ScVmmInventoryItemResource"/>
     /// from an instance of <see cref="ArmClient"/> using the GetScVmmInventoryItemResource method.
-    /// Otherwise you can get one from its parent resource <see cref="VmmServerResource"/> using the GetScVmmInventoryItem method.
+    /// Otherwise you can get one from its parent resource <see cref="ScVmmServerResource"/> using the GetScVmmInventoryItem method.
     /// </summary>
     public partial class ScVmmInventoryItemResource : ArmResource
     {

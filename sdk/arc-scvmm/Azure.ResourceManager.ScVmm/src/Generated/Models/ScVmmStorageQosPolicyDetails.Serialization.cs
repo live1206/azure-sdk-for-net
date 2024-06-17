@@ -13,16 +13,16 @@ using Azure.Core;
 
 namespace Azure.ResourceManager.ScVmm.Models
 {
-    public partial class StorageQosPolicyDetails : IUtf8JsonSerializable, IJsonModel<StorageQosPolicyDetails>
+    public partial class ScVmmStorageQosPolicyDetails : IUtf8JsonSerializable, IJsonModel<ScVmmStorageQosPolicyDetails>
     {
-        void IUtf8JsonSerializable.Write(Utf8JsonWriter writer) => ((IJsonModel<StorageQosPolicyDetails>)this).Write(writer, ModelSerializationExtensions.WireOptions);
+        void IUtf8JsonSerializable.Write(Utf8JsonWriter writer) => ((IJsonModel<ScVmmStorageQosPolicyDetails>)this).Write(writer, ModelSerializationExtensions.WireOptions);
 
-        void IJsonModel<StorageQosPolicyDetails>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
+        void IJsonModel<ScVmmStorageQosPolicyDetails>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<StorageQosPolicyDetails>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<ScVmmStorageQosPolicyDetails>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
-                throw new FormatException($"The model {nameof(StorageQosPolicyDetails)} does not support writing '{format}' format.");
+                throw new FormatException($"The model {nameof(ScVmmStorageQosPolicyDetails)} does not support writing '{format}' format.");
             }
 
             writer.WriteStartObject();
@@ -54,19 +54,19 @@ namespace Azure.ResourceManager.ScVmm.Models
             writer.WriteEndObject();
         }
 
-        StorageQosPolicyDetails IJsonModel<StorageQosPolicyDetails>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
+        ScVmmStorageQosPolicyDetails IJsonModel<ScVmmStorageQosPolicyDetails>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<StorageQosPolicyDetails>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<ScVmmStorageQosPolicyDetails>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
-                throw new FormatException($"The model {nameof(StorageQosPolicyDetails)} does not support reading '{format}' format.");
+                throw new FormatException($"The model {nameof(ScVmmStorageQosPolicyDetails)} does not support reading '{format}' format.");
             }
 
             using JsonDocument document = JsonDocument.ParseValue(ref reader);
-            return DeserializeStorageQosPolicyDetails(document.RootElement, options);
+            return DeserializeScVmmStorageQosPolicyDetails(document.RootElement, options);
         }
 
-        internal static StorageQosPolicyDetails DeserializeStorageQosPolicyDetails(JsonElement element, ModelReaderWriterOptions options = null)
+        internal static ScVmmStorageQosPolicyDetails DeserializeScVmmStorageQosPolicyDetails(JsonElement element, ModelReaderWriterOptions options = null)
         {
             options ??= ModelSerializationExtensions.WireOptions;
 
@@ -96,38 +96,38 @@ namespace Azure.ResourceManager.ScVmm.Models
                 }
             }
             serializedAdditionalRawData = rawDataDictionary;
-            return new StorageQosPolicyDetails(name, id, serializedAdditionalRawData);
+            return new ScVmmStorageQosPolicyDetails(name, id, serializedAdditionalRawData);
         }
 
-        BinaryData IPersistableModel<StorageQosPolicyDetails>.Write(ModelReaderWriterOptions options)
+        BinaryData IPersistableModel<ScVmmStorageQosPolicyDetails>.Write(ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<StorageQosPolicyDetails>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<ScVmmStorageQosPolicyDetails>)this).GetFormatFromOptions(options) : options.Format;
 
             switch (format)
             {
                 case "J":
                     return ModelReaderWriter.Write(this, options);
                 default:
-                    throw new FormatException($"The model {nameof(StorageQosPolicyDetails)} does not support writing '{options.Format}' format.");
+                    throw new FormatException($"The model {nameof(ScVmmStorageQosPolicyDetails)} does not support writing '{options.Format}' format.");
             }
         }
 
-        StorageQosPolicyDetails IPersistableModel<StorageQosPolicyDetails>.Create(BinaryData data, ModelReaderWriterOptions options)
+        ScVmmStorageQosPolicyDetails IPersistableModel<ScVmmStorageQosPolicyDetails>.Create(BinaryData data, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<StorageQosPolicyDetails>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<ScVmmStorageQosPolicyDetails>)this).GetFormatFromOptions(options) : options.Format;
 
             switch (format)
             {
                 case "J":
                     {
                         using JsonDocument document = JsonDocument.Parse(data);
-                        return DeserializeStorageQosPolicyDetails(document.RootElement, options);
+                        return DeserializeScVmmStorageQosPolicyDetails(document.RootElement, options);
                     }
                 default:
-                    throw new FormatException($"The model {nameof(StorageQosPolicyDetails)} does not support reading '{options.Format}' format.");
+                    throw new FormatException($"The model {nameof(ScVmmStorageQosPolicyDetails)} does not support reading '{options.Format}' format.");
             }
         }
 
-        string IPersistableModel<StorageQosPolicyDetails>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
+        string IPersistableModel<ScVmmStorageQosPolicyDetails>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
     }
 }

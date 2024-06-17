@@ -49,7 +49,7 @@ namespace Azure.ResourceManager.ScVmm.Models
         /// <summary> Initializes a new instance of <see cref="CloudProperties"/>. </summary>
         public CloudProperties()
         {
-            StorageQosPolicies = new ChangeTrackingList<StorageQosPolicy>();
+            StorageQosPolicies = new ChangeTrackingList<ScVmmStorageQosPolicy>();
         }
 
         /// <summary> Initializes a new instance of <see cref="CloudProperties"/>. </summary>
@@ -61,7 +61,7 @@ namespace Azure.ResourceManager.ScVmm.Models
         /// <param name="storageQosPolicies"> List of QoS policies available for the cloud. </param>
         /// <param name="provisioningState"> Provisioning state of the resource. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal CloudProperties(string inventoryItemId, string uuid, ResourceIdentifier vmmServerId, string cloudName, ScVmmCloudCapacity cloudCapacity, IReadOnlyList<StorageQosPolicy> storageQosPolicies, ResourceProvisioningState? provisioningState, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal CloudProperties(string inventoryItemId, string uuid, ResourceIdentifier vmmServerId, string cloudName, ScVmmCloudCapacity cloudCapacity, IReadOnlyList<ScVmmStorageQosPolicy> storageQosPolicies, ResourceProvisioningState? provisioningState, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             InventoryItemId = inventoryItemId;
             Uuid = uuid;
@@ -84,7 +84,7 @@ namespace Azure.ResourceManager.ScVmm.Models
         /// <summary> Capacity of the cloud. </summary>
         public ScVmmCloudCapacity CloudCapacity { get; }
         /// <summary> List of QoS policies available for the cloud. </summary>
-        public IReadOnlyList<StorageQosPolicy> StorageQosPolicies { get; }
+        public IReadOnlyList<ScVmmStorageQosPolicy> StorageQosPolicies { get; }
         /// <summary> Provisioning state of the resource. </summary>
         public ResourceProvisioningState? ProvisioningState { get; }
     }

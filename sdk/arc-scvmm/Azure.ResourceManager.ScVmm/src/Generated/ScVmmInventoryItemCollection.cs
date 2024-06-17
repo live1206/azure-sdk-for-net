@@ -19,8 +19,8 @@ namespace Azure.ResourceManager.ScVmm
 {
     /// <summary>
     /// A class representing a collection of <see cref="ScVmmInventoryItemResource"/> and their operations.
-    /// Each <see cref="ScVmmInventoryItemResource"/> in the collection will belong to the same instance of <see cref="VmmServerResource"/>.
-    /// To get a <see cref="ScVmmInventoryItemCollection"/> instance call the GetScVmmInventoryItems method from an instance of <see cref="VmmServerResource"/>.
+    /// Each <see cref="ScVmmInventoryItemResource"/> in the collection will belong to the same instance of <see cref="ScVmmServerResource"/>.
+    /// To get a <see cref="ScVmmInventoryItemCollection"/> instance call the GetScVmmInventoryItems method from an instance of <see cref="ScVmmServerResource"/>.
     /// </summary>
     public partial class ScVmmInventoryItemCollection : ArmCollection, IEnumerable<ScVmmInventoryItemResource>, IAsyncEnumerable<ScVmmInventoryItemResource>
     {
@@ -47,8 +47,8 @@ namespace Azure.ResourceManager.ScVmm
 
         internal static void ValidateResourceId(ResourceIdentifier id)
         {
-            if (id.ResourceType != VmmServerResource.ResourceType)
-                throw new ArgumentException(string.Format(CultureInfo.CurrentCulture, "Invalid resource type {0} expected {1}", id.ResourceType, VmmServerResource.ResourceType), nameof(id));
+            if (id.ResourceType != ScVmmServerResource.ResourceType)
+                throw new ArgumentException(string.Format(CultureInfo.CurrentCulture, "Invalid resource type {0} expected {1}", id.ResourceType, ScVmmServerResource.ResourceType), nameof(id));
         }
 
         /// <summary>

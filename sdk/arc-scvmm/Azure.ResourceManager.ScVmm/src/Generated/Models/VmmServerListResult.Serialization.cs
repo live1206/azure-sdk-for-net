@@ -76,7 +76,7 @@ namespace Azure.ResourceManager.ScVmm.Models
             {
                 return null;
             }
-            IReadOnlyList<VmmServerData> value = default;
+            IReadOnlyList<ScVmmServerData> value = default;
             Uri nextLink = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
@@ -84,10 +84,10 @@ namespace Azure.ResourceManager.ScVmm.Models
             {
                 if (property.NameEquals("value"u8))
                 {
-                    List<VmmServerData> array = new List<VmmServerData>();
+                    List<ScVmmServerData> array = new List<ScVmmServerData>();
                     foreach (var item in property.Value.EnumerateArray())
                     {
-                        array.Add(VmmServerData.DeserializeVmmServerData(item, options));
+                        array.Add(ScVmmServerData.DeserializeScVmmServerData(item, options));
                     }
                     value = array;
                     continue;

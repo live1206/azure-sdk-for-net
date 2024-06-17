@@ -59,11 +59,11 @@ acronym-mapping:
 
 rename-mapping:
   AvailabilitySetListItem: ScVmmAvailabilitySetItem
-  Force: ScVmmForceDeletion
+  ForceDelete: ScVmmForceDeletion
   VirtualMachineCreateCheckpoint: VirtualMachineCreateCheckpointContent
   VirtualMachineDeleteCheckpoint: VirtualMachineDeleteCheckpointContent
   VirtualMachineRestoreCheckpoint: VirtualMachineRestoreCheckpointContent
-  VMMServer: ScVmmServer
+  VmmServer: ScVmmServer
   VmInstanceHybridIdentityMetadata: ScVmmHybridIdentityMetadata
 
 prepend-rp-prefix:
@@ -93,8 +93,8 @@ prepend-rp-prefix:
   - ResourcePatch
   - StorageProfile
   - StorageProfileUpdate
-  - StorageQoSPolicy
-  - StorageQoSPolicyDetails
+  - StorageQosPolicy
+  - StorageQosPolicyDetails
   - VirtualDisk
   - VirtualDiskUpdate
   - VirtualNetwork

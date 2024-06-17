@@ -309,11 +309,11 @@ namespace Azure.ResourceManager.ScVmm.Mocking
             return GetScVmmVirtualNetworks().Get(virtualNetworkName, cancellationToken);
         }
 
-        /// <summary> Gets a collection of VmmServerResources in the ResourceGroupResource. </summary>
-        /// <returns> An object representing collection of VmmServerResources and their operations over a VmmServerResource. </returns>
-        public virtual VmmServerCollection GetVmmServers()
+        /// <summary> Gets a collection of ScVmmServerResources in the ResourceGroupResource. </summary>
+        /// <returns> An object representing collection of ScVmmServerResources and their operations over a ScVmmServerResource. </returns>
+        public virtual ScVmmServerCollection GetScVmmServers()
         {
-            return GetCachedClient(client => new VmmServerCollection(client, Id));
+            return GetCachedClient(client => new ScVmmServerCollection(client, Id));
         }
 
         /// <summary>
@@ -333,7 +333,7 @@ namespace Azure.ResourceManager.ScVmm.Mocking
         /// </item>
         /// <item>
         /// <term>Resource</term>
-        /// <description><see cref="VmmServerResource"/></description>
+        /// <description><see cref="ScVmmServerResource"/></description>
         /// </item>
         /// </list>
         /// </summary>
@@ -342,9 +342,9 @@ namespace Azure.ResourceManager.ScVmm.Mocking
         /// <exception cref="ArgumentNullException"> <paramref name="vmmServerName"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="vmmServerName"/> is an empty string, and was expected to be non-empty. </exception>
         [ForwardsClientCalls]
-        public virtual async Task<Response<VmmServerResource>> GetVmmServerAsync(string vmmServerName, CancellationToken cancellationToken = default)
+        public virtual async Task<Response<ScVmmServerResource>> GetScVmmServerAsync(string vmmServerName, CancellationToken cancellationToken = default)
         {
-            return await GetVmmServers().GetAsync(vmmServerName, cancellationToken).ConfigureAwait(false);
+            return await GetScVmmServers().GetAsync(vmmServerName, cancellationToken).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -364,7 +364,7 @@ namespace Azure.ResourceManager.ScVmm.Mocking
         /// </item>
         /// <item>
         /// <term>Resource</term>
-        /// <description><see cref="VmmServerResource"/></description>
+        /// <description><see cref="ScVmmServerResource"/></description>
         /// </item>
         /// </list>
         /// </summary>
@@ -373,9 +373,9 @@ namespace Azure.ResourceManager.ScVmm.Mocking
         /// <exception cref="ArgumentNullException"> <paramref name="vmmServerName"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="vmmServerName"/> is an empty string, and was expected to be non-empty. </exception>
         [ForwardsClientCalls]
-        public virtual Response<VmmServerResource> GetVmmServer(string vmmServerName, CancellationToken cancellationToken = default)
+        public virtual Response<ScVmmServerResource> GetScVmmServer(string vmmServerName, CancellationToken cancellationToken = default)
         {
-            return GetVmmServers().Get(vmmServerName, cancellationToken);
+            return GetScVmmServers().Get(vmmServerName, cancellationToken);
         }
     }
 }
