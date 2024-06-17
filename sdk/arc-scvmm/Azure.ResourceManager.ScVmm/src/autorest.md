@@ -68,6 +68,7 @@ rename-mapping:
   VmInstanceHybridIdentityMetadata: ScVmmHybridIdentityMetadata
   StorageQosPolicy: ScVmmStorageQosPolicy
   StorageQosPolicyDetails: ScVmmStorageQosPolicyDetails
+  OsProfileForVmInstance: ScVmmOSProfileForVmInstance
 
 prepend-rp-prefix:
   - AvailabilitySet

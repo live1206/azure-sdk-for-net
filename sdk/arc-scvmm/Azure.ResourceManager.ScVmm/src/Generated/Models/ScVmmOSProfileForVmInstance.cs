@@ -11,7 +11,7 @@ using System.Collections.Generic;
 namespace Azure.ResourceManager.ScVmm.Models
 {
     /// <summary> Defines the resource properties. </summary>
-    public partial class OSProfileForVmInstance
+    public partial class ScVmmOSProfileForVmInstance
     {
         /// <summary>
         /// Keeps track of any properties unknown to the library.
@@ -45,19 +45,19 @@ namespace Azure.ResourceManager.ScVmm.Models
         /// </summary>
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
-        /// <summary> Initializes a new instance of <see cref="OSProfileForVmInstance"/>. </summary>
-        public OSProfileForVmInstance()
+        /// <summary> Initializes a new instance of <see cref="ScVmmOSProfileForVmInstance"/>. </summary>
+        public ScVmmOSProfileForVmInstance()
         {
         }
 
-        /// <summary> Initializes a new instance of <see cref="OSProfileForVmInstance"/>. </summary>
+        /// <summary> Initializes a new instance of <see cref="ScVmmOSProfileForVmInstance"/>. </summary>
         /// <param name="adminPassword"> Admin password of the virtual machine. </param>
         /// <param name="computerName"> Gets or sets computer name. </param>
         /// <param name="osType"> Gets the type of the os. </param>
         /// <param name="osSku"> Gets os sku. </param>
         /// <param name="osVersion"> Gets os version. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal OSProfileForVmInstance(string adminPassword, string computerName, ScVmmOSType? osType, string osSku, string osVersion, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal ScVmmOSProfileForVmInstance(string adminPassword, string computerName, ScVmmOSType? osType, string osSku, string osVersion, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             AdminPassword = adminPassword;
             ComputerName = computerName;

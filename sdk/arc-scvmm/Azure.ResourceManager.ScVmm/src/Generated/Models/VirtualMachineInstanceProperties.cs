@@ -61,7 +61,7 @@ namespace Azure.ResourceManager.ScVmm.Models
         /// <param name="powerState"> Gets the power state of the virtual machine. </param>
         /// <param name="provisioningState"> Provisioning state of the resource. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal VirtualMachineInstanceProperties(IList<ScVmmAvailabilitySetItem> availabilitySets, OSProfileForVmInstance osProfile, ScVmmHardwareProfile hardwareProfile, ScVmmNetworkProfile networkProfile, ScVmmStorageProfile storageProfile, ScVmmInfrastructureProfile infrastructureProfile, string powerState, ScVmmProvisioningState? provisioningState, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal VirtualMachineInstanceProperties(IList<ScVmmAvailabilitySetItem> availabilitySets, ScVmmOSProfileForVmInstance osProfile, ScVmmHardwareProfile hardwareProfile, ScVmmNetworkProfile networkProfile, ScVmmStorageProfile storageProfile, ScVmmInfrastructureProfile infrastructureProfile, string powerState, ScVmmProvisioningState? provisioningState, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             AvailabilitySets = availabilitySets;
             OSProfile = osProfile;
@@ -77,7 +77,7 @@ namespace Azure.ResourceManager.ScVmm.Models
         /// <summary> Availability Sets in vm. </summary>
         public IList<ScVmmAvailabilitySetItem> AvailabilitySets { get; }
         /// <summary> OS properties. </summary>
-        public OSProfileForVmInstance OSProfile { get; set; }
+        public ScVmmOSProfileForVmInstance OSProfile { get; set; }
         /// <summary> Hardware properties. </summary>
         public ScVmmHardwareProfile HardwareProfile { get; set; }
         /// <summary> Network properties. </summary>

@@ -110,7 +110,7 @@ namespace Azure.ResourceManager.ScVmm.Models
                 return null;
             }
             IList<ScVmmAvailabilitySetItem> availabilitySets = default;
-            OSProfileForVmInstance osProfile = default;
+            ScVmmOSProfileForVmInstance osProfile = default;
             ScVmmHardwareProfile hardwareProfile = default;
             ScVmmNetworkProfile networkProfile = default;
             ScVmmStorageProfile storageProfile = default;
@@ -141,7 +141,7 @@ namespace Azure.ResourceManager.ScVmm.Models
                     {
                         continue;
                     }
-                    osProfile = OSProfileForVmInstance.DeserializeOSProfileForVmInstance(property.Value, options);
+                    osProfile = ScVmmOSProfileForVmInstance.DeserializeScVmmOSProfileForVmInstance(property.Value, options);
                     continue;
                 }
                 if (property.NameEquals("hardwareProfile"u8))

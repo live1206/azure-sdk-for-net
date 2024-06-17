@@ -46,7 +46,7 @@ namespace Azure.ResourceManager.ScVmm.Models
         /// <param name="powerState"> Gets the power state of the virtual machine. </param>
         /// <param name="provisioningState"> Provisioning state of the resource. </param>
         /// <returns> A new <see cref="Models.VirtualMachineInstanceProperties"/> instance for mocking. </returns>
-        public static VirtualMachineInstanceProperties VirtualMachineInstanceProperties(IEnumerable<ScVmmAvailabilitySetItem> availabilitySets = null, OSProfileForVmInstance osProfile = null, ScVmmHardwareProfile hardwareProfile = null, IEnumerable<ScVmmNetworkInterface> networkInterfaces = null, IEnumerable<ScVmmVirtualDisk> storageDisks = null, ScVmmInfrastructureProfile infrastructureProfile = null, string powerState = null, ScVmmProvisioningState? provisioningState = null)
+        public static VirtualMachineInstanceProperties VirtualMachineInstanceProperties(IEnumerable<ScVmmAvailabilitySetItem> availabilitySets = null, ScVmmOSProfileForVmInstance osProfile = null, ScVmmHardwareProfile hardwareProfile = null, IEnumerable<ScVmmNetworkInterface> networkInterfaces = null, IEnumerable<ScVmmVirtualDisk> storageDisks = null, ScVmmInfrastructureProfile infrastructureProfile = null, string powerState = null, ScVmmProvisioningState? provisioningState = null)
         {
             availabilitySets ??= new List<ScVmmAvailabilitySetItem>();
             networkInterfaces ??= new List<ScVmmNetworkInterface>();
@@ -64,16 +64,16 @@ namespace Azure.ResourceManager.ScVmm.Models
                 serializedAdditionalRawData: null);
         }
 
-        /// <summary> Initializes a new instance of <see cref="Models.OSProfileForVmInstance"/>. </summary>
+        /// <summary> Initializes a new instance of <see cref="Models.ScVmmOSProfileForVmInstance"/>. </summary>
         /// <param name="adminPassword"> Admin password of the virtual machine. </param>
         /// <param name="computerName"> Gets or sets computer name. </param>
         /// <param name="osType"> Gets the type of the os. </param>
         /// <param name="osSku"> Gets os sku. </param>
         /// <param name="osVersion"> Gets os version. </param>
-        /// <returns> A new <see cref="Models.OSProfileForVmInstance"/> instance for mocking. </returns>
-        public static OSProfileForVmInstance OSProfileForVmInstance(string adminPassword = null, string computerName = null, ScVmmOSType? osType = null, string osSku = null, string osVersion = null)
+        /// <returns> A new <see cref="Models.ScVmmOSProfileForVmInstance"/> instance for mocking. </returns>
+        public static ScVmmOSProfileForVmInstance ScVmmOSProfileForVmInstance(string adminPassword = null, string computerName = null, ScVmmOSType? osType = null, string osSku = null, string osVersion = null)
         {
-            return new OSProfileForVmInstance(
+            return new ScVmmOSProfileForVmInstance(
                 adminPassword,
                 computerName,
                 osType,

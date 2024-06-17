@@ -13,16 +13,16 @@ using Azure.Core;
 
 namespace Azure.ResourceManager.ScVmm.Models
 {
-    public partial class OSProfileForVmInstance : IUtf8JsonSerializable, IJsonModel<OSProfileForVmInstance>
+    public partial class ScVmmOSProfileForVmInstance : IUtf8JsonSerializable, IJsonModel<ScVmmOSProfileForVmInstance>
     {
-        void IUtf8JsonSerializable.Write(Utf8JsonWriter writer) => ((IJsonModel<OSProfileForVmInstance>)this).Write(writer, ModelSerializationExtensions.WireOptions);
+        void IUtf8JsonSerializable.Write(Utf8JsonWriter writer) => ((IJsonModel<ScVmmOSProfileForVmInstance>)this).Write(writer, ModelSerializationExtensions.WireOptions);
 
-        void IJsonModel<OSProfileForVmInstance>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
+        void IJsonModel<ScVmmOSProfileForVmInstance>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<OSProfileForVmInstance>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<ScVmmOSProfileForVmInstance>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
-                throw new FormatException($"The model {nameof(OSProfileForVmInstance)} does not support writing '{format}' format.");
+                throw new FormatException($"The model {nameof(ScVmmOSProfileForVmInstance)} does not support writing '{format}' format.");
             }
 
             writer.WriteStartObject();
@@ -69,19 +69,19 @@ namespace Azure.ResourceManager.ScVmm.Models
             writer.WriteEndObject();
         }
 
-        OSProfileForVmInstance IJsonModel<OSProfileForVmInstance>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
+        ScVmmOSProfileForVmInstance IJsonModel<ScVmmOSProfileForVmInstance>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<OSProfileForVmInstance>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<ScVmmOSProfileForVmInstance>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
-                throw new FormatException($"The model {nameof(OSProfileForVmInstance)} does not support reading '{format}' format.");
+                throw new FormatException($"The model {nameof(ScVmmOSProfileForVmInstance)} does not support reading '{format}' format.");
             }
 
             using JsonDocument document = JsonDocument.ParseValue(ref reader);
-            return DeserializeOSProfileForVmInstance(document.RootElement, options);
+            return DeserializeScVmmOSProfileForVmInstance(document.RootElement, options);
         }
 
-        internal static OSProfileForVmInstance DeserializeOSProfileForVmInstance(JsonElement element, ModelReaderWriterOptions options = null)
+        internal static ScVmmOSProfileForVmInstance DeserializeScVmmOSProfileForVmInstance(JsonElement element, ModelReaderWriterOptions options = null)
         {
             options ??= ModelSerializationExtensions.WireOptions;
 
@@ -133,7 +133,7 @@ namespace Azure.ResourceManager.ScVmm.Models
                 }
             }
             serializedAdditionalRawData = rawDataDictionary;
-            return new OSProfileForVmInstance(
+            return new ScVmmOSProfileForVmInstance(
                 adminPassword,
                 computerName,
                 osType,
@@ -142,35 +142,35 @@ namespace Azure.ResourceManager.ScVmm.Models
                 serializedAdditionalRawData);
         }
 
-        BinaryData IPersistableModel<OSProfileForVmInstance>.Write(ModelReaderWriterOptions options)
+        BinaryData IPersistableModel<ScVmmOSProfileForVmInstance>.Write(ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<OSProfileForVmInstance>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<ScVmmOSProfileForVmInstance>)this).GetFormatFromOptions(options) : options.Format;
 
             switch (format)
             {
                 case "J":
                     return ModelReaderWriter.Write(this, options);
                 default:
-                    throw new FormatException($"The model {nameof(OSProfileForVmInstance)} does not support writing '{options.Format}' format.");
+                    throw new FormatException($"The model {nameof(ScVmmOSProfileForVmInstance)} does not support writing '{options.Format}' format.");
             }
         }
 
-        OSProfileForVmInstance IPersistableModel<OSProfileForVmInstance>.Create(BinaryData data, ModelReaderWriterOptions options)
+        ScVmmOSProfileForVmInstance IPersistableModel<ScVmmOSProfileForVmInstance>.Create(BinaryData data, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<OSProfileForVmInstance>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<ScVmmOSProfileForVmInstance>)this).GetFormatFromOptions(options) : options.Format;
 
             switch (format)
             {
                 case "J":
                     {
                         using JsonDocument document = JsonDocument.Parse(data);
-                        return DeserializeOSProfileForVmInstance(document.RootElement, options);
+                        return DeserializeScVmmOSProfileForVmInstance(document.RootElement, options);
                     }
                 default:
-                    throw new FormatException($"The model {nameof(OSProfileForVmInstance)} does not support reading '{options.Format}' format.");
+                    throw new FormatException($"The model {nameof(ScVmmOSProfileForVmInstance)} does not support reading '{options.Format}' format.");
             }
         }
 
-        string IPersistableModel<OSProfileForVmInstance>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
+        string IPersistableModel<ScVmmOSProfileForVmInstance>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
     }
 }
