@@ -56,7 +56,7 @@ namespace Azure.ResourceManager.ScVmm.Models
         /// <param name="vmmServerId"> ARM Id of the vmmServer resource in which this resource resides. </param>
         /// <param name="provisioningState"> Provisioning state of the resource. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal AvailabilitySetProperties(string availabilitySetName, ResourceIdentifier vmmServerId, ResourceProvisioningState? provisioningState, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal AvailabilitySetProperties(string availabilitySetName, ResourceIdentifier vmmServerId, ScVmmProvisioningState? provisioningState, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             AvailabilitySetName = availabilitySetName;
             VmmServerId = vmmServerId;
@@ -69,6 +69,6 @@ namespace Azure.ResourceManager.ScVmm.Models
         /// <summary> ARM Id of the vmmServer resource in which this resource resides. </summary>
         public ResourceIdentifier VmmServerId { get; set; }
         /// <summary> Provisioning state of the resource. </summary>
-        public ResourceProvisioningState? ProvisioningState { get; }
+        public ScVmmProvisioningState? ProvisioningState { get; }
     }
 }

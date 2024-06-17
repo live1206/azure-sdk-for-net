@@ -55,7 +55,7 @@ namespace Azure.ResourceManager.ScVmm.Models
         /// <param name="publicKey"> Gets or sets the Public Key. </param>
         /// <param name="provisioningState"> Provisioning state of the resource. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal VmInstanceHybridIdentityMetadataProperties(string resourceUid, string publicKey, ResourceProvisioningState? provisioningState, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal VmInstanceHybridIdentityMetadataProperties(string resourceUid, string publicKey, ScVmmProvisioningState? provisioningState, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             ResourceUid = resourceUid;
             PublicKey = publicKey;
@@ -68,6 +68,6 @@ namespace Azure.ResourceManager.ScVmm.Models
         /// <summary> Gets or sets the Public Key. </summary>
         public string PublicKey { get; set; }
         /// <summary> Provisioning state of the resource. </summary>
-        public ResourceProvisioningState? ProvisioningState { get; }
+        public ScVmmProvisioningState? ProvisioningState { get; }
     }
 }

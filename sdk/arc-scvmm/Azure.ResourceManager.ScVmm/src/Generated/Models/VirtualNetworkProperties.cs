@@ -58,7 +58,7 @@ namespace Azure.ResourceManager.ScVmm.Models
         /// <param name="networkName"> Name of the virtual network in vmmServer. </param>
         /// <param name="provisioningState"> Provisioning state of the resource. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal VirtualNetworkProperties(string inventoryItemId, string uuid, ResourceIdentifier vmmServerId, string networkName, ResourceProvisioningState? provisioningState, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal VirtualNetworkProperties(string inventoryItemId, string uuid, ResourceIdentifier vmmServerId, string networkName, ScVmmProvisioningState? provisioningState, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             InventoryItemId = inventoryItemId;
             Uuid = uuid;
@@ -77,6 +77,6 @@ namespace Azure.ResourceManager.ScVmm.Models
         /// <summary> Name of the virtual network in vmmServer. </summary>
         public string NetworkName { get; }
         /// <summary> Provisioning state of the resource. </summary>
-        public ResourceProvisioningState? ProvisioningState { get; }
+        public ScVmmProvisioningState? ProvisioningState { get; }
     }
 }

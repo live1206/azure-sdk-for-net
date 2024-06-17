@@ -65,7 +65,7 @@ namespace Azure.ResourceManager.ScVmm.Models
         /// <param name="version"> Version is the version of the vmmSever. </param>
         /// <param name="provisioningState"> Provisioning state of the resource. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal VmmServerProperties(VmmCredential credentials, string fqdn, int? port, string connectionStatus, string errorMessage, string uuid, string version, ResourceProvisioningState? provisioningState, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal VmmServerProperties(VmmCredential credentials, string fqdn, int? port, string connectionStatus, string errorMessage, string uuid, string version, ScVmmProvisioningState? provisioningState, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             Credentials = credentials;
             Fqdn = fqdn;
@@ -98,6 +98,6 @@ namespace Azure.ResourceManager.ScVmm.Models
         /// <summary> Version is the version of the vmmSever. </summary>
         public string Version { get; }
         /// <summary> Provisioning state of the resource. </summary>
-        public ResourceProvisioningState? ProvisioningState { get; }
+        public ScVmmProvisioningState? ProvisioningState { get; }
     }
 }

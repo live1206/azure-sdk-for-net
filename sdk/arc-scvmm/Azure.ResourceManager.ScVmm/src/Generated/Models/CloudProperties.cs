@@ -61,7 +61,7 @@ namespace Azure.ResourceManager.ScVmm.Models
         /// <param name="storageQosPolicies"> List of QoS policies available for the cloud. </param>
         /// <param name="provisioningState"> Provisioning state of the resource. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal CloudProperties(string inventoryItemId, string uuid, ResourceIdentifier vmmServerId, string cloudName, ScVmmCloudCapacity cloudCapacity, IReadOnlyList<ScVmmStorageQosPolicy> storageQosPolicies, ResourceProvisioningState? provisioningState, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal CloudProperties(string inventoryItemId, string uuid, ResourceIdentifier vmmServerId, string cloudName, ScVmmCloudCapacity cloudCapacity, IReadOnlyList<ScVmmStorageQosPolicy> storageQosPolicies, ScVmmProvisioningState? provisioningState, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             InventoryItemId = inventoryItemId;
             Uuid = uuid;
@@ -86,6 +86,6 @@ namespace Azure.ResourceManager.ScVmm.Models
         /// <summary> List of QoS policies available for the cloud. </summary>
         public IReadOnlyList<ScVmmStorageQosPolicy> StorageQosPolicies { get; }
         /// <summary> Provisioning state of the resource. </summary>
-        public ResourceProvisioningState? ProvisioningState { get; }
+        public ScVmmProvisioningState? ProvisioningState { get; }
     }
 }

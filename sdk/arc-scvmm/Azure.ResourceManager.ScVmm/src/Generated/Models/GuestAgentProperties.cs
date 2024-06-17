@@ -59,7 +59,7 @@ namespace Azure.ResourceManager.ScVmm.Models
         /// <param name="customResourceName"> Gets the name of the corresponding resource in Kubernetes. </param>
         /// <param name="provisioningState"> Provisioning state of the resource. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal GuestAgentProperties(string uuid, ScVmmGuestCredential credentials, ScVmmHttpProxyConfiguration httpProxyConfig, ScVmmProvisioningAction? provisioningAction, string status, string customResourceName, ResourceProvisioningState? provisioningState, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal GuestAgentProperties(string uuid, ScVmmGuestCredential credentials, ScVmmHttpProxyConfiguration httpProxyConfig, ScVmmProvisioningAction? provisioningAction, string status, string customResourceName, ScVmmProvisioningState? provisioningState, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             Uuid = uuid;
             Credentials = credentials;
@@ -96,6 +96,6 @@ namespace Azure.ResourceManager.ScVmm.Models
         /// <summary> Gets the name of the corresponding resource in Kubernetes. </summary>
         public string CustomResourceName { get; }
         /// <summary> Provisioning state of the resource. </summary>
-        public ResourceProvisioningState? ProvisioningState { get; }
+        public ScVmmProvisioningState? ProvisioningState { get; }
     }
 }

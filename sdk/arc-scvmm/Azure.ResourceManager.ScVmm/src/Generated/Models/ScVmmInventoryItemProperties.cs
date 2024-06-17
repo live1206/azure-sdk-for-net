@@ -61,7 +61,7 @@ namespace Azure.ResourceManager.ScVmm.Models
         /// <param name="inventoryItemName"> Gets the Managed Object name in Vmm for the inventory item. </param>
         /// <param name="provisioningState"> Provisioning state of the resource. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal ScVmmInventoryItemProperties(ScVmmInventoryType inventoryType, string managedResourceId, string uuid, string inventoryItemName, ResourceProvisioningState? provisioningState, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal ScVmmInventoryItemProperties(ScVmmInventoryType inventoryType, string managedResourceId, string uuid, string inventoryItemName, ScVmmProvisioningState? provisioningState, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             InventoryType = inventoryType;
             ManagedResourceId = managedResourceId;
@@ -80,6 +80,6 @@ namespace Azure.ResourceManager.ScVmm.Models
         /// <summary> Gets the Managed Object name in Vmm for the inventory item. </summary>
         public string InventoryItemName { get; }
         /// <summary> Provisioning state of the resource. </summary>
-        public ResourceProvisioningState? ProvisioningState { get; }
+        public ScVmmProvisioningState? ProvisioningState { get; }
     }
 }

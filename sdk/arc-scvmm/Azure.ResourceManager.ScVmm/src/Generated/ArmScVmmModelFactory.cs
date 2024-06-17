@@ -46,7 +46,7 @@ namespace Azure.ResourceManager.ScVmm.Models
         /// <param name="powerState"> Gets the power state of the virtual machine. </param>
         /// <param name="provisioningState"> Provisioning state of the resource. </param>
         /// <returns> A new <see cref="Models.VirtualMachineInstanceProperties"/> instance for mocking. </returns>
-        public static VirtualMachineInstanceProperties VirtualMachineInstanceProperties(IEnumerable<ScVmmAvailabilitySetItem> availabilitySets = null, OSProfileForVmInstance osProfile = null, ScVmmHardwareProfile hardwareProfile = null, IEnumerable<ScVmmNetworkInterface> networkInterfaces = null, IEnumerable<ScVmmVirtualDisk> storageDisks = null, ScVmmInfrastructureProfile infrastructureProfile = null, string powerState = null, ResourceProvisioningState? provisioningState = null)
+        public static VirtualMachineInstanceProperties VirtualMachineInstanceProperties(IEnumerable<ScVmmAvailabilitySetItem> availabilitySets = null, OSProfileForVmInstance osProfile = null, ScVmmHardwareProfile hardwareProfile = null, IEnumerable<ScVmmNetworkInterface> networkInterfaces = null, IEnumerable<ScVmmVirtualDisk> storageDisks = null, ScVmmInfrastructureProfile infrastructureProfile = null, string powerState = null, ScVmmProvisioningState? provisioningState = null)
         {
             availabilitySets ??= new List<ScVmmAvailabilitySetItem>();
             networkInterfaces ??= new List<ScVmmNetworkInterface>();
@@ -243,7 +243,7 @@ namespace Azure.ResourceManager.ScVmm.Models
         /// <param name="customResourceName"> Gets the name of the corresponding resource in Kubernetes. </param>
         /// <param name="provisioningState"> Provisioning state of the resource. </param>
         /// <returns> A new <see cref="Models.GuestAgentProperties"/> instance for mocking. </returns>
-        public static GuestAgentProperties GuestAgentProperties(string uuid = null, ScVmmGuestCredential credentials = null, string httpsProxy = null, ScVmmProvisioningAction? provisioningAction = null, string status = null, string customResourceName = null, ResourceProvisioningState? provisioningState = null)
+        public static GuestAgentProperties GuestAgentProperties(string uuid = null, ScVmmGuestCredential credentials = null, string httpsProxy = null, ScVmmProvisioningAction? provisioningAction = null, string status = null, string customResourceName = null, ScVmmProvisioningState? provisioningState = null)
         {
             return new GuestAgentProperties(
                 uuid,
@@ -279,7 +279,7 @@ namespace Azure.ResourceManager.ScVmm.Models
         /// <param name="publicKey"> Gets or sets the Public Key. </param>
         /// <param name="provisioningState"> Provisioning state of the resource. </param>
         /// <returns> A new <see cref="Models.VmInstanceHybridIdentityMetadataProperties"/> instance for mocking. </returns>
-        public static VmInstanceHybridIdentityMetadataProperties VmInstanceHybridIdentityMetadataProperties(string resourceUid = null, string publicKey = null, ResourceProvisioningState? provisioningState = null)
+        public static VmInstanceHybridIdentityMetadataProperties VmInstanceHybridIdentityMetadataProperties(string resourceUid = null, string publicKey = null, ScVmmProvisioningState? provisioningState = null)
         {
             return new VmInstanceHybridIdentityMetadataProperties(resourceUid, publicKey, provisioningState, serializedAdditionalRawData: null);
         }
@@ -315,7 +315,7 @@ namespace Azure.ResourceManager.ScVmm.Models
         /// <param name="vmmServerId"> ARM Id of the vmmServer resource in which this resource resides. </param>
         /// <param name="provisioningState"> Provisioning state of the resource. </param>
         /// <returns> A new <see cref="Models.AvailabilitySetProperties"/> instance for mocking. </returns>
-        public static AvailabilitySetProperties AvailabilitySetProperties(string availabilitySetName = null, ResourceIdentifier vmmServerId = null, ResourceProvisioningState? provisioningState = null)
+        public static AvailabilitySetProperties AvailabilitySetProperties(string availabilitySetName = null, ResourceIdentifier vmmServerId = null, ScVmmProvisioningState? provisioningState = null)
         {
             return new AvailabilitySetProperties(availabilitySetName, vmmServerId, provisioningState, serializedAdditionalRawData: null);
         }
@@ -355,7 +355,7 @@ namespace Azure.ResourceManager.ScVmm.Models
         /// <param name="storageQosPolicies"> List of QoS policies available for the cloud. </param>
         /// <param name="provisioningState"> Provisioning state of the resource. </param>
         /// <returns> A new <see cref="Models.CloudProperties"/> instance for mocking. </returns>
-        public static CloudProperties CloudProperties(string inventoryItemId = null, string uuid = null, ResourceIdentifier vmmServerId = null, string cloudName = null, ScVmmCloudCapacity cloudCapacity = null, IEnumerable<ScVmmStorageQosPolicy> storageQosPolicies = null, ResourceProvisioningState? provisioningState = null)
+        public static CloudProperties CloudProperties(string inventoryItemId = null, string uuid = null, ResourceIdentifier vmmServerId = null, string cloudName = null, ScVmmCloudCapacity cloudCapacity = null, IEnumerable<ScVmmStorageQosPolicy> storageQosPolicies = null, ScVmmProvisioningState? provisioningState = null)
         {
             storageQosPolicies ??= new List<ScVmmStorageQosPolicy>();
 
@@ -446,7 +446,7 @@ namespace Azure.ResourceManager.ScVmm.Models
         /// <param name="disks"> Gets the disks of the template. </param>
         /// <param name="provisioningState"> Provisioning state of the resource. </param>
         /// <returns> A new <see cref="Models.VirtualMachineTemplateProperties"/> instance for mocking. </returns>
-        public static VirtualMachineTemplateProperties VirtualMachineTemplateProperties(string inventoryItemId = null, string uuid = null, ResourceIdentifier vmmServerId = null, ScVmmOSType? osType = null, string osName = null, string computerName = null, int? memoryMB = null, int? cpuCount = null, LimitCpuForMigration? limitCpuForMigration = null, DynamicMemoryEnabled? dynamicMemoryEnabled = null, IsCustomizable? isCustomizable = null, int? dynamicMemoryMaxMB = null, int? dynamicMemoryMinMB = null, IsHighlyAvailable? isHighlyAvailable = null, int? generation = null, IEnumerable<ScVmmNetworkInterface> networkInterfaces = null, IEnumerable<ScVmmVirtualDisk> disks = null, ResourceProvisioningState? provisioningState = null)
+        public static VirtualMachineTemplateProperties VirtualMachineTemplateProperties(string inventoryItemId = null, string uuid = null, ResourceIdentifier vmmServerId = null, ScVmmOSType? osType = null, string osName = null, string computerName = null, int? memoryMB = null, int? cpuCount = null, LimitCpuForMigration? limitCpuForMigration = null, DynamicMemoryEnabled? dynamicMemoryEnabled = null, IsCustomizable? isCustomizable = null, int? dynamicMemoryMaxMB = null, int? dynamicMemoryMinMB = null, IsHighlyAvailable? isHighlyAvailable = null, int? generation = null, IEnumerable<ScVmmNetworkInterface> networkInterfaces = null, IEnumerable<ScVmmVirtualDisk> disks = null, ScVmmProvisioningState? provisioningState = null)
         {
             networkInterfaces ??= new List<ScVmmNetworkInterface>();
             disks ??= new List<ScVmmVirtualDisk>();
@@ -506,7 +506,7 @@ namespace Azure.ResourceManager.ScVmm.Models
         /// <param name="networkName"> Name of the virtual network in vmmServer. </param>
         /// <param name="provisioningState"> Provisioning state of the resource. </param>
         /// <returns> A new <see cref="Models.VirtualNetworkProperties"/> instance for mocking. </returns>
-        public static VirtualNetworkProperties VirtualNetworkProperties(string inventoryItemId = null, string uuid = null, ResourceIdentifier vmmServerId = null, string networkName = null, ResourceProvisioningState? provisioningState = null)
+        public static VirtualNetworkProperties VirtualNetworkProperties(string inventoryItemId = null, string uuid = null, ResourceIdentifier vmmServerId = null, string networkName = null, ScVmmProvisioningState? provisioningState = null)
         {
             return new VirtualNetworkProperties(
                 inventoryItemId,
@@ -553,7 +553,7 @@ namespace Azure.ResourceManager.ScVmm.Models
         /// <param name="version"> Version is the version of the vmmSever. </param>
         /// <param name="provisioningState"> Provisioning state of the resource. </param>
         /// <returns> A new <see cref="Models.VmmServerProperties"/> instance for mocking. </returns>
-        public static VmmServerProperties VmmServerProperties(VmmCredential credentials = null, string fqdn = null, int? port = null, string connectionStatus = null, string errorMessage = null, string uuid = null, string version = null, ResourceProvisioningState? provisioningState = null)
+        public static VmmServerProperties VmmServerProperties(VmmCredential credentials = null, string fqdn = null, int? port = null, string connectionStatus = null, string errorMessage = null, string uuid = null, string version = null, ScVmmProvisioningState? provisioningState = null)
         {
             return new VmmServerProperties(
                 credentials,
@@ -598,7 +598,7 @@ namespace Azure.ResourceManager.ScVmm.Models
         /// <param name="inventoryItemName"> Gets the Managed Object name in Vmm for the inventory item. </param>
         /// <param name="provisioningState"> Provisioning state of the resource. </param>
         /// <returns> A new <see cref="Models.ScVmmInventoryItemProperties"/> instance for mocking. </returns>
-        public static ScVmmInventoryItemProperties ScVmmInventoryItemProperties(string inventoryType = null, string managedResourceId = null, string uuid = null, string inventoryItemName = null, ResourceProvisioningState? provisioningState = null)
+        public static ScVmmInventoryItemProperties ScVmmInventoryItemProperties(string inventoryType = null, string managedResourceId = null, string uuid = null, string inventoryItemName = null, ScVmmProvisioningState? provisioningState = null)
         {
             return new UnknownInventoryItemProperties(
                 inventoryType == null ? default : new ScVmmInventoryType(inventoryType),
@@ -615,7 +615,7 @@ namespace Azure.ResourceManager.ScVmm.Models
         /// <param name="inventoryItemName"> Gets the Managed Object name in Vmm for the inventory item. </param>
         /// <param name="provisioningState"> Provisioning state of the resource. </param>
         /// <returns> A new <see cref="Models.CloudInventoryItem"/> instance for mocking. </returns>
-        public static CloudInventoryItem CloudInventoryItem(string managedResourceId = null, string uuid = null, string inventoryItemName = null, ResourceProvisioningState? provisioningState = null)
+        public static CloudInventoryItem CloudInventoryItem(string managedResourceId = null, string uuid = null, string inventoryItemName = null, ScVmmProvisioningState? provisioningState = null)
         {
             return new CloudInventoryItem(
                 ScVmmInventoryType.Cloud,
@@ -640,7 +640,7 @@ namespace Azure.ResourceManager.ScVmm.Models
         /// <param name="biosGuid"> Gets the bios guid. </param>
         /// <param name="managedMachineResourceId"> Gets the tracked resource id corresponding to the inventory resource. </param>
         /// <returns> A new <see cref="Models.VirtualMachineInventoryItem"/> instance for mocking. </returns>
-        public static VirtualMachineInventoryItem VirtualMachineInventoryItem(string managedResourceId = null, string uuid = null, string inventoryItemName = null, ResourceProvisioningState? provisioningState = null, ScVmmOSType? osType = null, string osName = null, string osVersion = null, string powerState = null, IEnumerable<string> ipAddresses = null, ScVmmInventoryItemDetails cloud = null, string biosGuid = null, ResourceIdentifier managedMachineResourceId = null)
+        public static VirtualMachineInventoryItem VirtualMachineInventoryItem(string managedResourceId = null, string uuid = null, string inventoryItemName = null, ScVmmProvisioningState? provisioningState = null, ScVmmOSType? osType = null, string osName = null, string osVersion = null, string powerState = null, IEnumerable<string> ipAddresses = null, ScVmmInventoryItemDetails cloud = null, string biosGuid = null, ResourceIdentifier managedMachineResourceId = null)
         {
             ipAddresses ??= new List<string>();
 
@@ -671,7 +671,7 @@ namespace Azure.ResourceManager.ScVmm.Models
         /// <param name="osType"> Gets the type of the os. </param>
         /// <param name="osName"> Gets os name. </param>
         /// <returns> A new <see cref="Models.VirtualMachineTemplateInventoryItem"/> instance for mocking. </returns>
-        public static VirtualMachineTemplateInventoryItem VirtualMachineTemplateInventoryItem(string managedResourceId = null, string uuid = null, string inventoryItemName = null, ResourceProvisioningState? provisioningState = null, int? cpuCount = null, int? memoryMB = null, ScVmmOSType? osType = null, string osName = null)
+        public static VirtualMachineTemplateInventoryItem VirtualMachineTemplateInventoryItem(string managedResourceId = null, string uuid = null, string inventoryItemName = null, ScVmmProvisioningState? provisioningState = null, int? cpuCount = null, int? memoryMB = null, ScVmmOSType? osType = null, string osName = null)
         {
             return new VirtualMachineTemplateInventoryItem(
                 ScVmmInventoryType.VirtualMachineTemplate,
@@ -692,7 +692,7 @@ namespace Azure.ResourceManager.ScVmm.Models
         /// <param name="inventoryItemName"> Gets the Managed Object name in Vmm for the inventory item. </param>
         /// <param name="provisioningState"> Provisioning state of the resource. </param>
         /// <returns> A new <see cref="Models.VirtualNetworkInventoryItem"/> instance for mocking. </returns>
-        public static VirtualNetworkInventoryItem VirtualNetworkInventoryItem(string managedResourceId = null, string uuid = null, string inventoryItemName = null, ResourceProvisioningState? provisioningState = null)
+        public static VirtualNetworkInventoryItem VirtualNetworkInventoryItem(string managedResourceId = null, string uuid = null, string inventoryItemName = null, ScVmmProvisioningState? provisioningState = null)
         {
             return new VirtualNetworkInventoryItem(
                 ScVmmInventoryType.VirtualNetwork,
