@@ -11,14 +11,21 @@ using static Microsoft.TypeSpec.Generator.Snippets.Snippet;
 
 namespace Azure.Generator.Providers
 {
-    internal class RequestContextExtensionsDefinition : TypeProvider
+    /// <summary>
+    /// Defines the extension methods for <see cref="RequestContext"/>.
+    /// </summary>
+    public class RequestContextExtensionsDefinition : TypeProvider
     {
+        /// <inheritdoc/>
         protected override TypeSignatureModifiers BuildDeclarationModifiers() => TypeSignatureModifiers.Internal | TypeSignatureModifiers.Static;
 
+        /// <inheritdoc/>
         protected override string BuildName() => "RequestContextExtensions";
 
+        /// <inheritdoc/>
         protected override string BuildRelativeFilePath() => Path.Combine("src", "Generated", "Internal", $"{Name}.cs");
 
+        /// <inheritdoc/>
         protected override MethodProvider[] BuildMethods() => [BuildParse()];
 
         private MethodProvider BuildParse()
