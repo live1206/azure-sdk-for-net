@@ -2,6 +2,7 @@
 // Licensed under the MIT License.
 
 using Azure.Generator.Mgmt.Providers;
+using Azure.Generator.Mgmt.Tests.TestHelpers;
 using Azure.Generator.Tests.Common;
 using Azure.Generator.Tests.TestHelpers;
 using Microsoft.TypeSpec.Generator.Primitives;
@@ -14,7 +15,7 @@ namespace Azure.Generator.Mgmt.Tests.Providers
         [SetUp]
         public void SetUp()
         {
-            MockHelpers.LoadMockPlugin();
+            MgmtMockHelpers.LoadMockPlugin();
         }
 
         [TestCase]

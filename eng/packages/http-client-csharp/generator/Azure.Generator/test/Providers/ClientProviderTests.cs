@@ -45,7 +45,7 @@ namespace Azure.Generator.Tests.Providers
                 null;
             Func<InputApiKeyAuth>? apiKeyAuth = _hasKeyAuth ? () => new InputApiKeyAuth("mock", null) : null;
             Func<InputOAuth2Auth>? oauth2Auth = _hasOAuth2 ? () => new InputOAuth2Auth(["mock"]) : null;
-            MockHelpers.LoadMockPlugin(
+            MockHelpers.LoadMockPlugin<AzureClientPlugin>(
                 apiKeyAuth: apiKeyAuth,
                 oauth2Auth: oauth2Auth,
                 clients: clients);

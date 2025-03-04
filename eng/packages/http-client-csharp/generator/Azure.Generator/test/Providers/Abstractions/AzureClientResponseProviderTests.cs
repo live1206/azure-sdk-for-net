@@ -37,7 +37,7 @@ namespace Azure.Generator.Tests.Providers.Abstractions
         [Test]
         public void ValidateClientResponseExceptionTypeIsOverridden()
         {
-            MockHelpers.LoadMockPlugin();
+            MockHelpers.LoadMockPlugin<AzureClientPlugin>();
             var pipelineExtensions =
                 AzureClientPlugin.Instance.OutputLibrary.TypeProviders.FirstOrDefault(t => t.Name == "ClientPipelineExtensions");
             Assert.NotNull(pipelineExtensions);
@@ -50,7 +50,7 @@ namespace Azure.Generator.Tests.Providers.Abstractions
         private static ClientProvider CreateMockClientProvider()
         {
             var client = InputFactory.Client("TestClient", operations: [InputFactory.Operation("foo")]);
-            MockHelpers.LoadMockPlugin(clientResponseApi: AzureClientResponseProvider.Instance);
+            MockHelpers.LoadMockPlugin<AzureClientPlugin>(clientResponseApi: AzureClientResponseProvider.Instance);
             var clientProvider = AzureClientPlugin.Instance.TypeFactory.CreateClient(client)!;
             return clientProvider;
         }
