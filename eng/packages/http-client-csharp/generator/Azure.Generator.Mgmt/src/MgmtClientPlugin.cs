@@ -25,6 +25,12 @@ namespace Azure.Generator.Mgmt
             _instance = this;
         }
 
+        private MgmtOutputLibrary? _azureOutputLibrary;
+        /// <inheritdoc/>
+        public override MgmtOutputLibrary OutputLibrary => _azureOutputLibrary ??= new();
+
+        internal ResourceDetection ResourceDetection { get; } = new();
+
         /// <summary>
         /// Customize the generation output for Azure client SDK.
         /// </summary>

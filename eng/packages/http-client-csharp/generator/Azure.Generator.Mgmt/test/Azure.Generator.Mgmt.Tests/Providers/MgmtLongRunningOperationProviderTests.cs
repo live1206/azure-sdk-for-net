@@ -1,13 +1,13 @@
 ﻿// Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License.
 
-using Azure.Generator.Providers;
+using Azure.Generator.Mgmt.Providers;
 using Azure.Generator.Tests.Common;
 using Azure.Generator.Tests.TestHelpers;
 using Microsoft.TypeSpec.Generator.Primitives;
 using NUnit.Framework;
 
-namespace Azure.Generator.Tests.Providers
+namespace Azure.Generator.Mgmt.Tests.Providers
 {
     internal class MgmtLongRunningOperationProviderTests
     {

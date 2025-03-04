@@ -1,7 +1,6 @@
 ﻿// Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License.
 
-using Azure.Generator.Utilities;
 using Microsoft.CodeAnalysis;
 using Microsoft.TypeSpec.Generator;
 using Microsoft.TypeSpec.Generator.ClientModel;
@@ -29,8 +28,6 @@ public class AzureClientPlugin : ScmCodeModelPlugin
     /// <inheritdoc/>
     public override AzureOutputLibrary OutputLibrary => _azureOutputLibrary ??= new();
 
-    internal ResourceDetection ResourceDetection { get; } = new();
-
     /// <summary>
     /// The Azure client plugin to generate the Azure client SDK.
     /// </summary>
@@ -53,11 +50,6 @@ public class AzureClientPlugin : ScmCodeModelPlugin
         var sharedSourceDirectory = Path.Combine(Path.GetDirectoryName(typeof(AzureClientPlugin).Assembly.Location)!, "Shared", "Core");
         AddSharedSourceDirectory(sharedSourceDirectory);
         AddVisitor(new NamespaceVisitor());
-        if (IsAzureArm.Value)
-        {
-            AddVisitor(new RestClientVisitor());
-            AddVisitor(new ResourceVisitor());
-        }
     }
 
     /// <summary>

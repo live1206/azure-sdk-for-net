@@ -2,13 +2,9 @@
 // Licensed under the MIT License.
 
 using Azure.Core;
-using Azure.Generator.Utilities;
 using Microsoft.TypeSpec.Generator.Input;
-using System;
 using System.Collections;
-using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
-using System.Linq;
 
 namespace Azure.Generator.Mgmt.Models
 {

@@ -2,10 +2,8 @@
 // Licensed under the MIT License.
 
 using Microsoft.TypeSpec.Generator.Input;
-using System;
-using System.Linq;
 
-namespace Azure.Generator.Utilities
+namespace Azure.Generator.Mgmt
 {
     internal static class OperationExtensions
     {
