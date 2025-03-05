@@ -4,6 +4,7 @@
 using Microsoft.TypeSpec.Generator;
 using Microsoft.TypeSpec.Generator.ClientModel.Providers;
 using Microsoft.TypeSpec.Generator.Input;
+using System.Collections.Generic;
 
 namespace Azure.Generator.Mgmt
 {

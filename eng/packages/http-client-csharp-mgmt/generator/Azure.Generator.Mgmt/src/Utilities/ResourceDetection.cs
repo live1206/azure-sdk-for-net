@@ -4,8 +4,10 @@
 using Azure.Core;
 using Azure.Generator.Mgmt.Models;
 using Microsoft.TypeSpec.Generator.Input;
+using System;
 using System.Collections.Concurrent;
 using System.Diagnostics.CodeAnalysis;
+using System.Linq;
 
 namespace Azure.Generator.Mgmt
 {

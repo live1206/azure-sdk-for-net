@@ -1,14 +1,15 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
   <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
+		<PackageId>Azure.Generator.Mgmt</PackageId>
+		<Version>1.0.0-beta.1</Version>
+		<Nullable>enable</Nullable>
+		<NoWarn>$(NoWarn);CS8002</NoWarn>
+		<!--<GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>-->
+		<CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Azure.Generator\src\Azure.Generator.csproj" />
-    <ProjectReference Include="..\..\Azure.Generator\test\Azure.Generator.Tests.csproj" />
+    <ProjectReference Include="..\..\..\..\http-client-csharp\generator\Azure.Generator\src\Azure.Generator.csproj" />
   </ItemGroup>
 
 	<ItemGroup>
@@ -19,7 +20,7 @@
 
 	<Target Name="CheckEmitterBuild" BeforeTargets="Build">
 		<!-- Check if the folder does not exist -->
-		<Error Condition="!Exists('..\..\..\node_modules\@typespec\http-client-csharp')" Text="Emitter has not been built please run `npm ci` followed by `npm run build` from ./eng/packages/http-client-csharp folder." />
+		<Error Condition="!Exists('..\..\..\node_modules\@typespec\http-client-csharp-mgmt')" Text="Emitter has not been built please run `npm ci` followed by `npm run build` from ./eng/packages/http-client-csharp folder." />
 	</Target>
 
 	<!-- Copy output to package dist path for local execution -->

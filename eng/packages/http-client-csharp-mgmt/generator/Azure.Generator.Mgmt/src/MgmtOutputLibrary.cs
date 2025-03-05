@@ -5,6 +5,7 @@ using Azure.Generator.Mgmt.Models;
 using Azure.Generator.Mgmt.Providers;
 using Azure.Generator.Providers;
 using Microsoft.TypeSpec.Generator.Providers;
+using System.Collections.Generic;
 
 namespace Azure.Generator.Mgmt
 {

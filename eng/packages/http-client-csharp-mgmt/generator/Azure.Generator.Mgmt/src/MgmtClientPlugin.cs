@@ -2,6 +2,7 @@
 // Licensed under the MIT License.
 
 using Microsoft.TypeSpec.Generator;
+using System;
 using System.ComponentModel.Composition;
 
 namespace Azure.Generator.Mgmt
