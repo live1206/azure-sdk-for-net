@@ -51,7 +51,7 @@ function Refresh-Build {
     # we don't want to build the entire solution because the test projects might not build until after regeneration
     # generating Azure.Generator.csproj is enough
     Invoke-LoggedCommand "dotnet build $azurePackageRoot/generator/Azure.Generator/src"
-    Invoke-LoggedCommand "dotnet build $mgmtPackageRoot/generator/Azure.Generator/src"
+    Invoke-LoggedCommand "dotnet build $mgmtPackageRoot/generator/Azure.Generator.Mgmt/src"
 }
 
 $azureTestProjectsLocalDir = Join-Path $azurePackageRoot 'generator' 'TestProjects' 'Local'

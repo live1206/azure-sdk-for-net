@@ -19,17 +19,19 @@ namespace MgmtTypeSpec
     {
         private readonly Uri _endpoint;
         private readonly string _apiVersion;
+        private readonly Guid _subscriptionId;
 
         /// <summary> Initializes a new instance of Foos for mocking. </summary>
         protected Foos()
         {
         }
 
-        internal Foos(HttpPipeline pipeline, Uri endpoint, string apiVersion)
+        internal Foos(HttpPipeline pipeline, Uri endpoint, string apiVersion, Guid subscriptionId)
         {
             _endpoint = endpoint;
             Pipeline = pipeline;
             _apiVersion = apiVersion;
+            _subscriptionId = subscriptionId;
         }
 
         /// <summary> The HTTP pipeline for sending and receiving REST requests and responses. </summary>
@@ -43,7 +45,6 @@ namespace MgmtTypeSpec
         /// </item>
         /// </list>
         /// </summary>
-        /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="fooName"> The name of the Foo. </param>
         /// <param name="content"> The content to send as the body of the request. </param>
@@ -51,13 +52,13 @@ namespace MgmtTypeSpec
         /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/>, <paramref name="fooName"/> or <paramref name="content"/> is null. </exception>
         /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
         /// <returns> The response returned from the service. </returns>
-        public virtual Response CreateOrUpdate(Guid subscriptionId, string resourceGroupName, string fooName, RequestContent content, RequestContext context = null)
+        public virtual Response CreateOrUpdate(string resourceGroupName, string fooName, RequestContent content, RequestContext context = null)
         {
             Argument.AssertNotNull(resourceGroupName, nameof(resourceGroupName));
             Argument.AssertNotNull(fooName, nameof(fooName));
             Argument.AssertNotNull(content, nameof(content));
 
-            using HttpMessage message = CreateCreateOrUpdateRequest(subscriptionId, resourceGroupName, fooName, content, context);
+            using HttpMessage message = CreateCreateOrUpdateRequest(resourceGroupName, fooName, content, context);
             return Pipeline.ProcessMessage(message, context);
         }
 
@@ -69,7 +70,6 @@ namespace MgmtTypeSpec
         /// </item>
         /// </list>
         /// </summary>
-        /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="fooName"> The name of the Foo. </param>
         /// <param name="content"> The content to send as the body of the request. </param>
@@ -77,49 +77,47 @@ namespace MgmtTypeSpec
         /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/>, <paramref name="fooName"/> or <paramref name="content"/> is null. </exception>
         /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
         /// <returns> The response returned from the service. </returns>
-        public virtual async Task<Response> CreateOrUpdateAsync(Guid subscriptionId, string resourceGroupName, string fooName, RequestContent content, RequestContext context = null)
+        public virtual async Task<Response> CreateOrUpdateAsync(string resourceGroupName, string fooName, RequestContent content, RequestContext context = null)
         {
             Argument.AssertNotNull(resourceGroupName, nameof(resourceGroupName));
             Argument.AssertNotNull(fooName, nameof(fooName));
             Argument.AssertNotNull(content, nameof(content));
 
-            using HttpMessage message = CreateCreateOrUpdateRequest(subscriptionId, resourceGroupName, fooName, content, context);
+            using HttpMessage message = CreateCreateOrUpdateRequest(resourceGroupName, fooName, content, context);
             return await Pipeline.ProcessMessageAsync(message, context).ConfigureAwait(false);
         }
 
         /// <summary> Create a Foo. </summary>
-        /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="fooName"> The name of the Foo. </param>
         /// <param name="resource"> Resource create parameters. </param>
         /// <param name="cancellationToken"> The cancellation token that can be used to cancel the operation. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/>, <paramref name="fooName"/> or <paramref name="resource"/> is null. </exception>
         /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
-        public virtual Response<FooData> CreateOrUpdate(Guid subscriptionId, string resourceGroupName, string fooName, FooData resource, CancellationToken cancellationToken = default)
+        public virtual Response<FooData> CreateOrUpdate(string resourceGroupName, string fooName, FooData resource, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNull(resourceGroupName, nameof(resourceGroupName));
             Argument.AssertNotNull(fooName, nameof(fooName));
             Argument.AssertNotNull(resource, nameof(resource));
 
-            Response result = CreateOrUpdate(subscriptionId, resourceGroupName, fooName, resource, cancellationToken.CanBeCanceled ? new RequestContext { CancellationToken = cancellationToken } : null);
+            Response result = CreateOrUpdate(resourceGroupName, fooName, resource, cancellationToken.CanBeCanceled ? new RequestContext { CancellationToken = cancellationToken } : null);
             return Response.FromValue((FooData)result, result);
         }
 
         /// <summary> Create a Foo. </summary>
-        /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="fooName"> The name of the Foo. </param>
         /// <param name="resource"> Resource create parameters. </param>
         /// <param name="cancellationToken"> The cancellation token that can be used to cancel the operation. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/>, <paramref name="fooName"/> or <paramref name="resource"/> is null. </exception>
         /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
-        public virtual async Task<Response<FooData>> CreateOrUpdateAsync(Guid subscriptionId, string resourceGroupName, string fooName, FooData resource, CancellationToken cancellationToken = default)
+        public virtual async Task<Response<FooData>> CreateOrUpdateAsync(string resourceGroupName, string fooName, FooData resource, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNull(resourceGroupName, nameof(resourceGroupName));
             Argument.AssertNotNull(fooName, nameof(fooName));
             Argument.AssertNotNull(resource, nameof(resource));
 
-            Response result = await CreateOrUpdateAsync(subscriptionId, resourceGroupName, fooName, resource, cancellationToken.CanBeCanceled ? new RequestContext { CancellationToken = cancellationToken } : null).ConfigureAwait(false);
+            Response result = await CreateOrUpdateAsync(resourceGroupName, fooName, resource, cancellationToken.CanBeCanceled ? new RequestContext { CancellationToken = cancellationToken } : null).ConfigureAwait(false);
             return Response.FromValue((FooData)result, result);
         }
 
@@ -131,19 +129,18 @@ namespace MgmtTypeSpec
         /// </item>
         /// </list>
         /// </summary>
-        /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="fooName"> The name of the Foo. </param>
         /// <param name="context"> The request options, which can override default behaviors of the client pipeline on a per-call basis. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/> or <paramref name="fooName"/> is null. </exception>
         /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
         /// <returns> The response returned from the service. </returns>
-        public virtual Response Get(Guid subscriptionId, string resourceGroupName, string fooName, RequestContext context)
+        public virtual Response Get(string resourceGroupName, string fooName, RequestContext context)
         {
             Argument.AssertNotNull(resourceGroupName, nameof(resourceGroupName));
             Argument.AssertNotNull(fooName, nameof(fooName));
 
-            using HttpMessage message = CreateGetRequest(subscriptionId, resourceGroupName, fooName, context);
+            using HttpMessage message = CreateGetRequest(resourceGroupName, fooName, context);
             return Pipeline.ProcessMessage(message, context);
         }
 
@@ -155,51 +152,48 @@ namespace MgmtTypeSpec
         /// </item>
         /// </list>
         /// </summary>
-        /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="fooName"> The name of the Foo. </param>
         /// <param name="context"> The request options, which can override default behaviors of the client pipeline on a per-call basis. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/> or <paramref name="fooName"/> is null. </exception>
         /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
         /// <returns> The response returned from the service. </returns>
-        public virtual async Task<Response> GetAsync(Guid subscriptionId, string resourceGroupName, string fooName, RequestContext context)
+        public virtual async Task<Response> GetAsync(string resourceGroupName, string fooName, RequestContext context)
         {
             Argument.AssertNotNull(resourceGroupName, nameof(resourceGroupName));
             Argument.AssertNotNull(fooName, nameof(fooName));
 
-            using HttpMessage message = CreateGetRequest(subscriptionId, resourceGroupName, fooName, context);
+            using HttpMessage message = CreateGetRequest(resourceGroupName, fooName, context);
             return await Pipeline.ProcessMessageAsync(message, context).ConfigureAwait(false);
         }
 
         /// <summary> Get a Foo. </summary>
-        /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="fooName"> The name of the Foo. </param>
         /// <param name="cancellationToken"> The cancellation token that can be used to cancel the operation. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/> or <paramref name="fooName"/> is null. </exception>
         /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
-        public virtual Response<FooData> Get(Guid subscriptionId, string resourceGroupName, string fooName, CancellationToken cancellationToken = default)
+        public virtual Response<FooData> Get(string resourceGroupName, string fooName, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNull(resourceGroupName, nameof(resourceGroupName));
             Argument.AssertNotNull(fooName, nameof(fooName));
 
-            Response result = Get(subscriptionId, resourceGroupName, fooName, cancellationToken.CanBeCanceled ? new RequestContext { CancellationToken = cancellationToken } : null);
+            Response result = Get(resourceGroupName, fooName, cancellationToken.CanBeCanceled ? new RequestContext { CancellationToken = cancellationToken } : null);
             return Response.FromValue((FooData)result, result);
         }
 
         /// <summary> Get a Foo. </summary>
-        /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="fooName"> The name of the Foo. </param>
         /// <param name="cancellationToken"> The cancellation token that can be used to cancel the operation. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/> or <paramref name="fooName"/> is null. </exception>
         /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
-        public virtual async Task<Response<FooData>> GetAsync(Guid subscriptionId, string resourceGroupName, string fooName, CancellationToken cancellationToken = default)
+        public virtual async Task<Response<FooData>> GetAsync(string resourceGroupName, string fooName, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNull(resourceGroupName, nameof(resourceGroupName));
             Argument.AssertNotNull(fooName, nameof(fooName));
 
-            Response result = await GetAsync(subscriptionId, resourceGroupName, fooName, cancellationToken.CanBeCanceled ? new RequestContext { CancellationToken = cancellationToken } : null).ConfigureAwait(false);
+            Response result = await GetAsync(resourceGroupName, fooName, cancellationToken.CanBeCanceled ? new RequestContext { CancellationToken = cancellationToken } : null).ConfigureAwait(false);
             return Response.FromValue((FooData)result, result);
         }
 
@@ -211,19 +205,18 @@ namespace MgmtTypeSpec
         /// </item>
         /// </list>
         /// </summary>
-        /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="fooName"> The name of the Foo. </param>
         /// <param name="context"> The request options, which can override default behaviors of the client pipeline on a per-call basis. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/> or <paramref name="fooName"/> is null. </exception>
         /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
         /// <returns> The response returned from the service. </returns>
-        public virtual Response Delete(Guid subscriptionId, string resourceGroupName, string fooName, RequestContext context)
+        public virtual Response Delete(string resourceGroupName, string fooName, RequestContext context)
         {
             Argument.AssertNotNull(resourceGroupName, nameof(resourceGroupName));
             Argument.AssertNotNull(fooName, nameof(fooName));
 
-            using HttpMessage message = CreateDeleteRequest(subscriptionId, resourceGroupName, fooName, context);
+            using HttpMessage message = CreateDeleteRequest(resourceGroupName, fooName, context);
             return Pipeline.ProcessMessage(message, context);
         }
 
@@ -235,50 +228,47 @@ namespace MgmtTypeSpec
         /// </item>
         /// </list>
         /// </summary>
-        /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="fooName"> The name of the Foo. </param>
         /// <param name="context"> The request options, which can override default behaviors of the client pipeline on a per-call basis. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/> or <paramref name="fooName"/> is null. </exception>
         /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
         /// <returns> The response returned from the service. </returns>
-        public virtual async Task<Response> DeleteAsync(Guid subscriptionId, string resourceGroupName, string fooName, RequestContext context)
+        public virtual async Task<Response> DeleteAsync(string resourceGroupName, string fooName, RequestContext context)
         {
             Argument.AssertNotNull(resourceGroupName, nameof(resourceGroupName));
             Argument.AssertNotNull(fooName, nameof(fooName));
 
-            using HttpMessage message = CreateDeleteRequest(subscriptionId, resourceGroupName, fooName, context);
+            using HttpMessage message = CreateDeleteRequest(resourceGroupName, fooName, context);
             return await Pipeline.ProcessMessageAsync(message, context).ConfigureAwait(false);
         }
 
         /// <summary> Delete a Foo. </summary>
-        /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="fooName"> The name of the Foo. </param>
         /// <param name="cancellationToken"> The cancellation token that can be used to cancel the operation. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/> or <paramref name="fooName"/> is null. </exception>
         /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
-        public virtual Response Delete(Guid subscriptionId, string resourceGroupName, string fooName, CancellationToken cancellationToken = default)
+        public virtual Response Delete(string resourceGroupName, string fooName, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNull(resourceGroupName, nameof(resourceGroupName));
             Argument.AssertNotNull(fooName, nameof(fooName));
 
-            return Delete(subscriptionId, resourceGroupName, fooName, cancellationToken.CanBeCanceled ? new RequestContext { CancellationToken = cancellationToken } : null);
+            return Delete(resourceGroupName, fooName, cancellationToken.CanBeCanceled ? new RequestContext { CancellationToken = cancellationToken } : null);
         }
 
         /// <summary> Delete a Foo. </summary>
-        /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="fooName"> The name of the Foo. </param>
         /// <param name="cancellationToken"> The cancellation token that can be used to cancel the operation. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/> or <paramref name="fooName"/> is null. </exception>
         /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
-        public virtual async Task<Response> DeleteAsync(Guid subscriptionId, string resourceGroupName, string fooName, CancellationToken cancellationToken = default)
+        public virtual async Task<Response> DeleteAsync(string resourceGroupName, string fooName, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNull(resourceGroupName, nameof(resourceGroupName));
             Argument.AssertNotNull(fooName, nameof(fooName));
 
-            return await DeleteAsync(subscriptionId, resourceGroupName, fooName, cancellationToken.CanBeCanceled ? new RequestContext { CancellationToken = cancellationToken } : null).ConfigureAwait(false);
+            return await DeleteAsync(resourceGroupName, fooName, cancellationToken.CanBeCanceled ? new RequestContext { CancellationToken = cancellationToken } : null).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -289,17 +279,16 @@ namespace MgmtTypeSpec
         /// </item>
         /// </list>
         /// </summary>
-        /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="context"> The request options, which can override default behaviors of the client pipeline on a per-call basis. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/> is null. </exception>
         /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
         /// <returns> The response returned from the service. </returns>
-        public virtual Response List(Guid subscriptionId, string resourceGroupName, RequestContext context)
+        public virtual Response List(string resourceGroupName, RequestContext context)
         {
             Argument.AssertNotNull(resourceGroupName, nameof(resourceGroupName));
 
-            using HttpMessage message = CreateListRequest(subscriptionId, resourceGroupName, context);
+            using HttpMessage message = CreateListRequest(resourceGroupName, context);
             return Pipeline.ProcessMessage(message, context);
         }
 
@@ -311,45 +300,42 @@ namespace MgmtTypeSpec
         /// </item>
         /// </list>
         /// </summary>
-        /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="context"> The request options, which can override default behaviors of the client pipeline on a per-call basis. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/> is null. </exception>
         /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
         /// <returns> The response returned from the service. </returns>
-        public virtual async Task<Response> ListAsync(Guid subscriptionId, string resourceGroupName, RequestContext context)
+        public virtual async Task<Response> ListAsync(string resourceGroupName, RequestContext context)
         {
             Argument.AssertNotNull(resourceGroupName, nameof(resourceGroupName));
 
-            using HttpMessage message = CreateListRequest(subscriptionId, resourceGroupName, context);
+            using HttpMessage message = CreateListRequest(resourceGroupName, context);
             return await Pipeline.ProcessMessageAsync(message, context).ConfigureAwait(false);
         }
 
         /// <summary> List Foo resources by resource group. </summary>
-        /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="cancellationToken"> The cancellation token that can be used to cancel the operation. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/> is null. </exception>
         /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
-        public virtual Response<FooListResult> List(Guid subscriptionId, string resourceGroupName, CancellationToken cancellationToken = default)
+        public virtual Response<FooListResult> List(string resourceGroupName, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNull(resourceGroupName, nameof(resourceGroupName));
 
-            Response result = List(subscriptionId, resourceGroupName, cancellationToken.CanBeCanceled ? new RequestContext { CancellationToken = cancellationToken } : null);
+            Response result = List(resourceGroupName, cancellationToken.CanBeCanceled ? new RequestContext { CancellationToken = cancellationToken } : null);
             return Response.FromValue((FooListResult)result, result);
         }
 
         /// <summary> List Foo resources by resource group. </summary>
-        /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="cancellationToken"> The cancellation token that can be used to cancel the operation. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/> is null. </exception>
         /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
-        public virtual async Task<Response<FooListResult>> ListAsync(Guid subscriptionId, string resourceGroupName, CancellationToken cancellationToken = default)
+        public virtual async Task<Response<FooListResult>> ListAsync(string resourceGroupName, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNull(resourceGroupName, nameof(resourceGroupName));
 
-            Response result = await ListAsync(subscriptionId, resourceGroupName, cancellationToken.CanBeCanceled ? new RequestContext { CancellationToken = cancellationToken } : null).ConfigureAwait(false);
+            Response result = await ListAsync(resourceGroupName, cancellationToken.CanBeCanceled ? new RequestContext { CancellationToken = cancellationToken } : null).ConfigureAwait(false);
             return Response.FromValue((FooListResult)result, result);
         }
     }
