@@ -9,20 +9,46 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Azure.Core;
+using Azure.ResourceManager.BillingBenefits;
 using Azure.ResourceManager.Models;
 
 namespace Azure.ResourceManager.BillingBenefits.Models
 {
-    /// <summary> Model factory for models. </summary>
+    /// <summary> A factory class for creating instances of the models for mocking. </summary>
     public static partial class ArmBillingBenefitsModelFactory
     {
-        /// <summary> Initializes a new instance of <see cref="BillingBenefits.BillingBenefitsSavingsPlanOrderAliasData"/>. </summary>
-        /// <param name="id"> The id. </param>
-        /// <param name="name"> The name. </param>
-        /// <param name="resourceType"> The resourceType. </param>
-        /// <param name="systemData"> The systemData. </param>
-        /// <param name="skuName"> Savings plan SKU. </param>
+        /// <summary> The SavingsPlanPurchaseValidateRequest. </summary>
+        /// <param name="benefits"></param>
+        /// <returns> A new <see cref="Models.SavingsPlanPurchaseValidateRequest"/> instance for mocking. </returns>
+        public static SavingsPlanPurchaseValidateRequest SavingsPlanPurchaseValidateRequest(IEnumerable<BillingBenefitsSavingsPlanOrderAliasData> benefits = default)
+        {
+            benefits ??= new ChangeTrackingList<BillingBenefitsSavingsPlanOrderAliasData>();
+
+            return new SavingsPlanPurchaseValidateRequest(benefits.ToList(), additionalBinaryDataProperties: null);
+        }
+
+        /// <param name="id"> Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}. </param>
+        /// <param name="name"> The name of the resource. </param>
+        /// <param name="resourceType"> The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts". </param>
+        /// <param name="systemData"> Azure Resource Manager metadata containing createdBy and modifiedBy information. </param>
+        /// <param name="skuName"> Gets or sets the Name. </param>
         /// <param name="kind"> Resource provider kind. </param>
+        /// <param name="properties"> Savings plan order alias properties. </param>
+        /// <returns> A new <see cref="BillingBenefits.BillingBenefitsSavingsPlanOrderAliasData"/> instance for mocking. </returns>
+        public static BillingBenefitsSavingsPlanOrderAliasData BillingBenefitsSavingsPlanOrderAliasData(ResourceIdentifier id = default, string name = default, ResourceType resourceType = default, SystemData systemData = default, string skuName = default, string kind = default, SavingsPlanOrderAliasProperties properties = default)
+        {
+            return new BillingBenefitsSavingsPlanOrderAliasData(
+                id,
+                name,
+                resourceType,
+                systemData,
+                additionalBinaryDataProperties: null,
+                skuName is null ? default : new ResourceSku(skuName, new Dictionary<string, BinaryData>()),
+                kind,
+                properties);
+        }
+
+        /// <summary> Savings plan properties. </summary>
         /// <param name="displayName"> Display name. </param>
         /// <param name="savingsPlanOrderId"> Identifier of the savings plan created. </param>
         /// <param name="provisioningState"> Provisioning state. </param>
@@ -32,16 +58,11 @@ namespace Azure.ResourceManager.BillingBenefits.Models
         /// <param name="appliedScopeType"> Type of the Applied Scope. </param>
         /// <param name="appliedScopeProperties"> Properties specific to applied scope type. Not required if not applicable. </param>
         /// <param name="commitment"> Commitment towards the benefit. </param>
-        /// <returns> A new <see cref="BillingBenefits.BillingBenefitsSavingsPlanOrderAliasData"/> instance for mocking. </returns>
-        public static BillingBenefitsSavingsPlanOrderAliasData BillingBenefitsSavingsPlanOrderAliasData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, string skuName = null, string kind = null, string displayName = null, ResourceIdentifier savingsPlanOrderId = null, BillingBenefitsProvisioningState? provisioningState = null, ResourceIdentifier billingScopeId = null, BillingBenefitsTerm? term = null, BillingBenefitsBillingPlan? billingPlan = null, BillingBenefitsAppliedScopeType? appliedScopeType = null, BillingBenefitsAppliedScopeProperties appliedScopeProperties = null, BillingBenefitsCommitment commitment = null)
+        /// <param name="renew"> Setting this to true will automatically purchase a new benefit on the expiration date time. </param>
+        /// <returns> A new <see cref="Models.SavingsPlanOrderAliasProperties"/> instance for mocking. </returns>
+        public static SavingsPlanOrderAliasProperties SavingsPlanOrderAliasProperties(string displayName = default, string savingsPlanOrderId = default, BillingBenefitsProvisioningState? provisioningState = default, ResourceIdentifier billingScopeId = default, BillingBenefitsTerm? term = default, BillingBenefitsBillingPlan? billingPlan = default, BillingBenefitsAppliedScopeType? appliedScopeType = default, BillingBenefitsAppliedScopeProperties appliedScopeProperties = default, BillingBenefitsCommitment commitment = default, bool? renew = default)
         {
-            return new BillingBenefitsSavingsPlanOrderAliasData(
-                id,
-                name,
-                resourceType,
-                systemData,
-                skuName != null ? new BillingBenefitsSku(skuName, serializedAdditionalRawData: null) : null,
-                kind,
+            return new SavingsPlanOrderAliasProperties(
                 displayName,
                 savingsPlanOrderId,
                 provisioningState,
@@ -51,15 +72,412 @@ namespace Azure.ResourceManager.BillingBenefits.Models
                 appliedScopeType,
                 appliedScopeProperties,
                 commitment,
-                serializedAdditionalRawData: null);
+                renew,
+                additionalBinaryDataProperties: null);
         }
 
-        /// <summary> Initializes a new instance of <see cref="BillingBenefits.BillingBenefitsSavingsPlanOrderData"/>. </summary>
-        /// <param name="id"> The id. </param>
-        /// <param name="name"> The name. </param>
-        /// <param name="resourceType"> The resourceType. </param>
-        /// <param name="systemData"> The systemData. </param>
-        /// <param name="skuName"> Savings plan SKU. </param>
+        /// <summary> The SavingsPlanValidateResponse. </summary>
+        /// <param name="benefits"></param>
+        /// <param name="nextLink"> Url to get the next page. </param>
+        /// <returns> A new <see cref="Models.SavingsPlanValidateResponse"/> instance for mocking. </returns>
+        public static SavingsPlanValidateResponse SavingsPlanValidateResponse(IEnumerable<SavingsPlanValidateResult> benefits = default, string nextLink = default)
+        {
+            benefits ??= new ChangeTrackingList<SavingsPlanValidateResult>();
+
+            return new SavingsPlanValidateResponse(benefits.ToList(), nextLink, additionalBinaryDataProperties: null);
+        }
+
+        /// <summary> Benefit scope response property. </summary>
+        /// <param name="isValid"> Indicates if the provided input was valid. </param>
+        /// <param name="reasonCode"> Failure reason code if the provided input was invalid. </param>
+        /// <param name="reason"> Failure reason if the provided input was invalid. </param>
+        /// <returns> A new <see cref="Models.SavingsPlanValidateResult"/> instance for mocking. </returns>
+        public static SavingsPlanValidateResult SavingsPlanValidateResult(bool? isValid = default, string reasonCode = default, string reason = default)
+        {
+            return new SavingsPlanValidateResult(isValid, reasonCode, reason, additionalBinaryDataProperties: null);
+        }
+
+        /// <summary> Resource definition for Discounts. </summary>
+        /// <param name="id"> Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}. </param>
+        /// <param name="name"> The name of the resource. </param>
+        /// <param name="resourceType"> The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts". </param>
+        /// <param name="systemData"> Azure Resource Manager metadata containing createdBy and modifiedBy information. </param>
+        /// <param name="tags"> Resource tags. </param>
+        /// <param name="location"> The geo-location where the resource lives. </param>
+        /// <param name="properties"> Discount properties. </param>
+        /// <param name="managedBy"> The fully qualified resource ID of the resource that manages this resource. Indicates if this resource is managed by another Azure resource. If this is present, complete mode deployment will not delete the resource if it is removed from the template since it is managed by another resource. </param>
+        /// <param name="kind"> Metadata used by portal/tooling/etc to render different UX experiences for resources of the same type. E.g. ApiApps are a kind of Microsoft.Web/sites type.  If supported, the resource provider must validate and persist this value. </param>
+        /// <param name="etag"> The etag field is *not* required. If it is provided in the response body, it must also be provided as a header per the normal etag convention.  Entity tags are used for comparing two or more entities from the same requested resource. HTTP/1.1 uses entity tags in the etag (section 14.19), If-Match (section 14.24), If-None-Match (section 14.26), and If-Range (section 14.27) header fields. </param>
+        /// <param name="identity"> Managed service identity (system assigned and/or user assigned identities). </param>
+        /// <param name="sku"> The resource model definition representing SKU. </param>
+        /// <param name="plan"> Plan for the resource. </param>
+        /// <returns> A new <see cref="BillingBenefits.DiscountData"/> instance for mocking. </returns>
+        public static DiscountData DiscountData(ResourceIdentifier id = default, string name = default, ResourceType resourceType = default, SystemData systemData = default, IDictionary<string, string> tags = default, string location = default, DiscountProperties properties = default, string managedBy = default, string kind = default, string etag = default, ManagedServiceIdentity identity = default, BillingBenefitsSku sku = default, BillingBenefitsPlan plan = default)
+        {
+            tags ??= new ChangeTrackingDictionary<string, string>();
+
+            return new DiscountData(
+                id,
+                name,
+                resourceType,
+                systemData,
+                additionalBinaryDataProperties: null,
+                tags,
+                location,
+                properties,
+                managedBy,
+                kind,
+                etag,
+                identity,
+                sku,
+                plan);
+        }
+
+        /// <summary>
+        /// Properties belonging to discounts.
+        /// Please note this is the abstract base class. The derived classes available for instantiation are: <see cref="EntityTypeAffiliateDiscount"/> and <see cref="EntityTypePrimaryDiscount"/>.
+        /// </summary>
+        /// <param name="entityType"> This defines whether the entity being created is primary or affiliate. Supported values: primary, affiliate. Validation: Required, must match one of the 2 values. </param>
+        /// <param name="productCode"> This is the catalog UPN for the product. </param>
+        /// <param name="startAt"> Start date of the discount. Value is the date the discount started or will start in the future. </param>
+        /// <param name="systemId"> This is the globally unique identifier of the Discount which will not change for the lifetime of the Discount. </param>
+        /// <param name="provisioningState"> The state of the resource. Supported values are Pending, Failed, Succeeded, Canceled. </param>
+        /// <param name="billingAccountResourceId"> Billing account resource id where the discount metadata is present. </param>
+        /// <param name="billingProfileResourceId"> Billing profile resource id where the discount is scoped to. </param>
+        /// <param name="customerResourceId"> Customer resource id where the discount is scoped to. </param>
+        /// <param name="displayName"> This defines a user friendly display name for the discount. </param>
+        /// <param name="status"> Represents the current status of the discount. </param>
+        /// <param name="benefitResourceId"> Fully-qualified identifier of the benefit under applicable benefit list. </param>
+        /// <param name="appliedScopeType"> List of applied scopes supported for discounts. </param>
+        /// <returns> A new <see cref="Models.DiscountProperties"/> instance for mocking. </returns>
+        public static DiscountProperties DiscountProperties(string entityType = default, string productCode = default, DateTimeOffset startAt = default, string systemId = default, DiscountProvisioningState? provisioningState = default, ResourceIdentifier billingAccountResourceId = default, ResourceIdentifier billingProfileResourceId = default, ResourceIdentifier customerResourceId = default, string displayName = default, DiscountStatus? status = default, ResourceIdentifier benefitResourceId = default, DiscountAppliedScopeType? appliedScopeType = default)
+        {
+            return new UnknownDiscountProperties(
+                new DiscountEntityType(entityType),
+                productCode,
+                startAt,
+                systemId,
+                provisioningState,
+                billingAccountResourceId,
+                billingProfileResourceId,
+                customerResourceId,
+                displayName,
+                status,
+                benefitResourceId,
+                appliedScopeType,
+                additionalBinaryDataProperties: null);
+        }
+
+        /// <summary> Entity type for affiliate discounts. </summary>
+        /// <param name="productCode"> This is the catalog UPN for the product. </param>
+        /// <param name="startAt"> Start date of the discount. Value is the date the discount started or will start in the future. </param>
+        /// <param name="systemId"> This is the globally unique identifier of the Discount which will not change for the lifetime of the Discount. </param>
+        /// <param name="provisioningState"> The state of the resource. Supported values are Pending, Failed, Succeeded, Canceled. </param>
+        /// <param name="billingAccountResourceId"> Billing account resource id where the discount metadata is present. </param>
+        /// <param name="billingProfileResourceId"> Billing profile resource id where the discount is scoped to. </param>
+        /// <param name="customerResourceId"> Customer resource id where the discount is scoped to. </param>
+        /// <param name="displayName"> This defines a user friendly display name for the discount. </param>
+        /// <param name="status"> Represents the current status of the discount. </param>
+        /// <param name="benefitResourceId"> Fully-qualified identifier of the benefit under applicable benefit list. </param>
+        /// <param name="appliedScopeType"> List of applied scopes supported for discounts. </param>
+        /// <param name="primaryResourceId"> This will be present in the response if the primary has a resource ID. </param>
+        /// <param name="endAt"> End date of the discount. No duration will be supported. Allowed value is any date greater than or equal to startDate. </param>
+        /// <returns> A new <see cref="Models.EntityTypeAffiliateDiscount"/> instance for mocking. </returns>
+        public static EntityTypeAffiliateDiscount EntityTypeAffiliateDiscount(string productCode = default, DateTimeOffset startAt = default, string systemId = default, DiscountProvisioningState? provisioningState = default, ResourceIdentifier billingAccountResourceId = default, ResourceIdentifier billingProfileResourceId = default, ResourceIdentifier customerResourceId = default, string displayName = default, DiscountStatus? status = default, ResourceIdentifier benefitResourceId = default, DiscountAppliedScopeType? appliedScopeType = default, ResourceIdentifier primaryResourceId = default, DateTimeOffset? endAt = default)
+        {
+            return new EntityTypeAffiliateDiscount(
+                DiscountEntityType.Affiliate,
+                productCode,
+                startAt,
+                systemId,
+                provisioningState,
+                billingAccountResourceId,
+                billingProfileResourceId,
+                customerResourceId,
+                displayName,
+                status,
+                benefitResourceId,
+                appliedScopeType,
+                additionalBinaryDataProperties: null,
+                primaryResourceId,
+                endAt);
+        }
+
+        /// <summary> Entity type for primary discounts. </summary>
+        /// <param name="productCode"> This is the catalog UPN for the product. </param>
+        /// <param name="startAt"> Start date of the discount. Value is the date the discount started or will start in the future. </param>
+        /// <param name="systemId"> This is the globally unique identifier of the Discount which will not change for the lifetime of the Discount. </param>
+        /// <param name="provisioningState"> The state of the resource. Supported values are Pending, Failed, Succeeded, Canceled. </param>
+        /// <param name="billingAccountResourceId"> Billing account resource id where the discount metadata is present. </param>
+        /// <param name="billingProfileResourceId"> Billing profile resource id where the discount is scoped to. </param>
+        /// <param name="customerResourceId"> Customer resource id where the discount is scoped to. </param>
+        /// <param name="displayName"> This defines a user friendly display name for the discount. </param>
+        /// <param name="status"> Represents the current status of the discount. </param>
+        /// <param name="benefitResourceId"> Fully-qualified identifier of the benefit under applicable benefit list. </param>
+        /// <param name="appliedScopeType"> List of applied scopes supported for discounts. </param>
+        /// <param name="discountTypeProperties"> This defines the conditions for a given discount type. </param>
+        /// <param name="endAt"> End date of the discount. No duration will be supported. Allowed value is any date greater than or equal to startDate. </param>
+        /// <returns> A new <see cref="Models.EntityTypePrimaryDiscount"/> instance for mocking. </returns>
+        public static EntityTypePrimaryDiscount EntityTypePrimaryDiscount(string productCode = default, DateTimeOffset startAt = default, string systemId = default, DiscountProvisioningState? provisioningState = default, ResourceIdentifier billingAccountResourceId = default, ResourceIdentifier billingProfileResourceId = default, ResourceIdentifier customerResourceId = default, string displayName = default, DiscountStatus? status = default, ResourceIdentifier benefitResourceId = default, DiscountAppliedScopeType? appliedScopeType = default, DiscountTypeProperties discountTypeProperties = default, DateTimeOffset endAt = default)
+        {
+            return new EntityTypePrimaryDiscount(
+                DiscountEntityType.Primary,
+                productCode,
+                startAt,
+                systemId,
+                provisioningState,
+                billingAccountResourceId,
+                billingProfileResourceId,
+                customerResourceId,
+                displayName,
+                status,
+                benefitResourceId,
+                appliedScopeType,
+                additionalBinaryDataProperties: null,
+                discountTypeProperties,
+                endAt);
+        }
+
+        /// <summary>
+        /// This defines the conditions for a given discount type.
+        /// Please note this is the abstract base class. The derived classes available for instantiation are: <see cref="DiscountTypeProductFamily"/>, <see cref="DiscountTypeProduct"/>, <see cref="DiscountTypeProductSku"/>, <see cref="DiscountTypeCustomPrice"/>, and <see cref="DiscountTypeCustomPriceMultiCurrency"/>.
+        /// </summary>
+        /// <param name="discountType"> Defines the type of discount. Supported values are ProductFamily, Product, Sku, CustomPrice, and CustomPriceMultiCurrency. </param>
+        /// <param name="applyDiscountOn"> The customer action on which the discount is applied. Supported values are Purchase, Consume, and Renew. Validation: Required, one of supported values. </param>
+        /// <param name="discountPercentage"> Discount percentage provided for the customer. Validation: Required unless this is a price rule. </param>
+        /// <param name="discountCombinationRule"> The discount combination rule when there are multiple applicable custom prices. Validation: Required. Supported values are Stackable and BestOf. </param>
+        /// <param name="priceGuaranteeProperties"> Set only in price guarantee scenario. </param>
+        /// <param name="conditions"> Array of conditions for the discount. Validation: Optional. Maximum length is 1000. </param>
+        /// <returns> A new <see cref="Models.DiscountTypeProperties"/> instance for mocking. </returns>
+        public static DiscountTypeProperties DiscountTypeProperties(string discountType = default, ApplyDiscountOn applyDiscountOn = default, double? discountPercentage = default, DiscountCombinationRule? discountCombinationRule = default, PriceGuaranteeProperties priceGuaranteeProperties = default, IEnumerable<ConditionsItem> conditions = default)
+        {
+            conditions ??= new ChangeTrackingList<ConditionsItem>();
+
+            return new UnknownDiscountTypeProperties(
+                new DiscountType(discountType),
+                applyDiscountOn,
+                discountPercentage,
+                discountCombinationRule,
+                priceGuaranteeProperties,
+                conditions.ToList(),
+                additionalBinaryDataProperties: null);
+        }
+
+        /// <summary> Condition for a discount. </summary>
+        /// <param name="conditionName"></param>
+        /// <param name="value"> These items are open-ended strings. </param>
+        /// <param name="type"></param>
+        /// <returns> A new <see cref="Models.ConditionsItem"/> instance for mocking. </returns>
+        public static ConditionsItem ConditionsItem(string conditionName = default, IEnumerable<string> value = default, string @type = default)
+        {
+            value ??= new ChangeTrackingList<string>();
+
+            return new ConditionsItem(conditionName, value.ToList(), @type, additionalBinaryDataProperties: null);
+        }
+
+        /// <summary> Discount type properties including product family name. </summary>
+        /// <param name="applyDiscountOn"> The customer action on which the discount is applied. Supported values are Purchase, Consume, and Renew. Validation: Required, one of supported values. </param>
+        /// <param name="discountPercentage"> Discount percentage provided for the customer. Validation: Required unless this is a price rule. </param>
+        /// <param name="discountCombinationRule"> The discount combination rule when there are multiple applicable custom prices. Validation: Required. Supported values are Stackable and BestOf. </param>
+        /// <param name="priceGuaranteeProperties"> Set only in price guarantee scenario. </param>
+        /// <param name="conditions"> Array of conditions for the discount. Validation: Optional. Maximum length is 1000. </param>
+        /// <param name="productFamilyName"> Product family for which the discount is given. Validation: Optional. </param>
+        /// <returns> A new <see cref="Models.DiscountTypeProductFamily"/> instance for mocking. </returns>
+        public static DiscountTypeProductFamily DiscountTypeProductFamily(ApplyDiscountOn applyDiscountOn = default, double? discountPercentage = default, DiscountCombinationRule? discountCombinationRule = default, PriceGuaranteeProperties priceGuaranteeProperties = default, IEnumerable<ConditionsItem> conditions = default, string productFamilyName = default)
+        {
+            conditions ??= new ChangeTrackingList<ConditionsItem>();
+
+            return new DiscountTypeProductFamily(
+                DiscountType.ProductFamily,
+                applyDiscountOn,
+                discountPercentage,
+                discountCombinationRule,
+                priceGuaranteeProperties,
+                conditions.ToList(),
+                additionalBinaryDataProperties: null,
+                productFamilyName);
+        }
+
+        /// <summary> Discount type properties including product family name and product id. </summary>
+        /// <param name="applyDiscountOn"> The customer action on which the discount is applied. Supported values are Purchase, Consume, and Renew. Validation: Required, one of supported values. </param>
+        /// <param name="discountPercentage"> Discount percentage provided for the customer. Validation: Required unless this is a price rule. </param>
+        /// <param name="discountCombinationRule"> The discount combination rule when there are multiple applicable custom prices. Validation: Required. Supported values are Stackable and BestOf. </param>
+        /// <param name="priceGuaranteeProperties"> Set only in price guarantee scenario. </param>
+        /// <param name="conditions"> Array of conditions for the discount. Validation: Optional. Maximum length is 1000. </param>
+        /// <param name="productFamilyName"> Product family for which the discount is given. Validation: Optional. </param>
+        /// <param name="productId"> Product ID for which the discount is given. Validation: Optional. No specific format, example: DZH318Z09V6F. </param>
+        /// <returns> A new <see cref="Models.DiscountTypeProduct"/> instance for mocking. </returns>
+        public static DiscountTypeProduct DiscountTypeProduct(ApplyDiscountOn applyDiscountOn = default, double? discountPercentage = default, DiscountCombinationRule? discountCombinationRule = default, PriceGuaranteeProperties priceGuaranteeProperties = default, IEnumerable<ConditionsItem> conditions = default, string productFamilyName = default, string productId = default)
+        {
+            conditions ??= new ChangeTrackingList<ConditionsItem>();
+
+            return new DiscountTypeProduct(
+                DiscountType.Product,
+                applyDiscountOn,
+                discountPercentage,
+                discountCombinationRule,
+                priceGuaranteeProperties,
+                conditions.ToList(),
+                additionalBinaryDataProperties: null,
+                productFamilyName,
+                productId);
+        }
+
+        /// <summary> Discount type properties including product family name, product id, and sku id. </summary>
+        /// <param name="applyDiscountOn"> The customer action on which the discount is applied. Supported values are Purchase, Consume, and Renew. Validation: Required, one of supported values. </param>
+        /// <param name="discountPercentage"> Discount percentage provided for the customer. Validation: Required unless this is a price rule. </param>
+        /// <param name="discountCombinationRule"> The discount combination rule when there are multiple applicable custom prices. Validation: Required. Supported values are Stackable and BestOf. </param>
+        /// <param name="priceGuaranteeProperties"> Set only in price guarantee scenario. </param>
+        /// <param name="conditions"> Array of conditions for the discount. Validation: Optional. Maximum length is 1000. </param>
+        /// <param name="productFamilyName"> Product family for which the discount is given. Validation: Optional. </param>
+        /// <param name="productId"> Product ID for which the discount is given. Validation: Optional. No specific format, example: DZH318Z09V6F. </param>
+        /// <param name="skuId"> ResourceSku for the given discount. Validation: Optional. </param>
+        /// <returns> A new <see cref="Models.DiscountTypeProductSku"/> instance for mocking. </returns>
+        public static DiscountTypeProductSku DiscountTypeProductSku(ApplyDiscountOn applyDiscountOn = default, double? discountPercentage = default, DiscountCombinationRule? discountCombinationRule = default, PriceGuaranteeProperties priceGuaranteeProperties = default, IEnumerable<ConditionsItem> conditions = default, string productFamilyName = default, string productId = default, string skuId = default)
+        {
+            conditions ??= new ChangeTrackingList<ConditionsItem>();
+
+            return new DiscountTypeProductSku(
+                DiscountType.Sku,
+                applyDiscountOn,
+                discountPercentage,
+                discountCombinationRule,
+                priceGuaranteeProperties,
+                conditions.ToList(),
+                additionalBinaryDataProperties: null,
+                productFamilyName,
+                productId,
+                skuId);
+        }
+
+        /// <summary> Discount type properties including product family name, product id, sku, and custom price properties. Allows a single entry in marketSetPrices. </summary>
+        /// <param name="applyDiscountOn"> The customer action on which the discount is applied. Supported values are Purchase, Consume, and Renew. Validation: Required, one of supported values. </param>
+        /// <param name="discountPercentage"> Discount percentage provided for the customer. Validation: Required unless this is a price rule. </param>
+        /// <param name="discountCombinationRule"> The discount combination rule when there are multiple applicable custom prices. Validation: Required. Supported values are Stackable and BestOf. </param>
+        /// <param name="priceGuaranteeProperties"> Set only in price guarantee scenario. </param>
+        /// <param name="conditions"> Array of conditions for the discount. Validation: Optional. Maximum length is 1000. </param>
+        /// <param name="productFamilyName"> Product family for which the discount is given. Validation: Optional. </param>
+        /// <param name="productId"> Product ID for which the discount is given. Validation: Optional. No specific format, example: DZH318Z09V6F. </param>
+        /// <param name="skuId"> ResourceSku for the given discount. Validation: Optional. </param>
+        /// <param name="customPriceProperties"> Custom price properties for a given discount. </param>
+        /// <returns> A new <see cref="Models.DiscountTypeCustomPrice"/> instance for mocking. </returns>
+        public static DiscountTypeCustomPrice DiscountTypeCustomPrice(ApplyDiscountOn applyDiscountOn = default, double? discountPercentage = default, DiscountCombinationRule? discountCombinationRule = default, PriceGuaranteeProperties priceGuaranteeProperties = default, IEnumerable<ConditionsItem> conditions = default, string productFamilyName = default, string productId = default, string skuId = default, CustomPriceProperties customPriceProperties = default)
+        {
+            conditions ??= new ChangeTrackingList<ConditionsItem>();
+
+            return new DiscountTypeCustomPrice(
+                DiscountType.CustomPrice,
+                applyDiscountOn,
+                discountPercentage,
+                discountCombinationRule,
+                priceGuaranteeProperties,
+                conditions.ToList(),
+                additionalBinaryDataProperties: null,
+                productFamilyName,
+                productId,
+                skuId,
+                customPriceProperties);
+        }
+
+        /// <summary> Custom price properties for a given discount. </summary>
+        /// <param name="ruleType"> The type of the priceable node pricing rule. Validation: Required. Supported values are fixedPriceLock, fixedListPrice, and priceCeiling. </param>
+        /// <param name="catalogId"> The catalog instance where the priceable node lives. Validation: Required. No defined format, will vary per team. </param>
+        /// <param name="catalogClaims"> The set of BigCat claims. Validation: Required. Must contain AgreementType, NationalCloud, and PricingAudience claims. Additionally requires AccessPass claim when creating custom price with action == consume on the pricing instructions. </param>
+        /// <param name="termUnits"> The term units for the priceable node. Validation: Optional, Maximum length 128 characters. Must be present if and only if the availability derived by market, product, sku, and claims has terms. </param>
+        /// <param name="billingPeriod"> The billing period of the priceable node. Validation: Optional, Maximum length 128 characters. Only allowed if the availability derived by market, product, sku, and claims has terms and at least one of those terms has a billing period. When specified, termUnits must be specified. </param>
+        /// <param name="meterType"> Must be present if the market, product, sku, and claims, and optional term information resolves to multiple availabilities that only differ by meter type. Validation: Maximum length 128 characters. </param>
+        /// <param name="marketSetPrices"> The set of market set prices of the priceable node. Validation: Required. Must contain at least one element. </param>
+        /// <returns> A new <see cref="Models.CustomPriceProperties"/> instance for mocking. </returns>
+        public static CustomPriceProperties CustomPriceProperties(DiscountRuleType ruleType = default, string catalogId = default, IEnumerable<CatalogClaimsItem> catalogClaims = default, string termUnits = default, string billingPeriod = default, string meterType = default, IEnumerable<MarketSetPricesItems> marketSetPrices = default)
+        {
+            catalogClaims ??= new ChangeTrackingList<CatalogClaimsItem>();
+            marketSetPrices ??= new ChangeTrackingList<MarketSetPricesItems>();
+
+            return new CustomPriceProperties(
+                ruleType,
+                catalogId,
+                catalogClaims.ToList(),
+                termUnits,
+                billingPeriod,
+                meterType,
+                marketSetPrices.ToList(),
+                additionalBinaryDataProperties: null);
+        }
+
+        /// <summary> Items in the MarketSetPrices array. </summary>
+        /// <param name="markets"></param>
+        /// <param name="value"> The locked price for the priceable node. Validation: Required. Must be greater than or equal to 0. If the case of billing plans. This represents the price for each cycle charge. </param>
+        /// <param name="currency"> The currency of the locked price value. Validation: Required. Must be a valid ISO 4217 3-letter currency code. </param>
+        /// <returns> A new <see cref="Models.MarketSetPricesItems"/> instance for mocking. </returns>
+        public static MarketSetPricesItems MarketSetPricesItems(IEnumerable<string> markets = default, float value = default, string currency = default)
+        {
+            markets ??= new ChangeTrackingList<string>();
+
+            return new MarketSetPricesItems(markets.ToList(), value, currency, additionalBinaryDataProperties: null);
+        }
+
+        /// <summary> Discount type properties including product family name, product id, sku, and custom price properties. Allows multiple entries in marketSetPrices. </summary>
+        /// <param name="applyDiscountOn"> The customer action on which the discount is applied. Supported values are Purchase, Consume, and Renew. Validation: Required, one of supported values. </param>
+        /// <param name="discountPercentage"> Discount percentage provided for the customer. Validation: Required unless this is a price rule. </param>
+        /// <param name="discountCombinationRule"> The discount combination rule when there are multiple applicable custom prices. Validation: Required. Supported values are Stackable and BestOf. </param>
+        /// <param name="priceGuaranteeProperties"> Set only in price guarantee scenario. </param>
+        /// <param name="conditions"> Array of conditions for the discount. Validation: Optional. Maximum length is 1000. </param>
+        /// <param name="productFamilyName"> Product family for which the discount is given. Validation: Optional. </param>
+        /// <param name="productId"> Product ID for which the discount is given. Validation: Optional. No specific format, example: DZH318Z09V6F. </param>
+        /// <param name="skuId"> ResourceSku for the given discount. Validation: Optional. </param>
+        /// <param name="customPriceProperties"> Custom price properties for a given discount. </param>
+        /// <returns> A new <see cref="Models.DiscountTypeCustomPriceMultiCurrency"/> instance for mocking. </returns>
+        public static DiscountTypeCustomPriceMultiCurrency DiscountTypeCustomPriceMultiCurrency(ApplyDiscountOn applyDiscountOn = default, double? discountPercentage = default, DiscountCombinationRule? discountCombinationRule = default, PriceGuaranteeProperties priceGuaranteeProperties = default, IEnumerable<ConditionsItem> conditions = default, string productFamilyName = default, string productId = default, string skuId = default, CustomPriceProperties customPriceProperties = default)
+        {
+            conditions ??= new ChangeTrackingList<ConditionsItem>();
+
+            return new DiscountTypeCustomPriceMultiCurrency(
+                DiscountType.CustomPrice,
+                applyDiscountOn,
+                discountPercentage,
+                discountCombinationRule,
+                priceGuaranteeProperties,
+                conditions.ToList(),
+                additionalBinaryDataProperties: null,
+                productFamilyName,
+                productId,
+                skuId,
+                customPriceProperties);
+        }
+
+        /// <summary> Managed service identity (system assigned and/or user assigned identities). </summary>
+        /// <param name="principalId"> The service principal ID of the system assigned identity. This property will only be provided for a system assigned identity. </param>
+        /// <param name="tenantId"> The tenant ID of the system assigned identity. This property will only be provided for a system assigned identity. </param>
+        /// <param name="type"> Type of managed service identity (where both SystemAssigned and UserAssigned types are allowed). </param>
+        /// <param name="userAssignedIdentities"> The set of user assigned identities associated with the resource. The userAssignedIdentities dictionary keys will be ARM resource ids in the form: '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ManagedIdentity/userAssignedIdentities/{identityName}. The dictionary values can be empty objects ({}) in requests. </param>
+        /// <returns> A new <see cref="Models.ManagedServiceIdentity"/> instance for mocking. </returns>
+        public static ManagedServiceIdentity ManagedServiceIdentity(string principalId = default, string tenantId = default, ManagedServiceIdentityType @type = default, IDictionary<string, UserAssignedIdentity> userAssignedIdentities = default)
+        {
+            userAssignedIdentities ??= new ChangeTrackingDictionary<string, UserAssignedIdentity>();
+
+            return new ManagedServiceIdentity(principalId, tenantId, @type, userAssignedIdentities, additionalBinaryDataProperties: null);
+        }
+
+        /// <param name="id"> Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}. </param>
+        /// <param name="name"> The name of the resource. </param>
+        /// <param name="resourceType"> The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts". </param>
+        /// <param name="systemData"> Azure Resource Manager metadata containing createdBy and modifiedBy information. </param>
+        /// <param name="skuName"> Gets or sets the Name. </param>
+        /// <param name="properties"> Savings plan order properties. </param>
+        /// <returns> A new <see cref="BillingBenefits.BillingBenefitsSavingsPlanOrderData"/> instance for mocking. </returns>
+        public static BillingBenefitsSavingsPlanOrderData BillingBenefitsSavingsPlanOrderData(ResourceIdentifier id = default, string name = default, ResourceType resourceType = default, SystemData systemData = default, string skuName = default, SavingsPlanOrderModelProperties properties = default)
+        {
+            return new BillingBenefitsSavingsPlanOrderData(
+                id,
+                name,
+                resourceType,
+                systemData,
+                additionalBinaryDataProperties: null,
+                skuName is null ? default : new ResourceSku(skuName, new Dictionary<string, BinaryData>()),
+                properties);
+        }
+
+        /// <summary> Savings plan order properties. </summary>
         /// <param name="displayName"> Display name. </param>
         /// <param name="provisioningState"> Provisioning state. </param>
         /// <param name="billingScopeId"> Subscription that will be charged for purchasing the benefit. </param>
@@ -69,21 +487,16 @@ namespace Azure.ResourceManager.BillingBenefits.Models
         /// <param name="term"> Represent benefit term in ISO 8601 format. </param>
         /// <param name="billingPlan"> Represents the billing plan in ISO 8601 format. Required only for monthly billing plans. </param>
         /// <param name="expireOn"> Expiry date time. </param>
-        /// <param name="benefitStartOn"> This is the DateTime when the savings plan benefit started. </param>
+        /// <param name="benefitStartTime"> This is the DateTime when the savings plan benefit started. </param>
         /// <param name="planInformation"> Information describing the type of billing plan for this savings plan. </param>
         /// <param name="savingsPlans"></param>
         /// <param name="extendedStatusInfo"></param>
-        /// <returns> A new <see cref="BillingBenefits.BillingBenefitsSavingsPlanOrderData"/> instance for mocking. </returns>
-        public static BillingBenefitsSavingsPlanOrderData BillingBenefitsSavingsPlanOrderData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, string skuName = null, string displayName = null, BillingBenefitsProvisioningState? provisioningState = null, ResourceIdentifier billingScopeId = null, ResourceIdentifier billingProfileId = null, string customerId = null, ResourceIdentifier billingAccountId = null, BillingBenefitsTerm? term = null, BillingBenefitsBillingPlan? billingPlan = null, DateTimeOffset? expireOn = null, DateTimeOffset? benefitStartOn = null, BillingPlanInformation planInformation = null, IEnumerable<string> savingsPlans = null, BillingBenefitsExtendedStatusInfo extendedStatusInfo = null)
+        /// <returns> A new <see cref="Models.SavingsPlanOrderModelProperties"/> instance for mocking. </returns>
+        public static SavingsPlanOrderModelProperties SavingsPlanOrderModelProperties(string displayName = default, BillingBenefitsProvisioningState? provisioningState = default, string billingScopeId = default, ResourceIdentifier billingProfileId = default, ResourceIdentifier customerId = default, ResourceIdentifier billingAccountId = default, BillingBenefitsTerm? term = default, BillingBenefitsBillingPlan? billingPlan = default, DateTimeOffset? expireOn = default, DateTimeOffset? benefitStartTime = default, BillingPlanInformation planInformation = default, IEnumerable<string> savingsPlans = default, BillingBenefitsExtendedStatusInfo extendedStatusInfo = default)
         {
-            savingsPlans ??= new List<string>();
+            savingsPlans ??= new ChangeTrackingList<string>();
 
-            return new BillingBenefitsSavingsPlanOrderData(
-                id,
-                name,
-                resourceType,
-                systemData,
-                skuName != null ? new BillingBenefitsSku(skuName, serializedAdditionalRawData: null) : null,
+            return new SavingsPlanOrderModelProperties(
                 displayName,
                 provisioningState,
                 billingScopeId,
@@ -93,15 +506,28 @@ namespace Azure.ResourceManager.BillingBenefits.Models
                 term,
                 billingPlan,
                 expireOn,
-                benefitStartOn,
+                benefitStartTime,
                 planInformation,
-                savingsPlans?.ToList(),
+                savingsPlans.ToList(),
                 extendedStatusInfo,
-                serializedAdditionalRawData: null);
+                additionalBinaryDataProperties: null);
         }
 
-        /// <summary> Initializes a new instance of <see cref="Models.SavingsPlanOrderPaymentDetail"/>. </summary>
-        /// <param name="dueOn"> Date when the payment needs to be done. </param>
+        /// <summary> Information describing the type of billing plan for this savings plan. </summary>
+        /// <param name="pricingCurrencyTotal"> Amount of money to be paid for the Order. Tax is not included. </param>
+        /// <param name="startDate"> Date when the billing plan has started. </param>
+        /// <param name="nextPaymentDueDate"> For recurring billing plans, indicates the date when next payment will be processed. Null when total is paid off. </param>
+        /// <param name="transactions"></param>
+        /// <returns> A new <see cref="Models.BillingPlanInformation"/> instance for mocking. </returns>
+        public static BillingPlanInformation BillingPlanInformation(BillingBenefitsPrice pricingCurrencyTotal = default, DateTimeOffset? startDate = default, DateTimeOffset? nextPaymentDueDate = default, IEnumerable<SavingsPlanOrderPaymentDetail> transactions = default)
+        {
+            transactions ??= new ChangeTrackingList<SavingsPlanOrderPaymentDetail>();
+
+            return new BillingPlanInformation(pricingCurrencyTotal, startDate, nextPaymentDueDate, transactions.ToList(), additionalBinaryDataProperties: null);
+        }
+
+        /// <summary> Information about payment related to a savings plan order. </summary>
+        /// <param name="dueDate"> Date when the payment needs to be done. </param>
         /// <param name="payOn"> Date when the transaction is completed. Is null when it is scheduled. </param>
         /// <param name="pricingCurrencyTotal"> Amount in pricing currency. Tax not included. </param>
         /// <param name="billingCurrencyTotal"> Amount charged in Billing currency. Tax not included. Is null for future payments. </param>
@@ -109,52 +535,67 @@ namespace Azure.ResourceManager.BillingBenefits.Models
         /// <param name="extendedStatusInfo"></param>
         /// <param name="billingAccount"> Billing account. </param>
         /// <returns> A new <see cref="Models.SavingsPlanOrderPaymentDetail"/> instance for mocking. </returns>
-        public static SavingsPlanOrderPaymentDetail SavingsPlanOrderPaymentDetail(DateTimeOffset? dueOn = null, DateTimeOffset? payOn = null, BillingBenefitsPrice pricingCurrencyTotal = null, BillingBenefitsPrice billingCurrencyTotal = null, BillingBenefitsPaymentStatus? status = null, BillingBenefitsExtendedStatusInfo extendedStatusInfo = null, string billingAccount = null)
+        public static SavingsPlanOrderPaymentDetail SavingsPlanOrderPaymentDetail(DateTimeOffset? dueDate = default, DateTimeOffset? payOn = default, BillingBenefitsPrice pricingCurrencyTotal = default, BillingBenefitsPrice billingCurrencyTotal = default, BillingBenefitsPaymentStatus? status = default, BillingBenefitsExtendedStatusInfo extendedStatusInfo = default, string billingAccount = default)
         {
             return new SavingsPlanOrderPaymentDetail(
-                dueOn,
+                dueDate,
                 payOn,
                 pricingCurrencyTotal,
                 billingCurrencyTotal,
                 status,
                 extendedStatusInfo,
                 billingAccount,
-                serializedAdditionalRawData: null);
+                additionalBinaryDataProperties: null);
         }
 
-        /// <summary> Initializes a new instance of <see cref="Models.BillingBenefitsExtendedStatusInfo"/>. </summary>
+        /// <summary> The BillingBenefitsExtendedStatusInfo. </summary>
         /// <param name="statusCode"> Status code providing additional information. </param>
         /// <param name="message"> The message giving detailed information about the status code. </param>
         /// <returns> A new <see cref="Models.BillingBenefitsExtendedStatusInfo"/> instance for mocking. </returns>
-        public static BillingBenefitsExtendedStatusInfo BillingBenefitsExtendedStatusInfo(string statusCode = null, string message = null)
+        public static BillingBenefitsExtendedStatusInfo BillingBenefitsExtendedStatusInfo(string statusCode = default, string message = default)
         {
-            return new BillingBenefitsExtendedStatusInfo(statusCode, message, serializedAdditionalRawData: null);
+            return new BillingBenefitsExtendedStatusInfo(statusCode, message, additionalBinaryDataProperties: null);
         }
 
-        /// <summary> Initializes a new instance of <see cref="Models.BillingBenefitsRoleAssignmentEntity"/>. </summary>
+        /// <summary> Role assignment entity. </summary>
         /// <param name="id"> Role assignment entity id. </param>
         /// <param name="name"> Role assignment entity name. </param>
+        /// <param name="properties"> Role assignment entity properties. </param>
+        /// <returns> A new <see cref="Models.BillingBenefitsRoleAssignmentEntity"/> instance for mocking. </returns>
+        public static BillingBenefitsRoleAssignmentEntity BillingBenefitsRoleAssignmentEntity(ResourceIdentifier id = default, string name = default, RoleAssignmentEntityProperties properties = default)
+        {
+            return new BillingBenefitsRoleAssignmentEntity(id, name, properties, additionalBinaryDataProperties: null);
+        }
+
+        /// <summary> Role assignment entity properties. </summary>
         /// <param name="principalId"> Principal Id. </param>
         /// <param name="roleDefinitionId"> Role definition id. </param>
         /// <param name="scope"> Scope of the role assignment entity. </param>
-        /// <returns> A new <see cref="Models.BillingBenefitsRoleAssignmentEntity"/> instance for mocking. </returns>
-        public static BillingBenefitsRoleAssignmentEntity BillingBenefitsRoleAssignmentEntity(ResourceIdentifier id = null, string name = null, string principalId = null, ResourceIdentifier roleDefinitionId = null, ResourceIdentifier scope = null)
+        /// <returns> A new <see cref="Models.RoleAssignmentEntityProperties"/> instance for mocking. </returns>
+        public static RoleAssignmentEntityProperties RoleAssignmentEntityProperties(string principalId = default, ResourceIdentifier roleDefinitionId = default, ResourceIdentifier scope = default)
         {
-            return new BillingBenefitsRoleAssignmentEntity(
-                id,
-                name,
-                principalId,
-                roleDefinitionId,
-                scope,
-                serializedAdditionalRawData: null);
+            return new RoleAssignmentEntityProperties(principalId, roleDefinitionId, scope, additionalBinaryDataProperties: null);
         }
 
-        /// <summary> Initializes a new instance of <see cref="BillingBenefits.BillingBenefitsSavingsPlanData"/>. </summary>
-        /// <param name="id"> The id. </param>
-        /// <param name="name"> The name. </param>
-        /// <param name="resourceType"> The resourceType. </param>
-        /// <param name="systemData"> The systemData. </param>
-        /// <param name="skuName"> Savings plan SKU. </param>
+        /// <param name="id"> Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}. </param>
+        /// <param name="name"> The name of the resource. </param>
+        /// <param name="resourceType"> The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts". </param>
+        /// <param name="systemData"> Azure Resource Manager metadata containing createdBy and modifiedBy information. </param>
+        /// <param name="skuName"> Gets or sets the Name. </param>
+        /// <param name="properties"> Savings plan properties. </param>
+        /// <returns> A new <see cref="BillingBenefits.BillingBenefitsSavingsPlanData"/> instance for mocking. </returns>
+        public static BillingBenefitsSavingsPlanData BillingBenefitsSavingsPlanData(ResourceIdentifier id = default, string name = default, ResourceType resourceType = default, SystemData systemData = default, string skuName = default, SavingsPlanModelProperties properties = default)
+        {
+            return new BillingBenefitsSavingsPlanData(
+                id,
+                name,
+                resourceType,
+                systemData,
+                additionalBinaryDataProperties: null,
+                skuName is null ? default : new ResourceSku(skuName, new Dictionary<string, BinaryData>()),
+                properties);
+        }
+
         /// <param name="displayName"> Display name. </param>
         /// <param name="provisioningState"> Provisioning state. </param>
         /// <param name="displayProvisioningState"> The provisioning state of the savings plan for display, e.g. Succeeded. </param>
@@ -170,23 +611,18 @@ namespace Azure.ResourceManager.BillingBenefits.Models
         /// <param name="commitment"> Commitment towards the benefit. </param>
         /// <param name="effectOn"> DateTime of the savings plan starts providing benefit from. </param>
         /// <param name="expireOn"> Expiry date time. </param>
-        /// <param name="purchaseOn"> Date time when the savings plan was purchased. </param>
-        /// <param name="benefitStartOn"> This is the DateTime when the savings plan benefit started. </param>
+        /// <param name="purchaseDateTime"> Date time when the savings plan was purchased. </param>
+        /// <param name="benefitStartTime"> This is the DateTime when the savings plan benefit started. </param>
         /// <param name="extendedStatusInfo"></param>
         /// <param name="isRenewed"> Setting this to true will automatically purchase a new benefit on the expiration date time. </param>
         /// <param name="utilization"> Savings plan utilization. </param>
         /// <param name="renewSource"> SavingsPlan Id of the SavingsPlan from which this SavingsPlan is renewed. </param>
         /// <param name="renewDestination"> SavingsPlan Id of the SavingsPlan which is purchased because of renew. </param>
-        /// <param name="renewPurchaseProperties"></param>
-        /// <returns> A new <see cref="BillingBenefits.BillingBenefitsSavingsPlanData"/> instance for mocking. </returns>
-        public static BillingBenefitsSavingsPlanData BillingBenefitsSavingsPlanData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, string skuName = null, string displayName = null, BillingBenefitsProvisioningState? provisioningState = null, string displayProvisioningState = null, ResourceIdentifier billingScopeId = null, ResourceIdentifier billingProfileId = null, string customerId = null, ResourceIdentifier billingAccountId = null, BillingBenefitsTerm? term = null, BillingBenefitsBillingPlan? billingPlan = null, BillingBenefitsAppliedScopeType? appliedScopeType = null, string userFriendlyAppliedScopeType = null, BillingBenefitsAppliedScopeProperties appliedScopeProperties = null, BillingBenefitsCommitment commitment = null, DateTimeOffset? effectOn = null, DateTimeOffset? expireOn = null, DateTimeOffset? purchaseOn = null, DateTimeOffset? benefitStartOn = null, BillingBenefitsExtendedStatusInfo extendedStatusInfo = null, bool? isRenewed = null, BillingBenefitsSavingsPlanUtilization utilization = null, string renewSource = null, string renewDestination = null, BillingBenefitsPurchaseContent renewPurchaseProperties = null)
+        /// <param name="renewPurchaseProperties"> Gets or sets the PurchaseProperties. </param>
+        /// <returns> A new <see cref="Models.SavingsPlanModelProperties"/> instance for mocking. </returns>
+        public static SavingsPlanModelProperties SavingsPlanModelProperties(string displayName = default, BillingBenefitsProvisioningState? provisioningState = default, string displayProvisioningState = default, ResourceIdentifier billingScopeId = default, ResourceIdentifier billingProfileId = default, ResourceIdentifier customerId = default, ResourceIdentifier billingAccountId = default, BillingBenefitsTerm? term = default, BillingBenefitsBillingPlan? billingPlan = default, BillingBenefitsAppliedScopeType? appliedScopeType = default, string userFriendlyAppliedScopeType = default, BillingBenefitsAppliedScopeProperties appliedScopeProperties = default, BillingBenefitsCommitment commitment = default, DateTimeOffset? effectOn = default, DateTimeOffset? expireOn = default, DateTimeOffset? purchaseDateTime = default, DateTimeOffset? benefitStartTime = default, BillingBenefitsExtendedStatusInfo extendedStatusInfo = default, bool? isRenewed = default, BillingBenefitsSavingsPlanUtilization utilization = default, string renewSource = default, string renewDestination = default, BillingBenefitsPurchaseContent renewPurchaseProperties = default)
         {
-            return new BillingBenefitsSavingsPlanData(
-                id,
-                name,
-                resourceType,
-                systemData,
-                skuName != null ? new BillingBenefitsSku(skuName, serializedAdditionalRawData: null) : null,
+            return new SavingsPlanModelProperties(
                 displayName,
                 provisioningState,
                 displayProvisioningState,
@@ -202,41 +638,40 @@ namespace Azure.ResourceManager.BillingBenefits.Models
                 commitment,
                 effectOn,
                 expireOn,
-                purchaseOn,
-                benefitStartOn,
+                purchaseDateTime,
+                benefitStartTime,
                 extendedStatusInfo,
                 isRenewed,
                 utilization,
                 renewSource,
                 renewDestination,
-                renewPurchaseProperties != null ? new RenewProperties(renewPurchaseProperties, serializedAdditionalRawData: null) : null,
-                serializedAdditionalRawData: null);
+                renewPurchaseProperties is null ? default : new RenewProperties(renewPurchaseProperties, new Dictionary<string, BinaryData>()),
+                additionalBinaryDataProperties: null);
         }
 
-        /// <summary> Initializes a new instance of <see cref="Models.BillingBenefitsSavingsPlanUtilization"/>. </summary>
+        /// <summary> Savings plan utilization. </summary>
         /// <param name="trend"> The number of days trend for a savings plan. </param>
         /// <param name="aggregates"> The array of aggregates of a savings plan's utilization. </param>
         /// <returns> A new <see cref="Models.BillingBenefitsSavingsPlanUtilization"/> instance for mocking. </returns>
-        public static BillingBenefitsSavingsPlanUtilization BillingBenefitsSavingsPlanUtilization(string trend = null, IEnumerable<BillingBenefitsSavingsPlanUtilizationAggregate> aggregates = null)
+        public static BillingBenefitsSavingsPlanUtilization BillingBenefitsSavingsPlanUtilization(string trend = default, IEnumerable<BillingBenefitsSavingsPlanUtilizationAggregate> aggregates = default)
         {
-            aggregates ??= new List<BillingBenefitsSavingsPlanUtilizationAggregate>();
+            aggregates ??= new ChangeTrackingList<BillingBenefitsSavingsPlanUtilizationAggregate>();
 
-            return new BillingBenefitsSavingsPlanUtilization(trend, aggregates?.ToList(), serializedAdditionalRawData: null);
+            return new BillingBenefitsSavingsPlanUtilization(trend, aggregates.ToList(), additionalBinaryDataProperties: null);
         }
 
-        /// <summary> Initializes a new instance of <see cref="Models.BillingBenefitsSavingsPlanUtilizationAggregate"/>. </summary>
+        /// <summary> The aggregate values of savings plan utilization. </summary>
         /// <param name="grain"> The grain of the aggregate. </param>
         /// <param name="grainUnit"> The grain unit of the aggregate. </param>
         /// <param name="value"> The aggregate value. </param>
         /// <param name="valueUnit"> The aggregate value unit. </param>
         /// <returns> A new <see cref="Models.BillingBenefitsSavingsPlanUtilizationAggregate"/> instance for mocking. </returns>
-        public static BillingBenefitsSavingsPlanUtilizationAggregate BillingBenefitsSavingsPlanUtilizationAggregate(float? grain = null, string grainUnit = null, float? value = null, string valueUnit = null)
+        public static BillingBenefitsSavingsPlanUtilizationAggregate BillingBenefitsSavingsPlanUtilizationAggregate(float? grain = default, string grainUnit = default, float? value = default, string valueUnit = default)
         {
-            return new BillingBenefitsSavingsPlanUtilizationAggregate(grain, grainUnit, value, valueUnit, serializedAdditionalRawData: null);
+            return new BillingBenefitsSavingsPlanUtilizationAggregate(grain, grainUnit, value, valueUnit, additionalBinaryDataProperties: null);
         }
 
-        /// <summary> Initializes a new instance of <see cref="Models.BillingBenefitsPurchaseContent"/>. </summary>
-        /// <param name="skuName"> The SKU to be applied for this resource. </param>
+        /// <summary> The PurchaseRequestProperties. </summary>
         /// <param name="displayName"> Friendly name of the savings plan. </param>
         /// <param name="billingScopeId"> Subscription that will be charged for purchasing the benefit. </param>
         /// <param name="term"> Represent benefit term in ISO 8601 format. </param>
@@ -246,11 +681,10 @@ namespace Azure.ResourceManager.BillingBenefits.Models
         /// <param name="effectOn"> DateTime of the savings plan starts providing benefit from. </param>
         /// <param name="isRenewed"> Setting this to true will automatically purchase a new benefit on the expiration date time. </param>
         /// <param name="appliedScopeProperties"> Properties specific to applied scope type. Not required if not applicable. </param>
-        /// <returns> A new <see cref="Models.BillingBenefitsPurchaseContent"/> instance for mocking. </returns>
-        public static BillingBenefitsPurchaseContent BillingBenefitsPurchaseContent(string skuName = null, string displayName = null, ResourceIdentifier billingScopeId = null, BillingBenefitsTerm? term = null, BillingBenefitsBillingPlan? billingPlan = null, BillingBenefitsAppliedScopeType? appliedScopeType = null, BillingBenefitsCommitment commitment = null, DateTimeOffset? effectOn = null, bool? isRenewed = null, BillingBenefitsAppliedScopeProperties appliedScopeProperties = null)
+        /// <returns> A new <see cref="Models.PurchaseRequestProperties"/> instance for mocking. </returns>
+        public static PurchaseRequestProperties PurchaseRequestProperties(string displayName = default, ResourceIdentifier billingScopeId = default, BillingBenefitsTerm? term = default, BillingBenefitsBillingPlan? billingPlan = default, BillingBenefitsAppliedScopeType? appliedScopeType = default, BillingBenefitsCommitment commitment = default, DateTimeOffset? effectOn = default, bool? isRenewed = default, BillingBenefitsAppliedScopeProperties appliedScopeProperties = default)
         {
-            return new BillingBenefitsPurchaseContent(
-                skuName != null ? new BillingBenefitsSku(skuName, serializedAdditionalRawData: null) : null,
+            return new PurchaseRequestProperties(
                 displayName,
                 billingScopeId,
                 term,
@@ -260,68 +694,40 @@ namespace Azure.ResourceManager.BillingBenefits.Models
                 effectOn,
                 isRenewed,
                 appliedScopeProperties,
-                serializedAdditionalRawData: null);
+                additionalBinaryDataProperties: null);
         }
 
-        /// <summary> Initializes a new instance of <see cref="Models.SavingsPlanValidateResult"/>. </summary>
-        /// <param name="isValid"> Indicates if the provided input was valid. </param>
-        /// <param name="reasonCode"> Failure reason code if the provided input was invalid. </param>
-        /// <param name="reason"> Failure reason if the provided input was invalid. </param>
-        /// <returns> A new <see cref="Models.SavingsPlanValidateResult"/> instance for mocking. </returns>
-        public static SavingsPlanValidateResult SavingsPlanValidateResult(bool? isValid = null, string reasonCode = null, string reason = null)
+        /// <summary> The SavingsPlanUpdateValidateRequest. </summary>
+        /// <param name="benefits"></param>
+        /// <returns> A new <see cref="Models.SavingsPlanUpdateValidateRequest"/> instance for mocking. </returns>
+        public static SavingsPlanUpdateValidateRequest SavingsPlanUpdateValidateRequest(IEnumerable<BillingBenefitsSavingsPlanPatchProperties> benefits = default)
         {
-            return new SavingsPlanValidateResult(isValid, reasonCode, reason, serializedAdditionalRawData: null);
+            benefits ??= new ChangeTrackingList<BillingBenefitsSavingsPlanPatchProperties>();
+
+            return new SavingsPlanUpdateValidateRequest(benefits.ToList(), additionalBinaryDataProperties: null);
         }
 
-        /// <summary> Initializes a new instance of <see cref="Models.BillingBenefitsReservationOrderAliasCreateOrUpdateContent"/>. </summary>
-        /// <param name="id"> The id. </param>
-        /// <param name="name"> The name. </param>
-        /// <param name="resourceType"> The resourceType. </param>
-        /// <param name="systemData"> The systemData. </param>
-        /// <param name="skuName"> Reservation order SKU. </param>
-        /// <param name="location"> The Azure Region where the reservation benefits are applied to. </param>
-        /// <param name="displayName"> Display name. </param>
-        /// <param name="billingScopeId"> Subscription that will be charged for purchasing the benefit. </param>
-        /// <param name="term"> Represent benefit term in ISO 8601 format. </param>
-        /// <param name="billingPlan"> Represents the billing plan in ISO 8601 format. Required only for monthly billing plans. </param>
-        /// <param name="appliedScopeType"> Type of the Applied Scope. </param>
-        /// <param name="appliedScopeProperties"> Properties specific to applied scope type. Not required if not applicable. </param>
-        /// <param name="quantity"> Total Quantity of the SKUs purchased in the Reservation. </param>
-        /// <param name="isRenewed"> Setting this to true will automatically purchase a new benefit on the expiration date time. </param>
-        /// <param name="reservedResourceType"> The type of the resource that is being reserved. </param>
-        /// <param name="reviewOn"> This is the date-time when the Azure Hybrid Benefit needs to be reviewed. </param>
-        /// <param name="reservedResourceInstanceFlexibility"> Properties specific to each reserved resource type. Not required if not applicable. </param>
-        /// <returns> A new <see cref="Models.BillingBenefitsReservationOrderAliasCreateOrUpdateContent"/> instance for mocking. </returns>
-        public static BillingBenefitsReservationOrderAliasCreateOrUpdateContent BillingBenefitsReservationOrderAliasCreateOrUpdateContent(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, string skuName = null, AzureLocation? location = null, string displayName = null, ResourceIdentifier billingScopeId = null, BillingBenefitsTerm? term = null, BillingBenefitsBillingPlan? billingPlan = null, BillingBenefitsAppliedScopeType? appliedScopeType = null, BillingBenefitsAppliedScopeProperties appliedScopeProperties = null, int? quantity = null, bool? isRenewed = null, BillingBenefitsReservedResourceType? reservedResourceType = null, DateTimeOffset? reviewOn = null, BillingBenefitsInstanceFlexibility? reservedResourceInstanceFlexibility = null)
+        /// <param name="id"> Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}. </param>
+        /// <param name="name"> The name of the resource. </param>
+        /// <param name="resourceType"> The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts". </param>
+        /// <param name="systemData"> Azure Resource Manager metadata containing createdBy and modifiedBy information. </param>
+        /// <param name="skuName"> Gets or sets the Name. </param>
+        /// <param name="location"> The Azure Region where the reserved resource lives. </param>
+        /// <param name="properties"> Reservation order alias response properties. </param>
+        /// <returns> A new <see cref="BillingBenefits.BillingBenefitsReservationOrderAliasData"/> instance for mocking. </returns>
+        public static BillingBenefitsReservationOrderAliasData BillingBenefitsReservationOrderAliasData(ResourceIdentifier id = default, string name = default, ResourceType resourceType = default, SystemData systemData = default, string skuName = default, string location = default, ReservationOrderAliasResponseProperties properties = default)
         {
-            return new BillingBenefitsReservationOrderAliasCreateOrUpdateContent(
+            return new BillingBenefitsReservationOrderAliasData(
                 id,
                 name,
                 resourceType,
                 systemData,
-                skuName != null ? new BillingBenefitsSku(skuName, serializedAdditionalRawData: null) : null,
+                additionalBinaryDataProperties: null,
+                skuName is null ? default : new ResourceSku(skuName, new Dictionary<string, BinaryData>()),
                 location,
-                displayName,
-                billingScopeId,
-                term,
-                billingPlan,
-                appliedScopeType,
-                appliedScopeProperties,
-                quantity,
-                isRenewed,
-                reservedResourceType,
-                reviewOn,
-                reservedResourceInstanceFlexibility != null ? new ReservationOrderAliasRequestPropertiesReservedResourceProperties(reservedResourceInstanceFlexibility, serializedAdditionalRawData: null) : null,
-                serializedAdditionalRawData: null);
+                properties);
         }
 
-        /// <summary> Initializes a new instance of <see cref="BillingBenefits.BillingBenefitsReservationOrderAliasData"/>. </summary>
-        /// <param name="id"> The id. </param>
-        /// <param name="name"> The name. </param>
-        /// <param name="resourceType"> The resourceType. </param>
-        /// <param name="systemData"> The systemData. </param>
-        /// <param name="skuName"> Reservation order SKU. </param>
-        /// <param name="location"> The Azure Region where the reserved resource lives. </param>
         /// <param name="displayName"> Display name. </param>
         /// <param name="reservationOrderId"> Identifier of the reservation order created. </param>
         /// <param name="provisioningState"> Provisioning state. </param>
@@ -333,18 +739,12 @@ namespace Azure.ResourceManager.BillingBenefits.Models
         /// <param name="quantity"> Total Quantity of the SKUs purchased in the Reservation. </param>
         /// <param name="isRenewed"> Setting this to true will automatically purchase a new benefit on the expiration date time. </param>
         /// <param name="reservedResourceType"> The type of the resource that is being reserved. </param>
-        /// <param name="reviewOn"> This is the date-time when the Reservation needs to be reviewed. </param>
-        /// <param name="reservedResourceInstanceFlexibility"> Properties specific to each reserved resource type. Not required if not applicable. </param>
-        /// <returns> A new <see cref="BillingBenefits.BillingBenefitsReservationOrderAliasData"/> instance for mocking. </returns>
-        public static BillingBenefitsReservationOrderAliasData BillingBenefitsReservationOrderAliasData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, string skuName = null, AzureLocation? location = null, string displayName = null, ResourceIdentifier reservationOrderId = null, BillingBenefitsProvisioningState? provisioningState = null, ResourceIdentifier billingScopeId = null, BillingBenefitsTerm? term = null, BillingBenefitsBillingPlan? billingPlan = null, BillingBenefitsAppliedScopeType? appliedScopeType = null, BillingBenefitsAppliedScopeProperties appliedScopeProperties = null, int? quantity = null, bool? isRenewed = null, BillingBenefitsReservedResourceType? reservedResourceType = null, DateTimeOffset? reviewOn = null, BillingBenefitsInstanceFlexibility? reservedResourceInstanceFlexibility = null)
+        /// <param name="reviewDateTime"> This is the date-time when the Reservation needs to be reviewed. </param>
+        /// <param name="reservedResourceInstanceFlexibility"> Turning this on will apply the reservation discount to other VMs in the same VM size group. </param>
+        /// <returns> A new <see cref="Models.ReservationOrderAliasResponseProperties"/> instance for mocking. </returns>
+        public static ReservationOrderAliasResponseProperties ReservationOrderAliasResponseProperties(string displayName = default, ResourceIdentifier reservationOrderId = default, BillingBenefitsProvisioningState? provisioningState = default, ResourceIdentifier billingScopeId = default, BillingBenefitsTerm? term = default, BillingBenefitsBillingPlan? billingPlan = default, BillingBenefitsAppliedScopeType? appliedScopeType = default, BillingBenefitsAppliedScopeProperties appliedScopeProperties = default, int? quantity = default, bool? isRenewed = default, BillingBenefitsReservedResourceType? reservedResourceType = default, DateTimeOffset? reviewDateTime = default, BillingBenefitsInstanceFlexibility? reservedResourceInstanceFlexibility = default)
         {
-            return new BillingBenefitsReservationOrderAliasData(
-                id,
-                name,
-                resourceType,
-                systemData,
-                skuName != null ? new BillingBenefitsSku(skuName, serializedAdditionalRawData: null) : null,
-                location,
+            return new ReservationOrderAliasResponseProperties(
                 displayName,
                 reservationOrderId,
                 provisioningState,
@@ -356,9 +756,40 @@ namespace Azure.ResourceManager.BillingBenefits.Models
                 quantity,
                 isRenewed,
                 reservedResourceType,
-                reviewOn,
-                reservedResourceInstanceFlexibility != null ? new ReservationOrderAliasResponsePropertiesReservedResourceProperties(reservedResourceInstanceFlexibility, serializedAdditionalRawData: null) : null,
-                serializedAdditionalRawData: null);
+                reviewDateTime,
+                reservedResourceInstanceFlexibility is null ? default : new ReservationOrderAliasResponsePropertiesReservedResourceProperties(reservedResourceInstanceFlexibility, new Dictionary<string, BinaryData>()),
+                additionalBinaryDataProperties: null);
+        }
+
+        /// <param name="id"> Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}. </param>
+        /// <param name="name"> The name of the resource. </param>
+        /// <param name="resourceType"> The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts". </param>
+        /// <param name="systemData"> Azure Resource Manager metadata containing createdBy and modifiedBy information. </param>
+        /// <param name="skuName"> Gets or sets the Name. </param>
+        /// <param name="location"> The Azure Region where the reservation benefits are applied to. </param>
+        /// <param name="properties"> Reservation order alias request properties. </param>
+        /// <returns> A new <see cref="Models.ReservationOrderAliasRequest"/> instance for mocking. </returns>
+        public static ReservationOrderAliasRequest ReservationOrderAliasRequest(ResourceIdentifier id = default, string name = default, ResourceType resourceType = default, SystemData systemData = default, string skuName = default, string location = default, ReservationOrderAliasRequestProperties properties = default)
+        {
+            return new ReservationOrderAliasRequest(
+                id,
+                name,
+                resourceType,
+                systemData,
+                additionalBinaryDataProperties: null,
+                skuName is null ? default : new ResourceSku(skuName, new Dictionary<string, BinaryData>()),
+                location,
+                properties);
+        }
+
+        /// <param name="discountPatchRequestDisplayName"> Display name. </param>
+        /// <param name="tags"> Resource tags. </param>
+        /// <returns> A new <see cref="Models.DiscountPatch"/> instance for mocking. </returns>
+        public static DiscountPatch DiscountPatch(string discountPatchRequestDisplayName = default, IDictionary<string, string> tags = default)
+        {
+            tags ??= new ChangeTrackingDictionary<string, string>();
+
+            return new DiscountPatch(discountPatchRequestDisplayName is null ? default : new DiscountPatchRequestProperties(discountPatchRequestDisplayName, new Dictionary<string, BinaryData>()), tags, additionalBinaryDataProperties: null);
         }
     }
 }

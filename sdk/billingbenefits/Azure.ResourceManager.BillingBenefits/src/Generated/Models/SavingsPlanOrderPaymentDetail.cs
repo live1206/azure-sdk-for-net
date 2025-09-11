@@ -13,77 +13,54 @@ namespace Azure.ResourceManager.BillingBenefits.Models
     /// <summary> Information about payment related to a savings plan order. </summary>
     public partial class SavingsPlanOrderPaymentDetail
     {
-        /// <summary>
-        /// Keeps track of any properties unknown to the library.
-        /// <para>
-        /// To assign an object to the value of this property use <see cref="BinaryData.FromObjectAsJson{T}(T, System.Text.Json.JsonSerializerOptions?)"/>.
-        /// </para>
-        /// <para>
-        /// To assign an already formatted json string to this property use <see cref="BinaryData.FromString(string)"/>.
-        /// </para>
-        /// <para>
-        /// Examples:
-        /// <list type="bullet">
-        /// <item>
-        /// <term>BinaryData.FromObjectAsJson("foo")</term>
-        /// <description>Creates a payload of "foo".</description>
-        /// </item>
-        /// <item>
-        /// <term>BinaryData.FromString("\"foo\"")</term>
-        /// <description>Creates a payload of "foo".</description>
-        /// </item>
-        /// <item>
-        /// <term>BinaryData.FromObjectAsJson(new { key = "value" })</term>
-        /// <description>Creates a payload of { "key": "value" }.</description>
-        /// </item>
-        /// <item>
-        /// <term>BinaryData.FromString("{\"key\": \"value\"}")</term>
-        /// <description>Creates a payload of { "key": "value" }.</description>
-        /// </item>
-        /// </list>
-        /// </para>
-        /// </summary>
-        private IDictionary<string, BinaryData> _serializedAdditionalRawData;
+        /// <summary> Keeps track of any properties unknown to the library. </summary>
+        private protected readonly IDictionary<string, BinaryData> _additionalBinaryDataProperties;
 
         /// <summary> Initializes a new instance of <see cref="SavingsPlanOrderPaymentDetail"/>. </summary>
-        public SavingsPlanOrderPaymentDetail()
+        internal SavingsPlanOrderPaymentDetail()
         {
         }
 
         /// <summary> Initializes a new instance of <see cref="SavingsPlanOrderPaymentDetail"/>. </summary>
-        /// <param name="dueOn"> Date when the payment needs to be done. </param>
+        /// <param name="dueDate"> Date when the payment needs to be done. </param>
         /// <param name="payOn"> Date when the transaction is completed. Is null when it is scheduled. </param>
         /// <param name="pricingCurrencyTotal"> Amount in pricing currency. Tax not included. </param>
         /// <param name="billingCurrencyTotal"> Amount charged in Billing currency. Tax not included. Is null for future payments. </param>
         /// <param name="status"> Describes whether the payment is completed, failed, cancelled or scheduled in the future. </param>
         /// <param name="extendedStatusInfo"></param>
         /// <param name="billingAccount"> Billing account. </param>
-        /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal SavingsPlanOrderPaymentDetail(DateTimeOffset? dueOn, DateTimeOffset? payOn, BillingBenefitsPrice pricingCurrencyTotal, BillingBenefitsPrice billingCurrencyTotal, BillingBenefitsPaymentStatus? status, BillingBenefitsExtendedStatusInfo extendedStatusInfo, string billingAccount, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        /// <param name="additionalBinaryDataProperties"> Keeps track of any properties unknown to the library. </param>
+        internal SavingsPlanOrderPaymentDetail(DateTimeOffset? dueDate, DateTimeOffset? payOn, BillingBenefitsPrice pricingCurrencyTotal, BillingBenefitsPrice billingCurrencyTotal, BillingBenefitsPaymentStatus? status, BillingBenefitsExtendedStatusInfo extendedStatusInfo, string billingAccount, IDictionary<string, BinaryData> additionalBinaryDataProperties)
         {
-            DueOn = dueOn;
+            DueDate = dueDate;
             PayOn = payOn;
             PricingCurrencyTotal = pricingCurrencyTotal;
             BillingCurrencyTotal = billingCurrencyTotal;
             Status = status;
             ExtendedStatusInfo = extendedStatusInfo;
             BillingAccount = billingAccount;
-            _serializedAdditionalRawData = serializedAdditionalRawData;
+            _additionalBinaryDataProperties = additionalBinaryDataProperties;
         }
 
         /// <summary> Date when the payment needs to be done. </summary>
-        public DateTimeOffset? DueOn { get; set; }
+        public DateTimeOffset? DueDate { get; }
+
         /// <summary> Date when the transaction is completed. Is null when it is scheduled. </summary>
-        public DateTimeOffset? PayOn { get; set; }
+        public DateTimeOffset? PayOn { get; }
+
         /// <summary> Amount in pricing currency. Tax not included. </summary>
-        public BillingBenefitsPrice PricingCurrencyTotal { get; set; }
+        public BillingBenefitsPrice PricingCurrencyTotal { get; }
+
         /// <summary> Amount charged in Billing currency. Tax not included. Is null for future payments. </summary>
-        public BillingBenefitsPrice BillingCurrencyTotal { get; set; }
+        public BillingBenefitsPrice BillingCurrencyTotal { get; }
+
         /// <summary> Describes whether the payment is completed, failed, cancelled or scheduled in the future. </summary>
-        public BillingBenefitsPaymentStatus? Status { get; set; }
-        /// <summary> Gets the extended status info. </summary>
+        public BillingBenefitsPaymentStatus? Status { get; }
+
+        /// <summary> Gets the ExtendedStatusInfo. </summary>
         public BillingBenefitsExtendedStatusInfo ExtendedStatusInfo { get; }
+
         /// <summary> Billing account. </summary>
-        public string BillingAccount { get; set; }
+        public string BillingAccount { get; }
     }
 }
