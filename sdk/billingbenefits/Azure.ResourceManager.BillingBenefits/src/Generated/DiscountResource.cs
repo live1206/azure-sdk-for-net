@@ -377,7 +377,7 @@ namespace Azure.ResourceManager.BillingBenefits
                 }
                 else
                 {
-                    DiscountData current = (await GetAsync(cancellationToken).ConfigureAwait(false)).Value.Data;
+                    DiscountData current = (await GetAsync(cancellationToken: cancellationToken).ConfigureAwait(false)).Value.Data;
                     DiscountPatch patch = new DiscountPatch();
                     foreach (KeyValuePair<string, string> tag in current.Tags)
                     {
@@ -425,7 +425,7 @@ namespace Azure.ResourceManager.BillingBenefits
                 }
                 else
                 {
-                    DiscountData current = Get(cancellationToken).Value.Data;
+                    DiscountData current = Get(cancellationToken: cancellationToken).Value.Data;
                     DiscountPatch patch = new DiscountPatch();
                     foreach (KeyValuePair<string, string> tag in current.Tags)
                     {
@@ -472,7 +472,7 @@ namespace Azure.ResourceManager.BillingBenefits
                 }
                 else
                 {
-                    DiscountData current = (await GetAsync(cancellationToken).ConfigureAwait(false)).Value.Data;
+                    DiscountData current = (await GetAsync(cancellationToken: cancellationToken).ConfigureAwait(false)).Value.Data;
                     DiscountPatch patch = new DiscountPatch();
                     patch.Tags.ReplaceWith(tags);
                     ArmOperation<DiscountResource> result = await UpdateAsync(WaitUntil.Completed, patch, cancellationToken).ConfigureAwait(false);
@@ -515,7 +515,7 @@ namespace Azure.ResourceManager.BillingBenefits
                 }
                 else
                 {
-                    DiscountData current = Get(cancellationToken).Value.Data;
+                    DiscountData current = Get(cancellationToken: cancellationToken).Value.Data;
                     DiscountPatch patch = new DiscountPatch();
                     patch.Tags.ReplaceWith(tags);
                     ArmOperation<DiscountResource> result = Update(WaitUntil.Completed, patch, cancellationToken);
@@ -557,7 +557,7 @@ namespace Azure.ResourceManager.BillingBenefits
                 }
                 else
                 {
-                    DiscountData current = (await GetAsync(cancellationToken).ConfigureAwait(false)).Value.Data;
+                    DiscountData current = (await GetAsync(cancellationToken: cancellationToken).ConfigureAwait(false)).Value.Data;
                     DiscountPatch patch = new DiscountPatch();
                     foreach (KeyValuePair<string, string> tag in current.Tags)
                     {
@@ -603,7 +603,7 @@ namespace Azure.ResourceManager.BillingBenefits
                 }
                 else
                 {
-                    DiscountData current = Get(cancellationToken).Value.Data;
+                    DiscountData current = Get(cancellationToken: cancellationToken).Value.Data;
                     DiscountPatch patch = new DiscountPatch();
                     foreach (KeyValuePair<string, string> tag in current.Tags)
                     {

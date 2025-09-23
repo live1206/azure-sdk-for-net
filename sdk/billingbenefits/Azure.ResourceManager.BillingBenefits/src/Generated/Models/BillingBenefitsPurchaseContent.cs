@@ -7,6 +7,7 @@
 
 using System;
 using System.Collections.Generic;
+using Azure.Core;
 
 namespace Azure.ResourceManager.BillingBenefits.Models
 {
@@ -36,7 +37,7 @@ namespace Azure.ResourceManager.BillingBenefits.Models
         internal ResourceSku Sku { get; set; }
 
         /// <summary> Gets or sets the Properties. </summary>
-        public PurchaseRequestProperties Properties { get; set; }
+        internal PurchaseRequestProperties Properties { get; set; }
 
         /// <summary> Gets or sets the Name. </summary>
         public string SkuName
@@ -52,6 +53,151 @@ namespace Azure.ResourceManager.BillingBenefits.Models
                     Sku = new ResourceSku();
                 }
                 Sku.Name = value;
+            }
+        }
+
+        /// <summary> Friendly name of the savings plan. </summary>
+        public string DisplayName
+        {
+            get
+            {
+                return Properties is null ? default : Properties.DisplayName;
+            }
+            set
+            {
+                if (Properties is null)
+                {
+                    Properties = new PurchaseRequestProperties();
+                }
+                Properties.DisplayName = value;
+            }
+        }
+
+        /// <summary> Subscription that will be charged for purchasing the benefit. </summary>
+        public ResourceIdentifier BillingScopeId
+        {
+            get
+            {
+                return Properties is null ? default : Properties.BillingScopeId;
+            }
+            set
+            {
+                if (Properties is null)
+                {
+                    Properties = new PurchaseRequestProperties();
+                }
+                Properties.BillingScopeId = value;
+            }
+        }
+
+        /// <summary> Represent benefit term in ISO 8601 format. </summary>
+        public BillingBenefitsTerm? Term
+        {
+            get
+            {
+                return Properties is null ? default : Properties.Term;
+            }
+            set
+            {
+                if (Properties is null)
+                {
+                    Properties = new PurchaseRequestProperties();
+                }
+                Properties.Term = value.Value;
+            }
+        }
+
+        /// <summary> Represents the billing plan in ISO 8601 format. Required only for monthly billing plans. </summary>
+        public BillingBenefitsBillingPlan? BillingPlan
+        {
+            get
+            {
+                return Properties is null ? default : Properties.BillingPlan;
+            }
+            set
+            {
+                if (Properties is null)
+                {
+                    Properties = new PurchaseRequestProperties();
+                }
+                Properties.BillingPlan = value.Value;
+            }
+        }
+
+        /// <summary> Type of the Applied Scope. </summary>
+        public BillingBenefitsAppliedScopeType? AppliedScopeType
+        {
+            get
+            {
+                return Properties is null ? default : Properties.AppliedScopeType;
+            }
+            set
+            {
+                if (Properties is null)
+                {
+                    Properties = new PurchaseRequestProperties();
+                }
+                Properties.AppliedScopeType = value.Value;
+            }
+        }
+
+        /// <summary> Commitment towards the benefit. </summary>
+        public BillingBenefitsCommitment Commitment
+        {
+            get
+            {
+                return Properties is null ? default : Properties.Commitment;
+            }
+            set
+            {
+                if (Properties is null)
+                {
+                    Properties = new PurchaseRequestProperties();
+                }
+                Properties.Commitment = value;
+            }
+        }
+
+        /// <summary> DateTime of the savings plan starts providing benefit from. </summary>
+        public DateTimeOffset? EffectOn
+        {
+            get
+            {
+                return Properties is null ? default : Properties.EffectOn;
+            }
+        }
+
+        /// <summary> Setting this to true will automatically purchase a new benefit on the expiration date time. </summary>
+        public bool? IsRenewed
+        {
+            get
+            {
+                return Properties is null ? default : Properties.IsRenewed;
+            }
+            set
+            {
+                if (Properties is null)
+                {
+                    Properties = new PurchaseRequestProperties();
+                }
+                Properties.IsRenewed = value.Value;
+            }
+        }
+
+        /// <summary> Properties specific to applied scope type. Not required if not applicable. </summary>
+        public BillingBenefitsAppliedScopeProperties AppliedScopeProperties
+        {
+            get
+            {
+                return Properties is null ? default : Properties.AppliedScopeProperties;
+            }
+            set
+            {
+                if (Properties is null)
+                {
+                    Properties = new PurchaseRequestProperties();
+                }
+                Properties.AppliedScopeProperties = value;
             }
         }
     }

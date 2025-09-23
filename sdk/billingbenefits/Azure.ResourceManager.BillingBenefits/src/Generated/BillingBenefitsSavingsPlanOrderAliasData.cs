@@ -20,16 +20,6 @@ namespace Azure.ResourceManager.BillingBenefits
         private protected readonly IDictionary<string, BinaryData> _additionalBinaryDataProperties;
 
         /// <summary> Initializes a new instance of <see cref="BillingBenefitsSavingsPlanOrderAliasData"/>. </summary>
-        /// <param name="sku"> Savings plan SKU. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="sku"/> is null. </exception>
-        public BillingBenefitsSavingsPlanOrderAliasData(ResourceSku sku)
-        {
-            Argument.AssertNotNull(sku, nameof(sku));
-
-            Sku = sku;
-        }
-
-        /// <summary> Initializes a new instance of <see cref="BillingBenefitsSavingsPlanOrderAliasData"/>. </summary>
         /// <param name="id"> Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}. </param>
         /// <param name="name"> The name of the resource. </param>
         /// <param name="resourceType"> The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts". </param>
@@ -53,7 +43,7 @@ namespace Azure.ResourceManager.BillingBenefits
         public string Kind { get; set; }
 
         /// <summary> Savings plan order alias properties. </summary>
-        public SavingsPlanOrderAliasProperties Properties { get; set; }
+        internal SavingsPlanOrderAliasProperties Properties { get; set; }
 
         /// <summary> Gets or sets the Name. </summary>
         public string SkuName
@@ -69,6 +59,160 @@ namespace Azure.ResourceManager.BillingBenefits
                     Sku = new ResourceSku();
                 }
                 Sku.Name = value;
+            }
+        }
+
+        /// <summary> Display name. </summary>
+        public string DisplayName
+        {
+            get
+            {
+                return Properties is null ? default : Properties.DisplayName;
+            }
+            set
+            {
+                if (Properties is null)
+                {
+                    Properties = new SavingsPlanOrderAliasProperties();
+                }
+                Properties.DisplayName = value;
+            }
+        }
+
+        /// <summary> Identifier of the savings plan created. </summary>
+        public string SavingsPlanOrderId
+        {
+            get
+            {
+                return Properties is null ? default : Properties.SavingsPlanOrderId;
+            }
+        }
+
+        /// <summary> Provisioning state. </summary>
+        public BillingBenefitsProvisioningState? ProvisioningState
+        {
+            get
+            {
+                return Properties is null ? default : Properties.ProvisioningState;
+            }
+        }
+
+        /// <summary> Subscription that will be charged for purchasing the benefit. </summary>
+        public ResourceIdentifier BillingScopeId
+        {
+            get
+            {
+                return Properties is null ? default : Properties.BillingScopeId;
+            }
+            set
+            {
+                if (Properties is null)
+                {
+                    Properties = new SavingsPlanOrderAliasProperties();
+                }
+                Properties.BillingScopeId = value;
+            }
+        }
+
+        /// <summary> Represent benefit term in ISO 8601 format. </summary>
+        public BillingBenefitsTerm? Term
+        {
+            get
+            {
+                return Properties is null ? default : Properties.Term;
+            }
+            set
+            {
+                if (Properties is null)
+                {
+                    Properties = new SavingsPlanOrderAliasProperties();
+                }
+                Properties.Term = value.Value;
+            }
+        }
+
+        /// <summary> Represents the billing plan in ISO 8601 format. Required only for monthly billing plans. </summary>
+        public BillingBenefitsBillingPlan? BillingPlan
+        {
+            get
+            {
+                return Properties is null ? default : Properties.BillingPlan;
+            }
+            set
+            {
+                if (Properties is null)
+                {
+                    Properties = new SavingsPlanOrderAliasProperties();
+                }
+                Properties.BillingPlan = value.Value;
+            }
+        }
+
+        /// <summary> Type of the Applied Scope. </summary>
+        public BillingBenefitsAppliedScopeType? AppliedScopeType
+        {
+            get
+            {
+                return Properties is null ? default : Properties.AppliedScopeType;
+            }
+            set
+            {
+                if (Properties is null)
+                {
+                    Properties = new SavingsPlanOrderAliasProperties();
+                }
+                Properties.AppliedScopeType = value.Value;
+            }
+        }
+
+        /// <summary> Properties specific to applied scope type. Not required if not applicable. </summary>
+        public BillingBenefitsAppliedScopeProperties AppliedScopeProperties
+        {
+            get
+            {
+                return Properties is null ? default : Properties.AppliedScopeProperties;
+            }
+            set
+            {
+                if (Properties is null)
+                {
+                    Properties = new SavingsPlanOrderAliasProperties();
+                }
+                Properties.AppliedScopeProperties = value;
+            }
+        }
+
+        /// <summary> Commitment towards the benefit. </summary>
+        public BillingBenefitsCommitment Commitment
+        {
+            get
+            {
+                return Properties is null ? default : Properties.Commitment;
+            }
+            set
+            {
+                if (Properties is null)
+                {
+                    Properties = new SavingsPlanOrderAliasProperties();
+                }
+                Properties.Commitment = value;
+            }
+        }
+
+        /// <summary> Setting this to true will automatically purchase a new benefit on the expiration date time. </summary>
+        public bool? Renew
+        {
+            get
+            {
+                return Properties is null ? default : Properties.Renew;
+            }
+            set
+            {
+                if (Properties is null)
+                {
+                    Properties = new SavingsPlanOrderAliasProperties();
+                }
+                Properties.Renew = value.Value;
             }
         }
     }

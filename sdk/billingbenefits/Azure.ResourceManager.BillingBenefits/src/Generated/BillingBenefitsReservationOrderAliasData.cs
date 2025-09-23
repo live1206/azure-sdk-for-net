@@ -50,7 +50,7 @@ namespace Azure.ResourceManager.BillingBenefits
         public string Location { get; }
 
         /// <summary> Reservation order alias response properties. </summary>
-        public ReservationOrderAliasResponseProperties Properties { get; }
+        internal ReservationOrderAliasResponseProperties Properties { get; }
 
         /// <summary> Gets or sets the Name. </summary>
         public string SkuName
@@ -58,6 +58,123 @@ namespace Azure.ResourceManager.BillingBenefits
             get
             {
                 return Sku.Name;
+            }
+        }
+
+        /// <summary> Display name. </summary>
+        public string DisplayName
+        {
+            get
+            {
+                return Properties.DisplayName;
+            }
+        }
+
+        /// <summary> Identifier of the reservation order created. </summary>
+        public ResourceIdentifier ReservationOrderId
+        {
+            get
+            {
+                return Properties.ReservationOrderId;
+            }
+        }
+
+        /// <summary> Provisioning state. </summary>
+        public BillingBenefitsProvisioningState? ProvisioningState
+        {
+            get
+            {
+                return Properties.ProvisioningState;
+            }
+        }
+
+        /// <summary> Subscription that will be charged for purchasing the benefit. </summary>
+        public ResourceIdentifier BillingScopeId
+        {
+            get
+            {
+                return Properties.BillingScopeId;
+            }
+        }
+
+        /// <summary> Represent benefit term in ISO 8601 format. </summary>
+        public BillingBenefitsTerm? Term
+        {
+            get
+            {
+                return Properties.Term;
+            }
+        }
+
+        /// <summary> Represents the billing plan in ISO 8601 format. Required only for monthly billing plans. </summary>
+        public BillingBenefitsBillingPlan? BillingPlan
+        {
+            get
+            {
+                return Properties.BillingPlan;
+            }
+        }
+
+        /// <summary> Type of the Applied Scope. </summary>
+        public BillingBenefitsAppliedScopeType? AppliedScopeType
+        {
+            get
+            {
+                return Properties.AppliedScopeType;
+            }
+        }
+
+        /// <summary> Properties specific to applied scope type. Not required if not applicable. </summary>
+        public BillingBenefitsAppliedScopeProperties AppliedScopeProperties
+        {
+            get
+            {
+                return Properties.AppliedScopeProperties;
+            }
+        }
+
+        /// <summary> Total Quantity of the SKUs purchased in the Reservation. </summary>
+        public int? Quantity
+        {
+            get
+            {
+                return Properties.Quantity;
+            }
+        }
+
+        /// <summary> Setting this to true will automatically purchase a new benefit on the expiration date time. </summary>
+        public bool? IsRenewed
+        {
+            get
+            {
+                return Properties.IsRenewed;
+            }
+        }
+
+        /// <summary> The type of the resource that is being reserved. </summary>
+        public BillingBenefitsReservedResourceType? ReservedResourceType
+        {
+            get
+            {
+                return Properties.ReservedResourceType;
+            }
+        }
+
+        /// <summary> This is the date-time when the Reservation needs to be reviewed. </summary>
+        public DateTimeOffset? ReviewDateTime
+        {
+            get
+            {
+                return Properties.ReviewDateTime;
+            }
+        }
+
+        /// <summary> Turning this on will apply the reservation discount to other VMs in the same VM size group. </summary>
+        public BillingBenefitsInstanceFlexibility? ReservedResourceInstanceFlexibility
+        {
+            get
+            {
+                return Properties.ReservedResourceInstanceFlexibility;
             }
         }
     }

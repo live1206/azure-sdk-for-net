@@ -41,7 +41,7 @@ namespace Azure.ResourceManager.BillingBenefits.Models
         public IDictionary<string, string> Tags { get; }
 
         /// <summary> Display name. </summary>
-        public string DiscountPatchRequestDisplayName
+        public string DisplayName
         {
             get
             {

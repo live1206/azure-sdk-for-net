@@ -14,7 +14,7 @@ using Azure.ResourceManager.BillingBenefits;
 namespace Azure.ResourceManager.BillingBenefits.Models
 {
     /// <summary> The ResourceSku. </summary>
-    public partial class ResourceSku : IJsonModel<ResourceSku>
+    internal partial class ResourceSku : IJsonModel<ResourceSku>
     {
         /// <param name="writer"> The JSON writer. </param>
         /// <param name="options"> The client options for reading and writing models. </param>

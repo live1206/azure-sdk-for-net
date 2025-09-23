@@ -13,7 +13,7 @@ using Azure.ResourceManager.BillingBenefits;
 namespace Azure.ResourceManager.BillingBenefits.Models
 {
     /// <summary> Savings plan order properties. </summary>
-    public partial class SavingsPlanOrderModelProperties
+    internal partial class SavingsPlanOrderModelProperties
     {
         /// <summary> Keeps track of any properties unknown to the library. </summary>
         private protected readonly IDictionary<string, BinaryData> _additionalBinaryDataProperties;
@@ -91,7 +91,7 @@ namespace Azure.ResourceManager.BillingBenefits.Models
         public BillingPlanInformation PlanInformation { get; }
 
         /// <summary> Gets the SavingsPlans. </summary>
-        public IList<string> SavingsPlans { get; }
+        public IList<string> SavingsPlans { get; } = new ChangeTrackingList<string>();
 
         /// <summary> Gets the ExtendedStatusInfo. </summary>
         public BillingBenefitsExtendedStatusInfo ExtendedStatusInfo { get; }

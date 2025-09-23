@@ -11,7 +11,7 @@ using System.Collections.Generic;
 namespace Azure.ResourceManager.BillingBenefits.Models
 {
     /// <summary> The ResourceSku. </summary>
-    public partial class ResourceSku
+    internal partial class ResourceSku
     {
         /// <summary> Keeps track of any properties unknown to the library. </summary>
         private protected readonly IDictionary<string, BinaryData> _additionalBinaryDataProperties;

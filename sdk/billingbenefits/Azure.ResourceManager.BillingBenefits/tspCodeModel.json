@@ -3453,7 +3453,12 @@
                   "readOnly": false,
                   "discriminator": false,
                   "flatten": true,
-                  "decorators": [],
+                  "decorators": [
+                    {
+                      "name": "Azure.ResourceManager.@flattenProperty",
+                      "arguments": {}
+                    }
+                  ],
                   "crossLanguageDefinitionId": "Microsoft.BillingBenefits.SavingsPlanOrderAliasModel.properties",
                   "serializationOptions": {
                     "json": {
@@ -7884,7 +7889,12 @@
           "readOnly": false,
           "discriminator": false,
           "flatten": true,
-          "decorators": [],
+          "decorators": [
+            {
+              "name": "Azure.ResourceManager.@flattenProperty",
+              "arguments": {}
+            }
+          ],
           "crossLanguageDefinitionId": "Microsoft.BillingBenefits.SavingsPlanOrderModel.properties",
           "serializationOptions": {
             "json": {
@@ -8164,7 +8174,12 @@
           "readOnly": false,
           "discriminator": false,
           "flatten": true,
-          "decorators": [],
+          "decorators": [
+            {
+              "name": "Azure.ResourceManager.@flattenProperty",
+              "arguments": {}
+            }
+          ],
           "crossLanguageDefinitionId": "Microsoft.BillingBenefits.RoleAssignmentEntity.properties",
           "serializationOptions": {
             "json": {
@@ -9383,7 +9398,12 @@
                             "readOnly": false,
                             "discriminator": false,
                             "flatten": true,
-                            "decorators": [],
+                            "decorators": [
+                              {
+                                "name": "Azure.ResourceManager.@flattenProperty",
+                                "arguments": {}
+                              }
+                            ],
                             "crossLanguageDefinitionId": "Microsoft.BillingBenefits.PurchaseRequest.properties",
                             "serializationOptions": {
                               "json": {
@@ -9428,7 +9448,12 @@
           "readOnly": false,
           "discriminator": false,
           "flatten": true,
-          "decorators": [],
+          "decorators": [
+            {
+              "name": "Azure.ResourceManager.@flattenProperty",
+              "arguments": {}
+            }
+          ],
           "crossLanguageDefinitionId": "Microsoft.BillingBenefits.SavingsPlanModel.properties",
           "serializationOptions": {
             "json": {
@@ -10636,7 +10661,12 @@
           "readOnly": false,
           "discriminator": false,
           "flatten": true,
-          "decorators": [],
+          "decorators": [
+            {
+              "name": "Azure.ResourceManager.@flattenProperty",
+              "arguments": {}
+            }
+          ],
           "crossLanguageDefinitionId": "Microsoft.BillingBenefits.ReservationOrderAliasResponse.properties",
           "serializationOptions": {
             "json": {
@@ -11044,7 +11074,12 @@
           "readOnly": false,
           "discriminator": false,
           "flatten": true,
-          "decorators": [],
+          "decorators": [
+            {
+              "name": "Azure.ResourceManager.@flattenProperty",
+              "arguments": {}
+            }
+          ],
           "crossLanguageDefinitionId": "Microsoft.BillingBenefits.ReservationOrderAliasRequest.properties",
           "serializationOptions": {
             "json": {
@@ -11119,7 +11154,12 @@
           "readOnly": false,
           "discriminator": false,
           "flatten": true,
-          "decorators": [],
+          "decorators": [
+            {
+              "name": "Azure.ResourceManager.@flattenProperty",
+              "arguments": {}
+            }
+          ],
           "crossLanguageDefinitionId": "Microsoft.BillingBenefits.DiscountPatchRequest.properties",
           "serializationOptions": {
             "json": {

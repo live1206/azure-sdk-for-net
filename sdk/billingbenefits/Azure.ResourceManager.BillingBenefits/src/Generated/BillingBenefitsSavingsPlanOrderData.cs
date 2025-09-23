@@ -45,7 +45,7 @@ namespace Azure.ResourceManager.BillingBenefits
         internal ResourceSku Sku { get; }
 
         /// <summary> Savings plan order properties. </summary>
-        public SavingsPlanOrderModelProperties Properties { get; }
+        internal SavingsPlanOrderModelProperties Properties { get; }
 
         /// <summary> Gets or sets the Name. </summary>
         public string SkuName
@@ -53,6 +53,123 @@ namespace Azure.ResourceManager.BillingBenefits
             get
             {
                 return Sku.Name;
+            }
+        }
+
+        /// <summary> Display name. </summary>
+        public string DisplayName
+        {
+            get
+            {
+                return Properties.DisplayName;
+            }
+        }
+
+        /// <summary> Provisioning state. </summary>
+        public BillingBenefitsProvisioningState? ProvisioningState
+        {
+            get
+            {
+                return Properties.ProvisioningState;
+            }
+        }
+
+        /// <summary> Subscription that will be charged for purchasing the benefit. </summary>
+        public string BillingScopeId
+        {
+            get
+            {
+                return Properties.BillingScopeId;
+            }
+        }
+
+        /// <summary> Fully-qualified identifier of the billing profile where the savings plan is applied. Present only for Field-led or Customer-led customers. </summary>
+        public ResourceIdentifier BillingProfileId
+        {
+            get
+            {
+                return Properties.BillingProfileId;
+            }
+        }
+
+        /// <summary> Fully-qualified identifier of the customer where the savings plan is applied. Present only for Partner-led customers. </summary>
+        public ResourceIdentifier CustomerId
+        {
+            get
+            {
+                return Properties.CustomerId;
+            }
+        }
+
+        /// <summary> Fully-qualified identifier of the billing account where the savings plan is applied. Present only for Enterprise Agreement customers. </summary>
+        public ResourceIdentifier BillingAccountId
+        {
+            get
+            {
+                return Properties.BillingAccountId;
+            }
+        }
+
+        /// <summary> Represent benefit term in ISO 8601 format. </summary>
+        public BillingBenefitsTerm? Term
+        {
+            get
+            {
+                return Properties.Term;
+            }
+        }
+
+        /// <summary> Represents the billing plan in ISO 8601 format. Required only for monthly billing plans. </summary>
+        public BillingBenefitsBillingPlan? BillingPlan
+        {
+            get
+            {
+                return Properties.BillingPlan;
+            }
+        }
+
+        /// <summary> Expiry date time. </summary>
+        public DateTimeOffset? ExpireOn
+        {
+            get
+            {
+                return Properties.ExpireOn;
+            }
+        }
+
+        /// <summary> This is the DateTime when the savings plan benefit started. </summary>
+        public DateTimeOffset? BenefitStartTime
+        {
+            get
+            {
+                return Properties.BenefitStartTime;
+            }
+        }
+
+        /// <summary> Information describing the type of billing plan for this savings plan. </summary>
+        public BillingPlanInformation PlanInformation
+        {
+            get
+            {
+                return Properties.PlanInformation;
+            }
+        }
+
+        /// <summary> Gets the SavingsPlans. </summary>
+        public IList<string> SavingsPlans
+        {
+            get
+            {
+                return Properties.SavingsPlans;
+            }
+        }
+
+        /// <summary> Gets the ExtendedStatusInfo. </summary>
+        public BillingBenefitsExtendedStatusInfo ExtendedStatusInfo
+        {
+            get
+            {
+                return Properties.ExtendedStatusInfo;
             }
         }
     }

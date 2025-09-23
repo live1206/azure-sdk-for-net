@@ -33,22 +33,6 @@ namespace Azure.ResourceManager.BillingBenefits.Models
         /// <param name="systemData"> Azure Resource Manager metadata containing createdBy and modifiedBy information. </param>
         /// <param name="skuName"> Gets or sets the Name. </param>
         /// <param name="kind"> Resource provider kind. </param>
-        /// <param name="properties"> Savings plan order alias properties. </param>
-        /// <returns> A new <see cref="BillingBenefits.BillingBenefitsSavingsPlanOrderAliasData"/> instance for mocking. </returns>
-        public static BillingBenefitsSavingsPlanOrderAliasData BillingBenefitsSavingsPlanOrderAliasData(ResourceIdentifier id = default, string name = default, ResourceType resourceType = default, SystemData systemData = default, string skuName = default, string kind = default, SavingsPlanOrderAliasProperties properties = default)
-        {
-            return new BillingBenefitsSavingsPlanOrderAliasData(
-                id,
-                name,
-                resourceType,
-                systemData,
-                additionalBinaryDataProperties: null,
-                skuName is null ? default : new ResourceSku(skuName, new Dictionary<string, BinaryData>()),
-                kind,
-                properties);
-        }
-
-        /// <summary> Savings plan properties. </summary>
         /// <param name="displayName"> Display name. </param>
         /// <param name="savingsPlanOrderId"> Identifier of the savings plan created. </param>
         /// <param name="provisioningState"> Provisioning state. </param>
@@ -59,21 +43,29 @@ namespace Azure.ResourceManager.BillingBenefits.Models
         /// <param name="appliedScopeProperties"> Properties specific to applied scope type. Not required if not applicable. </param>
         /// <param name="commitment"> Commitment towards the benefit. </param>
         /// <param name="renew"> Setting this to true will automatically purchase a new benefit on the expiration date time. </param>
-        /// <returns> A new <see cref="Models.SavingsPlanOrderAliasProperties"/> instance for mocking. </returns>
-        public static SavingsPlanOrderAliasProperties SavingsPlanOrderAliasProperties(string displayName = default, string savingsPlanOrderId = default, BillingBenefitsProvisioningState? provisioningState = default, ResourceIdentifier billingScopeId = default, BillingBenefitsTerm? term = default, BillingBenefitsBillingPlan? billingPlan = default, BillingBenefitsAppliedScopeType? appliedScopeType = default, BillingBenefitsAppliedScopeProperties appliedScopeProperties = default, BillingBenefitsCommitment commitment = default, bool? renew = default)
+        /// <returns> A new <see cref="BillingBenefits.BillingBenefitsSavingsPlanOrderAliasData"/> instance for mocking. </returns>
+        public static BillingBenefitsSavingsPlanOrderAliasData BillingBenefitsSavingsPlanOrderAliasData(ResourceIdentifier id = default, string name = default, ResourceType resourceType = default, SystemData systemData = default, string skuName = default, string kind = default, string displayName = default, string savingsPlanOrderId = default, BillingBenefitsProvisioningState? provisioningState = default, ResourceIdentifier billingScopeId = default, BillingBenefitsTerm? term = default, BillingBenefitsBillingPlan? billingPlan = default, BillingBenefitsAppliedScopeType? appliedScopeType = default, BillingBenefitsAppliedScopeProperties appliedScopeProperties = default, BillingBenefitsCommitment commitment = default, bool? renew = default)
         {
-            return new SavingsPlanOrderAliasProperties(
-                displayName,
-                savingsPlanOrderId,
-                provisioningState,
-                billingScopeId,
-                term,
-                billingPlan,
-                appliedScopeType,
-                appliedScopeProperties,
-                commitment,
-                renew,
-                additionalBinaryDataProperties: null);
+            return new BillingBenefitsSavingsPlanOrderAliasData(
+                id,
+                name,
+                resourceType,
+                systemData,
+                additionalBinaryDataProperties: null,
+                skuName is null ? default : new ResourceSku(skuName, new Dictionary<string, BinaryData>()),
+                kind,
+                displayName is null || savingsPlanOrderId is null || provisioningState is null || billingScopeId is null || term is null || billingPlan is null || appliedScopeType is null || appliedScopeProperties is null || commitment is null || renew is null ? default : new SavingsPlanOrderAliasProperties(
+                    displayName,
+                    savingsPlanOrderId,
+                    provisioningState,
+                    billingScopeId,
+                    term,
+                    billingPlan,
+                    appliedScopeType,
+                    appliedScopeProperties,
+                    commitment,
+                    renew,
+                    new Dictionary<string, BinaryData>()));
         }
 
         /// <summary> The SavingsPlanValidateResponse. </summary>
@@ -463,21 +455,6 @@ namespace Azure.ResourceManager.BillingBenefits.Models
         /// <param name="resourceType"> The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts". </param>
         /// <param name="systemData"> Azure Resource Manager metadata containing createdBy and modifiedBy information. </param>
         /// <param name="skuName"> Gets or sets the Name. </param>
-        /// <param name="properties"> Savings plan order properties. </param>
-        /// <returns> A new <see cref="BillingBenefits.BillingBenefitsSavingsPlanOrderData"/> instance for mocking. </returns>
-        public static BillingBenefitsSavingsPlanOrderData BillingBenefitsSavingsPlanOrderData(ResourceIdentifier id = default, string name = default, ResourceType resourceType = default, SystemData systemData = default, string skuName = default, SavingsPlanOrderModelProperties properties = default)
-        {
-            return new BillingBenefitsSavingsPlanOrderData(
-                id,
-                name,
-                resourceType,
-                systemData,
-                additionalBinaryDataProperties: null,
-                skuName is null ? default : new ResourceSku(skuName, new Dictionary<string, BinaryData>()),
-                properties);
-        }
-
-        /// <summary> Savings plan order properties. </summary>
         /// <param name="displayName"> Display name. </param>
         /// <param name="provisioningState"> Provisioning state. </param>
         /// <param name="billingScopeId"> Subscription that will be charged for purchasing the benefit. </param>
@@ -489,28 +466,33 @@ namespace Azure.ResourceManager.BillingBenefits.Models
         /// <param name="expireOn"> Expiry date time. </param>
         /// <param name="benefitStartTime"> This is the DateTime when the savings plan benefit started. </param>
         /// <param name="planInformation"> Information describing the type of billing plan for this savings plan. </param>
-        /// <param name="savingsPlans"></param>
-        /// <param name="extendedStatusInfo"></param>
-        /// <returns> A new <see cref="Models.SavingsPlanOrderModelProperties"/> instance for mocking. </returns>
-        public static SavingsPlanOrderModelProperties SavingsPlanOrderModelProperties(string displayName = default, BillingBenefitsProvisioningState? provisioningState = default, string billingScopeId = default, ResourceIdentifier billingProfileId = default, ResourceIdentifier customerId = default, ResourceIdentifier billingAccountId = default, BillingBenefitsTerm? term = default, BillingBenefitsBillingPlan? billingPlan = default, DateTimeOffset? expireOn = default, DateTimeOffset? benefitStartTime = default, BillingPlanInformation planInformation = default, IEnumerable<string> savingsPlans = default, BillingBenefitsExtendedStatusInfo extendedStatusInfo = default)
+        /// <param name="savingsPlans"> Gets the SavingsPlans. </param>
+        /// <param name="extendedStatusInfo"> Gets the ExtendedStatusInfo. </param>
+        /// <returns> A new <see cref="BillingBenefits.BillingBenefitsSavingsPlanOrderData"/> instance for mocking. </returns>
+        public static BillingBenefitsSavingsPlanOrderData BillingBenefitsSavingsPlanOrderData(ResourceIdentifier id = default, string name = default, ResourceType resourceType = default, SystemData systemData = default, string skuName = default, string displayName = default, BillingBenefitsProvisioningState? provisioningState = default, string billingScopeId = default, ResourceIdentifier billingProfileId = default, ResourceIdentifier customerId = default, ResourceIdentifier billingAccountId = default, BillingBenefitsTerm? term = default, BillingBenefitsBillingPlan? billingPlan = default, DateTimeOffset? expireOn = default, DateTimeOffset? benefitStartTime = default, BillingPlanInformation planInformation = default, IList<string> savingsPlans = default, BillingBenefitsExtendedStatusInfo extendedStatusInfo = default)
         {
-            savingsPlans ??= new ChangeTrackingList<string>();
-
-            return new SavingsPlanOrderModelProperties(
-                displayName,
-                provisioningState,
-                billingScopeId,
-                billingProfileId,
-                customerId,
-                billingAccountId,
-                term,
-                billingPlan,
-                expireOn,
-                benefitStartTime,
-                planInformation,
-                savingsPlans.ToList(),
-                extendedStatusInfo,
-                additionalBinaryDataProperties: null);
+            return new BillingBenefitsSavingsPlanOrderData(
+                id,
+                name,
+                resourceType,
+                systemData,
+                additionalBinaryDataProperties: null,
+                skuName is null ? default : new ResourceSku(skuName, new Dictionary<string, BinaryData>()),
+                displayName is null || provisioningState is null || billingScopeId is null || billingProfileId is null || customerId is null || billingAccountId is null || term is null || billingPlan is null || expireOn is null || benefitStartTime is null || planInformation is null || savingsPlans is null || extendedStatusInfo is null ? default : new SavingsPlanOrderModelProperties(
+                    displayName,
+                    provisioningState,
+                    billingScopeId,
+                    billingProfileId,
+                    customerId,
+                    billingAccountId,
+                    term,
+                    billingPlan,
+                    expireOn,
+                    benefitStartTime,
+                    planInformation,
+                    savingsPlans,
+                    extendedStatusInfo,
+                    new Dictionary<string, BinaryData>()));
         }
 
         /// <summary> Information describing the type of billing plan for this savings plan. </summary>
@@ -557,24 +539,15 @@ namespace Azure.ResourceManager.BillingBenefits.Models
             return new BillingBenefitsExtendedStatusInfo(statusCode, message, additionalBinaryDataProperties: null);
         }
 
-        /// <summary> Role assignment entity. </summary>
         /// <param name="id"> Role assignment entity id. </param>
         /// <param name="name"> Role assignment entity name. </param>
-        /// <param name="properties"> Role assignment entity properties. </param>
-        /// <returns> A new <see cref="Models.BillingBenefitsRoleAssignmentEntity"/> instance for mocking. </returns>
-        public static BillingBenefitsRoleAssignmentEntity BillingBenefitsRoleAssignmentEntity(ResourceIdentifier id = default, string name = default, RoleAssignmentEntityProperties properties = default)
-        {
-            return new BillingBenefitsRoleAssignmentEntity(id, name, properties, additionalBinaryDataProperties: null);
-        }
-
-        /// <summary> Role assignment entity properties. </summary>
         /// <param name="principalId"> Principal Id. </param>
         /// <param name="roleDefinitionId"> Role definition id. </param>
         /// <param name="scope"> Scope of the role assignment entity. </param>
-        /// <returns> A new <see cref="Models.RoleAssignmentEntityProperties"/> instance for mocking. </returns>
-        public static RoleAssignmentEntityProperties RoleAssignmentEntityProperties(string principalId = default, ResourceIdentifier roleDefinitionId = default, ResourceIdentifier scope = default)
+        /// <returns> A new <see cref="Models.BillingBenefitsRoleAssignmentEntity"/> instance for mocking. </returns>
+        public static BillingBenefitsRoleAssignmentEntity BillingBenefitsRoleAssignmentEntity(ResourceIdentifier id = default, string name = default, string principalId = default, ResourceIdentifier roleDefinitionId = default, ResourceIdentifier scope = default)
         {
-            return new RoleAssignmentEntityProperties(principalId, roleDefinitionId, scope, additionalBinaryDataProperties: null);
+            return new BillingBenefitsRoleAssignmentEntity(id, name, principalId is null || roleDefinitionId is null || scope is null ? default : new RoleAssignmentEntityProperties(principalId, roleDefinitionId, scope, new Dictionary<string, BinaryData>()), additionalBinaryDataProperties: null);
         }
 
         /// <param name="id"> Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}. </param>
@@ -582,20 +555,6 @@ namespace Azure.ResourceManager.BillingBenefits.Models
         /// <param name="resourceType"> The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts". </param>
         /// <param name="systemData"> Azure Resource Manager metadata containing createdBy and modifiedBy information. </param>
         /// <param name="skuName"> Gets or sets the Name. </param>
-        /// <param name="properties"> Savings plan properties. </param>
-        /// <returns> A new <see cref="BillingBenefits.BillingBenefitsSavingsPlanData"/> instance for mocking. </returns>
-        public static BillingBenefitsSavingsPlanData BillingBenefitsSavingsPlanData(ResourceIdentifier id = default, string name = default, ResourceType resourceType = default, SystemData systemData = default, string skuName = default, SavingsPlanModelProperties properties = default)
-        {
-            return new BillingBenefitsSavingsPlanData(
-                id,
-                name,
-                resourceType,
-                systemData,
-                additionalBinaryDataProperties: null,
-                skuName is null ? default : new ResourceSku(skuName, new Dictionary<string, BinaryData>()),
-                properties);
-        }
-
         /// <param name="displayName"> Display name. </param>
         /// <param name="provisioningState"> Provisioning state. </param>
         /// <param name="displayProvisioningState"> The provisioning state of the savings plan for display, e.g. Succeeded. </param>
@@ -613,40 +572,47 @@ namespace Azure.ResourceManager.BillingBenefits.Models
         /// <param name="expireOn"> Expiry date time. </param>
         /// <param name="purchaseDateTime"> Date time when the savings plan was purchased. </param>
         /// <param name="benefitStartTime"> This is the DateTime when the savings plan benefit started. </param>
-        /// <param name="extendedStatusInfo"></param>
+        /// <param name="extendedStatusInfo"> Gets the ExtendedStatusInfo. </param>
         /// <param name="isRenewed"> Setting this to true will automatically purchase a new benefit on the expiration date time. </param>
         /// <param name="utilization"> Savings plan utilization. </param>
         /// <param name="renewSource"> SavingsPlan Id of the SavingsPlan from which this SavingsPlan is renewed. </param>
         /// <param name="renewDestination"> SavingsPlan Id of the SavingsPlan which is purchased because of renew. </param>
         /// <param name="renewPurchaseProperties"> Gets or sets the PurchaseProperties. </param>
-        /// <returns> A new <see cref="Models.SavingsPlanModelProperties"/> instance for mocking. </returns>
-        public static SavingsPlanModelProperties SavingsPlanModelProperties(string displayName = default, BillingBenefitsProvisioningState? provisioningState = default, string displayProvisioningState = default, ResourceIdentifier billingScopeId = default, ResourceIdentifier billingProfileId = default, ResourceIdentifier customerId = default, ResourceIdentifier billingAccountId = default, BillingBenefitsTerm? term = default, BillingBenefitsBillingPlan? billingPlan = default, BillingBenefitsAppliedScopeType? appliedScopeType = default, string userFriendlyAppliedScopeType = default, BillingBenefitsAppliedScopeProperties appliedScopeProperties = default, BillingBenefitsCommitment commitment = default, DateTimeOffset? effectOn = default, DateTimeOffset? expireOn = default, DateTimeOffset? purchaseDateTime = default, DateTimeOffset? benefitStartTime = default, BillingBenefitsExtendedStatusInfo extendedStatusInfo = default, bool? isRenewed = default, BillingBenefitsSavingsPlanUtilization utilization = default, string renewSource = default, string renewDestination = default, BillingBenefitsPurchaseContent renewPurchaseProperties = default)
+        /// <returns> A new <see cref="BillingBenefits.BillingBenefitsSavingsPlanData"/> instance for mocking. </returns>
+        public static BillingBenefitsSavingsPlanData BillingBenefitsSavingsPlanData(ResourceIdentifier id = default, string name = default, ResourceType resourceType = default, SystemData systemData = default, string skuName = default, string displayName = default, BillingBenefitsProvisioningState? provisioningState = default, string displayProvisioningState = default, ResourceIdentifier billingScopeId = default, ResourceIdentifier billingProfileId = default, ResourceIdentifier customerId = default, ResourceIdentifier billingAccountId = default, BillingBenefitsTerm? term = default, BillingBenefitsBillingPlan? billingPlan = default, BillingBenefitsAppliedScopeType? appliedScopeType = default, string userFriendlyAppliedScopeType = default, BillingBenefitsAppliedScopeProperties appliedScopeProperties = default, BillingBenefitsCommitment commitment = default, DateTimeOffset? effectOn = default, DateTimeOffset? expireOn = default, DateTimeOffset? purchaseDateTime = default, DateTimeOffset? benefitStartTime = default, BillingBenefitsExtendedStatusInfo extendedStatusInfo = default, bool? isRenewed = default, BillingBenefitsSavingsPlanUtilization utilization = default, string renewSource = default, string renewDestination = default, BillingBenefitsPurchaseContent renewPurchaseProperties = default)
         {
-            return new SavingsPlanModelProperties(
-                displayName,
-                provisioningState,
-                displayProvisioningState,
-                billingScopeId,
-                billingProfileId,
-                customerId,
-                billingAccountId,
-                term,
-                billingPlan,
-                appliedScopeType,
-                userFriendlyAppliedScopeType,
-                appliedScopeProperties,
-                commitment,
-                effectOn,
-                expireOn,
-                purchaseDateTime,
-                benefitStartTime,
-                extendedStatusInfo,
-                isRenewed,
-                utilization,
-                renewSource,
-                renewDestination,
-                renewPurchaseProperties is null ? default : new RenewProperties(renewPurchaseProperties, new Dictionary<string, BinaryData>()),
-                additionalBinaryDataProperties: null);
+            return new BillingBenefitsSavingsPlanData(
+                id,
+                name,
+                resourceType,
+                systemData,
+                additionalBinaryDataProperties: null,
+                skuName is null ? default : new ResourceSku(skuName, new Dictionary<string, BinaryData>()),
+                displayName is null || provisioningState is null || displayProvisioningState is null || billingScopeId is null || billingProfileId is null || customerId is null || billingAccountId is null || term is null || billingPlan is null || appliedScopeType is null || userFriendlyAppliedScopeType is null || appliedScopeProperties is null || commitment is null || effectOn is null || expireOn is null || purchaseDateTime is null || benefitStartTime is null || extendedStatusInfo is null || isRenewed is null || utilization is null || renewSource is null || renewDestination is null || renewPurchaseProperties is null ? default : new SavingsPlanModelProperties(
+                    displayName,
+                    provisioningState,
+                    displayProvisioningState,
+                    billingScopeId,
+                    billingProfileId,
+                    customerId,
+                    billingAccountId,
+                    term,
+                    billingPlan,
+                    appliedScopeType,
+                    userFriendlyAppliedScopeType,
+                    appliedScopeProperties,
+                    commitment,
+                    effectOn,
+                    expireOn,
+                    purchaseDateTime,
+                    benefitStartTime,
+                    extendedStatusInfo,
+                    isRenewed,
+                    utilization,
+                    renewSource,
+                    renewDestination,
+                    new RenewProperties(renewPurchaseProperties, new Dictionary<string, BinaryData>()),
+                    new Dictionary<string, BinaryData>()));
         }
 
         /// <summary> Savings plan utilization. </summary>
@@ -671,7 +637,7 @@ namespace Azure.ResourceManager.BillingBenefits.Models
             return new BillingBenefitsSavingsPlanUtilizationAggregate(grain, grainUnit, value, valueUnit, additionalBinaryDataProperties: null);
         }
 
-        /// <summary> The PurchaseRequestProperties. </summary>
+        /// <param name="skuName"> Gets or sets the Name. </param>
         /// <param name="displayName"> Friendly name of the savings plan. </param>
         /// <param name="billingScopeId"> Subscription that will be charged for purchasing the benefit. </param>
         /// <param name="term"> Represent benefit term in ISO 8601 format. </param>
@@ -681,10 +647,10 @@ namespace Azure.ResourceManager.BillingBenefits.Models
         /// <param name="effectOn"> DateTime of the savings plan starts providing benefit from. </param>
         /// <param name="isRenewed"> Setting this to true will automatically purchase a new benefit on the expiration date time. </param>
         /// <param name="appliedScopeProperties"> Properties specific to applied scope type. Not required if not applicable. </param>
-        /// <returns> A new <see cref="Models.PurchaseRequestProperties"/> instance for mocking. </returns>
-        public static PurchaseRequestProperties PurchaseRequestProperties(string displayName = default, ResourceIdentifier billingScopeId = default, BillingBenefitsTerm? term = default, BillingBenefitsBillingPlan? billingPlan = default, BillingBenefitsAppliedScopeType? appliedScopeType = default, BillingBenefitsCommitment commitment = default, DateTimeOffset? effectOn = default, bool? isRenewed = default, BillingBenefitsAppliedScopeProperties appliedScopeProperties = default)
+        /// <returns> A new <see cref="Models.BillingBenefitsPurchaseContent"/> instance for mocking. </returns>
+        public static BillingBenefitsPurchaseContent BillingBenefitsPurchaseContent(string skuName = default, string displayName = default, ResourceIdentifier billingScopeId = default, BillingBenefitsTerm? term = default, BillingBenefitsBillingPlan? billingPlan = default, BillingBenefitsAppliedScopeType? appliedScopeType = default, BillingBenefitsCommitment commitment = default, DateTimeOffset? effectOn = default, bool? isRenewed = default, BillingBenefitsAppliedScopeProperties appliedScopeProperties = default)
         {
-            return new PurchaseRequestProperties(
+            return new BillingBenefitsPurchaseContent(skuName is null ? default : new ResourceSku(skuName, new Dictionary<string, BinaryData>()), displayName is null || billingScopeId is null || term is null || billingPlan is null || appliedScopeType is null || commitment is null || effectOn is null || isRenewed is null || appliedScopeProperties is null ? default : new PurchaseRequestProperties(
                 displayName,
                 billingScopeId,
                 term,
@@ -694,7 +660,7 @@ namespace Azure.ResourceManager.BillingBenefits.Models
                 effectOn,
                 isRenewed,
                 appliedScopeProperties,
-                additionalBinaryDataProperties: null);
+                new Dictionary<string, BinaryData>()), additionalBinaryDataProperties: null);
         }
 
         /// <summary> The SavingsPlanUpdateValidateRequest. </summary>
@@ -713,21 +679,6 @@ namespace Azure.ResourceManager.BillingBenefits.Models
         /// <param name="systemData"> Azure Resource Manager metadata containing createdBy and modifiedBy information. </param>
         /// <param name="skuName"> Gets or sets the Name. </param>
         /// <param name="location"> The Azure Region where the reserved resource lives. </param>
-        /// <param name="properties"> Reservation order alias response properties. </param>
-        /// <returns> A new <see cref="BillingBenefits.BillingBenefitsReservationOrderAliasData"/> instance for mocking. </returns>
-        public static BillingBenefitsReservationOrderAliasData BillingBenefitsReservationOrderAliasData(ResourceIdentifier id = default, string name = default, ResourceType resourceType = default, SystemData systemData = default, string skuName = default, string location = default, ReservationOrderAliasResponseProperties properties = default)
-        {
-            return new BillingBenefitsReservationOrderAliasData(
-                id,
-                name,
-                resourceType,
-                systemData,
-                additionalBinaryDataProperties: null,
-                skuName is null ? default : new ResourceSku(skuName, new Dictionary<string, BinaryData>()),
-                location,
-                properties);
-        }
-
         /// <param name="displayName"> Display name. </param>
         /// <param name="reservationOrderId"> Identifier of the reservation order created. </param>
         /// <param name="provisioningState"> Provisioning state. </param>
@@ -741,24 +692,32 @@ namespace Azure.ResourceManager.BillingBenefits.Models
         /// <param name="reservedResourceType"> The type of the resource that is being reserved. </param>
         /// <param name="reviewDateTime"> This is the date-time when the Reservation needs to be reviewed. </param>
         /// <param name="reservedResourceInstanceFlexibility"> Turning this on will apply the reservation discount to other VMs in the same VM size group. </param>
-        /// <returns> A new <see cref="Models.ReservationOrderAliasResponseProperties"/> instance for mocking. </returns>
-        public static ReservationOrderAliasResponseProperties ReservationOrderAliasResponseProperties(string displayName = default, ResourceIdentifier reservationOrderId = default, BillingBenefitsProvisioningState? provisioningState = default, ResourceIdentifier billingScopeId = default, BillingBenefitsTerm? term = default, BillingBenefitsBillingPlan? billingPlan = default, BillingBenefitsAppliedScopeType? appliedScopeType = default, BillingBenefitsAppliedScopeProperties appliedScopeProperties = default, int? quantity = default, bool? isRenewed = default, BillingBenefitsReservedResourceType? reservedResourceType = default, DateTimeOffset? reviewDateTime = default, BillingBenefitsInstanceFlexibility? reservedResourceInstanceFlexibility = default)
+        /// <returns> A new <see cref="BillingBenefits.BillingBenefitsReservationOrderAliasData"/> instance for mocking. </returns>
+        public static BillingBenefitsReservationOrderAliasData BillingBenefitsReservationOrderAliasData(ResourceIdentifier id = default, string name = default, ResourceType resourceType = default, SystemData systemData = default, string skuName = default, string location = default, string displayName = default, ResourceIdentifier reservationOrderId = default, BillingBenefitsProvisioningState? provisioningState = default, ResourceIdentifier billingScopeId = default, BillingBenefitsTerm? term = default, BillingBenefitsBillingPlan? billingPlan = default, BillingBenefitsAppliedScopeType? appliedScopeType = default, BillingBenefitsAppliedScopeProperties appliedScopeProperties = default, int? quantity = default, bool? isRenewed = default, BillingBenefitsReservedResourceType? reservedResourceType = default, DateTimeOffset? reviewDateTime = default, BillingBenefitsInstanceFlexibility? reservedResourceInstanceFlexibility = default)
         {
-            return new ReservationOrderAliasResponseProperties(
-                displayName,
-                reservationOrderId,
-                provisioningState,
-                billingScopeId,
-                term,
-                billingPlan,
-                appliedScopeType,
-                appliedScopeProperties,
-                quantity,
-                isRenewed,
-                reservedResourceType,
-                reviewDateTime,
-                reservedResourceInstanceFlexibility is null ? default : new ReservationOrderAliasResponsePropertiesReservedResourceProperties(reservedResourceInstanceFlexibility, new Dictionary<string, BinaryData>()),
-                additionalBinaryDataProperties: null);
+            return new BillingBenefitsReservationOrderAliasData(
+                id,
+                name,
+                resourceType,
+                systemData,
+                additionalBinaryDataProperties: null,
+                skuName is null ? default : new ResourceSku(skuName, new Dictionary<string, BinaryData>()),
+                location,
+                displayName is null || reservationOrderId is null || provisioningState is null || billingScopeId is null || term is null || billingPlan is null || appliedScopeType is null || appliedScopeProperties is null || quantity is null || isRenewed is null || reservedResourceType is null || reviewDateTime is null || reservedResourceInstanceFlexibility is null ? default : new ReservationOrderAliasResponseProperties(
+                    displayName,
+                    reservationOrderId,
+                    provisioningState,
+                    billingScopeId,
+                    term,
+                    billingPlan,
+                    appliedScopeType,
+                    appliedScopeProperties,
+                    quantity,
+                    isRenewed,
+                    reservedResourceType,
+                    reviewDateTime,
+                    new ReservationOrderAliasResponsePropertiesReservedResourceProperties(reservedResourceInstanceFlexibility, new Dictionary<string, BinaryData>()),
+                    new Dictionary<string, BinaryData>()));
         }
 
         /// <param name="id"> Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}. </param>
@@ -767,9 +726,19 @@ namespace Azure.ResourceManager.BillingBenefits.Models
         /// <param name="systemData"> Azure Resource Manager metadata containing createdBy and modifiedBy information. </param>
         /// <param name="skuName"> Gets or sets the Name. </param>
         /// <param name="location"> The Azure Region where the reservation benefits are applied to. </param>
-        /// <param name="properties"> Reservation order alias request properties. </param>
+        /// <param name="displayName"> Display name. </param>
+        /// <param name="billingScopeId"> Subscription that will be charged for purchasing the benefit. </param>
+        /// <param name="term"> Represent benefit term in ISO 8601 format. </param>
+        /// <param name="billingPlan"> Represents the billing plan in ISO 8601 format. Required only for monthly billing plans. </param>
+        /// <param name="appliedScopeType"> Type of the Applied Scope. </param>
+        /// <param name="appliedScopeProperties"> Properties specific to applied scope type. Not required if not applicable. </param>
+        /// <param name="quantity"> Total Quantity of the SKUs purchased in the Reservation. </param>
+        /// <param name="isRenew"> Setting this to true will automatically purchase a new benefit on the expiration date time. </param>
+        /// <param name="reservedResourceType"> The type of the resource that is being reserved. </param>
+        /// <param name="reviewDateTime"> This is the date-time when the Azure Hybrid Benefit needs to be reviewed. </param>
+        /// <param name="reservedResourceInstanceFlexibility"> Turning this on will apply the reservation discount to other VMs in the same VM size group. </param>
         /// <returns> A new <see cref="Models.ReservationOrderAliasRequest"/> instance for mocking. </returns>
-        public static ReservationOrderAliasRequest ReservationOrderAliasRequest(ResourceIdentifier id = default, string name = default, ResourceType resourceType = default, SystemData systemData = default, string skuName = default, string location = default, ReservationOrderAliasRequestProperties properties = default)
+        public static ReservationOrderAliasRequest ReservationOrderAliasRequest(ResourceIdentifier id = default, string name = default, ResourceType resourceType = default, SystemData systemData = default, string skuName = default, string location = default, string displayName = default, ResourceIdentifier billingScopeId = default, BillingBenefitsTerm? term = default, BillingBenefitsBillingPlan? billingPlan = default, BillingBenefitsAppliedScopeType? appliedScopeType = default, BillingBenefitsAppliedScopeProperties appliedScopeProperties = default, int? quantity = default, bool? isRenew = default, BillingBenefitsReservedResourceType? reservedResourceType = default, DateTimeOffset? reviewDateTime = default, BillingBenefitsInstanceFlexibility? reservedResourceInstanceFlexibility = default)
         {
             return new ReservationOrderAliasRequest(
                 id,
@@ -779,17 +748,29 @@ namespace Azure.ResourceManager.BillingBenefits.Models
                 additionalBinaryDataProperties: null,
                 skuName is null ? default : new ResourceSku(skuName, new Dictionary<string, BinaryData>()),
                 location,
-                properties);
+                displayName is null || billingScopeId is null || term is null || billingPlan is null || appliedScopeType is null || appliedScopeProperties is null || quantity is null || isRenew is null || reservedResourceType is null || reviewDateTime is null || reservedResourceInstanceFlexibility is null ? default : new ReservationOrderAliasRequestProperties(
+                    displayName,
+                    billingScopeId,
+                    term,
+                    billingPlan,
+                    appliedScopeType,
+                    appliedScopeProperties,
+                    quantity,
+                    isRenew,
+                    reservedResourceType,
+                    reviewDateTime,
+                    new ReservationOrderAliasRequestPropertiesReservedResourceProperties(reservedResourceInstanceFlexibility, new Dictionary<string, BinaryData>()),
+                    new Dictionary<string, BinaryData>()));
         }
 
-        /// <param name="discountPatchRequestDisplayName"> Display name. </param>
+        /// <param name="displayName"> Display name. </param>
         /// <param name="tags"> Resource tags. </param>
         /// <returns> A new <see cref="Models.DiscountPatch"/> instance for mocking. </returns>
-        public static DiscountPatch DiscountPatch(string discountPatchRequestDisplayName = default, IDictionary<string, string> tags = default)
+        public static DiscountPatch DiscountPatch(string displayName = default, IDictionary<string, string> tags = default)
         {
             tags ??= new ChangeTrackingDictionary<string, string>();
 
-            return new DiscountPatch(discountPatchRequestDisplayName is null ? default : new DiscountPatchRequestProperties(discountPatchRequestDisplayName, new Dictionary<string, BinaryData>()), tags, additionalBinaryDataProperties: null);
+            return new DiscountPatch(displayName is null ? default : new DiscountPatchRequestProperties(displayName, new Dictionary<string, BinaryData>()), tags, additionalBinaryDataProperties: null);
         }
     }
 }
