@@ -17,16 +17,16 @@ using Azure.ResourceManager.Models;
 namespace Azure.ResourceManager.BillingBenefits.Models
 {
     /// <summary> Reservation order alias. </summary>
-    public partial class ReservationOrderAliasRequest : IJsonModel<ReservationOrderAliasRequest>
+    public partial class BillingBenefitsReservationOrderAliasCreateOrUpdateContent : IJsonModel<BillingBenefitsReservationOrderAliasCreateOrUpdateContent>
     {
-        /// <summary> Initializes a new instance of <see cref="ReservationOrderAliasRequest"/> for deserialization. </summary>
-        internal ReservationOrderAliasRequest()
+        /// <summary> Initializes a new instance of <see cref="BillingBenefitsReservationOrderAliasCreateOrUpdateContent"/> for deserialization. </summary>
+        internal BillingBenefitsReservationOrderAliasCreateOrUpdateContent()
         {
         }
 
         /// <param name="writer"> The JSON writer. </param>
         /// <param name="options"> The client options for reading and writing models. </param>
-        void IJsonModel<ReservationOrderAliasRequest>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
+        void IJsonModel<BillingBenefitsReservationOrderAliasCreateOrUpdateContent>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
             writer.WriteStartObject();
             JsonModelWriteCore(writer, options);
@@ -37,10 +37,10 @@ namespace Azure.ResourceManager.BillingBenefits.Models
         /// <param name="options"> The client options for reading and writing models. </param>
         protected override void JsonModelWriteCore(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
-            string format = options.Format == "W" ? ((IPersistableModel<ReservationOrderAliasRequest>)this).GetFormatFromOptions(options) : options.Format;
+            string format = options.Format == "W" ? ((IPersistableModel<BillingBenefitsReservationOrderAliasCreateOrUpdateContent>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
-                throw new FormatException($"The model {nameof(ReservationOrderAliasRequest)} does not support writing '{format}' format.");
+                throw new FormatException($"The model {nameof(BillingBenefitsReservationOrderAliasCreateOrUpdateContent)} does not support writing '{format}' format.");
             }
             base.JsonModelWriteCore(writer, options);
             writer.WritePropertyName("sku"u8);
@@ -59,24 +59,24 @@ namespace Azure.ResourceManager.BillingBenefits.Models
 
         /// <param name="reader"> The JSON reader. </param>
         /// <param name="options"> The client options for reading and writing models. </param>
-        ReservationOrderAliasRequest IJsonModel<ReservationOrderAliasRequest>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options) => (ReservationOrderAliasRequest)JsonModelCreateCore(ref reader, options);
+        BillingBenefitsReservationOrderAliasCreateOrUpdateContent IJsonModel<BillingBenefitsReservationOrderAliasCreateOrUpdateContent>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options) => (BillingBenefitsReservationOrderAliasCreateOrUpdateContent)JsonModelCreateCore(ref reader, options);
 
         /// <param name="reader"> The JSON reader. </param>
         /// <param name="options"> The client options for reading and writing models. </param>
         protected virtual ResourceData JsonModelCreateCore(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
         {
-            string format = options.Format == "W" ? ((IPersistableModel<ReservationOrderAliasRequest>)this).GetFormatFromOptions(options) : options.Format;
+            string format = options.Format == "W" ? ((IPersistableModel<BillingBenefitsReservationOrderAliasCreateOrUpdateContent>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
-                throw new FormatException($"The model {nameof(ReservationOrderAliasRequest)} does not support reading '{format}' format.");
+                throw new FormatException($"The model {nameof(BillingBenefitsReservationOrderAliasCreateOrUpdateContent)} does not support reading '{format}' format.");
             }
             using JsonDocument document = JsonDocument.ParseValue(ref reader);
-            return DeserializeReservationOrderAliasRequest(document.RootElement, options);
+            return DeserializeBillingBenefitsReservationOrderAliasCreateOrUpdateContent(document.RootElement, options);
         }
 
         /// <param name="element"> The JSON element to deserialize. </param>
         /// <param name="options"> The client options for reading and writing models. </param>
-        internal static ReservationOrderAliasRequest DeserializeReservationOrderAliasRequest(JsonElement element, ModelReaderWriterOptions options)
+        internal static BillingBenefitsReservationOrderAliasCreateOrUpdateContent DeserializeBillingBenefitsReservationOrderAliasCreateOrUpdateContent(JsonElement element, ModelReaderWriterOptions options)
         {
             if (element.ValueKind == JsonValueKind.Null)
             {
@@ -148,7 +148,7 @@ namespace Azure.ResourceManager.BillingBenefits.Models
                     additionalBinaryDataProperties.Add(prop.Name, BinaryData.FromString(prop.Value.GetRawText()));
                 }
             }
-            return new ReservationOrderAliasRequest(
+            return new BillingBenefitsReservationOrderAliasCreateOrUpdateContent(
                 id,
                 name,
                 resourceType,
@@ -160,54 +160,54 @@ namespace Azure.ResourceManager.BillingBenefits.Models
         }
 
         /// <param name="options"> The client options for reading and writing models. </param>
-        BinaryData IPersistableModel<ReservationOrderAliasRequest>.Write(ModelReaderWriterOptions options) => PersistableModelWriteCore(options);
+        BinaryData IPersistableModel<BillingBenefitsReservationOrderAliasCreateOrUpdateContent>.Write(ModelReaderWriterOptions options) => PersistableModelWriteCore(options);
 
         /// <param name="options"> The client options for reading and writing models. </param>
         protected virtual BinaryData PersistableModelWriteCore(ModelReaderWriterOptions options)
         {
-            string format = options.Format == "W" ? ((IPersistableModel<ReservationOrderAliasRequest>)this).GetFormatFromOptions(options) : options.Format;
+            string format = options.Format == "W" ? ((IPersistableModel<BillingBenefitsReservationOrderAliasCreateOrUpdateContent>)this).GetFormatFromOptions(options) : options.Format;
             switch (format)
             {
                 case "J":
                     return ModelReaderWriter.Write(this, options, AzureResourceManagerBillingBenefitsContext.Default);
                 default:
-                    throw new FormatException($"The model {nameof(ReservationOrderAliasRequest)} does not support writing '{options.Format}' format.");
+                    throw new FormatException($"The model {nameof(BillingBenefitsReservationOrderAliasCreateOrUpdateContent)} does not support writing '{options.Format}' format.");
             }
         }
 
         /// <param name="data"> The data to parse. </param>
         /// <param name="options"> The client options for reading and writing models. </param>
-        ReservationOrderAliasRequest IPersistableModel<ReservationOrderAliasRequest>.Create(BinaryData data, ModelReaderWriterOptions options) => (ReservationOrderAliasRequest)PersistableModelCreateCore(data, options);
+        BillingBenefitsReservationOrderAliasCreateOrUpdateContent IPersistableModel<BillingBenefitsReservationOrderAliasCreateOrUpdateContent>.Create(BinaryData data, ModelReaderWriterOptions options) => (BillingBenefitsReservationOrderAliasCreateOrUpdateContent)PersistableModelCreateCore(data, options);
 
         /// <param name="data"> The data to parse. </param>
         /// <param name="options"> The client options for reading and writing models. </param>
         protected virtual ResourceData PersistableModelCreateCore(BinaryData data, ModelReaderWriterOptions options)
         {
-            string format = options.Format == "W" ? ((IPersistableModel<ReservationOrderAliasRequest>)this).GetFormatFromOptions(options) : options.Format;
+            string format = options.Format == "W" ? ((IPersistableModel<BillingBenefitsReservationOrderAliasCreateOrUpdateContent>)this).GetFormatFromOptions(options) : options.Format;
             switch (format)
             {
                 case "J":
                     using (JsonDocument document = JsonDocument.Parse(data))
                     {
-                        return DeserializeReservationOrderAliasRequest(document.RootElement, options);
+                        return DeserializeBillingBenefitsReservationOrderAliasCreateOrUpdateContent(document.RootElement, options);
                     }
                 default:
-                    throw new FormatException($"The model {nameof(ReservationOrderAliasRequest)} does not support reading '{options.Format}' format.");
+                    throw new FormatException($"The model {nameof(BillingBenefitsReservationOrderAliasCreateOrUpdateContent)} does not support reading '{options.Format}' format.");
             }
         }
 
         /// <param name="options"> The client options for reading and writing models. </param>
-        string IPersistableModel<ReservationOrderAliasRequest>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
+        string IPersistableModel<BillingBenefitsReservationOrderAliasCreateOrUpdateContent>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
 
-        /// <param name="reservationOrderAliasRequest"> The <see cref="ReservationOrderAliasRequest"/> to serialize into <see cref="RequestContent"/>. </param>
-        internal static RequestContent ToRequestContent(ReservationOrderAliasRequest reservationOrderAliasRequest)
+        /// <param name="billingBenefitsReservationOrderAliasCreateOrUpdateContent"> The <see cref="BillingBenefitsReservationOrderAliasCreateOrUpdateContent"/> to serialize into <see cref="RequestContent"/>. </param>
+        internal static RequestContent ToRequestContent(BillingBenefitsReservationOrderAliasCreateOrUpdateContent billingBenefitsReservationOrderAliasCreateOrUpdateContent)
         {
-            if (reservationOrderAliasRequest == null)
+            if (billingBenefitsReservationOrderAliasCreateOrUpdateContent == null)
             {
                 return null;
             }
             Utf8JsonRequestContent content = new Utf8JsonRequestContent();
-            content.JsonWriter.WriteObjectValue(reservationOrderAliasRequest, ModelSerializationExtensions.WireOptions);
+            content.JsonWriter.WriteObjectValue(billingBenefitsReservationOrderAliasCreateOrUpdateContent, ModelSerializationExtensions.WireOptions);
             return content;
         }
     }

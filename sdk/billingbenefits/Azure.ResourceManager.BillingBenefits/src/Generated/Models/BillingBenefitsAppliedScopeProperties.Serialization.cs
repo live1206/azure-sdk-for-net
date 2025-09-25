@@ -38,7 +38,7 @@ namespace Azure.ResourceManager.BillingBenefits.Models
             if (Optional.IsDefined(TenantId))
             {
                 writer.WritePropertyName("tenantId"u8);
-                writer.WriteStringValue(TenantId);
+                writer.WriteStringValue(TenantId.Value);
             }
             if (Optional.IsDefined(ManagementGroupId))
             {
@@ -102,7 +102,7 @@ namespace Azure.ResourceManager.BillingBenefits.Models
             {
                 return null;
             }
-            string tenantId = default;
+            Guid? tenantId = default;
             ResourceIdentifier managementGroupId = default;
             ResourceIdentifier subscriptionId = default;
             ResourceIdentifier resourceGroupId = default;
@@ -112,7 +112,11 @@ namespace Azure.ResourceManager.BillingBenefits.Models
             {
                 if (prop.NameEquals("tenantId"u8))
                 {
-                    tenantId = prop.Value.GetString();
+                    if (prop.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    tenantId = new Guid(prop.Value.GetString());
                     continue;
                 }
                 if (prop.NameEquals("managementGroupId"u8))

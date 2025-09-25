@@ -11,22 +11,22 @@ using Azure.ResourceManager.BillingBenefits;
 
 namespace Azure.ResourceManager.BillingBenefits.Models
 {
-    /// <summary> The SavingsPlanPurchaseValidateRequest. </summary>
-    public partial class SavingsPlanPurchaseValidateRequest
+    /// <summary> The SavingsPlanPurchaseValidateContent. </summary>
+    public partial class SavingsPlanPurchaseValidateContent
     {
         /// <summary> Keeps track of any properties unknown to the library. </summary>
         private protected readonly IDictionary<string, BinaryData> _additionalBinaryDataProperties;
 
-        /// <summary> Initializes a new instance of <see cref="SavingsPlanPurchaseValidateRequest"/>. </summary>
-        public SavingsPlanPurchaseValidateRequest()
+        /// <summary> Initializes a new instance of <see cref="SavingsPlanPurchaseValidateContent"/>. </summary>
+        public SavingsPlanPurchaseValidateContent()
         {
             Benefits = new ChangeTrackingList<BillingBenefitsSavingsPlanOrderAliasData>();
         }
 
-        /// <summary> Initializes a new instance of <see cref="SavingsPlanPurchaseValidateRequest"/>. </summary>
+        /// <summary> Initializes a new instance of <see cref="SavingsPlanPurchaseValidateContent"/>. </summary>
         /// <param name="benefits"></param>
         /// <param name="additionalBinaryDataProperties"> Keeps track of any properties unknown to the library. </param>
-        internal SavingsPlanPurchaseValidateRequest(IList<BillingBenefitsSavingsPlanOrderAliasData> benefits, IDictionary<string, BinaryData> additionalBinaryDataProperties)
+        internal SavingsPlanPurchaseValidateContent(IList<BillingBenefitsSavingsPlanOrderAliasData> benefits, IDictionary<string, BinaryData> additionalBinaryDataProperties)
         {
             Benefits = benefits;
             _additionalBinaryDataProperties = additionalBinaryDataProperties;

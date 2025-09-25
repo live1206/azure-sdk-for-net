@@ -13,21 +13,12 @@ using Azure.ResourceManager.Models;
 namespace Azure.ResourceManager.BillingBenefits.Models
 {
     /// <summary> Reservation order alias. </summary>
-    public partial class ReservationOrderAliasRequest : ResourceData
+    public partial class BillingBenefitsReservationOrderAliasCreateOrUpdateContent : ResourceData
     {
         /// <summary> Keeps track of any properties unknown to the library. </summary>
         private protected readonly IDictionary<string, BinaryData> _additionalBinaryDataProperties;
 
-        /// <summary> Initializes a new instance of <see cref="ReservationOrderAliasRequest"/>. </summary>
-        /// <param name="sku"> Reservation order SKU. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="sku"/> is null. </exception>
-        public ReservationOrderAliasRequest(ResourceSku sku)
-        {
-
-            Sku = sku;
-        }
-
-        /// <summary> Initializes a new instance of <see cref="ReservationOrderAliasRequest"/>. </summary>
+        /// <summary> Initializes a new instance of <see cref="BillingBenefitsReservationOrderAliasCreateOrUpdateContent"/>. </summary>
         /// <param name="id"> Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}. </param>
         /// <param name="name"> The name of the resource. </param>
         /// <param name="resourceType"> The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts". </param>
@@ -36,7 +27,7 @@ namespace Azure.ResourceManager.BillingBenefits.Models
         /// <param name="sku"> Reservation order SKU. </param>
         /// <param name="location"> The Azure Region where the reservation benefits are applied to. </param>
         /// <param name="properties"> Reservation order alias request properties. </param>
-        internal ReservationOrderAliasRequest(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, IDictionary<string, BinaryData> additionalBinaryDataProperties, ResourceSku sku, string location, ReservationOrderAliasRequestProperties properties) : base(id, name, resourceType, systemData)
+        internal BillingBenefitsReservationOrderAliasCreateOrUpdateContent(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, IDictionary<string, BinaryData> additionalBinaryDataProperties, ResourceSku sku, string location, ReservationOrderAliasRequestProperties properties) : base(id, name, resourceType, systemData)
         {
             _additionalBinaryDataProperties = additionalBinaryDataProperties;
             Sku = sku;
@@ -52,6 +43,15 @@ namespace Azure.ResourceManager.BillingBenefits.Models
 
         /// <summary> Reservation order alias request properties. </summary>
         internal ReservationOrderAliasRequestProperties Properties { get; set; }
+
+        /// <summary> Gets or sets the Name. </summary>
+        public string SkuName
+        {
+            get
+            {
+                return Sku.Name;
+            }
+        }
 
         /// <summary> Display name. </summary>
         public string DisplayName
@@ -223,12 +223,12 @@ namespace Azure.ResourceManager.BillingBenefits.Models
             }
         }
 
-        /// <summary> Properties specific to each reserved resource type. Not required if not applicable. </summary>
-        internal ReservationOrderAliasRequestPropertiesReservedResourceProperties ReservedResourceProperties
+        /// <summary> Turning this on will apply the reservation discount to other VMs in the same VM size group. </summary>
+        public BillingBenefitsInstanceFlexibility? ReservedResourceInstanceFlexibility
         {
             get
             {
-                return Properties is null ? default : Properties.ReservedResourceProperties;
+                return Properties is null ? default : Properties.ReservedResourceInstanceFlexibility;
             }
             set
             {
@@ -236,33 +236,7 @@ namespace Azure.ResourceManager.BillingBenefits.Models
                 {
                     Properties = new ReservationOrderAliasRequestProperties();
                 }
-                Properties.ReservedResourceProperties = value;
-            }
-        }
-
-        /// <summary> Gets or sets the Name. </summary>
-        public string SkuName
-        {
-            get
-            {
-                return Sku.Name;
-            }
-        }
-
-        /// <summary> Turning this on will apply the reservation discount to other VMs in the same VM size group. </summary>
-        public BillingBenefitsInstanceFlexibility? ReservedResourceInstanceFlexibility
-        {
-            get
-            {
-                return ReservedResourceProperties is null ? default : ReservedResourceProperties.InstanceFlexibility;
-            }
-            set
-            {
-                if (ReservedResourceProperties is null)
-                {
-                    ReservedResourceProperties = new ReservationOrderAliasRequestPropertiesReservedResourceProperties();
-                }
-                ReservedResourceProperties.InstanceFlexibility = value;
+                Properties.ReservedResourceInstanceFlexibility = value.Value;
             }
         }
     }

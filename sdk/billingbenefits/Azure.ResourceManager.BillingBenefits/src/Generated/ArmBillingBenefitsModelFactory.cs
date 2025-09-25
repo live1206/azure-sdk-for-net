@@ -17,14 +17,14 @@ namespace Azure.ResourceManager.BillingBenefits.Models
     /// <summary> A factory class for creating instances of the models for mocking. </summary>
     public static partial class ArmBillingBenefitsModelFactory
     {
-        /// <summary> The SavingsPlanPurchaseValidateRequest. </summary>
+        /// <summary> The SavingsPlanPurchaseValidateContent. </summary>
         /// <param name="benefits"></param>
-        /// <returns> A new <see cref="Models.SavingsPlanPurchaseValidateRequest"/> instance for mocking. </returns>
-        public static SavingsPlanPurchaseValidateRequest SavingsPlanPurchaseValidateRequest(IEnumerable<BillingBenefitsSavingsPlanOrderAliasData> benefits = default)
+        /// <returns> A new <see cref="Models.SavingsPlanPurchaseValidateContent"/> instance for mocking. </returns>
+        public static SavingsPlanPurchaseValidateContent SavingsPlanPurchaseValidateContent(IEnumerable<BillingBenefitsSavingsPlanOrderAliasData> benefits = default)
         {
             benefits ??= new ChangeTrackingList<BillingBenefitsSavingsPlanOrderAliasData>();
 
-            return new SavingsPlanPurchaseValidateRequest(benefits.ToList(), additionalBinaryDataProperties: null);
+            return new SavingsPlanPurchaseValidateContent(benefits.ToList(), additionalBinaryDataProperties: null);
         }
 
         /// <param name="id"> Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}. </param>
@@ -68,17 +68,6 @@ namespace Azure.ResourceManager.BillingBenefits.Models
                     new Dictionary<string, BinaryData>()));
         }
 
-        /// <summary> The SavingsPlanValidateResponse. </summary>
-        /// <param name="benefits"></param>
-        /// <param name="nextLink"> Url to get the next page. </param>
-        /// <returns> A new <see cref="Models.SavingsPlanValidateResponse"/> instance for mocking. </returns>
-        public static SavingsPlanValidateResponse SavingsPlanValidateResponse(IEnumerable<SavingsPlanValidateResult> benefits = default, string nextLink = default)
-        {
-            benefits ??= new ChangeTrackingList<SavingsPlanValidateResult>();
-
-            return new SavingsPlanValidateResponse(benefits.ToList(), nextLink, additionalBinaryDataProperties: null);
-        }
-
         /// <summary> Benefit scope response property. </summary>
         /// <param name="isValid"> Indicates if the provided input was valid. </param>
         /// <param name="reasonCode"> Failure reason code if the provided input was invalid. </param>
@@ -104,7 +93,7 @@ namespace Azure.ResourceManager.BillingBenefits.Models
         /// <param name="sku"> The resource model definition representing SKU. </param>
         /// <param name="plan"> Plan for the resource. </param>
         /// <returns> A new <see cref="BillingBenefits.DiscountData"/> instance for mocking. </returns>
-        public static DiscountData DiscountData(ResourceIdentifier id = default, string name = default, ResourceType resourceType = default, SystemData systemData = default, IDictionary<string, string> tags = default, string location = default, DiscountProperties properties = default, string managedBy = default, string kind = default, string etag = default, ManagedServiceIdentity identity = default, BillingBenefitsSku sku = default, BillingBenefitsPlan plan = default)
+        public static DiscountData DiscountData(ResourceIdentifier id = default, string name = default, ResourceType resourceType = default, SystemData systemData = default, IDictionary<string, string> tags = default, AzureLocation location = default, DiscountProperties properties = default, string managedBy = default, string kind = default, string etag = default, ManagedServiceIdentity identity = default, BillingBenefitsSku sku = default, BillingBenefitsPlan plan = default)
         {
             tags ??= new ChangeTrackingDictionary<string, string>();
 
@@ -737,10 +726,10 @@ namespace Azure.ResourceManager.BillingBenefits.Models
         /// <param name="reservedResourceType"> The type of the resource that is being reserved. </param>
         /// <param name="reviewDateTime"> This is the date-time when the Azure Hybrid Benefit needs to be reviewed. </param>
         /// <param name="reservedResourceInstanceFlexibility"> Turning this on will apply the reservation discount to other VMs in the same VM size group. </param>
-        /// <returns> A new <see cref="Models.ReservationOrderAliasRequest"/> instance for mocking. </returns>
-        public static ReservationOrderAliasRequest ReservationOrderAliasRequest(ResourceIdentifier id = default, string name = default, ResourceType resourceType = default, SystemData systemData = default, string skuName = default, string location = default, string displayName = default, ResourceIdentifier billingScopeId = default, BillingBenefitsTerm? term = default, BillingBenefitsBillingPlan? billingPlan = default, BillingBenefitsAppliedScopeType? appliedScopeType = default, BillingBenefitsAppliedScopeProperties appliedScopeProperties = default, int? quantity = default, bool? isRenew = default, BillingBenefitsReservedResourceType? reservedResourceType = default, DateTimeOffset? reviewDateTime = default, BillingBenefitsInstanceFlexibility? reservedResourceInstanceFlexibility = default)
+        /// <returns> A new <see cref="Models.BillingBenefitsReservationOrderAliasCreateOrUpdateContent"/> instance for mocking. </returns>
+        public static BillingBenefitsReservationOrderAliasCreateOrUpdateContent BillingBenefitsReservationOrderAliasCreateOrUpdateContent(ResourceIdentifier id = default, string name = default, ResourceType resourceType = default, SystemData systemData = default, string skuName = default, string location = default, string displayName = default, ResourceIdentifier billingScopeId = default, BillingBenefitsTerm? term = default, BillingBenefitsBillingPlan? billingPlan = default, BillingBenefitsAppliedScopeType? appliedScopeType = default, BillingBenefitsAppliedScopeProperties appliedScopeProperties = default, int? quantity = default, bool? isRenew = default, BillingBenefitsReservedResourceType? reservedResourceType = default, DateTimeOffset? reviewDateTime = default, BillingBenefitsInstanceFlexibility? reservedResourceInstanceFlexibility = default)
         {
-            return new ReservationOrderAliasRequest(
+            return new BillingBenefitsReservationOrderAliasCreateOrUpdateContent(
                 id,
                 name,
                 resourceType,

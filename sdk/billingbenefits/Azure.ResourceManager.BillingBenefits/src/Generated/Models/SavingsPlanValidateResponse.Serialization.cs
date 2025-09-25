@@ -15,7 +15,7 @@ using Azure.ResourceManager.BillingBenefits;
 namespace Azure.ResourceManager.BillingBenefits.Models
 {
     /// <summary> The SavingsPlanValidateResponse. </summary>
-    public partial class SavingsPlanValidateResponse : IJsonModel<SavingsPlanValidateResponse>
+    internal partial class SavingsPlanValidateResponse : IJsonModel<SavingsPlanValidateResponse>
     {
         /// <param name="writer"> The JSON writer. </param>
         /// <param name="options"> The client options for reading and writing models. </param>

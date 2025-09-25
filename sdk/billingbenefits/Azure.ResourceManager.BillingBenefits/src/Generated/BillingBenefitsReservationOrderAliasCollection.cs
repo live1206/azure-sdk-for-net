@@ -61,7 +61,7 @@ namespace Azure.ResourceManager.BillingBenefits
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="reservationOrderAliasName"/> or <paramref name="body"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="reservationOrderAliasName"/> is an empty string, and was expected to be non-empty. </exception>
-        public virtual async Task<ArmOperation<BillingBenefitsReservationOrderAliasResource>> CreateOrUpdateAsync(WaitUntil waitUntil, string reservationOrderAliasName, ReservationOrderAliasRequest body, CancellationToken cancellationToken = default)
+        public virtual async Task<ArmOperation<BillingBenefitsReservationOrderAliasResource>> CreateOrUpdateAsync(WaitUntil waitUntil, string reservationOrderAliasName, BillingBenefitsReservationOrderAliasCreateOrUpdateContent body, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(reservationOrderAliasName, nameof(reservationOrderAliasName));
             Argument.AssertNotNull(body, nameof(body));
@@ -74,7 +74,7 @@ namespace Azure.ResourceManager.BillingBenefits
                 {
                     CancellationToken = cancellationToken
                 };
-                HttpMessage message = _reservationOrderAliasRestClient.CreateCreateRequest(reservationOrderAliasName, ReservationOrderAliasRequest.ToRequestContent(body), context);
+                HttpMessage message = _reservationOrderAliasRestClient.CreateCreateRequest(reservationOrderAliasName, BillingBenefitsReservationOrderAliasCreateOrUpdateContent.ToRequestContent(body), context);
                 Response response = await Pipeline.ProcessMessageAsync(message, context).ConfigureAwait(false);
                 BillingBenefitsArmOperation<BillingBenefitsReservationOrderAliasResource> operation = new BillingBenefitsArmOperation<BillingBenefitsReservationOrderAliasResource>(
                     new BillingBenefitsReservationOrderAliasOperationSource(Client),
@@ -103,7 +103,7 @@ namespace Azure.ResourceManager.BillingBenefits
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="reservationOrderAliasName"/> or <paramref name="body"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="reservationOrderAliasName"/> is an empty string, and was expected to be non-empty. </exception>
-        public virtual ArmOperation<BillingBenefitsReservationOrderAliasResource> CreateOrUpdate(WaitUntil waitUntil, string reservationOrderAliasName, ReservationOrderAliasRequest body, CancellationToken cancellationToken = default)
+        public virtual ArmOperation<BillingBenefitsReservationOrderAliasResource> CreateOrUpdate(WaitUntil waitUntil, string reservationOrderAliasName, BillingBenefitsReservationOrderAliasCreateOrUpdateContent body, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(reservationOrderAliasName, nameof(reservationOrderAliasName));
             Argument.AssertNotNull(body, nameof(body));
@@ -116,7 +116,7 @@ namespace Azure.ResourceManager.BillingBenefits
                 {
                     CancellationToken = cancellationToken
                 };
-                HttpMessage message = _reservationOrderAliasRestClient.CreateCreateRequest(reservationOrderAliasName, ReservationOrderAliasRequest.ToRequestContent(body), context);
+                HttpMessage message = _reservationOrderAliasRestClient.CreateCreateRequest(reservationOrderAliasName, BillingBenefitsReservationOrderAliasCreateOrUpdateContent.ToRequestContent(body), context);
                 Response response = Pipeline.ProcessMessage(message, context);
                 BillingBenefitsArmOperation<BillingBenefitsReservationOrderAliasResource> operation = new BillingBenefitsArmOperation<BillingBenefitsReservationOrderAliasResource>(
                     new BillingBenefitsReservationOrderAliasOperationSource(Client),

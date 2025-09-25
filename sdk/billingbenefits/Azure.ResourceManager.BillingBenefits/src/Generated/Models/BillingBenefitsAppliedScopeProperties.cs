@@ -29,7 +29,7 @@ namespace Azure.ResourceManager.BillingBenefits.Models
         /// <param name="resourceGroupId"> Fully-qualified identifier of the resource group. </param>
         /// <param name="displayName"> Display name. </param>
         /// <param name="additionalBinaryDataProperties"> Keeps track of any properties unknown to the library. </param>
-        internal BillingBenefitsAppliedScopeProperties(string tenantId, ResourceIdentifier managementGroupId, ResourceIdentifier subscriptionId, ResourceIdentifier resourceGroupId, string displayName, IDictionary<string, BinaryData> additionalBinaryDataProperties)
+        internal BillingBenefitsAppliedScopeProperties(Guid? tenantId, ResourceIdentifier managementGroupId, ResourceIdentifier subscriptionId, ResourceIdentifier resourceGroupId, string displayName, IDictionary<string, BinaryData> additionalBinaryDataProperties)
         {
             TenantId = tenantId;
             ManagementGroupId = managementGroupId;
@@ -40,7 +40,7 @@ namespace Azure.ResourceManager.BillingBenefits.Models
         }
 
         /// <summary> Tenant ID where the benefit is applied. </summary>
-        public string TenantId { get; set; }
+        public Guid? TenantId { get; set; }
 
         /// <summary> Fully-qualified identifier of the management group where the benefit must be applied. </summary>
         public ResourceIdentifier ManagementGroupId { get; set; }

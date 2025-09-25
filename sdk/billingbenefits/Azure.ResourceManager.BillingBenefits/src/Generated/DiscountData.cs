@@ -21,11 +21,8 @@ namespace Azure.ResourceManager.BillingBenefits
 
         /// <summary> Initializes a new instance of <see cref="DiscountData"/>. </summary>
         /// <param name="location"> The geo-location where the resource lives. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="location"/> is null. </exception>
-        public DiscountData(string location) : base(location)
+        public DiscountData(AzureLocation location) : base(location)
         {
-            Argument.AssertNotNull(location, nameof(location));
-
         }
 
         /// <summary> Initializes a new instance of <see cref="DiscountData"/>. </summary>
@@ -43,7 +40,7 @@ namespace Azure.ResourceManager.BillingBenefits
         /// <param name="identity"> Managed service identity (system assigned and/or user assigned identities). </param>
         /// <param name="sku"> The resource model definition representing SKU. </param>
         /// <param name="plan"> Plan for the resource. </param>
-        internal DiscountData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, IDictionary<string, BinaryData> additionalBinaryDataProperties, IDictionary<string, string> tags, string location, DiscountProperties properties, string managedBy, string kind, string etag, Models.ManagedServiceIdentity identity, BillingBenefitsSku sku, BillingBenefitsPlan plan) : base(id, name, resourceType, systemData, tags, location)
+        internal DiscountData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, IDictionary<string, BinaryData> additionalBinaryDataProperties, IDictionary<string, string> tags, AzureLocation location, DiscountProperties properties, string managedBy, string kind, string etag, Models.ManagedServiceIdentity identity, BillingBenefitsSku sku, BillingBenefitsPlan plan) : base(id, name, resourceType, systemData, tags, location)
         {
             _additionalBinaryDataProperties = additionalBinaryDataProperties;
             Properties = properties;

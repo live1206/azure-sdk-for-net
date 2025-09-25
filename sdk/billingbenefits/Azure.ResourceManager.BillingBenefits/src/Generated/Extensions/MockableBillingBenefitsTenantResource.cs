@@ -157,64 +157,32 @@ namespace Azure.ResourceManager.BillingBenefits.Mocking
         /// <param name="body"> The request body. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="body"/> is null. </exception>
-        public virtual async Task<Response<SavingsPlanValidateResponse>> ValidatePurchaseAsync(SavingsPlanPurchaseValidateRequest body, CancellationToken cancellationToken = default)
+        /// <returns> A collection of <see cref="SavingsPlanValidateResult"/> that may take multiple service requests to iterate over. </returns>
+        public virtual AsyncPageable<SavingsPlanValidateResult> ValidatePurchaseAsync(SavingsPlanPurchaseValidateContent body, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNull(body, nameof(body));
 
-            using DiagnosticScope scope = BillingBenefitsClientClientDiagnostics.CreateScope("MockableBillingBenefitsTenantResource.ValidatePurchase");
-            scope.Start();
-            try
+            RequestContext context = new RequestContext
             {
-                RequestContext context = new RequestContext
-                {
-                    CancellationToken = cancellationToken
-                };
-                HttpMessage message = BillingBenefitsClientRestClient.CreateValidatePurchaseRequest(SavingsPlanPurchaseValidateRequest.ToRequestContent(body), context);
-                Response result = await Pipeline.ProcessMessageAsync(message, context).ConfigureAwait(false);
-                Response<SavingsPlanValidateResponse> response = Response.FromValue(SavingsPlanValidateResponse.FromResponse(result), result);
-                if (response.Value == null)
-                {
-                    throw new RequestFailedException(response.GetRawResponse());
-                }
-                return response;
-            }
-            catch (Exception e)
-            {
-                scope.Failed(e);
-                throw;
-            }
+                CancellationToken = cancellationToken
+            };
+            return new BillingBenefitsClientValidatePurchaseAsyncCollectionResultOfT(BillingBenefitsClientRestClient, SavingsPlanPurchaseValidateContent.ToRequestContent(body), context);
         }
 
         /// <summary> Validate savings plan purchase. </summary>
         /// <param name="body"> The request body. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="body"/> is null. </exception>
-        public virtual Response<SavingsPlanValidateResponse> ValidatePurchase(SavingsPlanPurchaseValidateRequest body, CancellationToken cancellationToken = default)
+        /// <returns> A collection of <see cref="SavingsPlanValidateResult"/> that may take multiple service requests to iterate over. </returns>
+        public virtual Pageable<SavingsPlanValidateResult> ValidatePurchase(SavingsPlanPurchaseValidateContent body, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNull(body, nameof(body));
 
-            using DiagnosticScope scope = BillingBenefitsClientClientDiagnostics.CreateScope("MockableBillingBenefitsTenantResource.ValidatePurchase");
-            scope.Start();
-            try
+            RequestContext context = new RequestContext
             {
-                RequestContext context = new RequestContext
-                {
-                    CancellationToken = cancellationToken
-                };
-                HttpMessage message = BillingBenefitsClientRestClient.CreateValidatePurchaseRequest(SavingsPlanPurchaseValidateRequest.ToRequestContent(body), context);
-                Response result = Pipeline.ProcessMessage(message, context);
-                Response<SavingsPlanValidateResponse> response = Response.FromValue(SavingsPlanValidateResponse.FromResponse(result), result);
-                if (response.Value == null)
-                {
-                    throw new RequestFailedException(response.GetRawResponse());
-                }
-                return response;
-            }
-            catch (Exception e)
-            {
-                scope.Failed(e);
-                throw;
-            }
+                CancellationToken = cancellationToken
+            };
+            return new BillingBenefitsClientValidatePurchaseCollectionResultOfT(BillingBenefitsClientRestClient, SavingsPlanPurchaseValidateContent.ToRequestContent(body), context);
         }
 
         /// <summary> List discounts that are applicable for a given scope. Currently supported scopes: billing accounts. </summary>

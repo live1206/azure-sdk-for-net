@@ -283,11 +283,12 @@ namespace Azure.ResourceManager.BillingBenefits
         /// <param name="body"> The request body. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="tenantResource"/> is null. </exception>
-        public static async Task<Response<SavingsPlanValidateResponse>> ValidatePurchaseAsync(this TenantResource tenantResource, SavingsPlanPurchaseValidateRequest body, CancellationToken cancellationToken = default)
+        /// <returns> A collection of <see cref="SavingsPlanValidateResult"/> that may take multiple service requests to iterate over. </returns>
+        public static AsyncPageable<SavingsPlanValidateResult> ValidatePurchaseAsync(this TenantResource tenantResource, SavingsPlanPurchaseValidateContent body, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNull(tenantResource, nameof(tenantResource));
 
-            return await GetMockableBillingBenefitsTenantResource(tenantResource).ValidatePurchaseAsync(body, cancellationToken).ConfigureAwait(false);
+            return GetMockableBillingBenefitsTenantResource(tenantResource).ValidatePurchaseAsync(body, cancellationToken);
         }
 
         /// <summary> Validate savings plan purchase. </summary>
@@ -295,7 +296,8 @@ namespace Azure.ResourceManager.BillingBenefits
         /// <param name="body"> The request body. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="tenantResource"/> is null. </exception>
-        public static Response<SavingsPlanValidateResponse> ValidatePurchase(this TenantResource tenantResource, SavingsPlanPurchaseValidateRequest body, CancellationToken cancellationToken = default)
+        /// <returns> A collection of <see cref="SavingsPlanValidateResult"/> that may take multiple service requests to iterate over. </returns>
+        public static Pageable<SavingsPlanValidateResult> ValidatePurchase(this TenantResource tenantResource, SavingsPlanPurchaseValidateContent body, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNull(tenantResource, nameof(tenantResource));
 

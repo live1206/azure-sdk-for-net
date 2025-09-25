@@ -12,7 +12,7 @@ using Azure.ResourceManager.BillingBenefits;
 namespace Azure.ResourceManager.BillingBenefits.Models
 {
     /// <summary> The SavingsPlanValidateResponse. </summary>
-    public partial class SavingsPlanValidateResponse
+    internal partial class SavingsPlanValidateResponse
     {
         /// <summary> Keeps track of any properties unknown to the library. </summary>
         private protected readonly IDictionary<string, BinaryData> _additionalBinaryDataProperties;
