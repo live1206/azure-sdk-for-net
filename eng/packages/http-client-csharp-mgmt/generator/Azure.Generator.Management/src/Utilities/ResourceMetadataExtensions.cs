@@ -69,17 +69,44 @@ namespace Azure.Generator.Management.Utilities
                         createMethod = method;
                         break;
                     case ResourceOperationKind.Read:
-                        // both resource and collection should have read method
-                        methodsInResource.Add(method);
-                        methodsInCollection.Add(method);
+                        // Read method goes to resource/collection only if operation path matches resource ID pattern.
+                        // Operations at different scopes (e.g., subscription-scoped reads for an RG-scoped resource)
+                        // should go to extensions to avoid duplicate methods on the resource.
+                        // When OperationPath is empty (legacy/test data), keep original behavior.
+                        if (string.IsNullOrEmpty(method.OperationPath) || method.OperationPath == resourceMetadata.ResourceIdPattern)
+                        {
+                            methodsInResource.Add(method);
+                            methodsInCollection.Add(method);
+                        }
+                        else
+                        {
+                            methodsInExtension.Add(method);
+                        }
                         break;
                     case ResourceOperationKind.Update:
-                        hasUpdateMethod = true;
-                        methodsInResource.Add(method);
+                        // Update method goes to resource only if operation path matches resource ID pattern.
+                        // When OperationPath is empty (legacy/test data), keep original behavior.
+                        if (string.IsNullOrEmpty(method.OperationPath) || method.OperationPath == resourceMetadata.ResourceIdPattern)
+                        {
+                            hasUpdateMethod = true;
+                            methodsInResource.Add(method);
+                        }
+                        else
+                        {
+                            methodsInExtension.Add(method);
+                        }
                         break;
                     case ResourceOperationKind.Delete:
-                        // only resource has get
-                        methodsInResource.Add(method);
+                        // Delete method goes to resource only if operation path matches resource ID pattern.
+                        // When OperationPath is empty (legacy/test data), keep original behavior.
+                        if (string.IsNullOrEmpty(method.OperationPath) || method.OperationPath == resourceMetadata.ResourceIdPattern)
+                        {
+                            methodsInResource.Add(method);
+                        }
+                        else
+                        {
+                            methodsInExtension.Add(method);
+                        }
                         break;
                     case ResourceOperationKind.Action:
                         // actions should all go to the resource
