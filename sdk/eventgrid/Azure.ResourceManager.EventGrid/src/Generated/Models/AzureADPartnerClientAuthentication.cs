@@ -7,6 +7,7 @@
 
 using System;
 using System.Collections.Generic;
+using Azure.ResourceManager.EventGrid;
 
 namespace Azure.ResourceManager.EventGrid.Models
 {
@@ -28,9 +29,11 @@ namespace Azure.ResourceManager.EventGrid.Models
         }
 
         /// <summary> Microsoft Entra ID ClientAuthentication Properties. </summary>
+        [WirePath("properties")]
         internal AzureADPartnerClientAuthenticationProperties Properties { get; set; }
 
         /// <summary> The Microsoft Entra ID Tenant ID to get the access token that will be included as the bearer token in delivery requests. </summary>
+        [WirePath("properties.azureActiveDirectoryTenantId")]
         public string AzureActiveDirectoryTenantId
         {
             get
@@ -48,6 +51,7 @@ namespace Azure.ResourceManager.EventGrid.Models
         }
 
         /// <summary> The Microsoft Entra ID Application ID or URI to get the access token that will be included as the bearer token in delivery requests. </summary>
+        [WirePath("properties.azureActiveDirectoryApplicationIdOrUri")]
         public string AzureActiveDirectoryApplicationIdOrUri
         {
             get

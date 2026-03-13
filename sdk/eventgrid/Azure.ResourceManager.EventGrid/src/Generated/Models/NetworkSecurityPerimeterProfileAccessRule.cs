@@ -7,6 +7,7 @@
 
 using System;
 using System.Collections.Generic;
+using Azure.ResourceManager.EventGrid;
 
 namespace Azure.ResourceManager.EventGrid.Models
 {
@@ -37,18 +38,23 @@ namespace Azure.ResourceManager.EventGrid.Models
         }
 
         /// <summary> Fully Qualified Arm id for network security perimeter profile access rule. </summary>
+        [WirePath("fullyQualifiedArmId")]
         public string FullyQualifiedArmId { get; }
 
         /// <summary> Name for nsp access rule. </summary>
+        [WirePath("name")]
         public string Name { get; }
 
         /// <summary> nsp access rule type. </summary>
+        [WirePath("type")]
         public string Type { get; }
 
         /// <summary> NSP access rule properties. </summary>
+        [WirePath("properties")]
         internal NetworkSecurityPerimeterProfileAccessRuleProperties Properties { get; }
 
         /// <summary> NSP access rule direction. </summary>
+        [WirePath("properties.direction")]
         public NetworkSecurityPerimeterProfileAccessRuleDirection? Direction
         {
             get
@@ -58,6 +64,7 @@ namespace Azure.ResourceManager.EventGrid.Models
         }
 
         /// <summary> Address prefixes. </summary>
+        [WirePath("properties.addressPrefixes")]
         public IList<string> AddressPrefixes
         {
             get
@@ -67,6 +74,7 @@ namespace Azure.ResourceManager.EventGrid.Models
         }
 
         /// <summary> List of subscriptions. </summary>
+        [WirePath("properties.subscriptions")]
         public IList<NetworkSecurityPerimeterSubscription> Subscriptions
         {
             get
@@ -76,6 +84,7 @@ namespace Azure.ResourceManager.EventGrid.Models
         }
 
         /// <summary> Network security perimeters. </summary>
+        [WirePath("properties.networkSecurityPerimeters")]
         public IList<NetworkSecurityPerimeterInfo> NetworkSecurityPerimeters
         {
             get
@@ -85,6 +94,7 @@ namespace Azure.ResourceManager.EventGrid.Models
         }
 
         /// <summary> Fully qualified domain names. </summary>
+        [WirePath("properties.fullyQualifiedDomainNames")]
         public IList<string> FullyQualifiedDomainNames
         {
             get
@@ -94,6 +104,7 @@ namespace Azure.ResourceManager.EventGrid.Models
         }
 
         /// <summary> List of email addresses. </summary>
+        [WirePath("properties.emailAddresses")]
         public IList<string> EmailAddresses
         {
             get
@@ -103,6 +114,7 @@ namespace Azure.ResourceManager.EventGrid.Models
         }
 
         /// <summary> List of phone numbers. </summary>
+        [WirePath("properties.phoneNumbers")]
         public IList<string> PhoneNumbers
         {
             get

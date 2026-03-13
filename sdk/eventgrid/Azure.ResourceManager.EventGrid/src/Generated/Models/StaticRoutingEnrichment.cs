@@ -7,6 +7,7 @@
 
 using System;
 using System.Collections.Generic;
+using Azure.ResourceManager.EventGrid;
 
 namespace Azure.ResourceManager.EventGrid.Models
 {
@@ -38,9 +39,11 @@ namespace Azure.ResourceManager.EventGrid.Models
         }
 
         /// <summary> Static routing enrichment key. </summary>
+        [WirePath("key")]
         public string Key { get; set; }
 
         /// <summary> Static routing enrichment value type. For e.g. this property value can be 'String'. </summary>
+        [WirePath("valueType")]
         internal StaticRoutingEnrichmentType ValueType { get; set; }
     }
 }

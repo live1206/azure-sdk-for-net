@@ -36,7 +36,7 @@ namespace Azure.ResourceManager.EventGrid
         /// <param name="properties"> Properties of the Namespace resource. </param>
         /// <param name="sku"> Represents available Sku pricing tiers. </param>
         /// <param name="identity"> Identity information for the Namespace resource. </param>
-        internal EventGridNamespaceData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, IDictionary<string, BinaryData> additionalBinaryDataProperties, IDictionary<string, string> tags, AzureLocation location, NamespaceProperties properties, NamespaceSku sku, IdentityInfo identity) : base(id, name, resourceType, systemData, tags, location)
+        internal EventGridNamespaceData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, IDictionary<string, BinaryData> additionalBinaryDataProperties, IDictionary<string, string> tags, AzureLocation location, NamespaceProperties properties, NamespaceSku sku, ManagedServiceIdentity identity) : base(id, name, resourceType, systemData, tags, location)
         {
             _additionalBinaryDataProperties = additionalBinaryDataProperties;
             Properties = properties;
@@ -45,15 +45,19 @@ namespace Azure.ResourceManager.EventGrid
         }
 
         /// <summary> Properties of the Namespace resource. </summary>
+        [WirePath("properties")]
         internal NamespaceProperties Properties { get; set; }
 
         /// <summary> Represents available Sku pricing tiers. </summary>
+        [WirePath("sku")]
         public NamespaceSku Sku { get; set; }
 
         /// <summary> Identity information for the Namespace resource. </summary>
-        public IdentityInfo Identity { get; set; }
+        [WirePath("identity")]
+        public ManagedServiceIdentity Identity { get; set; }
 
         /// <summary> List of private endpoint connections. </summary>
+        [WirePath("properties.privateEndpointConnections")]
         public IList<EventGridPrivateEndpointConnectionData> PrivateEndpointConnections
         {
             get
@@ -67,6 +71,7 @@ namespace Azure.ResourceManager.EventGrid
         }
 
         /// <summary> Provisioning state of the namespace resource. </summary>
+        [WirePath("properties.provisioningState")]
         public NamespaceProvisioningState? ProvisioningState
         {
             get
@@ -76,6 +81,7 @@ namespace Azure.ResourceManager.EventGrid
         }
 
         /// <summary> Topics configuration information for the namespace resource. </summary>
+        [WirePath("properties.topicsConfiguration")]
         public TopicsConfiguration TopicsConfiguration
         {
             get
@@ -93,6 +99,7 @@ namespace Azure.ResourceManager.EventGrid
         }
 
         /// <summary> Topic spaces configuration information for the namespace resource. </summary>
+        [WirePath("properties.topicSpacesConfiguration")]
         public TopicSpacesConfiguration TopicSpacesConfiguration
         {
             get
@@ -116,6 +123,7 @@ namespace Azure.ResourceManager.EventGrid
         /// b. For non-Availability Zones enabled regions - The default property value would be false.
         /// Once specified, this property cannot be updated.
         /// </summary>
+        [WirePath("properties.isZoneRedundant")]
         public bool? IsZoneRedundant
         {
             get
@@ -136,6 +144,7 @@ namespace Azure.ResourceManager.EventGrid
         /// This determines if traffic is allowed over public network. By default it is enabled.
         /// You can further restrict to specific IPs by configuring &lt;seealso cref="P:Microsoft.Azure.Events.ResourceProvider.Common.Contracts.PubSub.NamespaceProperties.InboundIpRules" /&gt;
         /// </summary>
+        [WirePath("properties.publicNetworkAccess")]
         public EventGridPublicNetworkAccess? PublicNetworkAccess
         {
             get
@@ -153,7 +162,8 @@ namespace Azure.ResourceManager.EventGrid
         }
 
         /// <summary> This can be used to restrict traffic from specific IPs instead of all IPs. Note: These are considered only if PublicNetworkAccess is enabled. </summary>
-        public IList<EventGridInboundIPRule> InboundIpRules
+        [WirePath("properties.inboundIpRules")]
+        public IList<EventGridInboundIPRule> InboundIPRules
         {
             get
             {
@@ -161,11 +171,12 @@ namespace Azure.ResourceManager.EventGrid
                 {
                     Properties = new NamespaceProperties();
                 }
-                return Properties.InboundIpRules;
+                return Properties.InboundIPRules;
             }
         }
 
         /// <summary> Minimum TLS version of the publisher allowed to publish to this namespace. Only TLS version 1.2 is supported. </summary>
+        [WirePath("properties.minimumTlsVersionAllowed")]
         public TlsVersion? MinimumTlsVersionAllowed
         {
             get

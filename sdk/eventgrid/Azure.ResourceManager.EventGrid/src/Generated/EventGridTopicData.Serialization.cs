@@ -116,7 +116,7 @@ namespace Azure.ResourceManager.EventGrid
             if (Optional.IsDefined(Identity))
             {
                 writer.WritePropertyName("identity"u8);
-                writer.WriteObjectValue(Identity, options);
+                ((IJsonModel<ManagedServiceIdentity>)Identity).Write(writer, options);
             }
             if (Optional.IsDefined(Kind))
             {
@@ -164,7 +164,7 @@ namespace Azure.ResourceManager.EventGrid
             AzureLocation location = default;
             TopicProperties properties = default;
             ResourceSku sku = default;
-            IdentityInfo identity = default;
+            ManagedServiceIdentity identity = default;
             ResourceKind? kind = default;
             ExtendedLocation extendedLocation = default;
             foreach (var prop in element.EnumerateObject())
@@ -251,7 +251,7 @@ namespace Azure.ResourceManager.EventGrid
                     {
                         continue;
                     }
-                    identity = IdentityInfo.DeserializeIdentityInfo(prop.Value, options);
+                    identity = ModelReaderWriter.Read<ManagedServiceIdentity>(new BinaryData(Encoding.UTF8.GetBytes(prop.Value.GetRawText())), ModelSerializationExtensions.WireOptions, AzureResourceManagerEventGridContext.Default);
                     continue;
                 }
                 if (prop.NameEquals("kind"u8))

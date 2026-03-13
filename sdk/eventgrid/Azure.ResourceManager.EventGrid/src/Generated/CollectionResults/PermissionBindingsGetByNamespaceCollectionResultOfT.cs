@@ -14,7 +14,7 @@ using Azure.ResourceManager.EventGrid.Models;
 
 namespace Azure.ResourceManager.EventGrid
 {
-    internal partial class PermissionBindingsGetByNamespaceCollectionResultOfT : Pageable<PermissionBindingData>
+    internal partial class PermissionBindingsGetByNamespaceCollectionResultOfT : Pageable<EventGridNamespacePermissionBindingData>
     {
         private readonly PermissionBindings _client;
         private readonly Guid _subscriptionId;
@@ -47,7 +47,7 @@ namespace Azure.ResourceManager.EventGrid
         /// <param name="continuationToken"> A continuation token indicating where to resume paging. </param>
         /// <param name="pageSizeHint"> The number of items per page. </param>
         /// <returns> The pages of PermissionBindingsGetByNamespaceCollectionResultOfT as an enumerable collection. </returns>
-        public override IEnumerable<Page<PermissionBindingData>> AsPages(string continuationToken, int? pageSizeHint)
+        public override IEnumerable<Page<EventGridNamespacePermissionBindingData>> AsPages(string continuationToken, int? pageSizeHint)
         {
             Uri nextPage = continuationToken != null ? new Uri(continuationToken) : null;
             while (true)
@@ -58,7 +58,7 @@ namespace Azure.ResourceManager.EventGrid
                     yield break;
                 }
                 PermissionBindingsListResult result = PermissionBindingsListResult.FromResponse(response);
-                yield return Page<PermissionBindingData>.FromValues((IReadOnlyList<PermissionBindingData>)result.Value, nextPage?.IsAbsoluteUri == true ? nextPage.AbsoluteUri : nextPage?.OriginalString, response);
+                yield return Page<EventGridNamespacePermissionBindingData>.FromValues((IReadOnlyList<EventGridNamespacePermissionBindingData>)result.Value, nextPage?.IsAbsoluteUri == true ? nextPage.AbsoluteUri : nextPage?.OriginalString, response);
                 nextPage = result.NextLink;
                 if (nextPage == null)
                 {
@@ -73,7 +73,7 @@ namespace Azure.ResourceManager.EventGrid
         private Response GetNextResponse(int? pageSizeHint, Uri nextLink)
         {
             HttpMessage message = nextLink != null ? _client.CreateNextGetByNamespaceRequest(nextLink, _subscriptionId, _resourceGroupName, _namespaceName, _filter, _top, _context) : _client.CreateGetByNamespaceRequest(_subscriptionId, _resourceGroupName, _namespaceName, _filter, _top, _context);
-            using DiagnosticScope scope = _client.ClientDiagnostics.CreateScope("PermissionBindingCollection.GetAll");
+            using DiagnosticScope scope = _client.ClientDiagnostics.CreateScope("EventGridNamespacePermissionBindingCollection.GetAll");
             scope.Start();
             try
             {

@@ -7,6 +7,7 @@
 
 using System;
 using System.Collections.Generic;
+using Azure.ResourceManager.EventGrid;
 
 namespace Azure.ResourceManager.EventGrid.Models
 {
@@ -22,16 +23,16 @@ namespace Azure.ResourceManager.EventGrid.Models
         }
 
         /// <summary> Initializes a new instance of <see cref="ChannelUpdateParametersProperties"/>. </summary>
-        /// <param name="expirationTimeIfNotActivatedUtc">
+        /// <param name="expireOnIfNotActivated">
         /// Expiration time of the channel. If this timer expires while the corresponding partner topic or partner destination is never activated,
         /// the channel and corresponding partner topic or partner destination are deleted.
         /// </param>
         /// <param name="partnerDestinationInfo"> Partner destination properties which can be updated if the channel is of type PartnerDestination. </param>
         /// <param name="partnerTopicInfo"> Partner topic properties which can be updated if the channel is of type PartnerTopic. </param>
         /// <param name="additionalBinaryDataProperties"> Keeps track of any properties unknown to the library. </param>
-        internal ChannelUpdateParametersProperties(DateTimeOffset? expirationTimeIfNotActivatedUtc, PartnerUpdateDestinationInfo partnerDestinationInfo, PartnerUpdateTopicInfo partnerTopicInfo, IDictionary<string, BinaryData> additionalBinaryDataProperties)
+        internal ChannelUpdateParametersProperties(DateTimeOffset? expireOnIfNotActivated, PartnerUpdateDestinationInfo partnerDestinationInfo, PartnerUpdateTopicInfo partnerTopicInfo, IDictionary<string, BinaryData> additionalBinaryDataProperties)
         {
-            ExpirationTimeIfNotActivatedUtc = expirationTimeIfNotActivatedUtc;
+            ExpireOnIfNotActivated = expireOnIfNotActivated;
             PartnerDestinationInfo = partnerDestinationInfo;
             PartnerTopicInfo = partnerTopicInfo;
             _additionalBinaryDataProperties = additionalBinaryDataProperties;
@@ -41,15 +42,19 @@ namespace Azure.ResourceManager.EventGrid.Models
         /// Expiration time of the channel. If this timer expires while the corresponding partner topic or partner destination is never activated,
         /// the channel and corresponding partner topic or partner destination are deleted.
         /// </summary>
-        public DateTimeOffset? ExpirationTimeIfNotActivatedUtc { get; set; }
+        [WirePath("expirationTimeIfNotActivatedUtc")]
+        public DateTimeOffset? ExpireOnIfNotActivated { get; set; }
 
         /// <summary> Partner destination properties which can be updated if the channel is of type PartnerDestination. </summary>
+        [WirePath("partnerDestinationInfo")]
         public PartnerUpdateDestinationInfo PartnerDestinationInfo { get; set; }
 
         /// <summary> Partner topic properties which can be updated if the channel is of type PartnerTopic. </summary>
+        [WirePath("partnerTopicInfo")]
         internal PartnerUpdateTopicInfo PartnerTopicInfo { get; set; }
 
         /// <summary> Event type info for the partner topic. </summary>
+        [WirePath("partnerTopicInfo.eventTypeInfo")]
         public PartnerTopicEventTypeInfo EventTypeInfo
         {
             get

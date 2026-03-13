@@ -8,6 +8,7 @@
 using System;
 using System.Collections.Generic;
 using Azure.Core;
+using Azure.ResourceManager.EventGrid;
 using Azure.ResourceManager.Models;
 
 namespace Azure.ResourceManager.EventGrid.Models
@@ -37,9 +38,11 @@ namespace Azure.ResourceManager.EventGrid.Models
         }
 
         /// <summary> Properties of the network security perimeter configuration. </summary>
+        [WirePath("properties")]
         internal NetworkSecurityPerimeterConfigurationProperties Properties { get; }
 
         /// <summary> Provisioning state to reflect configuration state and indicate status of nsp profile configuration retrieval. </summary>
+        [WirePath("properties.provisioningState")]
         public NetworkSecurityPerimeterConfigProvisioningState? ProvisioningState
         {
             get
@@ -49,6 +52,7 @@ namespace Azure.ResourceManager.EventGrid.Models
         }
 
         /// <summary> Provisioning issues to reflect status when attempting to retrieve nsp profile configuration. </summary>
+        [WirePath("properties.provisioningIssues")]
         public IList<NetworkSecurityPerimeterConfigurationIssues> ProvisioningIssues
         {
             get
@@ -58,6 +62,7 @@ namespace Azure.ResourceManager.EventGrid.Models
         }
 
         /// <summary> Perimeter info for nsp association. </summary>
+        [WirePath("properties.networkSecurityPerimeter")]
         public NetworkSecurityPerimeterInfo NetworkSecurityPerimeter
         {
             get
@@ -67,6 +72,7 @@ namespace Azure.ResourceManager.EventGrid.Models
         }
 
         /// <summary> Nsp association name and access mode of association. </summary>
+        [WirePath("properties.resourceAssociation")]
         public ResourceAssociation ResourceAssociation
         {
             get
@@ -76,6 +82,7 @@ namespace Azure.ResourceManager.EventGrid.Models
         }
 
         /// <summary> Nsp profile configuration, access rules and diagnostic settings. </summary>
+        [WirePath("properties.profile")]
         public NetworkSecurityPerimeterConfigurationProfile Profile
         {
             get

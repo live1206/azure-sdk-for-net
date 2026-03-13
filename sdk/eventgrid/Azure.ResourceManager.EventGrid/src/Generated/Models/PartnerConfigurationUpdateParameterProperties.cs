@@ -7,6 +7,7 @@
 
 using System;
 using System.Collections.Generic;
+using Azure.ResourceManager.EventGrid;
 
 namespace Azure.ResourceManager.EventGrid.Models
 {
@@ -31,6 +32,7 @@ namespace Azure.ResourceManager.EventGrid.Models
         }
 
         /// <summary> The default time used to validate the maximum expiration time for each authorized partners in days. Allowed values ar between 1 and 365 days. </summary>
+        [WirePath("defaultMaximumExpirationTimeInDays")]
         public int? DefaultMaximumExpirationTimeInDays { get; set; }
     }
 }

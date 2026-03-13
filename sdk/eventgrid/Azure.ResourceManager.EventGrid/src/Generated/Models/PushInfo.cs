@@ -7,6 +7,7 @@
 
 using System;
 using System.Collections.Generic;
+using Azure.ResourceManager.EventGrid;
 
 namespace Azure.ResourceManager.EventGrid.Models
 {
@@ -55,6 +56,7 @@ namespace Azure.ResourceManager.EventGrid.Models
         }
 
         /// <summary> The maximum delivery count of the events. </summary>
+        [WirePath("maxDeliveryCount")]
         public int? MaxDeliveryCount { get; set; }
 
         /// <summary>
@@ -65,24 +67,28 @@ namespace Azure.ResourceManager.EventGrid.Models
         /// by topic’s EventRetentionInDays value. The followings are examples of valid values:
         /// <list type="bullet"><item><description>\'P0DT23H12M\' or \'PT23H12M\': for duration of 23 hours and 12 minutes.</description></item><item><description>\'P1D\' or \'P1DT0H0M0S\': for duration of 1 day.</description></item></list>
         /// </summary>
+        [WirePath("eventTimeToLive")]
         public string EventTimeToLive { get; set; }
 
         /// <summary>
         /// The dead letter destination of the event subscription. Any event that cannot be delivered to its' destination is sent to the dead letter destination.
         /// Uses the managed identity setup on the parent resource (namely, namespace) to acquire the authentication tokens being used during dead-lettering.
         /// </summary>
+        [WirePath("deadLetterDestinationWithResourceIdentity")]
         public DeadLetterWithResourceIdentity DeadLetterDestinationWithResourceIdentity { get; set; }
 
         /// <summary>
         /// Information about the destination where events have to be delivered for the event subscription.
         /// Uses the managed identity setup on the parent resource (namely, topic or domain) to acquire the authentication tokens being used during delivery.
         /// </summary>
+        [WirePath("deliveryWithResourceIdentity")]
         public DeliveryWithResourceIdentity DeliveryWithResourceIdentity { get; set; }
 
         /// <summary>
         /// Information about the destination where events have to be delivered for the event subscription.
         /// Uses Azure Event Grid's identity to acquire the authentication tokens being used during delivery.
         /// </summary>
+        [WirePath("destination")]
         public EventSubscriptionDestination Destination { get; set; }
     }
 }

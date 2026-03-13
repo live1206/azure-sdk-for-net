@@ -7,6 +7,7 @@
 
 using System;
 using System.Collections.Generic;
+using Azure.ResourceManager.EventGrid;
 
 namespace Azure.ResourceManager.EventGrid.Models
 {
@@ -33,9 +34,11 @@ namespace Azure.ResourceManager.EventGrid.Models
         }
 
         /// <summary> Value of the delivery attribute. </summary>
+        [WirePath("value")]
         public string Value { get; set; }
 
         /// <summary> Boolean flag to tell if the attribute contains sensitive information . </summary>
+        [WirePath("isSecret")]
         public bool? IsSecret { get; set; }
     }
 }

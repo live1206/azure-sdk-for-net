@@ -7,6 +7,7 @@
 
 using System;
 using System.Collections.Generic;
+using Azure.ResourceManager.EventGrid;
 
 namespace Azure.ResourceManager.EventGrid.Models
 {
@@ -25,17 +26,19 @@ namespace Azure.ResourceManager.EventGrid.Models
         /// <param name="ipMask"> IP Address in CIDR notation e.g., 10.0.0.0/8. </param>
         /// <param name="action"> Action to perform based on the match or no match of the IpMask. </param>
         /// <param name="additionalBinaryDataProperties"> Keeps track of any properties unknown to the library. </param>
-        internal EventGridInboundIPRule(string ipMask, IpActionType? action, IDictionary<string, BinaryData> additionalBinaryDataProperties)
+        internal EventGridInboundIPRule(string ipMask, EventGridIPActionType? action, IDictionary<string, BinaryData> additionalBinaryDataProperties)
         {
-            IpMask = ipMask;
+            IPMask = ipMask;
             Action = action;
             _additionalBinaryDataProperties = additionalBinaryDataProperties;
         }
 
         /// <summary> IP Address in CIDR notation e.g., 10.0.0.0/8. </summary>
-        public string IpMask { get; set; }
+        [WirePath("ipMask")]
+        public string IPMask { get; set; }
 
         /// <summary> Action to perform based on the match or no match of the IpMask. </summary>
-        public IpActionType? Action { get; set; }
+        [WirePath("action")]
+        public EventGridIPActionType? Action { get; set; }
     }
 }

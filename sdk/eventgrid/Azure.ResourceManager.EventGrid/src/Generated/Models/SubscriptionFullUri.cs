@@ -7,6 +7,7 @@
 
 using System;
 using System.Collections.Generic;
+using Azure.ResourceManager.EventGrid;
 
 namespace Azure.ResourceManager.EventGrid.Models
 {
@@ -24,13 +25,14 @@ namespace Azure.ResourceManager.EventGrid.Models
         /// <summary> Initializes a new instance of <see cref="SubscriptionFullUri"/>. </summary>
         /// <param name="endpointUri"> The URL that represents the endpoint of the destination of an event subscription. </param>
         /// <param name="additionalBinaryDataProperties"> Keeps track of any properties unknown to the library. </param>
-        internal SubscriptionFullUri(string endpointUri, IDictionary<string, BinaryData> additionalBinaryDataProperties)
+        internal SubscriptionFullUri(Uri endpointUri, IDictionary<string, BinaryData> additionalBinaryDataProperties)
         {
             EndpointUri = endpointUri;
             _additionalBinaryDataProperties = additionalBinaryDataProperties;
         }
 
         /// <summary> The URL that represents the endpoint of the destination of an event subscription. </summary>
-        public string EndpointUri { get; }
+        [WirePath("endpointUrl")]
+        public Uri EndpointUri { get; }
     }
 }

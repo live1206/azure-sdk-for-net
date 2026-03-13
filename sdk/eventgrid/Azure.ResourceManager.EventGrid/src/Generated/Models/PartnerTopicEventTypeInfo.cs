@@ -39,6 +39,7 @@ namespace Azure.ResourceManager.EventGrid.Models
         }
 
         /// <summary> The kind of event type used. </summary>
+        [WirePath("kind")]
         public EventDefinitionKind? Kind { get; set; }
 
         /// <summary>
@@ -46,6 +47,7 @@ namespace Azure.ResourceManager.EventGrid.Models
         /// An example of a valid inline event name is "Contoso.OrderCreated".
         /// The inline event type values are of type InlineEventProperties and will contain additional information for every inline event type.
         /// </summary>
+        [WirePath("inlineEventTypes")]
         public IDictionary<string, InlineEventProperties> InlineEventTypes { get; }
     }
 }

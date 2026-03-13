@@ -33,6 +33,7 @@ namespace Azure.ResourceManager.EventGrid.Models
         }
 
         /// <summary> A collection of DeliveryAttributeMapping. </summary>
+        [WirePath("value")]
         public IList<DeliveryAttributeMapping> Value { get; }
     }
 }

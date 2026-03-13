@@ -24,50 +24,58 @@ namespace Azure.ResourceManager.EventGrid.Models
         }
 
         /// <summary> Initializes a new instance of <see cref="WebHookEventSubscriptionDestinationProperties"/>. </summary>
-        /// <param name="endpointUri"> The URL that represents the endpoint of the destination of an event subscription. </param>
-        /// <param name="endpointBaseUri"> The base URL that represents the endpoint of the destination of an event subscription. </param>
+        /// <param name="endpoint"> The URL that represents the endpoint of the destination of an event subscription. </param>
+        /// <param name="baseEndpoint"> The base URL that represents the endpoint of the destination of an event subscription. </param>
         /// <param name="maxEventsPerBatch"> Maximum number of events per batch. </param>
         /// <param name="preferredBatchSizeInKilobytes"> Preferred batch size in Kilobytes. </param>
         /// <param name="azureActiveDirectoryTenantId"> The Microsoft Entra ID Tenant ID to get the access token that will be included as the bearer token in delivery requests. </param>
-        /// <param name="azureActiveDirectoryApplicationIdOrUri"> The Microsoft Entra ID Application ID or URI to get the access token that will be included as the bearer token in delivery requests. </param>
+        /// <param name="uriOrAzureActiveDirectoryApplicationId"> The Microsoft Entra ID Application ID or URI to get the access token that will be included as the bearer token in delivery requests. </param>
         /// <param name="deliveryAttributeMappings"> Delivery attribute details. </param>
         /// <param name="minimumTlsVersionAllowed"> Minimum TLS version that should be supported by webhook endpoint. </param>
         /// <param name="additionalBinaryDataProperties"> Keeps track of any properties unknown to the library. </param>
-        internal WebHookEventSubscriptionDestinationProperties(string endpointUri, string endpointBaseUri, int? maxEventsPerBatch, int? preferredBatchSizeInKilobytes, string azureActiveDirectoryTenantId, string azureActiveDirectoryApplicationIdOrUri, IList<DeliveryAttributeMapping> deliveryAttributeMappings, TlsVersion? minimumTlsVersionAllowed, IDictionary<string, BinaryData> additionalBinaryDataProperties)
+        internal WebHookEventSubscriptionDestinationProperties(Uri endpoint, Uri baseEndpoint, int? maxEventsPerBatch, int? preferredBatchSizeInKilobytes, Guid? azureActiveDirectoryTenantId, string uriOrAzureActiveDirectoryApplicationId, IList<DeliveryAttributeMapping> deliveryAttributeMappings, TlsVersion? minimumTlsVersionAllowed, IDictionary<string, BinaryData> additionalBinaryDataProperties)
         {
-            EndpointUri = endpointUri;
-            EndpointBaseUri = endpointBaseUri;
+            Endpoint = endpoint;
+            BaseEndpoint = baseEndpoint;
             MaxEventsPerBatch = maxEventsPerBatch;
             PreferredBatchSizeInKilobytes = preferredBatchSizeInKilobytes;
             AzureActiveDirectoryTenantId = azureActiveDirectoryTenantId;
-            AzureActiveDirectoryApplicationIdOrUri = azureActiveDirectoryApplicationIdOrUri;
+            UriOrAzureActiveDirectoryApplicationId = uriOrAzureActiveDirectoryApplicationId;
             DeliveryAttributeMappings = deliveryAttributeMappings;
             MinimumTlsVersionAllowed = minimumTlsVersionAllowed;
             _additionalBinaryDataProperties = additionalBinaryDataProperties;
         }
 
         /// <summary> The URL that represents the endpoint of the destination of an event subscription. </summary>
-        public string EndpointUri { get; set; }
+        [WirePath("endpointUrl")]
+        public Uri Endpoint { get; set; }
 
         /// <summary> The base URL that represents the endpoint of the destination of an event subscription. </summary>
-        public string EndpointBaseUri { get; }
+        [WirePath("endpointBaseUrl")]
+        public Uri BaseEndpoint { get; }
 
         /// <summary> Maximum number of events per batch. </summary>
+        [WirePath("maxEventsPerBatch")]
         public int? MaxEventsPerBatch { get; set; }
 
         /// <summary> Preferred batch size in Kilobytes. </summary>
+        [WirePath("preferredBatchSizeInKilobytes")]
         public int? PreferredBatchSizeInKilobytes { get; set; }
 
         /// <summary> The Microsoft Entra ID Tenant ID to get the access token that will be included as the bearer token in delivery requests. </summary>
-        public string AzureActiveDirectoryTenantId { get; set; }
+        [WirePath("azureActiveDirectoryTenantId")]
+        public Guid? AzureActiveDirectoryTenantId { get; set; }
 
         /// <summary> The Microsoft Entra ID Application ID or URI to get the access token that will be included as the bearer token in delivery requests. </summary>
-        public string AzureActiveDirectoryApplicationIdOrUri { get; set; }
+        [WirePath("azureActiveDirectoryApplicationIdOrUri")]
+        public string UriOrAzureActiveDirectoryApplicationId { get; set; }
 
         /// <summary> Delivery attribute details. </summary>
+        [WirePath("deliveryAttributeMappings")]
         public IList<DeliveryAttributeMapping> DeliveryAttributeMappings { get; } = new ChangeTrackingList<DeliveryAttributeMapping>();
 
         /// <summary> Minimum TLS version that should be supported by webhook endpoint. </summary>
+        [WirePath("minimumTlsVersionAllowed")]
         public TlsVersion? MinimumTlsVersionAllowed { get; set; }
     }
 }

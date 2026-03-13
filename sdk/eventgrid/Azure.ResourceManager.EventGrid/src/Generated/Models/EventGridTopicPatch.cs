@@ -8,6 +8,7 @@
 using System;
 using System.Collections.Generic;
 using Azure.ResourceManager.EventGrid;
+using Azure.ResourceManager.Models;
 
 namespace Azure.ResourceManager.EventGrid.Models
 {
@@ -29,7 +30,7 @@ namespace Azure.ResourceManager.EventGrid.Models
         /// <param name="properties"> Properties of the Topic resource. </param>
         /// <param name="sku"> The Sku pricing tier for the topic. </param>
         /// <param name="additionalBinaryDataProperties"> Keeps track of any properties unknown to the library. </param>
-        internal EventGridTopicPatch(IDictionary<string, string> tags, IdentityInfo identity, TopicUpdateParameterProperties properties, ResourceSku sku, IDictionary<string, BinaryData> additionalBinaryDataProperties)
+        internal EventGridTopicPatch(IDictionary<string, string> tags, ManagedServiceIdentity identity, TopicUpdateParameterProperties properties, ResourceSku sku, IDictionary<string, BinaryData> additionalBinaryDataProperties)
         {
             Tags = tags;
             Identity = identity;
@@ -39,21 +40,26 @@ namespace Azure.ResourceManager.EventGrid.Models
         }
 
         /// <summary> Tags of the Topic resource. </summary>
+        [WirePath("tags")]
         public IDictionary<string, string> Tags { get; }
 
         /// <summary> Topic resource identity information. </summary>
-        public IdentityInfo Identity { get; set; }
+        [WirePath("identity")]
+        public ManagedServiceIdentity Identity { get; set; }
 
         /// <summary> Properties of the Topic resource. </summary>
+        [WirePath("properties")]
         internal TopicUpdateParameterProperties Properties { get; set; }
 
         /// <summary> The Sku pricing tier for the topic. </summary>
+        [WirePath("sku")]
         internal ResourceSku Sku { get; set; }
 
         /// <summary>
         /// This determines if traffic is allowed over public network. By default it is enabled.
         /// You can further restrict to specific IPs by configuring &lt;seealso cref="P:Microsoft.Azure.Events.ResourceProvider.Common.Contracts.TopicUpdateParameterProperties.InboundIpRules" /&gt;
         /// </summary>
+        [WirePath("properties.publicNetworkAccess")]
         public EventGridPublicNetworkAccess? PublicNetworkAccess
         {
             get
@@ -71,7 +77,8 @@ namespace Azure.ResourceManager.EventGrid.Models
         }
 
         /// <summary> This can be used to restrict traffic from specific IPs instead of all IPs. Note: These are considered only if PublicNetworkAccess is enabled. </summary>
-        public IList<EventGridInboundIPRule> InboundIpRules
+        [WirePath("properties.inboundIpRules")]
+        public IList<EventGridInboundIPRule> InboundIPRules
         {
             get
             {
@@ -79,11 +86,12 @@ namespace Azure.ResourceManager.EventGrid.Models
                 {
                     Properties = new TopicUpdateParameterProperties();
                 }
-                return Properties.InboundIpRules;
+                return Properties.InboundIPRules;
             }
         }
 
         /// <summary> Minimum TLS version of the publisher allowed to publish to this domain. </summary>
+        [WirePath("properties.minimumTlsVersionAllowed")]
         public TlsVersion? MinimumTlsVersionAllowed
         {
             get
@@ -101,11 +109,12 @@ namespace Azure.ResourceManager.EventGrid.Models
         }
 
         /// <summary> This boolean is used to enable or disable local auth. Default value is false. When the property is set to true, only Microsoft Entra ID token will be used to authenticate if user is allowed to publish to the topic. </summary>
-        public bool? DisableLocalAuth
+        [WirePath("properties.disableLocalAuth")]
+        public bool? IsLocalAuthDisabled
         {
             get
             {
-                return Properties is null ? default : Properties.DisableLocalAuth;
+                return Properties is null ? default : Properties.IsLocalAuthDisabled;
             }
             set
             {
@@ -113,11 +122,12 @@ namespace Azure.ResourceManager.EventGrid.Models
                 {
                     Properties = new TopicUpdateParameterProperties();
                 }
-                Properties.DisableLocalAuth = value.Value;
+                Properties.IsLocalAuthDisabled = value.Value;
             }
         }
 
         /// <summary> The data residency boundary for the topic. </summary>
+        [WirePath("properties.dataResidencyBoundary")]
         public DataResidencyBoundary? DataResidencyBoundary
         {
             get
@@ -135,6 +145,7 @@ namespace Azure.ResourceManager.EventGrid.Models
         }
 
         /// <summary> The eventTypeInfo for the topic. </summary>
+        [WirePath("properties.eventTypeInfo")]
         public PartnerTopicEventTypeInfo EventTypeInfo
         {
             get
@@ -152,6 +163,7 @@ namespace Azure.ResourceManager.EventGrid.Models
         }
 
         /// <summary> The Sku name of the resource. The possible values are: Basic or Premium. </summary>
+        [WirePath("sku.name")]
         public EventGridSku? SkuName
         {
             get

@@ -21,11 +21,6 @@ namespace Azure.ResourceManager.EventGrid.Models
     [PersistableModelProxy(typeof(UnknownEventGridFilter))]
     public abstract partial class EventGridFilter : IJsonModel<EventGridFilter>
     {
-        /// <summary> Initializes a new instance of <see cref="EventGridFilter"/> for deserialization. </summary>
-        internal EventGridFilter()
-        {
-        }
-
         /// <param name="data"> The data to parse. </param>
         /// <param name="options"> The client options for reading and writing models. </param>
         protected virtual EventGridFilter PersistableModelCreateCore(BinaryData data, ModelReaderWriterOptions options)

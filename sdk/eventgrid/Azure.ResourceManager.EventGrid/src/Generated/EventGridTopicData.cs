@@ -38,7 +38,7 @@ namespace Azure.ResourceManager.EventGrid
         /// <param name="identity"> Identity information for the resource. </param>
         /// <param name="kind"> Kind of the resource. </param>
         /// <param name="extendedLocation"> Extended location of the resource. </param>
-        internal EventGridTopicData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, IDictionary<string, BinaryData> additionalBinaryDataProperties, IDictionary<string, string> tags, AzureLocation location, TopicProperties properties, ResourceSku sku, IdentityInfo identity, ResourceKind? kind, ExtendedLocation extendedLocation) : base(id, name, resourceType, systemData, tags, location)
+        internal EventGridTopicData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, IDictionary<string, BinaryData> additionalBinaryDataProperties, IDictionary<string, string> tags, AzureLocation location, TopicProperties properties, ResourceSku sku, ManagedServiceIdentity identity, ResourceKind? kind, ExtendedLocation extendedLocation) : base(id, name, resourceType, systemData, tags, location)
         {
             _additionalBinaryDataProperties = additionalBinaryDataProperties;
             Properties = properties;
@@ -49,21 +49,27 @@ namespace Azure.ResourceManager.EventGrid
         }
 
         /// <summary> Properties of the topic. </summary>
+        [WirePath("properties")]
         internal TopicProperties Properties { get; set; }
 
         /// <summary> The Sku pricing tier for the topic. </summary>
+        [WirePath("sku")]
         internal ResourceSku Sku { get; set; }
 
         /// <summary> Identity information for the resource. </summary>
-        public IdentityInfo Identity { get; set; }
+        [WirePath("identity")]
+        public ManagedServiceIdentity Identity { get; set; }
 
         /// <summary> Kind of the resource. </summary>
+        [WirePath("kind")]
         public ResourceKind? Kind { get; set; }
 
         /// <summary> Extended location of the resource. </summary>
+        [WirePath("extendedLocation")]
         public ExtendedLocation ExtendedLocation { get; set; }
 
         /// <summary> List of private endpoint connections. </summary>
+        [WirePath("properties.privateEndpointConnections")]
         public IReadOnlyList<EventGridPrivateEndpointConnectionData> PrivateEndpointConnections
         {
             get
@@ -77,6 +83,7 @@ namespace Azure.ResourceManager.EventGrid
         }
 
         /// <summary> Provisioning state of the topic. </summary>
+        [WirePath("properties.provisioningState")]
         public EventGridTopicProvisioningState? ProvisioningState
         {
             get
@@ -86,7 +93,8 @@ namespace Azure.ResourceManager.EventGrid
         }
 
         /// <summary> Endpoint for the topic. </summary>
-        public string Endpoint
+        [WirePath("properties.endpoint")]
+        public Uri Endpoint
         {
             get
             {
@@ -98,6 +106,7 @@ namespace Azure.ResourceManager.EventGrid
         /// Event Type Information for the user topic. This information is provided by the publisher and can be used by the
         /// subscriber to view different types of events that are published.
         /// </summary>
+        [WirePath("properties.eventTypeInfo")]
         public PartnerTopicEventTypeInfo EventTypeInfo
         {
             get
@@ -115,6 +124,7 @@ namespace Azure.ResourceManager.EventGrid
         }
 
         /// <summary> Minimum TLS version of the publisher allowed to publish to this topic. </summary>
+        [WirePath("properties.minimumTlsVersionAllowed")]
         public TlsVersion? MinimumTlsVersionAllowed
         {
             get
@@ -132,6 +142,7 @@ namespace Azure.ResourceManager.EventGrid
         }
 
         /// <summary> This determines the format that Event Grid should expect for incoming events published to the topic. </summary>
+        [WirePath("properties.inputSchema")]
         public EventGridInputSchema? InputSchema
         {
             get
@@ -149,6 +160,7 @@ namespace Azure.ResourceManager.EventGrid
         }
 
         /// <summary> This enables publishing using custom event schemas. An InputSchemaMapping can be specified to map various properties of a source schema to various required properties of the EventGridEvent schema. </summary>
+        [WirePath("properties.inputSchemaMapping")]
         public EventGridInputSchemaMapping InputSchemaMapping
         {
             get
@@ -166,6 +178,7 @@ namespace Azure.ResourceManager.EventGrid
         }
 
         /// <summary> Metric resource id for the topic. </summary>
+        [WirePath("properties.metricResourceId")]
         public string MetricResourceId
         {
             get
@@ -178,6 +191,7 @@ namespace Azure.ResourceManager.EventGrid
         /// This determines if traffic is allowed over public network. By default it is enabled.
         /// You can further restrict to specific IPs by configuring &lt;seealso cref="P:Microsoft.Azure.Events.ResourceProvider.Common.Contracts.TopicProperties.InboundIpRules" /&gt;
         /// </summary>
+        [WirePath("properties.publicNetworkAccess")]
         public EventGridPublicNetworkAccess? PublicNetworkAccess
         {
             get
@@ -195,7 +209,8 @@ namespace Azure.ResourceManager.EventGrid
         }
 
         /// <summary> This can be used to restrict traffic from specific IPs instead of all IPs. Note: These are considered only if PublicNetworkAccess is enabled. </summary>
-        public IList<EventGridInboundIPRule> InboundIpRules
+        [WirePath("properties.inboundIpRules")]
+        public IList<EventGridInboundIPRule> InboundIPRules
         {
             get
             {
@@ -203,16 +218,17 @@ namespace Azure.ResourceManager.EventGrid
                 {
                     Properties = new TopicProperties();
                 }
-                return Properties.InboundIpRules;
+                return Properties.InboundIPRules;
             }
         }
 
         /// <summary> This boolean is used to enable or disable local auth. Default value is false. When the property is set to true, only Microsoft Entra ID token will be used to authenticate if user is allowed to publish to the topic. </summary>
-        public bool? DisableLocalAuth
+        [WirePath("properties.disableLocalAuth")]
+        public bool? IsLocalAuthDisabled
         {
             get
             {
-                return Properties is null ? default : Properties.DisableLocalAuth;
+                return Properties is null ? default : Properties.IsLocalAuthDisabled;
             }
             set
             {
@@ -220,11 +236,12 @@ namespace Azure.ResourceManager.EventGrid
                 {
                     Properties = new TopicProperties();
                 }
-                Properties.DisableLocalAuth = value.Value;
+                Properties.IsLocalAuthDisabled = value.Value;
             }
         }
 
         /// <summary> Data Residency Boundary of the resource. </summary>
+        [WirePath("properties.dataResidencyBoundary")]
         public DataResidencyBoundary? DataResidencyBoundary
         {
             get
@@ -242,6 +259,7 @@ namespace Azure.ResourceManager.EventGrid
         }
 
         /// <summary> List of all customer-managed key encryption properties for the resource. However only one key is supported at a time. </summary>
+        [WirePath("properties.encryption.customerManagedKeyEncryption")]
         public IList<CustomerManagedKeyEncryption> CustomerManagedKeyEncryption
         {
             get
@@ -260,6 +278,7 @@ namespace Azure.ResourceManager.EventGrid
         /// This is an immutable property set at the time of resource creation and cannot be modified later.
         /// Enabling this property ensures that messages are processed and stored in a Azure Confidential Compute environment.
         /// </summary>
+        [WirePath("properties.platformCapabilities.confidentialCompute.mode")]
         public ConfidentialComputeMode? PlatformCapabilitiesConfidentialComputeMode
         {
             get
@@ -277,6 +296,7 @@ namespace Azure.ResourceManager.EventGrid
         }
 
         /// <summary> The Sku name of the resource. The possible values are: Basic or Premium. </summary>
+        [WirePath("sku.name")]
         public EventGridSku? SkuName
         {
             get

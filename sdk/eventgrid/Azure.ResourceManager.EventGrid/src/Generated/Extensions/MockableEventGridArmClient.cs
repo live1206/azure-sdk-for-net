@@ -66,13 +66,13 @@ namespace Azure.ResourceManager.EventGrid.Mocking
             return new PartnerNamespaceResource(Client, id);
         }
 
-        /// <summary> Gets an object representing a <see cref="ClientGroupResource"/> along with the instance operations that can be performed on it but with no data. </summary>
+        /// <summary> Gets an object representing a <see cref="EventGridNamespaceClientGroupResource"/> along with the instance operations that can be performed on it but with no data. </summary>
         /// <param name="id"> The resource ID of the resource to get. </param>
-        /// <returns> Returns a <see cref="ClientGroupResource"/> object. </returns>
-        public virtual ClientGroupResource GetClientGroupResource(ResourceIdentifier id)
+        /// <returns> Returns a <see cref="EventGridNamespaceClientGroupResource"/> object. </returns>
+        public virtual EventGridNamespaceClientGroupResource GetEventGridNamespaceClientGroupResource(ResourceIdentifier id)
         {
-            ClientGroupResource.ValidateResourceId(id);
-            return new ClientGroupResource(Client, id);
+            EventGridNamespaceClientGroupResource.ValidateResourceId(id);
+            return new EventGridNamespaceClientGroupResource(Client, id);
         }
 
         /// <summary> Gets an object representing a <see cref="EventGridNamespaceClientResource"/> along with the instance operations that can be performed on it but with no data. </summary>
@@ -228,13 +228,13 @@ namespace Azure.ResourceManager.EventGrid.Mocking
             return new PartnerTopicResource(Client, id);
         }
 
-        /// <summary> Gets an object representing a <see cref="PermissionBindingResource"/> along with the instance operations that can be performed on it but with no data. </summary>
+        /// <summary> Gets an object representing a <see cref="EventGridNamespacePermissionBindingResource"/> along with the instance operations that can be performed on it but with no data. </summary>
         /// <param name="id"> The resource ID of the resource to get. </param>
-        /// <returns> Returns a <see cref="PermissionBindingResource"/> object. </returns>
-        public virtual PermissionBindingResource GetPermissionBindingResource(ResourceIdentifier id)
+        /// <returns> Returns a <see cref="EventGridNamespacePermissionBindingResource"/> object. </returns>
+        public virtual EventGridNamespacePermissionBindingResource GetEventGridNamespacePermissionBindingResource(ResourceIdentifier id)
         {
-            PermissionBindingResource.ValidateResourceId(id);
-            return new PermissionBindingResource(Client, id);
+            EventGridNamespacePermissionBindingResource.ValidateResourceId(id);
+            return new EventGridNamespacePermissionBindingResource(Client, id);
         }
 
         /// <summary> Gets an object representing a <see cref="SystemTopicResource"/> along with the instance operations that can be performed on it but with no data. </summary>
@@ -299,22 +299,22 @@ namespace Azure.ResourceManager.EventGrid.Mocking
             return new DomainTopicEventSubscriptionResource(Client, id);
         }
 
-        /// <summary> Gets an object representing a <see cref="SubscriptionResource"/> along with the instance operations that can be performed on it but with no data. </summary>
+        /// <summary> Gets an object representing a <see cref="NamespaceTopicEventSubscriptionResource"/> along with the instance operations that can be performed on it but with no data. </summary>
         /// <param name="id"> The resource ID of the resource to get. </param>
-        /// <returns> Returns a <see cref="SubscriptionResource"/> object. </returns>
-        public virtual SubscriptionResource GetSubscriptionResource(ResourceIdentifier id)
+        /// <returns> Returns a <see cref="NamespaceTopicEventSubscriptionResource"/> object. </returns>
+        public virtual NamespaceTopicEventSubscriptionResource GetNamespaceTopicEventSubscriptionResource(ResourceIdentifier id)
         {
-            SubscriptionResource.ValidateResourceId(id);
-            return new SubscriptionResource(Client, id);
+            NamespaceTopicEventSubscriptionResource.ValidateResourceId(id);
+            return new NamespaceTopicEventSubscriptionResource(Client, id);
         }
 
-        /// <summary> Gets an object representing a <see cref="TopicTypeInfoResource"/> along with the instance operations that can be performed on it but with no data. </summary>
+        /// <summary> Gets an object representing a <see cref="TopicTypeResource"/> along with the instance operations that can be performed on it but with no data. </summary>
         /// <param name="id"> The resource ID of the resource to get. </param>
-        /// <returns> Returns a <see cref="TopicTypeInfoResource"/> object. </returns>
-        public virtual TopicTypeInfoResource GetTopicTypeInfoResource(ResourceIdentifier id)
+        /// <returns> Returns a <see cref="TopicTypeResource"/> object. </returns>
+        public virtual TopicTypeResource GetTopicTypeResource(ResourceIdentifier id)
         {
-            TopicTypeInfoResource.ValidateResourceId(id);
-            return new TopicTypeInfoResource(Client, id);
+            TopicTypeResource.ValidateResourceId(id);
+            return new TopicTypeResource(Client, id);
         }
     }
 }

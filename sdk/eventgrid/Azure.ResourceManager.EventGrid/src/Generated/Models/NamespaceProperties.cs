@@ -21,7 +21,7 @@ namespace Azure.ResourceManager.EventGrid.Models
         public NamespaceProperties()
         {
             PrivateEndpointConnections = new ChangeTrackingList<EventGridPrivateEndpointConnectionData>();
-            InboundIpRules = new ChangeTrackingList<EventGridInboundIPRule>();
+            InboundIPRules = new ChangeTrackingList<EventGridInboundIPRule>();
         }
 
         /// <summary> Initializes a new instance of <see cref="NamespaceProperties"/>. </summary>
@@ -40,10 +40,10 @@ namespace Azure.ResourceManager.EventGrid.Models
         /// This determines if traffic is allowed over public network. By default it is enabled.
         /// You can further restrict to specific IPs by configuring &lt;seealso cref="P:Microsoft.Azure.Events.ResourceProvider.Common.Contracts.PubSub.NamespaceProperties.InboundIpRules" /&gt;
         /// </param>
-        /// <param name="inboundIpRules"> This can be used to restrict traffic from specific IPs instead of all IPs. Note: These are considered only if PublicNetworkAccess is enabled. </param>
+        /// <param name="inboundIPRules"> This can be used to restrict traffic from specific IPs instead of all IPs. Note: These are considered only if PublicNetworkAccess is enabled. </param>
         /// <param name="minimumTlsVersionAllowed"> Minimum TLS version of the publisher allowed to publish to this namespace. Only TLS version 1.2 is supported. </param>
         /// <param name="additionalBinaryDataProperties"> Keeps track of any properties unknown to the library. </param>
-        internal NamespaceProperties(IList<EventGridPrivateEndpointConnectionData> privateEndpointConnections, NamespaceProvisioningState? provisioningState, TopicsConfiguration topicsConfiguration, TopicSpacesConfiguration topicSpacesConfiguration, bool? isZoneRedundant, EventGridPublicNetworkAccess? publicNetworkAccess, IList<EventGridInboundIPRule> inboundIpRules, TlsVersion? minimumTlsVersionAllowed, IDictionary<string, BinaryData> additionalBinaryDataProperties)
+        internal NamespaceProperties(IList<EventGridPrivateEndpointConnectionData> privateEndpointConnections, NamespaceProvisioningState? provisioningState, TopicsConfiguration topicsConfiguration, TopicSpacesConfiguration topicSpacesConfiguration, bool? isZoneRedundant, EventGridPublicNetworkAccess? publicNetworkAccess, IList<EventGridInboundIPRule> inboundIPRules, TlsVersion? minimumTlsVersionAllowed, IDictionary<string, BinaryData> additionalBinaryDataProperties)
         {
             PrivateEndpointConnections = privateEndpointConnections;
             ProvisioningState = provisioningState;
@@ -51,21 +51,25 @@ namespace Azure.ResourceManager.EventGrid.Models
             TopicSpacesConfiguration = topicSpacesConfiguration;
             IsZoneRedundant = isZoneRedundant;
             PublicNetworkAccess = publicNetworkAccess;
-            InboundIpRules = inboundIpRules;
+            InboundIPRules = inboundIPRules;
             MinimumTlsVersionAllowed = minimumTlsVersionAllowed;
             _additionalBinaryDataProperties = additionalBinaryDataProperties;
         }
 
         /// <summary> List of private endpoint connections. </summary>
+        [WirePath("privateEndpointConnections")]
         public IList<EventGridPrivateEndpointConnectionData> PrivateEndpointConnections { get; } = new ChangeTrackingList<EventGridPrivateEndpointConnectionData>();
 
         /// <summary> Provisioning state of the namespace resource. </summary>
+        [WirePath("provisioningState")]
         public NamespaceProvisioningState? ProvisioningState { get; }
 
         /// <summary> Topics configuration information for the namespace resource. </summary>
+        [WirePath("topicsConfiguration")]
         public TopicsConfiguration TopicsConfiguration { get; set; }
 
         /// <summary> Topic spaces configuration information for the namespace resource. </summary>
+        [WirePath("topicSpacesConfiguration")]
         public TopicSpacesConfiguration TopicSpacesConfiguration { get; set; }
 
         /// <summary>
@@ -75,18 +79,22 @@ namespace Azure.ResourceManager.EventGrid.Models
         /// b. For non-Availability Zones enabled regions - The default property value would be false.
         /// Once specified, this property cannot be updated.
         /// </summary>
+        [WirePath("isZoneRedundant")]
         public bool? IsZoneRedundant { get; set; }
 
         /// <summary>
         /// This determines if traffic is allowed over public network. By default it is enabled.
         /// You can further restrict to specific IPs by configuring &lt;seealso cref="P:Microsoft.Azure.Events.ResourceProvider.Common.Contracts.PubSub.NamespaceProperties.InboundIpRules" /&gt;
         /// </summary>
+        [WirePath("publicNetworkAccess")]
         public EventGridPublicNetworkAccess? PublicNetworkAccess { get; set; }
 
         /// <summary> This can be used to restrict traffic from specific IPs instead of all IPs. Note: These are considered only if PublicNetworkAccess is enabled. </summary>
-        public IList<EventGridInboundIPRule> InboundIpRules { get; } = new ChangeTrackingList<EventGridInboundIPRule>();
+        [WirePath("inboundIpRules")]
+        public IList<EventGridInboundIPRule> InboundIPRules { get; } = new ChangeTrackingList<EventGridInboundIPRule>();
 
         /// <summary> Minimum TLS version of the publisher allowed to publish to this namespace. Only TLS version 1.2 is supported. </summary>
+        [WirePath("minimumTlsVersionAllowed")]
         public TlsVersion? MinimumTlsVersionAllowed { get; set; }
     }
 }

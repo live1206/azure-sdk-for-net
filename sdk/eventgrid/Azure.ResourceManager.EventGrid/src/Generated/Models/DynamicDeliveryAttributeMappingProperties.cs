@@ -7,6 +7,7 @@
 
 using System;
 using System.Collections.Generic;
+using Azure.ResourceManager.EventGrid;
 
 namespace Azure.ResourceManager.EventGrid.Models
 {
@@ -31,6 +32,7 @@ namespace Azure.ResourceManager.EventGrid.Models
         }
 
         /// <summary> JSON path in the event which contains attribute value. </summary>
+        [WirePath("sourceField")]
         public string SourceField { get; set; }
     }
 }

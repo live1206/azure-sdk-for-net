@@ -74,10 +74,10 @@ namespace Azure.ResourceManager.EventGrid.Models
             {
                 throw new FormatException($"The model {nameof(EventGridInboundIPRule)} does not support writing '{format}' format.");
             }
-            if (Optional.IsDefined(IpMask))
+            if (Optional.IsDefined(IPMask))
             {
                 writer.WritePropertyName("ipMask"u8);
-                writer.WriteStringValue(IpMask);
+                writer.WriteStringValue(IPMask);
             }
             if (Optional.IsDefined(Action))
             {
@@ -127,7 +127,7 @@ namespace Azure.ResourceManager.EventGrid.Models
                 return null;
             }
             string ipMask = default;
-            IpActionType? action = default;
+            EventGridIPActionType? action = default;
             IDictionary<string, BinaryData> additionalBinaryDataProperties = new ChangeTrackingDictionary<string, BinaryData>();
             foreach (var prop in element.EnumerateObject())
             {
@@ -142,7 +142,7 @@ namespace Azure.ResourceManager.EventGrid.Models
                     {
                         continue;
                     }
-                    action = new IpActionType(prop.Value.GetString());
+                    action = new EventGridIPActionType(prop.Value.GetString());
                     continue;
                 }
                 if (options.Format != "W")

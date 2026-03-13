@@ -8,6 +8,7 @@
 using System;
 using System.Collections.Generic;
 using Azure.Core;
+using Azure.ResourceManager.EventGrid;
 
 namespace Azure.ResourceManager.EventGrid.Models
 {
@@ -29,6 +30,7 @@ namespace Azure.ResourceManager.EventGrid.Models
         }
 
         /// <summary> Namespace Topic properties of the event subscription destination. </summary>
+        [WirePath("properties")]
         internal NamespaceTopicEventSubscriptionDestinationProperties Properties { get; set; }
 
         /// <summary>
@@ -36,6 +38,7 @@ namespace Azure.ResourceManager.EventGrid.Models
         /// This field is required and the Namespace Topic resource listed must already exist.
         /// The resource ARM Id should follow this pattern: /subscriptions/{AzureSubscriptionId}/resourceGroups/{ResourceGroupName}/providers/Microsoft.EventGrid/namespaces/{NamespaceName}/topics/{TopicName}.
         /// </summary>
+        [WirePath("properties.resourceId")]
         public ResourceIdentifier ResourceId
         {
             get

@@ -8,6 +8,7 @@
 using System;
 using System.Collections.Generic;
 using Azure.Core;
+using Azure.ResourceManager.EventGrid;
 
 namespace Azure.ResourceManager.EventGrid.Models
 {
@@ -38,18 +39,23 @@ namespace Azure.ResourceManager.EventGrid.Models
         }
 
         /// <summary> Properties of the private link resource. </summary>
+        [WirePath("properties")]
         internal EventGridPrivateLinkResourceProperties Properties { get; }
 
         /// <summary> Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}. </summary>
+        [WirePath("id")]
         public ResourceIdentifier Id { get; }
 
         /// <summary> The name of private link resource will be either topic, domain, partnerNamespace or namespace. </summary>
+        [WirePath("name")]
         public string Name { get; }
 
         /// <summary> The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts". </summary>
+        [WirePath("type")]
         public ResourceType? Type { get; }
 
         /// <summary> Gets the GroupId. </summary>
+        [WirePath("properties.groupId")]
         public string GroupId
         {
             get
@@ -59,6 +65,7 @@ namespace Azure.ResourceManager.EventGrid.Models
         }
 
         /// <summary> Gets the DisplayName. </summary>
+        [WirePath("properties.displayName")]
         public string DisplayName
         {
             get
@@ -68,6 +75,7 @@ namespace Azure.ResourceManager.EventGrid.Models
         }
 
         /// <summary> Gets the RequiredMembers. </summary>
+        [WirePath("properties.requiredMembers")]
         public IList<string> RequiredMembers
         {
             get
@@ -77,6 +85,7 @@ namespace Azure.ResourceManager.EventGrid.Models
         }
 
         /// <summary> Gets the RequiredZoneNames. </summary>
+        [WirePath("properties.requiredZoneNames")]
         public IList<string> RequiredZoneNames
         {
             get

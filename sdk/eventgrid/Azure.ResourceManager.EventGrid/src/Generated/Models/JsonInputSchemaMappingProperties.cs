@@ -7,6 +7,7 @@
 
 using System;
 using System.Collections.Generic;
+using Azure.ResourceManager.EventGrid;
 
 namespace Azure.ResourceManager.EventGrid.Models
 {
@@ -41,24 +42,31 @@ namespace Azure.ResourceManager.EventGrid.Models
         }
 
         /// <summary> The mapping information for the Id property of the Event Grid Event. </summary>
+        [WirePath("id")]
         internal JsonField Id { get; set; }
 
         /// <summary> The mapping information for the Topic property of the Event Grid Event. </summary>
+        [WirePath("topic")]
         internal JsonField Topic { get; set; }
 
         /// <summary> The mapping information for the EventTime property of the Event Grid Event. </summary>
+        [WirePath("eventTime")]
         internal JsonField EventTime { get; set; }
 
         /// <summary> The mapping information for the EventType property of the Event Grid Event. </summary>
+        [WirePath("eventType")]
         public JsonFieldWithDefault EventType { get; set; }
 
         /// <summary> The mapping information for the Subject property of the Event Grid Event. </summary>
+        [WirePath("subject")]
         public JsonFieldWithDefault Subject { get; set; }
 
         /// <summary> The mapping information for the DataVersion property of the Event Grid Event. </summary>
+        [WirePath("dataVersion")]
         public JsonFieldWithDefault DataVersion { get; set; }
 
         /// <summary> Name of a field in the input event schema that's to be used as the source of a mapping. </summary>
+        [WirePath("id.sourceField")]
         public string IdSourceField
         {
             get
@@ -76,6 +84,7 @@ namespace Azure.ResourceManager.EventGrid.Models
         }
 
         /// <summary> Name of a field in the input event schema that's to be used as the source of a mapping. </summary>
+        [WirePath("topic.sourceField")]
         public string TopicSourceField
         {
             get
@@ -93,6 +102,7 @@ namespace Azure.ResourceManager.EventGrid.Models
         }
 
         /// <summary> Name of a field in the input event schema that's to be used as the source of a mapping. </summary>
+        [WirePath("eventTime.sourceField")]
         public string EventTimeSourceField
         {
             get

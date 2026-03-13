@@ -610,8 +610,8 @@ namespace Azure.ResourceManager.EventGrid
                         patch.Tags.Add(tag);
                     }
                     patch.Tags[key] = value;
-                    Response result = await UpdateAsync(patch, cancellationToken: cancellationToken).ConfigureAwait(false);
-                    return Response.FromValue(result.Value, result.GetRawResponse());
+                    await UpdateAsync(patch, cancellationToken: cancellationToken).ConfigureAwait(false);
+                    return await GetAsync(cancellationToken: cancellationToken).ConfigureAwait(false);
                 }
             }
             catch (Exception e)
@@ -658,8 +658,8 @@ namespace Azure.ResourceManager.EventGrid
                         patch.Tags.Add(tag);
                     }
                     patch.Tags[key] = value;
-                    Response result = Update(patch, cancellationToken: cancellationToken);
-                    return Response.FromValue(result.Value, result.GetRawResponse());
+                    Update(patch, cancellationToken: cancellationToken);
+                    return Get(cancellationToken: cancellationToken);
                 }
             }
             catch (Exception e)
@@ -701,8 +701,8 @@ namespace Azure.ResourceManager.EventGrid
                     PartnerTopicData current = (await GetAsync(cancellationToken: cancellationToken).ConfigureAwait(false)).Value.Data;
                     PartnerTopicPatch patch = new PartnerTopicPatch();
                     patch.Tags.ReplaceWith(tags);
-                    Response result = await UpdateAsync(patch, cancellationToken: cancellationToken).ConfigureAwait(false);
-                    return Response.FromValue(result.Value, result.GetRawResponse());
+                    await UpdateAsync(patch, cancellationToken: cancellationToken).ConfigureAwait(false);
+                    return await GetAsync(cancellationToken: cancellationToken).ConfigureAwait(false);
                 }
             }
             catch (Exception e)
@@ -744,8 +744,8 @@ namespace Azure.ResourceManager.EventGrid
                     PartnerTopicData current = Get(cancellationToken: cancellationToken).Value.Data;
                     PartnerTopicPatch patch = new PartnerTopicPatch();
                     patch.Tags.ReplaceWith(tags);
-                    Response result = Update(patch, cancellationToken: cancellationToken);
-                    return Response.FromValue(result.Value, result.GetRawResponse());
+                    Update(patch, cancellationToken: cancellationToken);
+                    return Get(cancellationToken: cancellationToken);
                 }
             }
             catch (Exception e)
@@ -790,8 +790,8 @@ namespace Azure.ResourceManager.EventGrid
                         patch.Tags.Add(tag);
                     }
                     patch.Tags.Remove(key);
-                    Response result = await UpdateAsync(patch, cancellationToken: cancellationToken).ConfigureAwait(false);
-                    return Response.FromValue(result.Value, result.GetRawResponse());
+                    await UpdateAsync(patch, cancellationToken: cancellationToken).ConfigureAwait(false);
+                    return await GetAsync(cancellationToken: cancellationToken).ConfigureAwait(false);
                 }
             }
             catch (Exception e)
@@ -836,8 +836,8 @@ namespace Azure.ResourceManager.EventGrid
                         patch.Tags.Add(tag);
                     }
                     patch.Tags.Remove(key);
-                    Response result = Update(patch, cancellationToken: cancellationToken);
-                    return Response.FromValue(result.Value, result.GetRawResponse());
+                    Update(patch, cancellationToken: cancellationToken);
+                    return Get(cancellationToken: cancellationToken);
                 }
             }
             catch (Exception e)

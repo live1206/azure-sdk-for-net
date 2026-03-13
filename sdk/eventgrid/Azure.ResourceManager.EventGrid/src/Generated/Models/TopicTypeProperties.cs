@@ -18,7 +18,7 @@ namespace Azure.ResourceManager.EventGrid.Models
         private protected readonly IDictionary<string, BinaryData> _additionalBinaryDataProperties;
 
         /// <summary> Initializes a new instance of <see cref="TopicTypeProperties"/>. </summary>
-        internal TopicTypeProperties()
+        public TopicTypeProperties()
         {
             SupportedLocations = new ChangeTrackingList<string>();
             SupportedScopesForSource = new ChangeTrackingList<TopicTypeSourceScope>();
@@ -37,7 +37,7 @@ namespace Azure.ResourceManager.EventGrid.Models
         /// <param name="areRegionalAndGlobalSourcesSupported"> Flag to indicate that a topic type can support both regional or global system topics. </param>
         /// <param name="additionalEnforcedPermissions"> Permissions which are enforced for creating and updating system topics of this this topic type. </param>
         /// <param name="additionalBinaryDataProperties"> Keeps track of any properties unknown to the library. </param>
-        internal TopicTypeProperties(string provider, string displayName, string description, ResourceRegionType? resourceRegionType, TopicTypeProvisioningState? provisioningState, IList<string> supportedLocations, string sourceResourceFormat, IList<TopicTypeSourceScope> supportedScopesForSource, bool? areRegionalAndGlobalSourcesSupported, IList<TopicTypeAdditionalEnforcedPermission> additionalEnforcedPermissions, IDictionary<string, BinaryData> additionalBinaryDataProperties)
+        internal TopicTypeProperties(string provider, string displayName, string description, EventGridResourceRegionType? resourceRegionType, TopicTypeProvisioningState? provisioningState, IList<string> supportedLocations, string sourceResourceFormat, IList<TopicTypeSourceScope> supportedScopesForSource, bool? areRegionalAndGlobalSourcesSupported, IList<TopicTypeAdditionalEnforcedPermission> additionalEnforcedPermissions, IDictionary<string, BinaryData> additionalBinaryDataProperties)
         {
             Provider = provider;
             DisplayName = displayName;
@@ -53,33 +53,43 @@ namespace Azure.ResourceManager.EventGrid.Models
         }
 
         /// <summary> Namespace of the provider of the topic type. </summary>
-        public string Provider { get; }
+        [WirePath("provider")]
+        public string Provider { get; set; }
 
         /// <summary> Display Name for the topic type. </summary>
-        public string DisplayName { get; }
+        [WirePath("displayName")]
+        public string DisplayName { get; set; }
 
         /// <summary> Description of the topic type. </summary>
-        public string Description { get; }
+        [WirePath("description")]
+        public string Description { get; set; }
 
         /// <summary> Region type of the resource. </summary>
-        public ResourceRegionType? ResourceRegionType { get; }
+        [WirePath("resourceRegionType")]
+        public EventGridResourceRegionType? ResourceRegionType { get; set; }
 
         /// <summary> Provisioning state of the topic type. </summary>
-        public TopicTypeProvisioningState? ProvisioningState { get; }
+        [WirePath("provisioningState")]
+        public TopicTypeProvisioningState? ProvisioningState { get; set; }
 
         /// <summary> List of locations supported by this topic type. </summary>
+        [WirePath("supportedLocations")]
         public IList<string> SupportedLocations { get; } = new ChangeTrackingList<string>();
 
         /// <summary> Source resource format. </summary>
-        public string SourceResourceFormat { get; }
+        [WirePath("sourceResourceFormat")]
+        public string SourceResourceFormat { get; set; }
 
         /// <summary> Supported source scopes. </summary>
+        [WirePath("supportedScopesForSource")]
         public IList<TopicTypeSourceScope> SupportedScopesForSource { get; } = new ChangeTrackingList<TopicTypeSourceScope>();
 
         /// <summary> Flag to indicate that a topic type can support both regional or global system topics. </summary>
-        public bool? AreRegionalAndGlobalSourcesSupported { get; }
+        [WirePath("areRegionalAndGlobalSourcesSupported")]
+        public bool? AreRegionalAndGlobalSourcesSupported { get; set; }
 
         /// <summary> Permissions which are enforced for creating and updating system topics of this this topic type. </summary>
+        [WirePath("additionalEnforcedPermissions")]
         public IList<TopicTypeAdditionalEnforcedPermission> AdditionalEnforcedPermissions { get; } = new ChangeTrackingList<TopicTypeAdditionalEnforcedPermission>();
     }
 }

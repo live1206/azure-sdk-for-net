@@ -89,7 +89,7 @@ namespace Azure.ResourceManager.EventGrid.Models
             }
             writer.WritePropertyName("value"u8);
             writer.WriteStartArray();
-            foreach (ClientGroupData item in Value)
+            foreach (EventGridNamespaceClientGroupData item in Value)
             {
                 writer.WriteObjectValue(item, options);
             }
@@ -141,17 +141,17 @@ namespace Azure.ResourceManager.EventGrid.Models
             {
                 return null;
             }
-            IList<ClientGroupData> value = default;
+            IList<EventGridNamespaceClientGroupData> value = default;
             Uri nextLink = default;
             IDictionary<string, BinaryData> additionalBinaryDataProperties = new ChangeTrackingDictionary<string, BinaryData>();
             foreach (var prop in element.EnumerateObject())
             {
                 if (prop.NameEquals("value"u8))
                 {
-                    List<ClientGroupData> array = new List<ClientGroupData>();
+                    List<EventGridNamespaceClientGroupData> array = new List<EventGridNamespaceClientGroupData>();
                     foreach (var item in prop.Value.EnumerateArray())
                     {
-                        array.Add(ClientGroupData.DeserializeClientGroupData(item, options));
+                        array.Add(EventGridNamespaceClientGroupData.DeserializeEventGridNamespaceClientGroupData(item, options));
                     }
                     value = array;
                     continue;

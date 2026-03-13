@@ -7,6 +7,7 @@
 
 using System;
 using System.Collections.Generic;
+using Azure.ResourceManager.EventGrid;
 
 namespace Azure.ResourceManager.EventGrid.Models
 {
@@ -33,9 +34,11 @@ namespace Azure.ResourceManager.EventGrid.Models
         }
 
         /// <summary> The details of authorized partners. </summary>
+        [WirePath("partnerAuthorization")]
         public PartnerAuthorization PartnerAuthorization { get; set; }
 
         /// <summary> Provisioning state of the partner configuration. </summary>
+        [WirePath("provisioningState")]
         public PartnerConfigurationProvisioningState? ProvisioningState { get; set; }
     }
 }

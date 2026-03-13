@@ -35,9 +35,11 @@ namespace Azure.ResourceManager.EventGrid.Models
         }
 
         /// <summary> A collection of event types. </summary>
+        [WirePath("value")]
         public IList<EventTypeUnderTopic> Value { get; }
 
         /// <summary> Gets the NextLink. </summary>
+        [WirePath("nextLink")]
         public string NextLink { get; }
     }
 }

@@ -7,6 +7,7 @@
 
 using System;
 using System.Collections.Generic;
+using Azure.ResourceManager.EventGrid;
 
 namespace Azure.ResourceManager.EventGrid.Models
 {
@@ -38,9 +39,11 @@ namespace Azure.ResourceManager.EventGrid.Models
         }
 
         /// <summary> Name of a field in the input event schema that's to be used as the source of a mapping. </summary>
+        [WirePath("sourceField")]
         public string SourceField { get; set; }
 
         /// <summary> The default value to be used for mapping when a SourceField is not provided or if there's no property with the specified name in the published JSON event payload. </summary>
+        [WirePath("defaultValue")]
         public string DefaultValue { get; set; }
     }
 }

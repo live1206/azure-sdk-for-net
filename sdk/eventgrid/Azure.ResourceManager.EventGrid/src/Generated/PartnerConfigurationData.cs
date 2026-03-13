@@ -43,15 +43,19 @@ namespace Azure.ResourceManager.EventGrid
         }
 
         /// <summary> Properties of the partner configuration. </summary>
+        [WirePath("properties")]
         internal PartnerConfigurationProperties Properties { get; set; }
 
         /// <summary> Resource tags. </summary>
+        [WirePath("tags")]
         public IDictionary<string, string> Tags { get; }
 
         /// <summary> The geo-location where the resource lives. </summary>
+        [WirePath("location")]
         public string Location { get; set; }
 
         /// <summary> The details of authorized partners. </summary>
+        [WirePath("properties.partnerAuthorization")]
         public PartnerAuthorization PartnerAuthorization
         {
             get
@@ -69,6 +73,7 @@ namespace Azure.ResourceManager.EventGrid
         }
 
         /// <summary> Provisioning state of the partner configuration. </summary>
+        [WirePath("properties.provisioningState")]
         public PartnerConfigurationProvisioningState? ProvisioningState
         {
             get

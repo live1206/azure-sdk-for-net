@@ -7,6 +7,7 @@
 
 using System;
 using System.Collections.Generic;
+using Azure.ResourceManager.EventGrid;
 
 namespace Azure.ResourceManager.EventGrid.Models
 {
@@ -35,12 +36,15 @@ namespace Azure.ResourceManager.EventGrid.Models
         }
 
         /// <summary> Arm id for network security perimeter. </summary>
+        [WirePath("id")]
         public string Id { get; }
 
         /// <summary> Network security perimeter guid. </summary>
+        [WirePath("perimeterGuid")]
         public string PerimeterGuid { get; }
 
         /// <summary> Network security perimeter location. </summary>
+        [WirePath("location")]
         public string Location { get; }
     }
 }

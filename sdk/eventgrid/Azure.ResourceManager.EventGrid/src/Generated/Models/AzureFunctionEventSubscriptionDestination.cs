@@ -8,6 +8,7 @@
 using System;
 using System.Collections.Generic;
 using Azure.Core;
+using Azure.ResourceManager.EventGrid;
 
 namespace Azure.ResourceManager.EventGrid.Models
 {
@@ -29,9 +30,11 @@ namespace Azure.ResourceManager.EventGrid.Models
         }
 
         /// <summary> Azure Function Properties of the event subscription destination. </summary>
+        [WirePath("properties")]
         internal AzureFunctionEventSubscriptionDestinationProperties Properties { get; set; }
 
         /// <summary> The Azure Resource Id that represents the endpoint of the Azure Function destination of an event subscription. </summary>
+        [WirePath("properties.resourceId")]
         public ResourceIdentifier ResourceId
         {
             get
@@ -49,6 +52,7 @@ namespace Azure.ResourceManager.EventGrid.Models
         }
 
         /// <summary> Maximum number of events per batch. </summary>
+        [WirePath("properties.maxEventsPerBatch")]
         public int? MaxEventsPerBatch
         {
             get
@@ -66,6 +70,7 @@ namespace Azure.ResourceManager.EventGrid.Models
         }
 
         /// <summary> Preferred batch size in Kilobytes. </summary>
+        [WirePath("properties.preferredBatchSizeInKilobytes")]
         public int? PreferredBatchSizeInKilobytes
         {
             get
@@ -83,6 +88,7 @@ namespace Azure.ResourceManager.EventGrid.Models
         }
 
         /// <summary> Delivery attribute details. </summary>
+        [WirePath("properties.deliveryAttributeMappings")]
         public IList<DeliveryAttributeMapping> DeliveryAttributeMappings
         {
             get

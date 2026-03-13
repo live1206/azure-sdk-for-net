@@ -37,9 +37,11 @@ namespace Azure.ResourceManager.EventGrid.Models
         }
 
         /// <summary> The Namespace items on this page. </summary>
+        [WirePath("value")]
         public IList<EventGridNamespaceData> Value { get; }
 
         /// <summary> The link to the next page of items. </summary>
+        [WirePath("nextLink")]
         public Uri NextLink { get; }
     }
 }

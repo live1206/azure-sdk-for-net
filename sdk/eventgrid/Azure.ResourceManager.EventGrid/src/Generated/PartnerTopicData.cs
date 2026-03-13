@@ -35,7 +35,7 @@ namespace Azure.ResourceManager.EventGrid
         /// <param name="location"> The geo-location where the resource lives. </param>
         /// <param name="properties"> Properties of the Partner Topic. </param>
         /// <param name="identity"> Identity information for the Partner Topic resource. </param>
-        internal PartnerTopicData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, IDictionary<string, BinaryData> additionalBinaryDataProperties, IDictionary<string, string> tags, AzureLocation location, PartnerTopicProperties properties, IdentityInfo identity) : base(id, name, resourceType, systemData, tags, location)
+        internal PartnerTopicData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, IDictionary<string, BinaryData> additionalBinaryDataProperties, IDictionary<string, string> tags, AzureLocation location, PartnerTopicProperties properties, ManagedServiceIdentity identity) : base(id, name, resourceType, systemData, tags, location)
         {
             _additionalBinaryDataProperties = additionalBinaryDataProperties;
             Properties = properties;
@@ -43,13 +43,16 @@ namespace Azure.ResourceManager.EventGrid
         }
 
         /// <summary> Properties of the Partner Topic. </summary>
+        [WirePath("properties")]
         internal PartnerTopicProperties Properties { get; set; }
 
         /// <summary> Identity information for the Partner Topic resource. </summary>
-        public IdentityInfo Identity { get; set; }
+        [WirePath("identity")]
+        public ManagedServiceIdentity Identity { get; set; }
 
         /// <summary> The immutableId of the corresponding partner registration. </summary>
-        public string PartnerRegistrationImmutableId
+        [WirePath("properties.partnerRegistrationImmutableId")]
+        public Guid? PartnerRegistrationImmutableId
         {
             get
             {
@@ -61,11 +64,12 @@ namespace Azure.ResourceManager.EventGrid
                 {
                     Properties = new PartnerTopicProperties();
                 }
-                Properties.PartnerRegistrationImmutableId = value;
+                Properties.PartnerRegistrationImmutableId = value.Value;
             }
         }
 
         /// <summary> Source associated with this partner topic. This represents a unique partner resource. </summary>
+        [WirePath("properties.source")]
         public string Source
         {
             get
@@ -83,6 +87,7 @@ namespace Azure.ResourceManager.EventGrid
         }
 
         /// <summary> Event Type information from the corresponding event channel. </summary>
+        [WirePath("properties.eventTypeInfo")]
         public PartnerTopicEventTypeInfo EventTypeInfo
         {
             get
@@ -103,11 +108,12 @@ namespace Azure.ResourceManager.EventGrid
         /// Expiration time of the partner topic. If this timer expires while the partner topic is still never activated,
         /// the partner topic and corresponding event channel are deleted.
         /// </summary>
-        public DateTimeOffset? ExpirationTimeIfNotActivatedUtc
+        [WirePath("properties.expirationTimeIfNotActivatedUtc")]
+        public DateTimeOffset? ExpireOnIfNotActivated
         {
             get
             {
-                return Properties is null ? default : Properties.ExpirationTimeIfNotActivatedUtc;
+                return Properties is null ? default : Properties.ExpireOnIfNotActivated;
             }
             set
             {
@@ -115,11 +121,12 @@ namespace Azure.ResourceManager.EventGrid
                 {
                     Properties = new PartnerTopicProperties();
                 }
-                Properties.ExpirationTimeIfNotActivatedUtc = value.Value;
+                Properties.ExpireOnIfNotActivated = value.Value;
             }
         }
 
         /// <summary> Provisioning state of the partner topic. </summary>
+        [WirePath("properties.provisioningState")]
         public PartnerTopicProvisioningState? ProvisioningState
         {
             get
@@ -129,6 +136,7 @@ namespace Azure.ResourceManager.EventGrid
         }
 
         /// <summary> Activation state of the partner topic. </summary>
+        [WirePath("properties.activationState")]
         public PartnerTopicActivationState? ActivationState
         {
             get
@@ -149,6 +157,7 @@ namespace Azure.ResourceManager.EventGrid
         /// Friendly description about the topic. This can be set by the publisher/partner to show custom description for the customer partner topic.
         /// This will be helpful to remove any ambiguity of the origin of creation of the partner topic for the customer.
         /// </summary>
+        [WirePath("properties.partnerTopicFriendlyDescription")]
         public string PartnerTopicFriendlyDescription
         {
             get
@@ -166,6 +175,7 @@ namespace Azure.ResourceManager.EventGrid
         }
 
         /// <summary> Context or helpful message that can be used during the approval process by the subscriber. </summary>
+        [WirePath("properties.messageForActivation")]
         public string MessageForActivation
         {
             get

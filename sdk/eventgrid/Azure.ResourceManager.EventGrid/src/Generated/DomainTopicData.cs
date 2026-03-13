@@ -20,7 +20,7 @@ namespace Azure.ResourceManager.EventGrid
         private protected readonly IDictionary<string, BinaryData> _additionalBinaryDataProperties;
 
         /// <summary> Initializes a new instance of <see cref="DomainTopicData"/>. </summary>
-        internal DomainTopicData()
+        public DomainTopicData()
         {
         }
 
@@ -38,9 +38,11 @@ namespace Azure.ResourceManager.EventGrid
         }
 
         /// <summary> Properties of the Domain Topic. </summary>
+        [WirePath("properties")]
         internal DomainTopicProperties Properties { get; }
 
         /// <summary> Provisioning state of the domain topic. </summary>
+        [WirePath("properties.provisioningState")]
         public DomainTopicProvisioningState? ProvisioningState
         {
             get

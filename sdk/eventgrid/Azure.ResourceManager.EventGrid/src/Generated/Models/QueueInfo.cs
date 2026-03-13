@@ -7,6 +7,7 @@
 
 using System;
 using System.Collections.Generic;
+using Azure.ResourceManager.EventGrid;
 
 namespace Azure.ResourceManager.EventGrid.Models
 {
@@ -55,15 +56,18 @@ namespace Azure.ResourceManager.EventGrid.Models
         /// If this time elapsed after a message has been received by the client and not transitioned into accepted (not processed), released or rejected,
         /// the message is available for redelivery. This is an optional field, where default is 60 seconds, minimum is 60 seconds and maximum is 300 seconds.
         /// </summary>
+        [WirePath("receiveLockDurationInSeconds")]
         public int? ReceiveLockDurationInSeconds { get; set; }
 
         /// <summary> The maximum delivery count of the events. </summary>
+        [WirePath("maxDeliveryCount")]
         public int? MaxDeliveryCount { get; set; }
 
         /// <summary>
         /// The dead letter destination of the event subscription. Any event that cannot be delivered to its' destination is sent to the dead letter destination.
         /// Uses the managed identity setup on the parent resource (namely, topic) to acquire the authentication tokens being used during delivery / dead-lettering.
         /// </summary>
+        [WirePath("deadLetterDestinationWithResourceIdentity")]
         public DeadLetterWithResourceIdentity DeadLetterDestinationWithResourceIdentity { get; set; }
 
         /// <summary>
@@ -74,6 +78,7 @@ namespace Azure.ResourceManager.EventGrid.Models
         /// by topic’s EventRetentionInDays value. The followings are examples of valid values:
         /// <list type="bullet"><item><description>\'P0DT23H12M\' or \'PT23H12M\': for duration of 23 hours and 12 minutes.</description></item><item><description>\'P1D\' or \'P1DT0H0M0S\': for duration of 1 day.</description></item></list>
         /// </summary>
+        [WirePath("eventTimeToLive")]
         public TimeSpan? EventTimeToLive { get; set; }
     }
 }

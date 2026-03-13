@@ -7,6 +7,7 @@
 
 using System;
 using System.Collections.Generic;
+using Azure.ResourceManager.EventGrid;
 
 namespace Azure.ResourceManager.EventGrid.Models
 {
@@ -33,9 +34,11 @@ namespace Azure.ResourceManager.EventGrid.Models
         }
 
         /// <summary> Association name. </summary>
+        [WirePath("name")]
         public string Name { get; }
 
         /// <summary> Network security perimeter access mode. </summary>
+        [WirePath("accessMode")]
         public NetworkSecurityPerimeterAssociationAccessMode? AccessMode { get; }
     }
 }

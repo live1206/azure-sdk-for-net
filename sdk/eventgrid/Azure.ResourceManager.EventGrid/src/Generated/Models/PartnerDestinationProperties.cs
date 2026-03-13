@@ -7,6 +7,7 @@
 
 using System;
 using System.Collections.Generic;
+using Azure.ResourceManager.EventGrid;
 
 namespace Azure.ResourceManager.EventGrid.Models
 {
@@ -33,7 +34,7 @@ namespace Azure.ResourceManager.EventGrid.Models
         /// <param name="endpointBaseUri"> Endpoint Base URL of the partner destination. </param>
         /// <param name="messageForActivation"> Context or helpful message that can be used during the approval process. </param>
         /// <param name="additionalBinaryDataProperties"> Keeps track of any properties unknown to the library. </param>
-        internal PartnerDestinationProperties(string partnerRegistrationImmutableId, string endpointServiceContext, DateTimeOffset? expirationTimeIfNotActivatedUtc, PartnerDestinationProvisioningState? provisioningState, PartnerDestinationActivationState? activationState, Uri endpointBaseUri, string messageForActivation, IDictionary<string, BinaryData> additionalBinaryDataProperties)
+        internal PartnerDestinationProperties(Guid? partnerRegistrationImmutableId, string endpointServiceContext, DateTimeOffset? expirationTimeIfNotActivatedUtc, PartnerDestinationProvisioningState? provisioningState, PartnerDestinationActivationState? activationState, Uri endpointBaseUri, string messageForActivation, IDictionary<string, BinaryData> additionalBinaryDataProperties)
         {
             PartnerRegistrationImmutableId = partnerRegistrationImmutableId;
             EndpointServiceContext = endpointServiceContext;
@@ -46,27 +47,34 @@ namespace Azure.ResourceManager.EventGrid.Models
         }
 
         /// <summary> The immutable Id of the corresponding partner registration. </summary>
-        public string PartnerRegistrationImmutableId { get; set; }
+        [WirePath("partnerRegistrationImmutableId")]
+        public Guid? PartnerRegistrationImmutableId { get; set; }
 
         /// <summary> Endpoint context associated with this partner destination. </summary>
+        [WirePath("endpointServiceContext")]
         public string EndpointServiceContext { get; set; }
 
         /// <summary>
         /// Expiration time of the partner destination. If this timer expires and the partner destination was never activated,
         /// the partner destination and corresponding channel are deleted.
         /// </summary>
+        [WirePath("expirationTimeIfNotActivatedUtc")]
         public DateTimeOffset? ExpirationTimeIfNotActivatedUtc { get; set; }
 
         /// <summary> Provisioning state of the partner destination. </summary>
+        [WirePath("provisioningState")]
         public PartnerDestinationProvisioningState? ProvisioningState { get; }
 
         /// <summary> Activation state of the partner destination. </summary>
+        [WirePath("activationState")]
         public PartnerDestinationActivationState? ActivationState { get; set; }
 
         /// <summary> Endpoint Base URL of the partner destination. </summary>
+        [WirePath("endpointBaseUrl")]
         public Uri EndpointBaseUri { get; set; }
 
         /// <summary> Context or helpful message that can be used during the approval process. </summary>
+        [WirePath("messageForActivation")]
         public string MessageForActivation { get; set; }
     }
 }

@@ -20,7 +20,7 @@ namespace Azure.ResourceManager.EventGrid.Models
 
         /// <summary> Initializes a new instance of <see cref="ClientGroupsListResult"/>. </summary>
         /// <param name="value"> The ClientGroup items on this page. </param>
-        internal ClientGroupsListResult(IEnumerable<ClientGroupData> value)
+        internal ClientGroupsListResult(IEnumerable<EventGridNamespaceClientGroupData> value)
         {
             Value = value.ToList();
         }
@@ -29,7 +29,7 @@ namespace Azure.ResourceManager.EventGrid.Models
         /// <param name="value"> The ClientGroup items on this page. </param>
         /// <param name="nextLink"> The link to the next page of items. </param>
         /// <param name="additionalBinaryDataProperties"> Keeps track of any properties unknown to the library. </param>
-        internal ClientGroupsListResult(IList<ClientGroupData> value, Uri nextLink, IDictionary<string, BinaryData> additionalBinaryDataProperties)
+        internal ClientGroupsListResult(IList<EventGridNamespaceClientGroupData> value, Uri nextLink, IDictionary<string, BinaryData> additionalBinaryDataProperties)
         {
             Value = value;
             NextLink = nextLink;
@@ -37,9 +37,11 @@ namespace Azure.ResourceManager.EventGrid.Models
         }
 
         /// <summary> The ClientGroup items on this page. </summary>
-        public IList<ClientGroupData> Value { get; }
+        [WirePath("value")]
+        public IList<EventGridNamespaceClientGroupData> Value { get; }
 
         /// <summary> The link to the next page of items. </summary>
+        [WirePath("nextLink")]
         public Uri NextLink { get; }
     }
 }

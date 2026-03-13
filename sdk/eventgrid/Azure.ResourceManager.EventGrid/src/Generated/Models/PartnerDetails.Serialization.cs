@@ -87,7 +87,7 @@ namespace Azure.ResourceManager.EventGrid.Models
             if (Optional.IsDefined(SetupUri))
             {
                 writer.WritePropertyName("setupUri"u8);
-                writer.WriteStringValue(SetupUri);
+                writer.WriteStringValue(SetupUri.AbsoluteUri);
             }
             if (options.Format != "W" && _additionalBinaryDataProperties != null)
             {
@@ -133,7 +133,7 @@ namespace Azure.ResourceManager.EventGrid.Models
             }
             string description = default;
             string longDescription = default;
-            string setupUri = default;
+            Uri setupUri = default;
             IDictionary<string, BinaryData> additionalBinaryDataProperties = new ChangeTrackingDictionary<string, BinaryData>();
             foreach (var prop in element.EnumerateObject())
             {
@@ -149,7 +149,11 @@ namespace Azure.ResourceManager.EventGrid.Models
                 }
                 if (prop.NameEquals("setupUri"u8))
                 {
-                    setupUri = prop.Value.GetString();
+                    if (prop.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    setupUri = string.IsNullOrEmpty(prop.Value.GetString()) ? null : new Uri(prop.Value.GetString(), UriKind.RelativeOrAbsolute);
                     continue;
                 }
                 if (options.Format != "W")

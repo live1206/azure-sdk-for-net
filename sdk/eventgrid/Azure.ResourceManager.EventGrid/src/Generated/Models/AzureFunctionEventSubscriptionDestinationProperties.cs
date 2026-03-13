@@ -40,15 +40,19 @@ namespace Azure.ResourceManager.EventGrid.Models
         }
 
         /// <summary> The Azure Resource Id that represents the endpoint of the Azure Function destination of an event subscription. </summary>
+        [WirePath("resourceId")]
         public ResourceIdentifier ResourceId { get; set; }
 
         /// <summary> Maximum number of events per batch. </summary>
+        [WirePath("maxEventsPerBatch")]
         public int? MaxEventsPerBatch { get; set; }
 
         /// <summary> Preferred batch size in Kilobytes. </summary>
+        [WirePath("preferredBatchSizeInKilobytes")]
         public int? PreferredBatchSizeInKilobytes { get; set; }
 
         /// <summary> Delivery attribute details. </summary>
+        [WirePath("deliveryAttributeMappings")]
         public IList<DeliveryAttributeMapping> DeliveryAttributeMappings { get; } = new ChangeTrackingList<DeliveryAttributeMapping>();
     }
 }

@@ -10,6 +10,8 @@
 
 ### Other Changes
 
+- Migrated from AutoRest to TypeSpec-based code generation.
+
 ## 1.2.0-beta.2 (2025-09-03)
 
 ### Features Added

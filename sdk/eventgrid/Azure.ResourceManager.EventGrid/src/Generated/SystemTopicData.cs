@@ -35,7 +35,7 @@ namespace Azure.ResourceManager.EventGrid
         /// <param name="location"> The geo-location where the resource lives. </param>
         /// <param name="properties"> Properties of the system topic. </param>
         /// <param name="identity"> Identity information for the resource. </param>
-        internal SystemTopicData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, IDictionary<string, BinaryData> additionalBinaryDataProperties, IDictionary<string, string> tags, AzureLocation location, SystemTopicProperties properties, IdentityInfo identity) : base(id, name, resourceType, systemData, tags, location)
+        internal SystemTopicData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, IDictionary<string, BinaryData> additionalBinaryDataProperties, IDictionary<string, string> tags, AzureLocation location, SystemTopicProperties properties, ManagedServiceIdentity identity) : base(id, name, resourceType, systemData, tags, location)
         {
             _additionalBinaryDataProperties = additionalBinaryDataProperties;
             Properties = properties;
@@ -43,12 +43,15 @@ namespace Azure.ResourceManager.EventGrid
         }
 
         /// <summary> Properties of the system topic. </summary>
+        [WirePath("properties")]
         internal SystemTopicProperties Properties { get; set; }
 
         /// <summary> Identity information for the resource. </summary>
-        public IdentityInfo Identity { get; set; }
+        [WirePath("identity")]
+        public ManagedServiceIdentity Identity { get; set; }
 
         /// <summary> Provisioning state of the system topic. </summary>
+        [WirePath("properties.provisioningState")]
         public EventGridResourceProvisioningState? ProvisioningState
         {
             get
@@ -58,7 +61,8 @@ namespace Azure.ResourceManager.EventGrid
         }
 
         /// <summary> Source for the system topic. </summary>
-        public string Source
+        [WirePath("properties.source")]
+        public ResourceIdentifier Source
         {
             get
             {
@@ -75,6 +79,7 @@ namespace Azure.ResourceManager.EventGrid
         }
 
         /// <summary> TopicType for the system topic. </summary>
+        [WirePath("properties.topicType")]
         public string TopicType
         {
             get
@@ -92,7 +97,8 @@ namespace Azure.ResourceManager.EventGrid
         }
 
         /// <summary> Metric resource id for the system topic. </summary>
-        public string MetricResourceId
+        [WirePath("properties.metricResourceId")]
+        public Guid? MetricResourceId
         {
             get
             {
@@ -101,6 +107,7 @@ namespace Azure.ResourceManager.EventGrid
         }
 
         /// <summary> List of all customer-managed key encryption properties for the resource. However only one key is supported at a time. </summary>
+        [WirePath("properties.encryption.customerManagedKeyEncryption")]
         public IList<CustomerManagedKeyEncryption> CustomerManagedKeyEncryption
         {
             get
@@ -119,6 +126,7 @@ namespace Azure.ResourceManager.EventGrid
         /// This is an immutable property set at the time of resource creation and cannot be modified later.
         /// Enabling this property ensures that messages are processed and stored in a Azure Confidential Compute environment.
         /// </summary>
+        [WirePath("properties.platformCapabilities.confidentialCompute.mode")]
         public ConfidentialComputeMode? PlatformCapabilitiesConfidentialComputeMode
         {
             get

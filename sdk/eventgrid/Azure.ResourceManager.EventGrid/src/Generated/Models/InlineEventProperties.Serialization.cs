@@ -87,12 +87,12 @@ namespace Azure.ResourceManager.EventGrid.Models
             if (Optional.IsDefined(DocumentationUri))
             {
                 writer.WritePropertyName("documentationUrl"u8);
-                writer.WriteStringValue(DocumentationUri);
+                writer.WriteStringValue(DocumentationUri.AbsoluteUri);
             }
             if (Optional.IsDefined(DataSchemaUri))
             {
                 writer.WritePropertyName("dataSchemaUrl"u8);
-                writer.WriteStringValue(DataSchemaUri);
+                writer.WriteStringValue(DataSchemaUri.AbsoluteUri);
             }
             if (options.Format != "W" && _additionalBinaryDataProperties != null)
             {
@@ -138,8 +138,8 @@ namespace Azure.ResourceManager.EventGrid.Models
             }
             string description = default;
             string displayName = default;
-            string documentationUri = default;
-            string dataSchemaUri = default;
+            Uri documentationUri = default;
+            Uri dataSchemaUri = default;
             IDictionary<string, BinaryData> additionalBinaryDataProperties = new ChangeTrackingDictionary<string, BinaryData>();
             foreach (var prop in element.EnumerateObject())
             {
@@ -155,12 +155,20 @@ namespace Azure.ResourceManager.EventGrid.Models
                 }
                 if (prop.NameEquals("documentationUrl"u8))
                 {
-                    documentationUri = prop.Value.GetString();
+                    if (prop.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    documentationUri = string.IsNullOrEmpty(prop.Value.GetString()) ? null : new Uri(prop.Value.GetString(), UriKind.RelativeOrAbsolute);
                     continue;
                 }
                 if (prop.NameEquals("dataSchemaUrl"u8))
                 {
-                    dataSchemaUri = prop.Value.GetString();
+                    if (prop.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    dataSchemaUri = string.IsNullOrEmpty(prop.Value.GetString()) ? null : new Uri(prop.Value.GetString(), UriKind.RelativeOrAbsolute);
                     continue;
                 }
                 if (options.Format != "W")

@@ -7,6 +7,7 @@
 
 using System;
 using System.Collections.Generic;
+using Azure.ResourceManager.EventGrid;
 
 namespace Azure.ResourceManager.EventGrid.Models
 {
@@ -31,17 +32,19 @@ namespace Azure.ResourceManager.EventGrid.Models
         }
 
         /// <summary> Properties of the channel update parameters. </summary>
+        [WirePath("properties")]
         internal ChannelUpdateParametersProperties Properties { get; set; }
 
         /// <summary>
         /// Expiration time of the channel. If this timer expires while the corresponding partner topic or partner destination is never activated,
         /// the channel and corresponding partner topic or partner destination are deleted.
         /// </summary>
-        public DateTimeOffset? ExpirationTimeIfNotActivatedUtc
+        [WirePath("properties.expirationTimeIfNotActivatedUtc")]
+        public DateTimeOffset? ExpireOnIfNotActivated
         {
             get
             {
-                return Properties is null ? default : Properties.ExpirationTimeIfNotActivatedUtc;
+                return Properties is null ? default : Properties.ExpireOnIfNotActivated;
             }
             set
             {
@@ -49,11 +52,12 @@ namespace Azure.ResourceManager.EventGrid.Models
                 {
                     Properties = new ChannelUpdateParametersProperties();
                 }
-                Properties.ExpirationTimeIfNotActivatedUtc = value.Value;
+                Properties.ExpireOnIfNotActivated = value.Value;
             }
         }
 
         /// <summary> Partner destination properties which can be updated if the channel is of type PartnerDestination. </summary>
+        [WirePath("properties.partnerDestinationInfo")]
         public PartnerUpdateDestinationInfo PartnerDestinationInfo
         {
             get
@@ -71,6 +75,7 @@ namespace Azure.ResourceManager.EventGrid.Models
         }
 
         /// <summary> Event type info for the partner topic. </summary>
+        [WirePath("properties.partnerTopicInfo.eventTypeInfo")]
         public PartnerTopicEventTypeInfo EventTypeInfo
         {
             get

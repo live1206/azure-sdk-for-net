@@ -38,12 +38,15 @@ namespace Azure.ResourceManager.EventGrid.Models
         }
 
         /// <summary> Expected JWT token issuer. </summary>
+        [WirePath("tokenIssuer")]
         public string TokenIssuer { get; set; }
 
         /// <summary> Information about the certificates that are used for token validation. We currently support maximum 2 certificates. </summary>
+        [WirePath("issuerCertificates")]
         public IList<IssuerCertificateInfo> IssuerCertificates { get; }
 
         /// <summary> Information about the encoded public certificates that are used for custom authentication. </summary>
+        [WirePath("encodedIssuerCertificates")]
         public IList<EncodedIssuerCertificateInfo> EncodedIssuerCertificates { get; }
     }
 }

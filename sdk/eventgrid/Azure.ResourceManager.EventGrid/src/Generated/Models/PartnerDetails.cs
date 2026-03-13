@@ -7,6 +7,7 @@
 
 using System;
 using System.Collections.Generic;
+using Azure.ResourceManager.EventGrid;
 
 namespace Azure.ResourceManager.EventGrid.Models
 {
@@ -17,7 +18,7 @@ namespace Azure.ResourceManager.EventGrid.Models
         private protected readonly IDictionary<string, BinaryData> _additionalBinaryDataProperties;
 
         /// <summary> Initializes a new instance of <see cref="PartnerDetails"/>. </summary>
-        internal PartnerDetails()
+        public PartnerDetails()
         {
         }
 
@@ -29,7 +30,7 @@ namespace Azure.ResourceManager.EventGrid.Models
         /// integration on an event source.
         /// </param>
         /// <param name="additionalBinaryDataProperties"> Keeps track of any properties unknown to the library. </param>
-        internal PartnerDetails(string description, string longDescription, string setupUri, IDictionary<string, BinaryData> additionalBinaryDataProperties)
+        internal PartnerDetails(string description, string longDescription, Uri setupUri, IDictionary<string, BinaryData> additionalBinaryDataProperties)
         {
             Description = description;
             LongDescription = longDescription;
@@ -38,15 +39,18 @@ namespace Azure.ResourceManager.EventGrid.Models
         }
 
         /// <summary> This is short description about the partner. The length of this description should not exceed 256 characters. </summary>
-        public string Description { get; }
+        [WirePath("description")]
+        public string Description { get; set; }
 
         /// <summary> Long description for the partner's scenarios and integration.Length of this description should not exceed 2048 characters. </summary>
-        public string LongDescription { get; }
+        [WirePath("longDescription")]
+        public string LongDescription { get; set; }
 
         /// <summary>
         /// URI of the partner website that can be used by Azure customers to setup Event Grid
         /// integration on an event source.
         /// </summary>
-        public string SetupUri { get; }
+        [WirePath("setupUri")]
+        public Uri SetupUri { get; set; }
     }
 }

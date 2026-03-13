@@ -7,6 +7,7 @@
 
 using System;
 using System.Collections.Generic;
+using Azure.ResourceManager.EventGrid;
 
 namespace Azure.ResourceManager.EventGrid.Models
 {
@@ -28,9 +29,11 @@ namespace Azure.ResourceManager.EventGrid.Models
         }
 
         /// <summary> Partner Destination Properties of the event subscription destination. </summary>
+        [WirePath("properties")]
         internal PartnerEventSubscriptionDestinationProperties Properties { get; set; }
 
         /// <summary> The Azure Resource Id that represents the endpoint of a Partner Destination of an event subscription. </summary>
+        [WirePath("properties.resourceId")]
         public string ResourceId
         {
             get

@@ -7,6 +7,7 @@
 
 using System;
 using System.Collections.Generic;
+using Azure.ResourceManager.EventGrid;
 
 namespace Azure.ResourceManager.EventGrid.Models
 {
@@ -17,7 +18,7 @@ namespace Azure.ResourceManager.EventGrid.Models
         private protected readonly IDictionary<string, BinaryData> _additionalBinaryDataProperties;
 
         /// <summary> Initializes a new instance of <see cref="VerifiedPartnerProperties"/>. </summary>
-        internal VerifiedPartnerProperties()
+        public VerifiedPartnerProperties()
         {
         }
 
@@ -29,7 +30,7 @@ namespace Azure.ResourceManager.EventGrid.Models
         /// <param name="partnerDestinationDetails"> Details of the partner destination scenario. </param>
         /// <param name="provisioningState"> Provisioning state of the verified partner. </param>
         /// <param name="additionalBinaryDataProperties"> Keeps track of any properties unknown to the library. </param>
-        internal VerifiedPartnerProperties(string partnerRegistrationImmutableId, string organizationName, string partnerDisplayName, PartnerDetails partnerTopicDetails, PartnerDetails partnerDestinationDetails, VerifiedPartnerProvisioningState? provisioningState, IDictionary<string, BinaryData> additionalBinaryDataProperties)
+        internal VerifiedPartnerProperties(Guid? partnerRegistrationImmutableId, string organizationName, string partnerDisplayName, PartnerDetails partnerTopicDetails, PartnerDetails partnerDestinationDetails, VerifiedPartnerProvisioningState? provisioningState, IDictionary<string, BinaryData> additionalBinaryDataProperties)
         {
             PartnerRegistrationImmutableId = partnerRegistrationImmutableId;
             OrganizationName = organizationName;
@@ -41,21 +42,27 @@ namespace Azure.ResourceManager.EventGrid.Models
         }
 
         /// <summary> ImmutableId of the corresponding partner registration. </summary>
-        public string PartnerRegistrationImmutableId { get; }
+        [WirePath("partnerRegistrationImmutableId")]
+        public Guid? PartnerRegistrationImmutableId { get; set; }
 
         /// <summary> Official name of the Partner. </summary>
-        public string OrganizationName { get; }
+        [WirePath("organizationName")]
+        public string OrganizationName { get; set; }
 
         /// <summary> Display name of the verified partner. </summary>
-        public string PartnerDisplayName { get; }
+        [WirePath("partnerDisplayName")]
+        public string PartnerDisplayName { get; set; }
 
         /// <summary> Details of the partner topic scenario. </summary>
-        public PartnerDetails PartnerTopicDetails { get; }
+        [WirePath("partnerTopicDetails")]
+        public PartnerDetails PartnerTopicDetails { get; set; }
 
         /// <summary> Details of the partner destination scenario. </summary>
-        public PartnerDetails PartnerDestinationDetails { get; }
+        [WirePath("partnerDestinationDetails")]
+        public PartnerDetails PartnerDestinationDetails { get; set; }
 
         /// <summary> Provisioning state of the verified partner. </summary>
-        public VerifiedPartnerProvisioningState? ProvisioningState { get; }
+        [WirePath("provisioningState")]
+        public VerifiedPartnerProvisioningState? ProvisioningState { get; set; }
     }
 }

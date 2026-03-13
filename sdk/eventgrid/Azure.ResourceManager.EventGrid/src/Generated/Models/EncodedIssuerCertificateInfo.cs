@@ -42,9 +42,11 @@ namespace Azure.ResourceManager.EventGrid.Models
         }
 
         /// <summary> Identifier for the certificate. </summary>
+        [WirePath("kid")]
         public string Kid { get; set; }
 
         /// <summary> Certificate in pem format. </summary>
+        [WirePath("encodedCertificate")]
         public string EncodedCertificate { get; set; }
     }
 }

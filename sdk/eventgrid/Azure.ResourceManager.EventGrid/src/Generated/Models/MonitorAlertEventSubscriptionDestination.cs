@@ -8,6 +8,7 @@
 using System;
 using System.Collections.Generic;
 using Azure.Core;
+using Azure.ResourceManager.EventGrid;
 
 namespace Azure.ResourceManager.EventGrid.Models
 {
@@ -29,12 +30,14 @@ namespace Azure.ResourceManager.EventGrid.Models
         }
 
         /// <summary> Monitor Alert properties of the event subscription destination. </summary>
+        [WirePath("properties")]
         internal MonitorAlertEventSubscriptionDestinationProperties Properties { get; set; }
 
         /// <summary>
         /// The severity that will be attached to every Alert fired through this event subscription.
         /// This field must be provided.
         /// </summary>
+        [WirePath("properties.severity")]
         public MonitorAlertSeverity? Severity
         {
             get
@@ -52,6 +55,7 @@ namespace Azure.ResourceManager.EventGrid.Models
         }
 
         /// <summary> The description that will be attached to every Alert fired through this event subscription. </summary>
+        [WirePath("properties.description")]
         public string Description
         {
             get
@@ -72,6 +76,7 @@ namespace Azure.ResourceManager.EventGrid.Models
         /// The list of ARM Ids of Action Groups that will be triggered on every Alert fired through this event subscription.
         /// Each resource ARM Id should follow this pattern: /subscriptions/{AzureSubscriptionId}/resourceGroups/{ResourceGroupName}/providers/Microsoft.Insights/actionGroups/{ActionGroupName}.
         /// </summary>
+        [WirePath("properties.actionGroups")]
         public IList<ResourceIdentifier> ActionGroups
         {
             get

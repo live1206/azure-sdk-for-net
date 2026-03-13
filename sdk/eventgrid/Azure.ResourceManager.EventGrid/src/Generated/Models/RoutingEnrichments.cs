@@ -36,9 +36,11 @@ namespace Azure.ResourceManager.EventGrid.Models
         }
 
         /// <summary> Gets the Static. </summary>
+        [WirePath("static")]
         public IList<StaticRoutingEnrichment> Static { get; }
 
         /// <summary> Gets the Dynamic. </summary>
+        [WirePath("dynamic")]
         public IList<DynamicRoutingEnrichment> Dynamic { get; }
     }
 }

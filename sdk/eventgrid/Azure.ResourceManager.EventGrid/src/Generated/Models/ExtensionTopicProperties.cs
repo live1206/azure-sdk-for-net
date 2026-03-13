@@ -7,6 +7,7 @@
 
 using System;
 using System.Collections.Generic;
+using Azure.ResourceManager.EventGrid;
 
 namespace Azure.ResourceManager.EventGrid.Models
 {
@@ -17,7 +18,7 @@ namespace Azure.ResourceManager.EventGrid.Models
         private protected readonly IDictionary<string, BinaryData> _additionalBinaryDataProperties;
 
         /// <summary> Initializes a new instance of <see cref="ExtensionTopicProperties"/>. </summary>
-        internal ExtensionTopicProperties()
+        public ExtensionTopicProperties()
         {
         }
 
@@ -33,9 +34,11 @@ namespace Azure.ResourceManager.EventGrid.Models
         }
 
         /// <summary> Description of the extension topic. </summary>
-        public string Description { get; }
+        [WirePath("description")]
+        public string Description { get; set; }
 
         /// <summary> System topic resource id which is mapped to the source. </summary>
-        public string SystemTopic { get; }
+        [WirePath("systemTopic")]
+        public string SystemTopic { get; set; }
     }
 }

@@ -38,9 +38,11 @@ namespace Azure.ResourceManager.EventGrid
         }
 
         /// <summary> The properties of client. </summary>
+        [WirePath("properties")]
         internal ClientProperties Properties { get; set; }
 
         /// <summary> Description for the Client resource. </summary>
+        [WirePath("properties.description")]
         public string Description
         {
             get
@@ -58,6 +60,7 @@ namespace Azure.ResourceManager.EventGrid
         }
 
         /// <summary> The name presented by the client for authentication. The default value is the name of the resource. </summary>
+        [WirePath("properties.authenticationName")]
         public string AuthenticationName
         {
             get
@@ -75,6 +78,7 @@ namespace Azure.ResourceManager.EventGrid
         }
 
         /// <summary> The client certificate authentication information. </summary>
+        [WirePath("properties.clientCertificateAuthentication")]
         public ClientCertificateAuthentication ClientCertificateAuthentication
         {
             get
@@ -92,7 +96,8 @@ namespace Azure.ResourceManager.EventGrid
         }
 
         /// <summary> Indicates if the client is enabled or not. Default value is Enabled. </summary>
-        public ClientState? State
+        [WirePath("properties.state")]
+        public EventGridNamespaceClientState? State
         {
             get
             {
@@ -113,6 +118,7 @@ namespace Azure.ResourceManager.EventGrid
         /// Example:
         /// "attributes": { "room": "345", "floor": 12, "deviceTypes": ["Fan", "Light"] }
         /// </summary>
+        [WirePath("properties.attributes")]
         public IDictionary<string, BinaryData> Attributes
         {
             get
@@ -126,7 +132,8 @@ namespace Azure.ResourceManager.EventGrid
         }
 
         /// <summary> Provisioning state of the Client resource. </summary>
-        public ClientProvisioningState? ProvisioningState
+        [WirePath("properties.provisioningState")]
+        public EventGridNamespaceClientProvisioningState? ProvisioningState
         {
             get
             {

@@ -7,6 +7,8 @@
 
 using System;
 using System.Collections.Generic;
+using Azure.Core;
+using Azure.ResourceManager.EventGrid;
 
 namespace Azure.ResourceManager.EventGrid.Models
 {
@@ -29,7 +31,7 @@ namespace Azure.ResourceManager.EventGrid.Models
         /// <param name="encryption"> Key encryption configuration properties of the system topic resource. This is an optional property. When not specified, no key encryption is used. </param>
         /// <param name="platformCapabilities"> Represents the platform capabilities of the resource, including Azure Confidential Compute related properties. </param>
         /// <param name="additionalBinaryDataProperties"> Keeps track of any properties unknown to the library. </param>
-        internal SystemTopicProperties(EventGridResourceProvisioningState? provisioningState, string source, string topicType, string metricResourceId, KeyEncryption encryption, PlatformCapabilities platformCapabilities, IDictionary<string, BinaryData> additionalBinaryDataProperties)
+        internal SystemTopicProperties(EventGridResourceProvisioningState? provisioningState, ResourceIdentifier source, string topicType, Guid? metricResourceId, KeyEncryption encryption, PlatformCapabilities platformCapabilities, IDictionary<string, BinaryData> additionalBinaryDataProperties)
         {
             ProvisioningState = provisioningState;
             Source = source;
@@ -41,24 +43,31 @@ namespace Azure.ResourceManager.EventGrid.Models
         }
 
         /// <summary> Provisioning state of the system topic. </summary>
+        [WirePath("provisioningState")]
         public EventGridResourceProvisioningState? ProvisioningState { get; }
 
         /// <summary> Source for the system topic. </summary>
-        public string Source { get; set; }
+        [WirePath("source")]
+        public ResourceIdentifier Source { get; set; }
 
         /// <summary> TopicType for the system topic. </summary>
+        [WirePath("topicType")]
         public string TopicType { get; set; }
 
         /// <summary> Metric resource id for the system topic. </summary>
-        public string MetricResourceId { get; }
+        [WirePath("metricResourceId")]
+        public Guid? MetricResourceId { get; }
 
         /// <summary> Key encryption configuration properties of the system topic resource. This is an optional property. When not specified, no key encryption is used. </summary>
+        [WirePath("encryption")]
         internal KeyEncryption Encryption { get; set; }
 
         /// <summary> Represents the platform capabilities of the resource, including Azure Confidential Compute related properties. </summary>
+        [WirePath("platformCapabilities")]
         internal PlatformCapabilities PlatformCapabilities { get; set; }
 
         /// <summary> List of all customer-managed key encryption properties for the resource. However only one key is supported at a time. </summary>
+        [WirePath("encryption.customerManagedKeyEncryption")]
         public IList<CustomerManagedKeyEncryption> CustomerManagedKeyEncryption
         {
             get
@@ -77,6 +86,7 @@ namespace Azure.ResourceManager.EventGrid.Models
         /// This is an immutable property set at the time of resource creation and cannot be modified later.
         /// Enabling this property ensures that messages are processed and stored in a Azure Confidential Compute environment.
         /// </summary>
+        [WirePath("platformCapabilities.confidentialCompute.mode")]
         public ConfidentialComputeMode? PlatformCapabilitiesConfidentialComputeMode
         {
             get

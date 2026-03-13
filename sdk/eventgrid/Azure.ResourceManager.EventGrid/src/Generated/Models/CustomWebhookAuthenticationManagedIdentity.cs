@@ -8,6 +8,7 @@
 using System;
 using System.Collections.Generic;
 using Azure.Core;
+using Azure.ResourceManager.EventGrid;
 
 namespace Azure.ResourceManager.EventGrid.Models
 {
@@ -36,9 +37,11 @@ namespace Azure.ResourceManager.EventGrid.Models
         }
 
         /// <summary> The type of managed identity used. Can be either 'SystemAssigned' or 'UserAssigned'. </summary>
+        [WirePath("type")]
         public CustomWebhookAuthenticationManagedIdentityType Type { get; set; }
 
         /// <summary> The user identity associated with the resource. </summary>
+        [WirePath("userAssignedIdentity")]
         public ResourceIdentifier UserAssignedIdentity { get; set; }
     }
 }

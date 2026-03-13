@@ -35,15 +35,18 @@ namespace Azure.ResourceManager.EventGrid.Models
         }
 
         /// <summary> Tags of the Partner Namespace. </summary>
+        [WirePath("tags")]
         public IDictionary<string, string> Tags { get; }
 
         /// <summary> Properties of the Partner Namespace. </summary>
+        [WirePath("properties")]
         internal PartnerNamespaceUpdateParameterProperties Properties { get; set; }
 
         /// <summary>
         /// This determines if traffic is allowed over public network. By default it is enabled.
         /// You can further restrict to specific IPs by configuring &lt;seealso cref="P:Microsoft.Azure.Events.ResourceProvider.Common.Contracts.PartnerNamespaceUpdateParameterProperties.InboundIpRules" /&gt;
         /// </summary>
+        [WirePath("properties.publicNetworkAccess")]
         public EventGridPublicNetworkAccess? PublicNetworkAccess
         {
             get
@@ -61,7 +64,8 @@ namespace Azure.ResourceManager.EventGrid.Models
         }
 
         /// <summary> This can be used to restrict traffic from specific IPs instead of all IPs. Note: These are considered only if PublicNetworkAccess is enabled. </summary>
-        public IList<EventGridInboundIPRule> InboundIpRules
+        [WirePath("properties.inboundIpRules")]
+        public IList<EventGridInboundIPRule> InboundIPRules
         {
             get
             {
@@ -69,11 +73,12 @@ namespace Azure.ResourceManager.EventGrid.Models
                 {
                     Properties = new PartnerNamespaceUpdateParameterProperties();
                 }
-                return Properties.InboundIpRules;
+                return Properties.InboundIPRules;
             }
         }
 
         /// <summary> Minimum TLS version of the publisher allowed to publish to this domain. </summary>
+        [WirePath("properties.minimumTlsVersionAllowed")]
         public TlsVersion? MinimumTlsVersionAllowed
         {
             get
@@ -91,11 +96,12 @@ namespace Azure.ResourceManager.EventGrid.Models
         }
 
         /// <summary> This boolean is used to enable or disable local auth. Default value is false. When the property is set to true, only Microsoft Entra ID token will be used to authenticate if user is allowed to publish to the partner namespace. </summary>
-        public bool? DisableLocalAuth
+        [WirePath("properties.disableLocalAuth")]
+        public bool? IsLocalAuthDisabled
         {
             get
             {
-                return Properties is null ? default : Properties.DisableLocalAuth;
+                return Properties is null ? default : Properties.IsLocalAuthDisabled;
             }
             set
             {
@@ -103,7 +109,7 @@ namespace Azure.ResourceManager.EventGrid.Models
                 {
                     Properties = new PartnerNamespaceUpdateParameterProperties();
                 }
-                Properties.DisableLocalAuth = value.Value;
+                Properties.IsLocalAuthDisabled = value.Value;
             }
         }
     }

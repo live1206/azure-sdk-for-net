@@ -7,6 +7,7 @@
 
 using System;
 using System.Collections.Generic;
+using Azure.ResourceManager.EventGrid;
 
 namespace Azure.ResourceManager.EventGrid.Models
 {
@@ -38,9 +39,11 @@ namespace Azure.ResourceManager.EventGrid.Models
         }
 
         /// <summary> Name of the delivery attribute or header. </summary>
+        [WirePath("name")]
         public string Name { get; set; }
 
         /// <summary> Type of the delivery attribute or header name. </summary>
+        [WirePath("type")]
         internal DeliveryAttributeMappingType Type { get; set; }
     }
 }

@@ -42,18 +42,23 @@ namespace Azure.ResourceManager.EventGrid.Models
         }
 
         /// <summary> Nsp configuration profile name. </summary>
+        [WirePath("name")]
         public string Name { get; }
 
         /// <summary> Access rules version number for nsp profile. </summary>
+        [WirePath("accessRulesVersion")]
         public string AccessRulesVersion { get; }
 
         /// <summary> List of inbound or outbound access rule setup on the nsp profile. </summary>
+        [WirePath("accessRules")]
         public IList<NetworkSecurityPerimeterProfileAccessRule> AccessRules { get; }
 
         /// <summary> Diagnostic settings version number for nsp profile. </summary>
+        [WirePath("diagnosticSettingsVersion")]
         public string DiagnosticSettingsVersion { get; }
 
         /// <summary> Enabled log categories for nsp profile. </summary>
+        [WirePath("enabledLogCategories")]
         public IList<string> EnabledLogCategories { get; }
     }
 }

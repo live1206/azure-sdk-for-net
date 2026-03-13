@@ -7,6 +7,7 @@
 
 using System;
 using System.Collections.Generic;
+using Azure.ResourceManager.EventGrid;
 
 namespace Azure.ResourceManager.EventGrid.Models
 {
@@ -33,9 +34,11 @@ namespace Azure.ResourceManager.EventGrid.Models
         }
 
         /// <summary> Fully qualified name of the extended location. </summary>
+        [WirePath("name")]
         public string Name { get; set; }
 
         /// <summary> Type of the extended location. </summary>
+        [WirePath("type")]
         public string Type { get; set; }
     }
 }

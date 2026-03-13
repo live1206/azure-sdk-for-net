@@ -167,9 +167,9 @@ namespace Azure.ResourceManager.EventGrid.Models
             string description = default;
             string authenticationName = default;
             ClientCertificateAuthentication clientCertificateAuthentication = default;
-            ClientState? state = default;
+            EventGridNamespaceClientState? state = default;
             IDictionary<string, BinaryData> attributes = default;
-            ClientProvisioningState? provisioningState = default;
+            EventGridNamespaceClientProvisioningState? provisioningState = default;
             IDictionary<string, BinaryData> additionalBinaryDataProperties = new ChangeTrackingDictionary<string, BinaryData>();
             foreach (var prop in element.EnumerateObject())
             {
@@ -198,7 +198,7 @@ namespace Azure.ResourceManager.EventGrid.Models
                     {
                         continue;
                     }
-                    state = new ClientState(prop.Value.GetString());
+                    state = new EventGridNamespaceClientState(prop.Value.GetString());
                     continue;
                 }
                 if (prop.NameEquals("attributes"u8))
@@ -228,7 +228,7 @@ namespace Azure.ResourceManager.EventGrid.Models
                     {
                         continue;
                     }
-                    provisioningState = new ClientProvisioningState(prop.Value.GetString());
+                    provisioningState = new EventGridNamespaceClientProvisioningState(prop.Value.GetString());
                     continue;
                 }
                 if (options.Format != "W")

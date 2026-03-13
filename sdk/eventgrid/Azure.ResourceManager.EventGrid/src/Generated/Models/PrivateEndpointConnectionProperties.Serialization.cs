@@ -148,7 +148,7 @@ namespace Azure.ResourceManager.EventGrid.Models
             }
             PrivateEndpoint privateEndpoint = default;
             IList<string> groupIds = default;
-            ConnectionState privateLinkServiceConnectionState = default;
+            EventGridPrivateEndpointConnectionState privateLinkServiceConnectionState = default;
             EventGridResourceProvisioningState? provisioningState = default;
             IDictionary<string, BinaryData> additionalBinaryDataProperties = new ChangeTrackingDictionary<string, BinaryData>();
             foreach (var prop in element.EnumerateObject())
@@ -189,7 +189,7 @@ namespace Azure.ResourceManager.EventGrid.Models
                     {
                         continue;
                     }
-                    privateLinkServiceConnectionState = ConnectionState.DeserializeConnectionState(prop.Value, options);
+                    privateLinkServiceConnectionState = EventGridPrivateEndpointConnectionState.DeserializeEventGridPrivateEndpointConnectionState(prop.Value, options);
                     continue;
                 }
                 if (prop.NameEquals("provisioningState"u8))

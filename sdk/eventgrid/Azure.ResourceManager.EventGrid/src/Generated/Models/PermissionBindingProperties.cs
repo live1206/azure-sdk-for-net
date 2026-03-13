@@ -7,6 +7,7 @@
 
 using System;
 using System.Collections.Generic;
+using Azure.ResourceManager.EventGrid;
 
 namespace Azure.ResourceManager.EventGrid.Models
 {
@@ -45,24 +46,29 @@ namespace Azure.ResourceManager.EventGrid.Models
         }
 
         /// <summary> Description for the Permission Binding resource. </summary>
+        [WirePath("description")]
         public string Description { get; set; }
 
         /// <summary>
         /// The name of the Topic Space resource that the permission is bound to.
         /// The Topic space needs to be a resource under the same namespace the permission binding is a part of.
         /// </summary>
+        [WirePath("topicSpaceName")]
         public string TopicSpaceName { get; set; }
 
         /// <summary> The allowed permission. </summary>
+        [WirePath("permission")]
         public PermissionType? Permission { get; set; }
 
         /// <summary>
         /// The name of the client group resource that the permission is bound to.
         /// The client group needs to be a resource under the same namespace the permission binding is a part of.
         /// </summary>
+        [WirePath("clientGroupName")]
         public string ClientGroupName { get; set; }
 
         /// <summary> Provisioning state of the PermissionBinding resource. </summary>
+        [WirePath("provisioningState")]
         public PermissionBindingProvisioningState? ProvisioningState { get; }
     }
 }

@@ -7,6 +7,7 @@
 
 using System;
 using System.Collections.Generic;
+using Azure.ResourceManager.EventGrid;
 
 namespace Azure.ResourceManager.EventGrid.Models
 {
@@ -22,28 +23,32 @@ namespace Azure.ResourceManager.EventGrid.Models
         }
 
         /// <summary> Initializes a new instance of <see cref="EventSubscriptionIdentity"/>. </summary>
-        /// <param name="type"> The type of managed identity used. Can be either 'SystemAssigned' or 'UserAssigned'. </param>
+        /// <param name="identityType"> The type of managed identity used. Can be either 'SystemAssigned' or 'UserAssigned'. </param>
         /// <param name="userAssignedIdentity"> The user identity associated with the resource. </param>
         /// <param name="federatedIdentityCredentialInfo"> The details of the Federated Identity Credential (FIC) used with the resource delivery. </param>
         /// <param name="additionalBinaryDataProperties"> Keeps track of any properties unknown to the library. </param>
-        internal EventSubscriptionIdentity(EventSubscriptionIdentityType? @type, string userAssignedIdentity, FederatedIdentityCredentialInfo federatedIdentityCredentialInfo, IDictionary<string, BinaryData> additionalBinaryDataProperties)
+        internal EventSubscriptionIdentity(EventSubscriptionIdentityType? identityType, string userAssignedIdentity, FederatedIdentityCredentialInfo federatedIdentityCredentialInfo, IDictionary<string, BinaryData> additionalBinaryDataProperties)
         {
-            Type = @type;
+            IdentityType = identityType;
             UserAssignedIdentity = userAssignedIdentity;
             FederatedIdentityCredentialInfo = federatedIdentityCredentialInfo;
             _additionalBinaryDataProperties = additionalBinaryDataProperties;
         }
 
         /// <summary> The type of managed identity used. Can be either 'SystemAssigned' or 'UserAssigned'. </summary>
-        public EventSubscriptionIdentityType? Type { get; set; }
+        [WirePath("type")]
+        public EventSubscriptionIdentityType? IdentityType { get; set; }
 
         /// <summary> The user identity associated with the resource. </summary>
+        [WirePath("userAssignedIdentity")]
         public string UserAssignedIdentity { get; set; }
 
         /// <summary> The details of the Federated Identity Credential (FIC) used with the resource delivery. </summary>
+        [WirePath("federatedIdentityCredentialInfo")]
         internal FederatedIdentityCredentialInfo FederatedIdentityCredentialInfo { get; set; }
 
         /// <summary> The Multi-Tenant Microsoft Entra ID Application where the Federated Identity Credential (FIC) is associated with. </summary>
+        [WirePath("federatedIdentityCredentialInfo.federatedClientId")]
         public string FederatedClientId
         {
             get

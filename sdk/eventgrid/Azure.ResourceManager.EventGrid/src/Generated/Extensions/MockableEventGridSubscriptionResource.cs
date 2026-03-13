@@ -16,7 +16,7 @@ using Azure.ResourceManager.Resources;
 
 namespace Azure.ResourceManager.EventGrid.Mocking
 {
-    /// <summary> A class to add extension methods to <see cref="Resources.SubscriptionResource"/>. </summary>
+    /// <summary> A class to add extension methods to <see cref="SubscriptionResource"/>. </summary>
     public partial class MockableEventGridSubscriptionResource : ArmResource
     {
         private ClientDiagnostics _namespacesClientDiagnostics;

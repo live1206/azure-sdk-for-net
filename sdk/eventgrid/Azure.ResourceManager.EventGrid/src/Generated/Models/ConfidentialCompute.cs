@@ -7,6 +7,7 @@
 
 using System;
 using System.Collections.Generic;
+using Azure.ResourceManager.EventGrid;
 
 namespace Azure.ResourceManager.EventGrid.Models
 {
@@ -48,6 +49,7 @@ namespace Azure.ResourceManager.EventGrid.Models
         /// This is an immutable property set at the time of resource creation and cannot be modified later.
         /// Enabling this property ensures that messages are processed and stored in a Azure Confidential Compute environment.
         /// </summary>
+        [WirePath("mode")]
         public ConfidentialComputeMode Mode { get; set; }
     }
 }

@@ -7,6 +7,7 @@
 
 using System;
 using System.Collections.Generic;
+using Azure.ResourceManager.EventGrid;
 
 namespace Azure.ResourceManager.EventGrid.Models
 {
@@ -29,9 +30,11 @@ namespace Azure.ResourceManager.EventGrid.Models
         }
 
         /// <summary> Properties of dynamic delivery attribute mapping. </summary>
+        [WirePath("properties")]
         internal DynamicDeliveryAttributeMappingProperties Properties { get; set; }
 
         /// <summary> JSON path in the event which contains attribute value. </summary>
+        [WirePath("properties.sourceField")]
         public string SourceField
         {
             get

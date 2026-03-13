@@ -43,6 +43,7 @@ namespace Azure.ResourceManager.EventGrid.Models
         }
 
         /// <summary> Description for the Topic Space resource. </summary>
+        [WirePath("description")]
         public string Description { get; set; }
 
         /// <summary>
@@ -52,9 +53,11 @@ namespace Azure.ResourceManager.EventGrid.Models
         /// "devices/topic1/+",
         /// "devices/${principal.name}/${principal.attributes.keyName}" ].
         /// </summary>
+        [WirePath("topicTemplates")]
         public IList<string> TopicTemplates { get; } = new ChangeTrackingList<string>();
 
         /// <summary> Provisioning state of the TopicSpace resource. </summary>
+        [WirePath("provisioningState")]
         public TopicSpaceProvisioningState? ProvisioningState { get; }
     }
 }

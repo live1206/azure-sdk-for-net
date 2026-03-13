@@ -526,7 +526,7 @@ namespace Azure.ResourceManager.EventGrid
         /// <param name="content"> Request body to regenerate key. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="content"/> is null. </exception>
-        public virtual async Task<ArmOperation<TopicSharedAccessKeys>> RegenerateKeyAsync(WaitUntil waitUntil, TopicRegenerateKeyRequest content, CancellationToken cancellationToken = default)
+        public virtual async Task<ArmOperation<TopicSharedAccessKeys>> RegenerateKeyAsync(WaitUntil waitUntil, TopicRegenerateKeyContent content, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNull(content, nameof(content));
 
@@ -538,7 +538,7 @@ namespace Azure.ResourceManager.EventGrid
                 {
                     CancellationToken = cancellationToken
                 };
-                HttpMessage message = _topicsRestClient.CreateRegenerateKeyRequest(Guid.Parse(Id.SubscriptionId), Id.ResourceGroupName, Id.Name, TopicRegenerateKeyRequest.ToRequestContent(content), context);
+                HttpMessage message = _topicsRestClient.CreateRegenerateKeyRequest(Guid.Parse(Id.SubscriptionId), Id.ResourceGroupName, Id.Name, TopicRegenerateKeyContent.ToRequestContent(content), context);
                 Response response = await Pipeline.ProcessMessageAsync(message, context).ConfigureAwait(false);
                 EventGridArmOperation<TopicSharedAccessKeys> operation = new EventGridArmOperation<TopicSharedAccessKeys>(
                     new TopicSharedAccessKeysOperationSource(),
@@ -585,7 +585,7 @@ namespace Azure.ResourceManager.EventGrid
         /// <param name="content"> Request body to regenerate key. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="content"/> is null. </exception>
-        public virtual ArmOperation<TopicSharedAccessKeys> RegenerateKey(WaitUntil waitUntil, TopicRegenerateKeyRequest content, CancellationToken cancellationToken = default)
+        public virtual ArmOperation<TopicSharedAccessKeys> RegenerateKey(WaitUntil waitUntil, TopicRegenerateKeyContent content, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNull(content, nameof(content));
 
@@ -597,7 +597,7 @@ namespace Azure.ResourceManager.EventGrid
                 {
                     CancellationToken = cancellationToken
                 };
-                HttpMessage message = _topicsRestClient.CreateRegenerateKeyRequest(Guid.Parse(Id.SubscriptionId), Id.ResourceGroupName, Id.Name, TopicRegenerateKeyRequest.ToRequestContent(content), context);
+                HttpMessage message = _topicsRestClient.CreateRegenerateKeyRequest(Guid.Parse(Id.SubscriptionId), Id.ResourceGroupName, Id.Name, TopicRegenerateKeyContent.ToRequestContent(content), context);
                 Response response = Pipeline.ProcessMessage(message, context);
                 EventGridArmOperation<TopicSharedAccessKeys> operation = new EventGridArmOperation<TopicSharedAccessKeys>(
                     new TopicSharedAccessKeysOperationSource(),

@@ -28,36 +28,42 @@ namespace Azure.ResourceManager.EventGrid.Models
         /// <param name="deliveryConfiguration"> Information about the delivery configuration of the event subscription. </param>
         /// <param name="eventDeliverySchema"> The event delivery schema for the event subscription. </param>
         /// <param name="filtersConfiguration"> Information about the filter for the event subscription. </param>
-        /// <param name="expirationTimeUtc"> Expiration time of the event subscription. </param>
+        /// <param name="expireOn"> Expiration time of the event subscription. </param>
         /// <param name="tags"> Tags relating to Event Subscription resource. </param>
         /// <param name="additionalBinaryDataProperties"> Keeps track of any properties unknown to the library. </param>
-        internal SubscriptionProperties(SubscriptionProvisioningState? provisioningState, DeliveryConfiguration deliveryConfiguration, DeliverySchema? eventDeliverySchema, FiltersConfiguration filtersConfiguration, DateTimeOffset? expirationTimeUtc, IDictionary<string, string> tags, IDictionary<string, BinaryData> additionalBinaryDataProperties)
+        internal SubscriptionProperties(SubscriptionProvisioningState? provisioningState, DeliveryConfiguration deliveryConfiguration, DeliverySchema? eventDeliverySchema, FiltersConfiguration filtersConfiguration, DateTimeOffset? expireOn, IDictionary<string, string> tags, IDictionary<string, BinaryData> additionalBinaryDataProperties)
         {
             ProvisioningState = provisioningState;
             DeliveryConfiguration = deliveryConfiguration;
             EventDeliverySchema = eventDeliverySchema;
             FiltersConfiguration = filtersConfiguration;
-            ExpirationTimeUtc = expirationTimeUtc;
+            ExpireOn = expireOn;
             Tags = tags;
             _additionalBinaryDataProperties = additionalBinaryDataProperties;
         }
 
         /// <summary> Provisioning state of the event subscription. </summary>
+        [WirePath("provisioningState")]
         public SubscriptionProvisioningState? ProvisioningState { get; }
 
         /// <summary> Information about the delivery configuration of the event subscription. </summary>
+        [WirePath("deliveryConfiguration")]
         public DeliveryConfiguration DeliveryConfiguration { get; set; }
 
         /// <summary> The event delivery schema for the event subscription. </summary>
+        [WirePath("eventDeliverySchema")]
         public DeliverySchema? EventDeliverySchema { get; set; }
 
         /// <summary> Information about the filter for the event subscription. </summary>
+        [WirePath("filtersConfiguration")]
         public FiltersConfiguration FiltersConfiguration { get; set; }
 
         /// <summary> Expiration time of the event subscription. </summary>
-        public DateTimeOffset? ExpirationTimeUtc { get; set; }
+        [WirePath("expirationTimeUtc")]
+        public DateTimeOffset? ExpireOn { get; set; }
 
         /// <summary> Tags relating to Event Subscription resource. </summary>
+        [WirePath("tags")]
         public IDictionary<string, string> Tags { get; } = new ChangeTrackingDictionary<string, string>();
     }
 }

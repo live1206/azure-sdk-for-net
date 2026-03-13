@@ -40,15 +40,19 @@ namespace Azure.ResourceManager.EventGrid.Models
         }
 
         /// <summary> Gets the GroupId. </summary>
+        [WirePath("groupId")]
         public string GroupId { get; }
 
         /// <summary> Gets the DisplayName. </summary>
+        [WirePath("displayName")]
         public string DisplayName { get; }
 
         /// <summary> Gets the RequiredMembers. </summary>
+        [WirePath("requiredMembers")]
         public IList<string> RequiredMembers { get; } = new ChangeTrackingList<string>();
 
         /// <summary> Gets the RequiredZoneNames. </summary>
+        [WirePath("requiredZoneNames")]
         public IList<string> RequiredZoneNames { get; } = new ChangeTrackingList<string>();
     }
 }

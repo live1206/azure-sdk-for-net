@@ -7,6 +7,7 @@
 
 using System;
 using System.Collections.Generic;
+using Azure.ResourceManager.EventGrid;
 
 namespace Azure.ResourceManager.EventGrid.Models
 {
@@ -40,9 +41,11 @@ namespace Azure.ResourceManager.EventGrid.Models
         }
 
         /// <summary> The operator type used for filtering, e.g., NumberIn, StringContains, BoolEquals and others. </summary>
+        [WirePath("operatorType")]
         internal FilterOperatorType OperatorType { get; set; }
 
         /// <summary> The field/property in the event based on which you want to filter. </summary>
+        [WirePath("key")]
         public string Key { get; set; }
     }
 }

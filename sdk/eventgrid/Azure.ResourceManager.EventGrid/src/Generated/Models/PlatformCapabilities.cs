@@ -7,6 +7,7 @@
 
 using System;
 using System.Collections.Generic;
+using Azure.ResourceManager.EventGrid;
 
 namespace Azure.ResourceManager.EventGrid.Models
 {
@@ -31,6 +32,7 @@ namespace Azure.ResourceManager.EventGrid.Models
         }
 
         /// <summary> Represents the Azure Confidential Compute properties of the resource. </summary>
+        [WirePath("confidentialCompute")]
         internal ConfidentialCompute ConfidentialCompute { get; set; }
 
         /// <summary>
@@ -39,6 +41,7 @@ namespace Azure.ResourceManager.EventGrid.Models
         /// This is an immutable property set at the time of resource creation and cannot be modified later.
         /// Enabling this property ensures that messages are processed and stored in a Azure Confidential Compute environment.
         /// </summary>
+        [WirePath("confidentialCompute.mode")]
         public ConfidentialComputeMode? ConfidentialComputeMode
         {
             get

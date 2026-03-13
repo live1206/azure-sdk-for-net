@@ -96,11 +96,11 @@ namespace Azure.ResourceManager.EventGrid.Mocking
             return GetVerifiedPartners().Get(verifiedPartnerName, cancellationToken);
         }
 
-        /// <summary> Gets a collection of TopicTypeInfos in the <see cref="TenantResource"/>. </summary>
-        /// <returns> An object representing collection of TopicTypeInfos and their operations over a TopicTypeInfoResource. </returns>
-        public virtual TopicTypeInfoCollection GetTopicTypeInfos()
+        /// <summary> Gets a collection of TopicTypes in the <see cref="TenantResource"/>. </summary>
+        /// <returns> An object representing collection of TopicTypes and their operations over a TopicTypeResource. </returns>
+        public virtual TopicTypeCollection GetTopicTypes()
         {
-            return GetCachedClient(client => new TopicTypeInfoCollection(client, Id));
+            return GetCachedClient(client => new TopicTypeCollection(client, Id));
         }
 
         /// <summary>
@@ -125,11 +125,11 @@ namespace Azure.ResourceManager.EventGrid.Mocking
         /// <exception cref="ArgumentNullException"> <paramref name="topicTypeName"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="topicTypeName"/> is an empty string, and was expected to be non-empty. </exception>
         [ForwardsClientCalls]
-        public virtual async Task<Response<TopicTypeInfoResource>> GetTopicTypeInfoAsync(string topicTypeName, CancellationToken cancellationToken = default)
+        public virtual async Task<Response<TopicTypeResource>> GetTopicTypeAsync(string topicTypeName, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(topicTypeName, nameof(topicTypeName));
 
-            return await GetTopicTypeInfos().GetAsync(topicTypeName, cancellationToken).ConfigureAwait(false);
+            return await GetTopicTypes().GetAsync(topicTypeName, cancellationToken).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -154,11 +154,11 @@ namespace Azure.ResourceManager.EventGrid.Mocking
         /// <exception cref="ArgumentNullException"> <paramref name="topicTypeName"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="topicTypeName"/> is an empty string, and was expected to be non-empty. </exception>
         [ForwardsClientCalls]
-        public virtual Response<TopicTypeInfoResource> GetTopicTypeInfo(string topicTypeName, CancellationToken cancellationToken = default)
+        public virtual Response<TopicTypeResource> GetTopicType(string topicTypeName, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(topicTypeName, nameof(topicTypeName));
 
-            return GetTopicTypeInfos().Get(topicTypeName, cancellationToken);
+            return GetTopicTypes().Get(topicTypeName, cancellationToken);
         }
     }
 }

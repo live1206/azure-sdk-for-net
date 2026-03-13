@@ -90,17 +90,17 @@ namespace Azure.ResourceManager.EventGrid.Models
             if (Optional.IsDefined(PartnerRegistrationImmutableId))
             {
                 writer.WritePropertyName("partnerRegistrationImmutableId"u8);
-                writer.WriteStringValue(PartnerRegistrationImmutableId);
+                writer.WriteStringValue(PartnerRegistrationImmutableId.Value);
             }
             if (Optional.IsDefined(PartnerName))
             {
                 writer.WritePropertyName("partnerName"u8);
                 writer.WriteStringValue(PartnerName);
             }
-            if (Optional.IsDefined(AuthorizationExpirationTimeInUtc))
+            if (Optional.IsDefined(AuthorizationExpireOn))
             {
                 writer.WritePropertyName("authorizationExpirationTimeInUtc"u8);
-                writer.WriteStringValue(AuthorizationExpirationTimeInUtc.Value, "O");
+                writer.WriteStringValue(AuthorizationExpireOn.Value, "O");
             }
             if (options.Format != "W" && _additionalBinaryDataProperties != null)
             {
@@ -144,15 +144,19 @@ namespace Azure.ResourceManager.EventGrid.Models
             {
                 return null;
             }
-            string partnerRegistrationImmutableId = default;
+            Guid? partnerRegistrationImmutableId = default;
             string partnerName = default;
-            DateTimeOffset? authorizationExpirationTimeInUtc = default;
+            DateTimeOffset? authorizationExpireOn = default;
             IDictionary<string, BinaryData> additionalBinaryDataProperties = new ChangeTrackingDictionary<string, BinaryData>();
             foreach (var prop in element.EnumerateObject())
             {
                 if (prop.NameEquals("partnerRegistrationImmutableId"u8))
                 {
-                    partnerRegistrationImmutableId = prop.Value.GetString();
+                    if (prop.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    partnerRegistrationImmutableId = new Guid(prop.Value.GetString());
                     continue;
                 }
                 if (prop.NameEquals("partnerName"u8))
@@ -166,7 +170,7 @@ namespace Azure.ResourceManager.EventGrid.Models
                     {
                         continue;
                     }
-                    authorizationExpirationTimeInUtc = prop.Value.GetDateTimeOffset("O");
+                    authorizationExpireOn = prop.Value.GetDateTimeOffset("O");
                     continue;
                 }
                 if (options.Format != "W")
@@ -174,7 +178,7 @@ namespace Azure.ResourceManager.EventGrid.Models
                     additionalBinaryDataProperties.Add(prop.Name, BinaryData.FromString(prop.Value.GetRawText()));
                 }
             }
-            return new EventGridPartnerContent(partnerRegistrationImmutableId, partnerName, authorizationExpirationTimeInUtc, additionalBinaryDataProperties);
+            return new EventGridPartnerContent(partnerRegistrationImmutableId, partnerName, authorizationExpireOn, additionalBinaryDataProperties);
         }
     }
 }

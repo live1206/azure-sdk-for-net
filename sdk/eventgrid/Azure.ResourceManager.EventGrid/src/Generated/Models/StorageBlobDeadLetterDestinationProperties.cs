@@ -8,6 +8,7 @@
 using System;
 using System.Collections.Generic;
 using Azure.Core;
+using Azure.ResourceManager.EventGrid;
 
 namespace Azure.ResourceManager.EventGrid.Models
 {
@@ -34,9 +35,11 @@ namespace Azure.ResourceManager.EventGrid.Models
         }
 
         /// <summary> The Azure Resource ID of the storage account that is the destination of the deadletter events. </summary>
+        [WirePath("resourceId")]
         public ResourceIdentifier ResourceId { get; set; }
 
         /// <summary> The name of the Storage blob container that is the destination of the deadletter events. </summary>
+        [WirePath("blobContainerName")]
         public string BlobContainerName { get; set; }
     }
 }

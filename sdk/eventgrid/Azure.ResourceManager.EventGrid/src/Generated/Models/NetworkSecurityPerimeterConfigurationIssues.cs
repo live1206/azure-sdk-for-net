@@ -7,6 +7,7 @@
 
 using System;
 using System.Collections.Generic;
+using Azure.ResourceManager.EventGrid;
 
 namespace Azure.ResourceManager.EventGrid.Models
 {
@@ -33,12 +34,15 @@ namespace Azure.ResourceManager.EventGrid.Models
         }
 
         /// <summary> Provisioning issue name. </summary>
+        [WirePath("name")]
         public string Name { get; }
 
         /// <summary> Provisioning issue properties. </summary>
+        [WirePath("properties")]
         internal NetworkSecurityPerimeterConfigurationIssuesProperties Properties { get; }
 
         /// <summary> Provisioning issue type. </summary>
+        [WirePath("properties.issueType")]
         public NetworkSecurityPerimeterConfigurationIssueType? IssueType
         {
             get
@@ -48,6 +52,7 @@ namespace Azure.ResourceManager.EventGrid.Models
         }
 
         /// <summary> Provisioning issue severity. </summary>
+        [WirePath("properties.severity")]
         public NetworkSecurityPerimeterConfigurationIssueSeverity? Severity
         {
             get
@@ -57,6 +62,7 @@ namespace Azure.ResourceManager.EventGrid.Models
         }
 
         /// <summary> Provisioning issue description. </summary>
+        [WirePath("properties.description")]
         public string Description
         {
             get
@@ -66,6 +72,7 @@ namespace Azure.ResourceManager.EventGrid.Models
         }
 
         /// <summary> ARM IDs of resources that can be associated to the same perimeter to remediate the issue. </summary>
+        [WirePath("properties.suggestedResourceIds")]
         public IList<string> SuggestedResourceIds
         {
             get
@@ -75,6 +82,7 @@ namespace Azure.ResourceManager.EventGrid.Models
         }
 
         /// <summary> Access rules that can be added to the same profile to remediate the issue. </summary>
+        [WirePath("properties.suggestedAccessRules")]
         public IList<string> SuggestedAccessRules
         {
             get

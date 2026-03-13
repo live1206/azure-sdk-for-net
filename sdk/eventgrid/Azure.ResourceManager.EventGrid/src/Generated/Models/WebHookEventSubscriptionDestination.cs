@@ -7,6 +7,7 @@
 
 using System;
 using System.Collections.Generic;
+using Azure.ResourceManager.EventGrid;
 
 namespace Azure.ResourceManager.EventGrid.Models
 {
@@ -28,14 +29,16 @@ namespace Azure.ResourceManager.EventGrid.Models
         }
 
         /// <summary> WebHook Properties of the event subscription destination. </summary>
+        [WirePath("properties")]
         internal WebHookEventSubscriptionDestinationProperties Properties { get; set; }
 
         /// <summary> The URL that represents the endpoint of the destination of an event subscription. </summary>
-        public string EndpointUri
+        [WirePath("properties.endpointUrl")]
+        public Uri Endpoint
         {
             get
             {
-                return Properties is null ? default : Properties.EndpointUri;
+                return Properties is null ? default : Properties.Endpoint;
             }
             set
             {
@@ -43,20 +46,22 @@ namespace Azure.ResourceManager.EventGrid.Models
                 {
                     Properties = new WebHookEventSubscriptionDestinationProperties();
                 }
-                Properties.EndpointUri = value;
+                Properties.Endpoint = value;
             }
         }
 
         /// <summary> The base URL that represents the endpoint of the destination of an event subscription. </summary>
-        public string EndpointBaseUri
+        [WirePath("properties.endpointBaseUrl")]
+        public Uri BaseEndpoint
         {
             get
             {
-                return Properties is null ? default : Properties.EndpointBaseUri;
+                return Properties is null ? default : Properties.BaseEndpoint;
             }
         }
 
         /// <summary> Maximum number of events per batch. </summary>
+        [WirePath("properties.maxEventsPerBatch")]
         public int? MaxEventsPerBatch
         {
             get
@@ -74,6 +79,7 @@ namespace Azure.ResourceManager.EventGrid.Models
         }
 
         /// <summary> Preferred batch size in Kilobytes. </summary>
+        [WirePath("properties.preferredBatchSizeInKilobytes")]
         public int? PreferredBatchSizeInKilobytes
         {
             get
@@ -91,7 +97,8 @@ namespace Azure.ResourceManager.EventGrid.Models
         }
 
         /// <summary> The Microsoft Entra ID Tenant ID to get the access token that will be included as the bearer token in delivery requests. </summary>
-        public string AzureActiveDirectoryTenantId
+        [WirePath("properties.azureActiveDirectoryTenantId")]
+        public Guid? AzureActiveDirectoryTenantId
         {
             get
             {
@@ -103,16 +110,17 @@ namespace Azure.ResourceManager.EventGrid.Models
                 {
                     Properties = new WebHookEventSubscriptionDestinationProperties();
                 }
-                Properties.AzureActiveDirectoryTenantId = value;
+                Properties.AzureActiveDirectoryTenantId = value.Value;
             }
         }
 
         /// <summary> The Microsoft Entra ID Application ID or URI to get the access token that will be included as the bearer token in delivery requests. </summary>
-        public string AzureActiveDirectoryApplicationIdOrUri
+        [WirePath("properties.azureActiveDirectoryApplicationIdOrUri")]
+        public string UriOrAzureActiveDirectoryApplicationId
         {
             get
             {
-                return Properties is null ? default : Properties.AzureActiveDirectoryApplicationIdOrUri;
+                return Properties is null ? default : Properties.UriOrAzureActiveDirectoryApplicationId;
             }
             set
             {
@@ -120,11 +128,12 @@ namespace Azure.ResourceManager.EventGrid.Models
                 {
                     Properties = new WebHookEventSubscriptionDestinationProperties();
                 }
-                Properties.AzureActiveDirectoryApplicationIdOrUri = value;
+                Properties.UriOrAzureActiveDirectoryApplicationId = value;
             }
         }
 
         /// <summary> Delivery attribute details. </summary>
+        [WirePath("properties.deliveryAttributeMappings")]
         public IList<DeliveryAttributeMapping> DeliveryAttributeMappings
         {
             get
@@ -138,6 +147,7 @@ namespace Azure.ResourceManager.EventGrid.Models
         }
 
         /// <summary> Minimum TLS version that should be supported by webhook endpoint. </summary>
+        [WirePath("properties.minimumTlsVersionAllowed")]
         public TlsVersion? MinimumTlsVersionAllowed
         {
             get

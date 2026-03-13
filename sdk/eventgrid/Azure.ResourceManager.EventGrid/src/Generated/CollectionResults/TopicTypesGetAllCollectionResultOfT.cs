@@ -14,7 +14,7 @@ using Azure.ResourceManager.EventGrid.Models;
 
 namespace Azure.ResourceManager.EventGrid
 {
-    internal partial class TopicTypesGetAllCollectionResultOfT : Pageable<TopicTypeInfoData>
+    internal partial class TopicTypesGetAllCollectionResultOfT : Pageable<TopicTypeData>
     {
         private readonly TopicTypes _client;
         private readonly RequestContext _context;
@@ -32,7 +32,7 @@ namespace Azure.ResourceManager.EventGrid
         /// <param name="continuationToken"> A continuation token indicating where to resume paging. </param>
         /// <param name="pageSizeHint"> The number of items per page. </param>
         /// <returns> The pages of TopicTypesGetAllCollectionResultOfT as an enumerable collection. </returns>
-        public override IEnumerable<Page<TopicTypeInfoData>> AsPages(string continuationToken, int? pageSizeHint)
+        public override IEnumerable<Page<TopicTypeData>> AsPages(string continuationToken, int? pageSizeHint)
         {
             Uri nextPage = continuationToken != null ? new Uri(continuationToken) : null;
             while (true)
@@ -43,7 +43,7 @@ namespace Azure.ResourceManager.EventGrid
                     yield break;
                 }
                 TopicTypesListResult result = TopicTypesListResult.FromResponse(response);
-                yield return Page<TopicTypeInfoData>.FromValues((IReadOnlyList<TopicTypeInfoData>)result.Value, nextPage?.IsAbsoluteUri == true ? nextPage.AbsoluteUri : nextPage?.OriginalString, response);
+                yield return Page<TopicTypeData>.FromValues((IReadOnlyList<TopicTypeData>)result.Value, nextPage?.IsAbsoluteUri == true ? nextPage.AbsoluteUri : nextPage?.OriginalString, response);
                 string nextPageString = result.NextLink;
                 if (string.IsNullOrEmpty(nextPageString))
                 {
@@ -59,7 +59,7 @@ namespace Azure.ResourceManager.EventGrid
         private Response GetNextResponse(int? pageSizeHint, Uri nextLink)
         {
             HttpMessage message = nextLink != null ? _client.CreateNextGetAllRequest(nextLink, _context) : _client.CreateGetAllRequest(_context);
-            using DiagnosticScope scope = _client.ClientDiagnostics.CreateScope("TopicTypeInfoCollection.GetAll");
+            using DiagnosticScope scope = _client.ClientDiagnostics.CreateScope("TopicTypeCollection.GetAll");
             scope.Start();
             try
             {

@@ -47,15 +47,18 @@ namespace Azure.ResourceManager.EventGrid.Models
         /// The severity that will be attached to every Alert fired through this event subscription.
         /// This field must be provided.
         /// </summary>
+        [WirePath("severity")]
         public MonitorAlertSeverity? Severity { get; set; }
 
         /// <summary> The description that will be attached to every Alert fired through this event subscription. </summary>
+        [WirePath("description")]
         public string Description { get; set; }
 
         /// <summary>
         /// The list of ARM Ids of Action Groups that will be triggered on every Alert fired through this event subscription.
         /// Each resource ARM Id should follow this pattern: /subscriptions/{AzureSubscriptionId}/resourceGroups/{ResourceGroupName}/providers/Microsoft.Insights/actionGroups/{ActionGroupName}.
         /// </summary>
+        [WirePath("actionGroups")]
         public IList<ResourceIdentifier> ActionGroups { get; } = new ChangeTrackingList<ResourceIdentifier>();
     }
 }

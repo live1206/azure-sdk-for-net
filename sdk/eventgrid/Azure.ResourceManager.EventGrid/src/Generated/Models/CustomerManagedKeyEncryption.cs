@@ -68,12 +68,14 @@ namespace Azure.ResourceManager.EventGrid.Models
         /// responsibility to update the URL with the new version by updating the namespace resource. When URL without version is used, Event Grid will query and get latest version and will
         /// be used automatically.
         /// </summary>
+        [WirePath("keyEncryptionKeyUrl")]
         public string KeyEncryptionKeyUri { get; set; }
 
         /// <summary>
         /// All identity configuration for Customer-managed key settings defining which identity should be used to auth to Key Vault. This is an optional property.
         /// When not specified, the SystemAssigned identity will be used.
         /// </summary>
+        [WirePath("keyEncryptionKeyIdentity")]
         public KeyEncryptionKeyIdentity KeyEncryptionKeyIdentity { get; set; }
 
         /// <summary>
@@ -81,12 +83,14 @@ namespace Azure.ResourceManager.EventGrid.Models
         /// actively by runtime as expected. When the associated CMK becomes invalid (e.g., if it is deleted, or if versioned CMK is not current anymore), Event Grid
         /// Service will set this state to disabled to indicate that this key is not valid anymore and requires action from user.
         /// </summary>
+        [WirePath("keyEncryptionKeyStatus")]
         public KeyEncryptionKeyStatus? KeyEncryptionKeyStatus { get; }
 
         /// <summary>
         /// Friendly description about the Customer Managed Key (CMK) encryption state. This is a read-only property which determines why the associated key is revoked which
         /// will help user to mitigate the issue and re-enable the CMK key.
         /// </summary>
+        [WirePath("keyEncryptionKeyStatusFriendlyDescription")]
         public string KeyEncryptionKeyStatusFriendlyDescription { get; }
     }
 }

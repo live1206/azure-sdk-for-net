@@ -62,7 +62,7 @@ namespace Azure.ResourceManager.EventGrid
         private Response GetNextResponse(int? pageSizeHint, Uri nextLink)
         {
             HttpMessage message = nextLink != null ? _client.CreateNextGetEventTypesRequest(nextLink, _topicTypeName, _context) : _client.CreateGetEventTypesRequest(_topicTypeName, _context);
-            using DiagnosticScope scope = _client.ClientDiagnostics.CreateScope("TopicTypeInfoResource.GetEventTypes");
+            using DiagnosticScope scope = _client.ClientDiagnostics.CreateScope("TopicTypeResource.GetEventTypes");
             scope.Start();
             try
             {

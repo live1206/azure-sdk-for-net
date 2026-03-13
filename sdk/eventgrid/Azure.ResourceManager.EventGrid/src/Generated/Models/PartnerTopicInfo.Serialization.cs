@@ -77,7 +77,7 @@ namespace Azure.ResourceManager.EventGrid.Models
             if (Optional.IsDefined(AzureSubscriptionId))
             {
                 writer.WritePropertyName("azureSubscriptionId"u8);
-                writer.WriteStringValue(AzureSubscriptionId);
+                writer.WriteStringValue(AzureSubscriptionId.Value);
             }
             if (Optional.IsDefined(ResourceGroupName))
             {
@@ -141,7 +141,7 @@ namespace Azure.ResourceManager.EventGrid.Models
             {
                 return null;
             }
-            string azureSubscriptionId = default;
+            Guid? azureSubscriptionId = default;
             string resourceGroupName = default;
             string name = default;
             PartnerTopicEventTypeInfo eventTypeInfo = default;
@@ -151,7 +151,11 @@ namespace Azure.ResourceManager.EventGrid.Models
             {
                 if (prop.NameEquals("azureSubscriptionId"u8))
                 {
-                    azureSubscriptionId = prop.Value.GetString();
+                    if (prop.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    azureSubscriptionId = new Guid(prop.Value.GetString());
                     continue;
                 }
                 if (prop.NameEquals("resourceGroupName"u8))

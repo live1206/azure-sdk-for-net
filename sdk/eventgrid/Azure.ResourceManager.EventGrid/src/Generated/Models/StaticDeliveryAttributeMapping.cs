@@ -7,6 +7,7 @@
 
 using System;
 using System.Collections.Generic;
+using Azure.ResourceManager.EventGrid;
 
 namespace Azure.ResourceManager.EventGrid.Models
 {
@@ -29,9 +30,11 @@ namespace Azure.ResourceManager.EventGrid.Models
         }
 
         /// <summary> Properties of static delivery attribute mapping. </summary>
+        [WirePath("properties")]
         internal StaticDeliveryAttributeMappingProperties Properties { get; set; }
 
         /// <summary> Value of the delivery attribute. </summary>
+        [WirePath("properties.value")]
         public string Value
         {
             get
@@ -49,6 +52,7 @@ namespace Azure.ResourceManager.EventGrid.Models
         }
 
         /// <summary> Boolean flag to tell if the attribute contains sensitive information . </summary>
+        [WirePath("properties.isSecret")]
         public bool? IsSecret
         {
             get

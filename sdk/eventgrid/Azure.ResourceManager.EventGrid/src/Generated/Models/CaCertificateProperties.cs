@@ -7,6 +7,7 @@
 
 using System;
 using System.Collections.Generic;
+using Azure.ResourceManager.EventGrid;
 
 namespace Azure.ResourceManager.EventGrid.Models
 {
@@ -39,18 +40,23 @@ namespace Azure.ResourceManager.EventGrid.Models
         }
 
         /// <summary> Description for the CA Certificate resource. </summary>
+        [WirePath("description")]
         public string Description { get; set; }
 
         /// <summary> Base64 encoded PEM (Privacy Enhanced Mail) format certificate data. </summary>
+        [WirePath("encodedCertificate")]
         public string EncodedCertificate { get; set; }
 
         /// <summary> Certificate issue time in UTC. This is a read-only field. </summary>
+        [WirePath("issueTimeInUtc")]
         public DateTimeOffset? IssueTimeInUtc { get; }
 
         /// <summary> Certificate expiry time in UTC. This is a read-only field. </summary>
+        [WirePath("expiryTimeInUtc")]
         public DateTimeOffset? ExpiryTimeInUtc { get; }
 
         /// <summary> Provisioning state of the CA Certificate resource. </summary>
+        [WirePath("provisioningState")]
         public CaCertificateProvisioningState? ProvisioningState { get; }
     }
 }

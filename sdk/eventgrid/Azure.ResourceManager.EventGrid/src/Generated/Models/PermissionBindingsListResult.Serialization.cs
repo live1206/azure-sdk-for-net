@@ -89,7 +89,7 @@ namespace Azure.ResourceManager.EventGrid.Models
             }
             writer.WritePropertyName("value"u8);
             writer.WriteStartArray();
-            foreach (PermissionBindingData item in Value)
+            foreach (EventGridNamespacePermissionBindingData item in Value)
             {
                 writer.WriteObjectValue(item, options);
             }
@@ -141,17 +141,17 @@ namespace Azure.ResourceManager.EventGrid.Models
             {
                 return null;
             }
-            IList<PermissionBindingData> value = default;
+            IList<EventGridNamespacePermissionBindingData> value = default;
             Uri nextLink = default;
             IDictionary<string, BinaryData> additionalBinaryDataProperties = new ChangeTrackingDictionary<string, BinaryData>();
             foreach (var prop in element.EnumerateObject())
             {
                 if (prop.NameEquals("value"u8))
                 {
-                    List<PermissionBindingData> array = new List<PermissionBindingData>();
+                    List<EventGridNamespacePermissionBindingData> array = new List<EventGridNamespacePermissionBindingData>();
                     foreach (var item in prop.Value.EnumerateArray())
                     {
-                        array.Add(PermissionBindingData.DeserializePermissionBindingData(item, options));
+                        array.Add(EventGridNamespacePermissionBindingData.DeserializeEventGridNamespacePermissionBindingData(item, options));
                     }
                     value = array;
                     continue;

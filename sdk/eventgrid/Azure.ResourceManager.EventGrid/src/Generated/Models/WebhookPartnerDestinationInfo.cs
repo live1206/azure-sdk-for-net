@@ -7,6 +7,7 @@
 
 using System;
 using System.Collections.Generic;
+using Azure.ResourceManager.EventGrid;
 
 namespace Azure.ResourceManager.EventGrid.Models
 {
@@ -39,9 +40,11 @@ namespace Azure.ResourceManager.EventGrid.Models
         }
 
         /// <summary> WebHook Properties of the partner destination. </summary>
+        [WirePath("properties")]
         internal WebhookPartnerDestinationProperties Properties { get; set; }
 
         /// <summary> The URL that represents the endpoint of the partner destination. </summary>
+        [WirePath("properties.endpointUrl")]
         public Uri EndpointUri
         {
             get
@@ -59,6 +62,7 @@ namespace Azure.ResourceManager.EventGrid.Models
         }
 
         /// <summary> The base URL that represents the endpoint of the partner destination. </summary>
+        [WirePath("properties.endpointBaseUrl")]
         public Uri EndpointBaseUri
         {
             get
@@ -76,6 +80,7 @@ namespace Azure.ResourceManager.EventGrid.Models
         }
 
         /// <summary> Partner client authentication. </summary>
+        [WirePath("properties.clientAuthentication")]
         public PartnerClientAuthentication ClientAuthentication
         {
             get

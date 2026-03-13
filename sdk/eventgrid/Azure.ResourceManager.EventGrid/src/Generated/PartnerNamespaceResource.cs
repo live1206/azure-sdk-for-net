@@ -525,7 +525,7 @@ namespace Azure.ResourceManager.EventGrid
         /// <param name="content"> Request body to regenerate key. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="content"/> is null. </exception>
-        public virtual async Task<Response<PartnerNamespaceSharedAccessKeys>> RegenerateKeyAsync(PartnerNamespaceRegenerateKeyRequest content, CancellationToken cancellationToken = default)
+        public virtual async Task<Response<PartnerNamespaceSharedAccessKeys>> RegenerateKeyAsync(PartnerNamespaceRegenerateKeyContent content, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNull(content, nameof(content));
 
@@ -537,7 +537,7 @@ namespace Azure.ResourceManager.EventGrid
                 {
                     CancellationToken = cancellationToken
                 };
-                HttpMessage message = _partnerNamespacesRestClient.CreateRegenerateKeyRequest(Guid.Parse(Id.SubscriptionId), Id.ResourceGroupName, Id.Name, PartnerNamespaceRegenerateKeyRequest.ToRequestContent(content), context);
+                HttpMessage message = _partnerNamespacesRestClient.CreateRegenerateKeyRequest(Guid.Parse(Id.SubscriptionId), Id.ResourceGroupName, Id.Name, PartnerNamespaceRegenerateKeyContent.ToRequestContent(content), context);
                 Response result = await Pipeline.ProcessMessageAsync(message, context).ConfigureAwait(false);
                 Response<PartnerNamespaceSharedAccessKeys> response = Response.FromValue(PartnerNamespaceSharedAccessKeys.FromResponse(result), result);
                 if (response.Value == null)
@@ -577,7 +577,7 @@ namespace Azure.ResourceManager.EventGrid
         /// <param name="content"> Request body to regenerate key. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="content"/> is null. </exception>
-        public virtual Response<PartnerNamespaceSharedAccessKeys> RegenerateKey(PartnerNamespaceRegenerateKeyRequest content, CancellationToken cancellationToken = default)
+        public virtual Response<PartnerNamespaceSharedAccessKeys> RegenerateKey(PartnerNamespaceRegenerateKeyContent content, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNull(content, nameof(content));
 
@@ -589,7 +589,7 @@ namespace Azure.ResourceManager.EventGrid
                 {
                     CancellationToken = cancellationToken
                 };
-                HttpMessage message = _partnerNamespacesRestClient.CreateRegenerateKeyRequest(Guid.Parse(Id.SubscriptionId), Id.ResourceGroupName, Id.Name, PartnerNamespaceRegenerateKeyRequest.ToRequestContent(content), context);
+                HttpMessage message = _partnerNamespacesRestClient.CreateRegenerateKeyRequest(Guid.Parse(Id.SubscriptionId), Id.ResourceGroupName, Id.Name, PartnerNamespaceRegenerateKeyContent.ToRequestContent(content), context);
                 Response result = Pipeline.ProcessMessage(message, context);
                 Response<PartnerNamespaceSharedAccessKeys> response = Response.FromValue(PartnerNamespaceSharedAccessKeys.FromResponse(result), result);
                 if (response.Value == null)

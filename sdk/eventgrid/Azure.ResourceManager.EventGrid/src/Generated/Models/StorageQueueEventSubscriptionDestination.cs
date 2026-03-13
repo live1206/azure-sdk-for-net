@@ -8,6 +8,7 @@
 using System;
 using System.Collections.Generic;
 using Azure.Core;
+using Azure.ResourceManager.EventGrid;
 
 namespace Azure.ResourceManager.EventGrid.Models
 {
@@ -29,9 +30,11 @@ namespace Azure.ResourceManager.EventGrid.Models
         }
 
         /// <summary> Storage Queue Properties of the event subscription destination. </summary>
+        [WirePath("properties")]
         internal StorageQueueEventSubscriptionDestinationProperties Properties { get; set; }
 
         /// <summary> The Azure Resource ID of the storage account that contains the queue that is the destination of an event subscription. </summary>
+        [WirePath("properties.resourceId")]
         public ResourceIdentifier ResourceId
         {
             get
@@ -49,6 +52,7 @@ namespace Azure.ResourceManager.EventGrid.Models
         }
 
         /// <summary> The name of the Storage queue under a storage account that is the destination of an event subscription. </summary>
+        [WirePath("properties.queueName")]
         public string QueueName
         {
             get
@@ -66,6 +70,7 @@ namespace Azure.ResourceManager.EventGrid.Models
         }
 
         /// <summary> Storage queue message time to live in seconds. This value cannot be zero or negative with the exception of using -1 to indicate that the Time To Live of the message is Infinite. </summary>
+        [WirePath("properties.queueMessageTimeToLiveInSeconds")]
         public long? QueueMessageTimeToLiveInSeconds
         {
             get

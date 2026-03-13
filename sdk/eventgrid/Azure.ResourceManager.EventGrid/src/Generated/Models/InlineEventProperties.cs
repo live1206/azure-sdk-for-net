@@ -7,6 +7,7 @@
 
 using System;
 using System.Collections.Generic;
+using Azure.ResourceManager.EventGrid;
 
 namespace Azure.ResourceManager.EventGrid.Models
 {
@@ -27,7 +28,7 @@ namespace Azure.ResourceManager.EventGrid.Models
         /// <param name="documentationUri"> The documentationUrl for the inline event. </param>
         /// <param name="dataSchemaUri"> The dataSchemaUrl for the inline event. </param>
         /// <param name="additionalBinaryDataProperties"> Keeps track of any properties unknown to the library. </param>
-        internal InlineEventProperties(string description, string displayName, string documentationUri, string dataSchemaUri, IDictionary<string, BinaryData> additionalBinaryDataProperties)
+        internal InlineEventProperties(string description, string displayName, Uri documentationUri, Uri dataSchemaUri, IDictionary<string, BinaryData> additionalBinaryDataProperties)
         {
             Description = description;
             DisplayName = displayName;
@@ -37,15 +38,19 @@ namespace Azure.ResourceManager.EventGrid.Models
         }
 
         /// <summary> The description for the inline event. </summary>
+        [WirePath("description")]
         public string Description { get; set; }
 
         /// <summary> The displayName for the inline event. </summary>
+        [WirePath("displayName")]
         public string DisplayName { get; set; }
 
         /// <summary> The documentationUrl for the inline event. </summary>
-        public string DocumentationUri { get; set; }
+        [WirePath("documentationUrl")]
+        public Uri DocumentationUri { get; set; }
 
         /// <summary> The dataSchemaUrl for the inline event. </summary>
-        public string DataSchemaUri { get; set; }
+        [WirePath("dataSchemaUrl")]
+        public Uri DataSchemaUri { get; set; }
     }
 }

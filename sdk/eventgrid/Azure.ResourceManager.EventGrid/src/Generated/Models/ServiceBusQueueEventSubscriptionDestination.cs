@@ -8,6 +8,7 @@
 using System;
 using System.Collections.Generic;
 using Azure.Core;
+using Azure.ResourceManager.EventGrid;
 
 namespace Azure.ResourceManager.EventGrid.Models
 {
@@ -29,9 +30,11 @@ namespace Azure.ResourceManager.EventGrid.Models
         }
 
         /// <summary> Service Bus Properties of the event subscription destination. </summary>
+        [WirePath("properties")]
         internal ServiceBusQueueEventSubscriptionDestinationProperties Properties { get; set; }
 
         /// <summary> The Azure Resource Id that represents the endpoint of the Service Bus destination of an event subscription. </summary>
+        [WirePath("properties.resourceId")]
         public ResourceIdentifier ResourceId
         {
             get
@@ -49,6 +52,7 @@ namespace Azure.ResourceManager.EventGrid.Models
         }
 
         /// <summary> Delivery attribute details. </summary>
+        [WirePath("properties.deliveryAttributeMappings")]
         public IList<DeliveryAttributeMapping> DeliveryAttributeMappings
         {
             get

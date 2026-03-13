@@ -86,7 +86,7 @@ namespace Azure.ResourceManager.EventGrid.Models
             {
                 writer.WritePropertyName("value"u8);
                 writer.WriteStartArray();
-                foreach (TopicTypeInfoData item in Value)
+                foreach (TopicTypeData item in Value)
                 {
                     writer.WriteObjectValue(item, options);
                 }
@@ -139,7 +139,7 @@ namespace Azure.ResourceManager.EventGrid.Models
             {
                 return null;
             }
-            IList<TopicTypeInfoData> value = default;
+            IList<TopicTypeData> value = default;
             string nextLink = default;
             IDictionary<string, BinaryData> additionalBinaryDataProperties = new ChangeTrackingDictionary<string, BinaryData>();
             foreach (var prop in element.EnumerateObject())
@@ -150,10 +150,10 @@ namespace Azure.ResourceManager.EventGrid.Models
                     {
                         continue;
                     }
-                    List<TopicTypeInfoData> array = new List<TopicTypeInfoData>();
+                    List<TopicTypeData> array = new List<TopicTypeData>();
                     foreach (var item in prop.Value.EnumerateArray())
                     {
-                        array.Add(TopicTypeInfoData.DeserializeTopicTypeInfoData(item, options));
+                        array.Add(TopicTypeData.DeserializeTopicTypeData(item, options));
                     }
                     value = array;
                     continue;
@@ -168,7 +168,7 @@ namespace Azure.ResourceManager.EventGrid.Models
                     additionalBinaryDataProperties.Add(prop.Name, BinaryData.FromString(prop.Value.GetRawText()));
                 }
             }
-            return new TopicTypesListResult(value ?? new ChangeTrackingList<TopicTypeInfoData>(), nextLink, additionalBinaryDataProperties);
+            return new TopicTypesListResult(value ?? new ChangeTrackingList<TopicTypeData>(), nextLink, additionalBinaryDataProperties);
         }
     }
 }

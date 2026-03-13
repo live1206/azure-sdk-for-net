@@ -7,6 +7,7 @@
 
 using System;
 using System.Collections.Generic;
+using Azure.ResourceManager.EventGrid;
 
 namespace Azure.ResourceManager.EventGrid.Models
 {
@@ -40,18 +41,22 @@ namespace Azure.ResourceManager.EventGrid.Models
         }
 
         /// <summary> Provisioning state of the namespace topic. </summary>
+        [WirePath("provisioningState")]
         public NamespaceTopicProvisioningState? ProvisioningState { get; }
 
         /// <summary> Publisher type of the namespace topic. </summary>
+        [WirePath("publisherType")]
         public PublisherType? PublisherType { get; set; }
 
         /// <summary> This determines the format that is expected for incoming events published to the topic. </summary>
+        [WirePath("inputSchema")]
         public EventInputSchema? InputSchema { get; set; }
 
         /// <summary>
         /// Event retention for the namespace topic expressed in days. The property default value is 1 day.
         /// Min event retention duration value is 1 day and max event retention duration value is 1 day.
         /// </summary>
+        [WirePath("eventRetentionInDays")]
         public int? EventRetentionInDays { get; set; }
     }
 }

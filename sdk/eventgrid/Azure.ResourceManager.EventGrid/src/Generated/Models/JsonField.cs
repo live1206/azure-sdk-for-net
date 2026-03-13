@@ -7,6 +7,7 @@
 
 using System;
 using System.Collections.Generic;
+using Azure.ResourceManager.EventGrid;
 
 namespace Azure.ResourceManager.EventGrid.Models
 {
@@ -31,6 +32,7 @@ namespace Azure.ResourceManager.EventGrid.Models
         }
 
         /// <summary> Name of a field in the input event schema that's to be used as the source of a mapping. </summary>
+        [WirePath("sourceField")]
         public string SourceField { get; set; }
     }
 }

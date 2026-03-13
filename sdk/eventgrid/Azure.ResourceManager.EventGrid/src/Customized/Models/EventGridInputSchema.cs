@@ -14,7 +14,7 @@ namespace Azure.ResourceManager.EventGrid.Models
         /// <summary> CloudEventSchemaV1_0. </summary>
         [CodeGenMember("CloudEventSchemaV10")]
 #pragma warning disable CA1707
-        public static EventGridInputSchema CloudEventSchemaV1_0 { get; } = new EventGridInputSchema(CloudEventSchemaV1_0Value);
+        public static EventGridInputSchema CloudEventSchemaV1_0 { get; } = new EventGridInputSchema(CloudEventSchemaV10Value);
 #pragma warning restore CA1707
     }
 }

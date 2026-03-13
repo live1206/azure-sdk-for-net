@@ -8,6 +8,7 @@
 using System;
 using System.Collections.Generic;
 using Azure.Core;
+using Azure.ResourceManager.EventGrid;
 using Azure.ResourceManager.Models;
 
 namespace Azure.ResourceManager.EventGrid.Models
@@ -37,9 +38,11 @@ namespace Azure.ResourceManager.EventGrid.Models
         }
 
         /// <summary> Properties of the PrivateEndpointConnection. </summary>
+        [WirePath("properties")]
         internal PrivateEndpointConnectionProperties Properties { get; set; }
 
         /// <summary> GroupIds from the private link service resource. </summary>
+        [WirePath("properties.groupIds")]
         public IList<string> GroupIds
         {
             get
@@ -53,7 +56,8 @@ namespace Azure.ResourceManager.EventGrid.Models
         }
 
         /// <summary> Details about the state of the connection. </summary>
-        public ConnectionState PrivateLinkServiceConnectionState
+        [WirePath("properties.privateLinkServiceConnectionState")]
+        public EventGridPrivateEndpointConnectionState PrivateLinkServiceConnectionState
         {
             get
             {
@@ -70,6 +74,7 @@ namespace Azure.ResourceManager.EventGrid.Models
         }
 
         /// <summary> Provisioning state of the Private Endpoint Connection. </summary>
+        [WirePath("properties.provisioningState")]
         public EventGridResourceProvisioningState? ProvisioningState
         {
             get
@@ -87,6 +92,7 @@ namespace Azure.ResourceManager.EventGrid.Models
         }
 
         /// <summary> The ARM identifier for Private Endpoint. </summary>
+        [WirePath("properties.privateEndpoint.id")]
         public string PrivateEndpointId
         {
             get

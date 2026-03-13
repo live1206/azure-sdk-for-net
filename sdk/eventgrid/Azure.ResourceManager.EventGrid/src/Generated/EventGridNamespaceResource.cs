@@ -526,7 +526,7 @@ namespace Azure.ResourceManager.EventGrid
         /// <param name="content"> Request body to regenerate key. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="content"/> is null. </exception>
-        public virtual async Task<ArmOperation<NamespaceSharedAccessKeys>> RegenerateKeyAsync(WaitUntil waitUntil, NamespaceRegenerateKeyRequest content, CancellationToken cancellationToken = default)
+        public virtual async Task<ArmOperation<NamespaceSharedAccessKeys>> RegenerateKeyAsync(WaitUntil waitUntil, NamespaceRegenerateKeyContent content, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNull(content, nameof(content));
 
@@ -538,7 +538,7 @@ namespace Azure.ResourceManager.EventGrid
                 {
                     CancellationToken = cancellationToken
                 };
-                HttpMessage message = _namespacesRestClient.CreateRegenerateKeyRequest(Guid.Parse(Id.SubscriptionId), Id.ResourceGroupName, Id.Name, NamespaceRegenerateKeyRequest.ToRequestContent(content), context);
+                HttpMessage message = _namespacesRestClient.CreateRegenerateKeyRequest(Guid.Parse(Id.SubscriptionId), Id.ResourceGroupName, Id.Name, NamespaceRegenerateKeyContent.ToRequestContent(content), context);
                 Response response = await Pipeline.ProcessMessageAsync(message, context).ConfigureAwait(false);
                 EventGridArmOperation<NamespaceSharedAccessKeys> operation = new EventGridArmOperation<NamespaceSharedAccessKeys>(
                     new NamespaceSharedAccessKeysOperationSource(),
@@ -585,7 +585,7 @@ namespace Azure.ResourceManager.EventGrid
         /// <param name="content"> Request body to regenerate key. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="content"/> is null. </exception>
-        public virtual ArmOperation<NamespaceSharedAccessKeys> RegenerateKey(WaitUntil waitUntil, NamespaceRegenerateKeyRequest content, CancellationToken cancellationToken = default)
+        public virtual ArmOperation<NamespaceSharedAccessKeys> RegenerateKey(WaitUntil waitUntil, NamespaceRegenerateKeyContent content, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNull(content, nameof(content));
 
@@ -597,7 +597,7 @@ namespace Azure.ResourceManager.EventGrid
                 {
                     CancellationToken = cancellationToken
                 };
-                HttpMessage message = _namespacesRestClient.CreateRegenerateKeyRequest(Guid.Parse(Id.SubscriptionId), Id.ResourceGroupName, Id.Name, NamespaceRegenerateKeyRequest.ToRequestContent(content), context);
+                HttpMessage message = _namespacesRestClient.CreateRegenerateKeyRequest(Guid.Parse(Id.SubscriptionId), Id.ResourceGroupName, Id.Name, NamespaceRegenerateKeyContent.ToRequestContent(content), context);
                 Response response = Pipeline.ProcessMessage(message, context);
                 EventGridArmOperation<NamespaceSharedAccessKeys> operation = new EventGridArmOperation<NamespaceSharedAccessKeys>(
                     new NamespaceSharedAccessKeysOperationSource(),
@@ -1036,11 +1036,11 @@ namespace Azure.ResourceManager.EventGrid
             return GetCaCertificates().Get(caCertificateName, cancellationToken);
         }
 
-        /// <summary> Gets a collection of ClientGroups in the <see cref="EventGridNamespaceResource"/>. </summary>
-        /// <returns> An object representing collection of ClientGroups and their operations over a ClientGroupResource. </returns>
-        public virtual ClientGroupCollection GetClientGroups()
+        /// <summary> Gets a collection of EventGridNamespaceClientGroups in the <see cref="EventGridNamespaceResource"/>. </summary>
+        /// <returns> An object representing collection of EventGridNamespaceClientGroups and their operations over a EventGridNamespaceClientGroupResource. </returns>
+        public virtual EventGridNamespaceClientGroupCollection GetEventGridNamespaceClientGroups()
         {
-            return GetCachedClient(client => new ClientGroupCollection(client, Id));
+            return GetCachedClient(client => new EventGridNamespaceClientGroupCollection(client, Id));
         }
 
         /// <summary> Get properties of a client group. </summary>
@@ -1049,11 +1049,11 @@ namespace Azure.ResourceManager.EventGrid
         /// <exception cref="ArgumentNullException"> <paramref name="clientGroupName"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="clientGroupName"/> is an empty string, and was expected to be non-empty. </exception>
         [ForwardsClientCalls]
-        public virtual async Task<Response<ClientGroupResource>> GetClientGroupAsync(string clientGroupName, CancellationToken cancellationToken = default)
+        public virtual async Task<Response<EventGridNamespaceClientGroupResource>> GetEventGridNamespaceClientGroupAsync(string clientGroupName, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(clientGroupName, nameof(clientGroupName));
 
-            return await GetClientGroups().GetAsync(clientGroupName, cancellationToken).ConfigureAwait(false);
+            return await GetEventGridNamespaceClientGroups().GetAsync(clientGroupName, cancellationToken).ConfigureAwait(false);
         }
 
         /// <summary> Get properties of a client group. </summary>
@@ -1062,11 +1062,11 @@ namespace Azure.ResourceManager.EventGrid
         /// <exception cref="ArgumentNullException"> <paramref name="clientGroupName"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="clientGroupName"/> is an empty string, and was expected to be non-empty. </exception>
         [ForwardsClientCalls]
-        public virtual Response<ClientGroupResource> GetClientGroup(string clientGroupName, CancellationToken cancellationToken = default)
+        public virtual Response<EventGridNamespaceClientGroupResource> GetEventGridNamespaceClientGroup(string clientGroupName, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(clientGroupName, nameof(clientGroupName));
 
-            return GetClientGroups().Get(clientGroupName, cancellationToken);
+            return GetEventGridNamespaceClientGroups().Get(clientGroupName, cancellationToken);
         }
 
         /// <summary> Gets a collection of EventGridNamespaceClients in the <see cref="EventGridNamespaceResource"/>. </summary>
@@ -1135,11 +1135,11 @@ namespace Azure.ResourceManager.EventGrid
             return GetNamespaceTopics().Get(topicName, cancellationToken);
         }
 
-        /// <summary> Gets a collection of PermissionBindings in the <see cref="EventGridNamespaceResource"/>. </summary>
-        /// <returns> An object representing collection of PermissionBindings and their operations over a PermissionBindingResource. </returns>
-        public virtual PermissionBindingCollection GetPermissionBindings()
+        /// <summary> Gets a collection of EventGridNamespacePermissionBindings in the <see cref="EventGridNamespaceResource"/>. </summary>
+        /// <returns> An object representing collection of EventGridNamespacePermissionBindings and their operations over a EventGridNamespacePermissionBindingResource. </returns>
+        public virtual EventGridNamespacePermissionBindingCollection GetEventGridNamespacePermissionBindings()
         {
-            return GetCachedClient(client => new PermissionBindingCollection(client, Id));
+            return GetCachedClient(client => new EventGridNamespacePermissionBindingCollection(client, Id));
         }
 
         /// <summary> Get properties of a permission binding. </summary>
@@ -1148,11 +1148,11 @@ namespace Azure.ResourceManager.EventGrid
         /// <exception cref="ArgumentNullException"> <paramref name="permissionBindingName"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="permissionBindingName"/> is an empty string, and was expected to be non-empty. </exception>
         [ForwardsClientCalls]
-        public virtual async Task<Response<PermissionBindingResource>> GetPermissionBindingAsync(string permissionBindingName, CancellationToken cancellationToken = default)
+        public virtual async Task<Response<EventGridNamespacePermissionBindingResource>> GetEventGridNamespacePermissionBindingAsync(string permissionBindingName, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(permissionBindingName, nameof(permissionBindingName));
 
-            return await GetPermissionBindings().GetAsync(permissionBindingName, cancellationToken).ConfigureAwait(false);
+            return await GetEventGridNamespacePermissionBindings().GetAsync(permissionBindingName, cancellationToken).ConfigureAwait(false);
         }
 
         /// <summary> Get properties of a permission binding. </summary>
@@ -1161,11 +1161,11 @@ namespace Azure.ResourceManager.EventGrid
         /// <exception cref="ArgumentNullException"> <paramref name="permissionBindingName"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="permissionBindingName"/> is an empty string, and was expected to be non-empty. </exception>
         [ForwardsClientCalls]
-        public virtual Response<PermissionBindingResource> GetPermissionBinding(string permissionBindingName, CancellationToken cancellationToken = default)
+        public virtual Response<EventGridNamespacePermissionBindingResource> GetEventGridNamespacePermissionBinding(string permissionBindingName, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(permissionBindingName, nameof(permissionBindingName));
 
-            return GetPermissionBindings().Get(permissionBindingName, cancellationToken);
+            return GetEventGridNamespacePermissionBindings().Get(permissionBindingName, cancellationToken);
         }
 
         /// <summary> Gets a collection of TopicSpaces in the <see cref="EventGridNamespaceResource"/>. </summary>

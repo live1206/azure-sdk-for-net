@@ -7,6 +7,7 @@
 
 using System;
 using System.Collections.Generic;
+using Azure.ResourceManager.EventGrid;
 
 namespace Azure.ResourceManager.EventGrid.Models
 {
@@ -29,6 +30,7 @@ namespace Azure.ResourceManager.EventGrid.Models
         }
 
         /// <summary> String type routing enrichment value. </summary>
+        [WirePath("value")]
         public string Value { get; set; }
     }
 }

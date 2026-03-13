@@ -41,9 +41,11 @@ namespace Azure.ResourceManager.EventGrid
         }
 
         /// <summary> Properties of the partner registration. </summary>
+        [WirePath("properties")]
         internal PartnerRegistrationProperties Properties { get; set; }
 
         /// <summary> Provisioning state of the partner registration. </summary>
+        [WirePath("properties.provisioningState")]
         public PartnerRegistrationProvisioningState? ProvisioningState
         {
             get
@@ -56,7 +58,8 @@ namespace Azure.ResourceManager.EventGrid
         /// The immutableId of the corresponding partner registration.
         /// Note: This property is marked for deprecation and is not supported in any future GA API version
         /// </summary>
-        public string PartnerRegistrationImmutableId
+        [WirePath("properties.partnerRegistrationImmutableId")]
+        public Guid? PartnerRegistrationImmutableId
         {
             get
             {
@@ -68,7 +71,7 @@ namespace Azure.ResourceManager.EventGrid
                 {
                     Properties = new PartnerRegistrationProperties();
                 }
-                Properties.PartnerRegistrationImmutableId = value;
+                Properties.PartnerRegistrationImmutableId = value.Value;
             }
         }
     }

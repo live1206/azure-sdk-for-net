@@ -42,18 +42,23 @@ namespace Azure.ResourceManager.EventGrid.Models
         }
 
         /// <summary> Provisioning issue type. </summary>
+        [WirePath("issueType")]
         public NetworkSecurityPerimeterConfigurationIssueType? IssueType { get; }
 
         /// <summary> Provisioning issue severity. </summary>
+        [WirePath("severity")]
         public NetworkSecurityPerimeterConfigurationIssueSeverity? Severity { get; }
 
         /// <summary> Provisioning issue description. </summary>
+        [WirePath("description")]
         public string Description { get; }
 
         /// <summary> ARM IDs of resources that can be associated to the same perimeter to remediate the issue. </summary>
+        [WirePath("suggestedResourceIds")]
         public IList<string> SuggestedResourceIds { get; } = new ChangeTrackingList<string>();
 
         /// <summary> Access rules that can be added to the same profile to remediate the issue. </summary>
+        [WirePath("suggestedAccessRules")]
         public IList<string> SuggestedAccessRules { get; } = new ChangeTrackingList<string>();
     }
 }

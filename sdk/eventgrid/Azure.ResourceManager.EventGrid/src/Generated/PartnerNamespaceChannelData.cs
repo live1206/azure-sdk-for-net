@@ -38,9 +38,11 @@ namespace Azure.ResourceManager.EventGrid
         }
 
         /// <summary> Properties of the Channel. </summary>
+        [WirePath("properties")]
         internal ChannelProperties Properties { get; set; }
 
         /// <summary> The type of the event channel which represents the direction flow of events. </summary>
+        [WirePath("properties.channelType")]
         public PartnerNamespaceChannelType? ChannelType
         {
             get
@@ -58,6 +60,7 @@ namespace Azure.ResourceManager.EventGrid
         }
 
         /// <summary> This property should be populated when channelType is PartnerTopic and represents information about the partner topic resource corresponding to the channel. </summary>
+        [WirePath("properties.partnerTopicInfo")]
         public PartnerTopicInfo PartnerTopicInfo
         {
             get
@@ -75,6 +78,7 @@ namespace Azure.ResourceManager.EventGrid
         }
 
         /// <summary> This property should be populated when channelType is PartnerDestination and represents information about the partner destination resource corresponding to the channel. </summary>
+        [WirePath("properties.partnerDestinationInfo")]
         public PartnerDestinationInfo PartnerDestinationInfo
         {
             get
@@ -92,6 +96,7 @@ namespace Azure.ResourceManager.EventGrid
         }
 
         /// <summary> Context or helpful message that can be used during the approval process by the subscriber. </summary>
+        [WirePath("properties.messageForActivation")]
         public string MessageForActivation
         {
             get
@@ -109,6 +114,7 @@ namespace Azure.ResourceManager.EventGrid
         }
 
         /// <summary> Provisioning state of the channel. </summary>
+        [WirePath("properties.provisioningState")]
         public PartnerNamespaceChannelProvisioningState? ProvisioningState
         {
             get
@@ -126,6 +132,7 @@ namespace Azure.ResourceManager.EventGrid
         }
 
         /// <summary> The readiness state of the corresponding partner topic. </summary>
+        [WirePath("properties.readinessState")]
         public PartnerTopicReadinessState? ReadinessState
         {
             get
@@ -146,11 +153,12 @@ namespace Azure.ResourceManager.EventGrid
         /// Expiration time of the channel. If this timer expires while the corresponding partner topic is never activated,
         /// the channel and corresponding partner topic are deleted.
         /// </summary>
-        public DateTimeOffset? ExpirationTimeIfNotActivatedUtc
+        [WirePath("properties.expirationTimeIfNotActivatedUtc")]
+        public DateTimeOffset? ExpireOnIfNotActivated
         {
             get
             {
-                return Properties is null ? default : Properties.ExpirationTimeIfNotActivatedUtc;
+                return Properties is null ? default : Properties.ExpireOnIfNotActivated;
             }
             set
             {
@@ -158,7 +166,7 @@ namespace Azure.ResourceManager.EventGrid
                 {
                     Properties = new ChannelProperties();
                 }
-                Properties.ExpirationTimeIfNotActivatedUtc = value.Value;
+                Properties.ExpireOnIfNotActivated = value.Value;
             }
         }
     }

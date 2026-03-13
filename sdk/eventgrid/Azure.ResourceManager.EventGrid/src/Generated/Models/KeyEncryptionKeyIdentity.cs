@@ -8,6 +8,7 @@
 using System;
 using System.Collections.Generic;
 using Azure.Core;
+using Azure.ResourceManager.EventGrid;
 
 namespace Azure.ResourceManager.EventGrid.Models
 {
@@ -39,12 +40,14 @@ namespace Azure.ResourceManager.EventGrid.Models
         }
 
         /// <summary> The type of managed identity used. Only UserAssigned or SystemAssigned Identity are supported. </summary>
+        [WirePath("type")]
         public KeyEncryptionIdentityType Type { get; set; }
 
         /// <summary>
         /// Azure Resource fully qualified Id for the user-assigned identity associated with the resource. The resource Id takes the following format:
         /// '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ManagedIdentity/userAssignedIdentities/{identityName}'.
         /// </summary>
+        [WirePath("userAssignedIdentityResourceId")]
         public ResourceIdentifier UserAssignedIdentityResourceId { get; set; }
     }
 }

@@ -8,6 +8,7 @@
 using System;
 using System.Collections.Generic;
 using Azure.ResourceManager.EventGrid;
+using Azure.ResourceManager.Models;
 
 namespace Azure.ResourceManager.EventGrid.Models
 {
@@ -29,7 +30,7 @@ namespace Azure.ResourceManager.EventGrid.Models
         /// <param name="sku"> Represents available Sku pricing tiers. </param>
         /// <param name="properties"> Properties of the namespace resource. </param>
         /// <param name="additionalBinaryDataProperties"> Keeps track of any properties unknown to the library. </param>
-        internal EventGridNamespacePatch(IDictionary<string, string> tags, IdentityInfo identity, NamespaceSku sku, NamespaceUpdateParameterProperties properties, IDictionary<string, BinaryData> additionalBinaryDataProperties)
+        internal EventGridNamespacePatch(IDictionary<string, string> tags, ManagedServiceIdentity identity, NamespaceSku sku, NamespaceUpdateParameterProperties properties, IDictionary<string, BinaryData> additionalBinaryDataProperties)
         {
             Tags = tags;
             Identity = identity;
@@ -39,18 +40,23 @@ namespace Azure.ResourceManager.EventGrid.Models
         }
 
         /// <summary> Tags of the namespace resource. </summary>
+        [WirePath("tags")]
         public IDictionary<string, string> Tags { get; }
 
         /// <summary> Namespace resource identity information. </summary>
-        public IdentityInfo Identity { get; set; }
+        [WirePath("identity")]
+        public ManagedServiceIdentity Identity { get; set; }
 
         /// <summary> Represents available Sku pricing tiers. </summary>
+        [WirePath("sku")]
         public NamespaceSku Sku { get; set; }
 
         /// <summary> Properties of the namespace resource. </summary>
+        [WirePath("properties")]
         internal NamespaceUpdateParameterProperties Properties { get; set; }
 
         /// <summary> Topic spaces configuration properties that can be updated. </summary>
+        [WirePath("properties.topicSpacesConfiguration")]
         public UpdateTopicSpacesConfigurationInfo TopicSpacesConfiguration
         {
             get
@@ -71,6 +77,7 @@ namespace Azure.ResourceManager.EventGrid.Models
         /// This determines if traffic is allowed over public network. By default it is enabled.
         /// You can further restrict to specific IPs by configuring &lt;seealso cref="P:Microsoft.Azure.Events.ResourceProvider.Common.Contracts.PubSub.NamespaceUpdateParameterProperties.InboundIpRules" /&gt;
         /// </summary>
+        [WirePath("properties.publicNetworkAccess")]
         public EventGridPublicNetworkAccess? PublicNetworkAccess
         {
             get
@@ -88,7 +95,8 @@ namespace Azure.ResourceManager.EventGrid.Models
         }
 
         /// <summary> This can be used to restrict traffic from specific IPs instead of all IPs. Note: These are considered only if PublicNetworkAccess is enabled. </summary>
-        public IList<EventGridInboundIPRule> InboundIpRules
+        [WirePath("properties.inboundIpRules")]
+        public IList<EventGridInboundIPRule> InboundIPRules
         {
             get
             {
@@ -96,11 +104,12 @@ namespace Azure.ResourceManager.EventGrid.Models
                 {
                     Properties = new NamespaceUpdateParameterProperties();
                 }
-                return Properties.InboundIpRules;
+                return Properties.InboundIPRules;
             }
         }
 
         /// <summary> Custom domain info for topics configuration. </summary>
+        [WirePath("properties.topicsConfiguration.customDomains")]
         public IList<CustomDomainConfiguration> TopicsCustomDomains
         {
             get

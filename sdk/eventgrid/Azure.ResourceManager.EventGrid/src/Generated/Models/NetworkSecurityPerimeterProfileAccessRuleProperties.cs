@@ -50,24 +50,31 @@ namespace Azure.ResourceManager.EventGrid.Models
         }
 
         /// <summary> NSP access rule direction. </summary>
+        [WirePath("direction")]
         public NetworkSecurityPerimeterProfileAccessRuleDirection? Direction { get; }
 
         /// <summary> Address prefixes. </summary>
+        [WirePath("addressPrefixes")]
         public IList<string> AddressPrefixes { get; } = new ChangeTrackingList<string>();
 
         /// <summary> List of subscriptions. </summary>
+        [WirePath("subscriptions")]
         public IList<NetworkSecurityPerimeterSubscription> Subscriptions { get; } = new ChangeTrackingList<NetworkSecurityPerimeterSubscription>();
 
         /// <summary> Network security perimeters. </summary>
+        [WirePath("networkSecurityPerimeters")]
         public IList<NetworkSecurityPerimeterInfo> NetworkSecurityPerimeters { get; } = new ChangeTrackingList<NetworkSecurityPerimeterInfo>();
 
         /// <summary> Fully qualified domain names. </summary>
+        [WirePath("fullyQualifiedDomainNames")]
         public IList<string> FullyQualifiedDomainNames { get; } = new ChangeTrackingList<string>();
 
         /// <summary> List of email addresses. </summary>
+        [WirePath("emailAddresses")]
         public IList<string> EmailAddresses { get; } = new ChangeTrackingList<string>();
 
         /// <summary> List of phone numbers. </summary>
+        [WirePath("phoneNumbers")]
         public IList<string> PhoneNumbers { get; } = new ChangeTrackingList<string>();
     }
 }

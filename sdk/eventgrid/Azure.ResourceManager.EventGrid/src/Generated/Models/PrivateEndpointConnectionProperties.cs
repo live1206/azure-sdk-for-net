@@ -29,7 +29,7 @@ namespace Azure.ResourceManager.EventGrid.Models
         /// <param name="privateLinkServiceConnectionState"> Details about the state of the connection. </param>
         /// <param name="provisioningState"> Provisioning state of the Private Endpoint Connection. </param>
         /// <param name="additionalBinaryDataProperties"> Keeps track of any properties unknown to the library. </param>
-        internal PrivateEndpointConnectionProperties(PrivateEndpoint privateEndpoint, IList<string> groupIds, ConnectionState privateLinkServiceConnectionState, EventGridResourceProvisioningState? provisioningState, IDictionary<string, BinaryData> additionalBinaryDataProperties)
+        internal PrivateEndpointConnectionProperties(PrivateEndpoint privateEndpoint, IList<string> groupIds, EventGridPrivateEndpointConnectionState privateLinkServiceConnectionState, EventGridResourceProvisioningState? provisioningState, IDictionary<string, BinaryData> additionalBinaryDataProperties)
         {
             PrivateEndpoint = privateEndpoint;
             GroupIds = groupIds;
@@ -39,18 +39,23 @@ namespace Azure.ResourceManager.EventGrid.Models
         }
 
         /// <summary> The Private Endpoint resource for this Connection. </summary>
+        [WirePath("privateEndpoint")]
         internal PrivateEndpoint PrivateEndpoint { get; set; }
 
         /// <summary> GroupIds from the private link service resource. </summary>
+        [WirePath("groupIds")]
         public IList<string> GroupIds { get; } = new ChangeTrackingList<string>();
 
         /// <summary> Details about the state of the connection. </summary>
-        public ConnectionState PrivateLinkServiceConnectionState { get; set; }
+        [WirePath("privateLinkServiceConnectionState")]
+        public EventGridPrivateEndpointConnectionState PrivateLinkServiceConnectionState { get; set; }
 
         /// <summary> Provisioning state of the Private Endpoint Connection. </summary>
+        [WirePath("provisioningState")]
         public EventGridResourceProvisioningState? ProvisioningState { get; set; }
 
         /// <summary> The ARM identifier for Private Endpoint. </summary>
+        [WirePath("privateEndpoint.id")]
         public string PrivateEndpointId
         {
             get

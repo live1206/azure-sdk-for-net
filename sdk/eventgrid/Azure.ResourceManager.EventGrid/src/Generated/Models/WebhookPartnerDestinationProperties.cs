@@ -7,6 +7,7 @@
 
 using System;
 using System.Collections.Generic;
+using Azure.ResourceManager.EventGrid;
 
 namespace Azure.ResourceManager.EventGrid.Models
 {
@@ -35,12 +36,15 @@ namespace Azure.ResourceManager.EventGrid.Models
         }
 
         /// <summary> The URL that represents the endpoint of the partner destination. </summary>
+        [WirePath("endpointUrl")]
         public Uri EndpointUri { get; set; }
 
         /// <summary> The base URL that represents the endpoint of the partner destination. </summary>
+        [WirePath("endpointBaseUrl")]
         public Uri EndpointBaseUri { get; set; }
 
         /// <summary> Partner client authentication. </summary>
+        [WirePath("clientAuthentication")]
         public PartnerClientAuthentication ClientAuthentication { get; set; }
     }
 }

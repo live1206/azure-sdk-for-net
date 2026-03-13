@@ -8,6 +8,7 @@
 using System;
 using System.Collections.Generic;
 using Azure.ResourceManager.EventGrid;
+using Azure.ResourceManager.Models;
 
 namespace Azure.ResourceManager.EventGrid.Models
 {
@@ -27,7 +28,7 @@ namespace Azure.ResourceManager.EventGrid.Models
         /// <param name="tags"> Tags of the system topic. </param>
         /// <param name="identity"> Resource identity information. </param>
         /// <param name="additionalBinaryDataProperties"> Keeps track of any properties unknown to the library. </param>
-        internal SystemTopicPatch(IDictionary<string, string> tags, IdentityInfo identity, IDictionary<string, BinaryData> additionalBinaryDataProperties)
+        internal SystemTopicPatch(IDictionary<string, string> tags, ManagedServiceIdentity identity, IDictionary<string, BinaryData> additionalBinaryDataProperties)
         {
             Tags = tags;
             Identity = identity;
@@ -35,9 +36,11 @@ namespace Azure.ResourceManager.EventGrid.Models
         }
 
         /// <summary> Tags of the system topic. </summary>
+        [WirePath("tags")]
         public IDictionary<string, string> Tags { get; }
 
         /// <summary> Resource identity information. </summary>
-        public IdentityInfo Identity { get; set; }
+        [WirePath("identity")]
+        public ManagedServiceIdentity Identity { get; set; }
     }
 }

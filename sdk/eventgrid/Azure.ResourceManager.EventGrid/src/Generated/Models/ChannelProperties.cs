@@ -7,6 +7,7 @@
 
 using System;
 using System.Collections.Generic;
+using Azure.ResourceManager.EventGrid;
 
 namespace Azure.ResourceManager.EventGrid.Models
 {
@@ -28,12 +29,12 @@ namespace Azure.ResourceManager.EventGrid.Models
         /// <param name="messageForActivation"> Context or helpful message that can be used during the approval process by the subscriber. </param>
         /// <param name="provisioningState"> Provisioning state of the channel. </param>
         /// <param name="readinessState"> The readiness state of the corresponding partner topic. </param>
-        /// <param name="expirationTimeIfNotActivatedUtc">
+        /// <param name="expireOnIfNotActivated">
         /// Expiration time of the channel. If this timer expires while the corresponding partner topic is never activated,
         /// the channel and corresponding partner topic are deleted.
         /// </param>
         /// <param name="additionalBinaryDataProperties"> Keeps track of any properties unknown to the library. </param>
-        internal ChannelProperties(PartnerNamespaceChannelType? channelType, PartnerTopicInfo partnerTopicInfo, PartnerDestinationInfo partnerDestinationInfo, string messageForActivation, PartnerNamespaceChannelProvisioningState? provisioningState, PartnerTopicReadinessState? readinessState, DateTimeOffset? expirationTimeIfNotActivatedUtc, IDictionary<string, BinaryData> additionalBinaryDataProperties)
+        internal ChannelProperties(PartnerNamespaceChannelType? channelType, PartnerTopicInfo partnerTopicInfo, PartnerDestinationInfo partnerDestinationInfo, string messageForActivation, PartnerNamespaceChannelProvisioningState? provisioningState, PartnerTopicReadinessState? readinessState, DateTimeOffset? expireOnIfNotActivated, IDictionary<string, BinaryData> additionalBinaryDataProperties)
         {
             ChannelType = channelType;
             PartnerTopicInfo = partnerTopicInfo;
@@ -41,32 +42,39 @@ namespace Azure.ResourceManager.EventGrid.Models
             MessageForActivation = messageForActivation;
             ProvisioningState = provisioningState;
             ReadinessState = readinessState;
-            ExpirationTimeIfNotActivatedUtc = expirationTimeIfNotActivatedUtc;
+            ExpireOnIfNotActivated = expireOnIfNotActivated;
             _additionalBinaryDataProperties = additionalBinaryDataProperties;
         }
 
         /// <summary> The type of the event channel which represents the direction flow of events. </summary>
+        [WirePath("channelType")]
         public PartnerNamespaceChannelType? ChannelType { get; set; }
 
         /// <summary> This property should be populated when channelType is PartnerTopic and represents information about the partner topic resource corresponding to the channel. </summary>
+        [WirePath("partnerTopicInfo")]
         public PartnerTopicInfo PartnerTopicInfo { get; set; }
 
         /// <summary> This property should be populated when channelType is PartnerDestination and represents information about the partner destination resource corresponding to the channel. </summary>
+        [WirePath("partnerDestinationInfo")]
         public PartnerDestinationInfo PartnerDestinationInfo { get; set; }
 
         /// <summary> Context or helpful message that can be used during the approval process by the subscriber. </summary>
+        [WirePath("messageForActivation")]
         public string MessageForActivation { get; set; }
 
         /// <summary> Provisioning state of the channel. </summary>
+        [WirePath("provisioningState")]
         public PartnerNamespaceChannelProvisioningState? ProvisioningState { get; set; }
 
         /// <summary> The readiness state of the corresponding partner topic. </summary>
+        [WirePath("readinessState")]
         public PartnerTopicReadinessState? ReadinessState { get; set; }
 
         /// <summary>
         /// Expiration time of the channel. If this timer expires while the corresponding partner topic is never activated,
         /// the channel and corresponding partner topic are deleted.
         /// </summary>
-        public DateTimeOffset? ExpirationTimeIfNotActivatedUtc { get; set; }
+        [WirePath("expirationTimeIfNotActivatedUtc")]
+        public DateTimeOffset? ExpireOnIfNotActivated { get; set; }
     }
 }

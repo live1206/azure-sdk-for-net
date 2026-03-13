@@ -7,6 +7,7 @@
 
 using System;
 using System.Collections.Generic;
+using Azure.ResourceManager.EventGrid;
 
 namespace Azure.ResourceManager.EventGrid.Models
 {
@@ -38,15 +39,18 @@ namespace Azure.ResourceManager.EventGrid.Models
         }
 
         /// <summary> Description for the Client Group resource. </summary>
+        [WirePath("description")]
         public string Description { get; set; }
 
         /// <summary>
         /// The grouping query for the clients.
         /// Example : attributes.keyName IN ['a', 'b', 'c'].
         /// </summary>
+        [WirePath("query")]
         public string Query { get; set; }
 
         /// <summary> Provisioning state of the ClientGroup resource. </summary>
+        [WirePath("provisioningState")]
         public ClientGroupProvisioningState? ProvisioningState { get; }
     }
 }

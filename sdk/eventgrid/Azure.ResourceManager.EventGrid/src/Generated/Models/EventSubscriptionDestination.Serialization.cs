@@ -19,11 +19,6 @@ namespace Azure.ResourceManager.EventGrid.Models
     [PersistableModelProxy(typeof(UnknownEventSubscriptionDestination))]
     public abstract partial class EventSubscriptionDestination : IJsonModel<EventSubscriptionDestination>
     {
-        /// <summary> Initializes a new instance of <see cref="EventSubscriptionDestination"/> for deserialization. </summary>
-        internal EventSubscriptionDestination()
-        {
-        }
-
         /// <param name="data"> The data to parse. </param>
         /// <param name="options"> The client options for reading and writing models. </param>
         protected virtual EventSubscriptionDestination PersistableModelCreateCore(BinaryData data, ModelReaderWriterOptions options)

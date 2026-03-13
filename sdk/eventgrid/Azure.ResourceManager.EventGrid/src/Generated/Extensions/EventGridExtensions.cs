@@ -33,7 +33,7 @@ namespace Azure.ResourceManager.EventGrid
         }
 
         /// <param name="subscriptionResource"></param>
-        private static MockableEventGridSubscriptionResource GetMockableEventGridSubscriptionResource(Resources.SubscriptionResource subscriptionResource)
+        private static MockableEventGridSubscriptionResource GetMockableEventGridSubscriptionResource(SubscriptionResource subscriptionResource)
         {
             return subscriptionResource.GetCachedClient(client => new MockableEventGridSubscriptionResource(client, subscriptionResource.Id));
         }
@@ -117,21 +117,21 @@ namespace Azure.ResourceManager.EventGrid
         }
 
         /// <summary>
-        /// Gets an object representing a <see cref="ClientGroupResource"/> along with the instance operations that can be performed on it but with no data.
+        /// Gets an object representing a <see cref="EventGridNamespaceClientGroupResource"/> along with the instance operations that can be performed on it but with no data.
         /// <item>
         /// <term> Mocking. </term>
-        /// <description> To mock this method, please mock <see cref="MockableEventGridArmClient.GetClientGroupResource(ResourceIdentifier)"/> instead. </description>
+        /// <description> To mock this method, please mock <see cref="MockableEventGridArmClient.GetEventGridNamespaceClientGroupResource(ResourceIdentifier)"/> instead. </description>
         /// </item>
         /// </summary>
         /// <param name="client"> The <see cref="ArmClient"/> the method will execute against. </param>
         /// <param name="id"> The resource ID of the resource to get. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="client"/> is null. </exception>
-        /// <returns> Returns a <see cref="ClientGroupResource"/> object. </returns>
-        public static ClientGroupResource GetClientGroupResource(this ArmClient client, ResourceIdentifier id)
+        /// <returns> Returns a <see cref="EventGridNamespaceClientGroupResource"/> object. </returns>
+        public static EventGridNamespaceClientGroupResource GetEventGridNamespaceClientGroupResource(this ArmClient client, ResourceIdentifier id)
         {
             Argument.AssertNotNull(client, nameof(client));
 
-            return GetMockableEventGridArmClient(client).GetClientGroupResource(id);
+            return GetMockableEventGridArmClient(client).GetEventGridNamespaceClientGroupResource(id);
         }
 
         /// <summary>
@@ -427,21 +427,21 @@ namespace Azure.ResourceManager.EventGrid
         }
 
         /// <summary>
-        /// Gets an object representing a <see cref="PermissionBindingResource"/> along with the instance operations that can be performed on it but with no data.
+        /// Gets an object representing a <see cref="EventGridNamespacePermissionBindingResource"/> along with the instance operations that can be performed on it but with no data.
         /// <item>
         /// <term> Mocking. </term>
-        /// <description> To mock this method, please mock <see cref="MockableEventGridArmClient.GetPermissionBindingResource(ResourceIdentifier)"/> instead. </description>
+        /// <description> To mock this method, please mock <see cref="MockableEventGridArmClient.GetEventGridNamespacePermissionBindingResource(ResourceIdentifier)"/> instead. </description>
         /// </item>
         /// </summary>
         /// <param name="client"> The <see cref="ArmClient"/> the method will execute against. </param>
         /// <param name="id"> The resource ID of the resource to get. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="client"/> is null. </exception>
-        /// <returns> Returns a <see cref="PermissionBindingResource"/> object. </returns>
-        public static PermissionBindingResource GetPermissionBindingResource(this ArmClient client, ResourceIdentifier id)
+        /// <returns> Returns a <see cref="EventGridNamespacePermissionBindingResource"/> object. </returns>
+        public static EventGridNamespacePermissionBindingResource GetEventGridNamespacePermissionBindingResource(this ArmClient client, ResourceIdentifier id)
         {
             Argument.AssertNotNull(client, nameof(client));
 
-            return GetMockableEventGridArmClient(client).GetPermissionBindingResource(id);
+            return GetMockableEventGridArmClient(client).GetEventGridNamespacePermissionBindingResource(id);
         }
 
         /// <summary>
@@ -571,39 +571,39 @@ namespace Azure.ResourceManager.EventGrid
         }
 
         /// <summary>
-        /// Gets an object representing a <see cref="SubscriptionResource"/> along with the instance operations that can be performed on it but with no data.
+        /// Gets an object representing a <see cref="NamespaceTopicEventSubscriptionResource"/> along with the instance operations that can be performed on it but with no data.
         /// <item>
         /// <term> Mocking. </term>
-        /// <description> To mock this method, please mock <see cref="MockableEventGridArmClient.GetSubscriptionResource(ResourceIdentifier)"/> instead. </description>
+        /// <description> To mock this method, please mock <see cref="MockableEventGridArmClient.GetNamespaceTopicEventSubscriptionResource(ResourceIdentifier)"/> instead. </description>
         /// </item>
         /// </summary>
         /// <param name="client"> The <see cref="ArmClient"/> the method will execute against. </param>
         /// <param name="id"> The resource ID of the resource to get. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="client"/> is null. </exception>
-        /// <returns> Returns a <see cref="SubscriptionResource"/> object. </returns>
-        public static SubscriptionResource GetSubscriptionResource(this ArmClient client, ResourceIdentifier id)
+        /// <returns> Returns a <see cref="NamespaceTopicEventSubscriptionResource"/> object. </returns>
+        public static NamespaceTopicEventSubscriptionResource GetNamespaceTopicEventSubscriptionResource(this ArmClient client, ResourceIdentifier id)
         {
             Argument.AssertNotNull(client, nameof(client));
 
-            return GetMockableEventGridArmClient(client).GetSubscriptionResource(id);
+            return GetMockableEventGridArmClient(client).GetNamespaceTopicEventSubscriptionResource(id);
         }
 
         /// <summary>
-        /// Gets an object representing a <see cref="TopicTypeInfoResource"/> along with the instance operations that can be performed on it but with no data.
+        /// Gets an object representing a <see cref="TopicTypeResource"/> along with the instance operations that can be performed on it but with no data.
         /// <item>
         /// <term> Mocking. </term>
-        /// <description> To mock this method, please mock <see cref="MockableEventGridArmClient.GetTopicTypeInfoResource(ResourceIdentifier)"/> instead. </description>
+        /// <description> To mock this method, please mock <see cref="MockableEventGridArmClient.GetTopicTypeResource(ResourceIdentifier)"/> instead. </description>
         /// </item>
         /// </summary>
         /// <param name="client"> The <see cref="ArmClient"/> the method will execute against. </param>
         /// <param name="id"> The resource ID of the resource to get. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="client"/> is null. </exception>
-        /// <returns> Returns a <see cref="TopicTypeInfoResource"/> object. </returns>
-        public static TopicTypeInfoResource GetTopicTypeInfoResource(this ArmClient client, ResourceIdentifier id)
+        /// <returns> Returns a <see cref="TopicTypeResource"/> object. </returns>
+        public static TopicTypeResource GetTopicTypeResource(this ArmClient client, ResourceIdentifier id)
         {
             Argument.AssertNotNull(client, nameof(client));
 
-            return GetMockableEventGridArmClient(client).GetTopicTypeInfoResource(id);
+            return GetMockableEventGridArmClient(client).GetTopicTypeResource(id);
         }
 
         /// <summary>
@@ -1750,13 +1750,13 @@ namespace Azure.ResourceManager.EventGrid
         /// <description> To mock this method, please mock <see cref="MockableEventGridSubscriptionResource.GetEventGridNamespacesAsync(string, int?, CancellationToken)"/> instead. </description>
         /// </item>
         /// </summary>
-        /// <param name="subscriptionResource"> The <see cref="Resources.SubscriptionResource"/> the method will execute against. </param>
+        /// <param name="subscriptionResource"> The <see cref="SubscriptionResource"/> the method will execute against. </param>
         /// <param name="filter"> The query used to filter the search results using OData syntax. Filtering is permitted on the 'name' property only and with limited number of OData operations. These operations are: the 'contains' function as well as the following logical operations: not, and, or, eq (for equal), and ne (for not equal). No arithmetic operations are supported. The following is a valid filter example: $filter=contains(namE, 'PATTERN') and name ne 'PATTERN-1'. The following is not a valid filter example: $filter=location eq 'westus'. </param>
         /// <param name="top"> The number of results to return per page for the list operation. Valid range for top parameter is 1 to 100. If not specified, the default number of results to be returned is 20 items per page. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="subscriptionResource"/> is null. </exception>
         /// <returns> A collection of <see cref="EventGridNamespaceResource"/> that may take multiple service requests to iterate over. </returns>
-        public static AsyncPageable<EventGridNamespaceResource> GetEventGridNamespacesAsync(this Resources.SubscriptionResource subscriptionResource, string filter = default, int? top = default, CancellationToken cancellationToken = default)
+        public static AsyncPageable<EventGridNamespaceResource> GetEventGridNamespacesAsync(this SubscriptionResource subscriptionResource, string filter = default, int? top = default, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNull(subscriptionResource, nameof(subscriptionResource));
 
@@ -1770,13 +1770,13 @@ namespace Azure.ResourceManager.EventGrid
         /// <description> To mock this method, please mock <see cref="MockableEventGridSubscriptionResource.GetEventGridNamespaces(string, int?, CancellationToken)"/> instead. </description>
         /// </item>
         /// </summary>
-        /// <param name="subscriptionResource"> The <see cref="Resources.SubscriptionResource"/> the method will execute against. </param>
+        /// <param name="subscriptionResource"> The <see cref="SubscriptionResource"/> the method will execute against. </param>
         /// <param name="filter"> The query used to filter the search results using OData syntax. Filtering is permitted on the 'name' property only and with limited number of OData operations. These operations are: the 'contains' function as well as the following logical operations: not, and, or, eq (for equal), and ne (for not equal). No arithmetic operations are supported. The following is a valid filter example: $filter=contains(namE, 'PATTERN') and name ne 'PATTERN-1'. The following is not a valid filter example: $filter=location eq 'westus'. </param>
         /// <param name="top"> The number of results to return per page for the list operation. Valid range for top parameter is 1 to 100. If not specified, the default number of results to be returned is 20 items per page. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="subscriptionResource"/> is null. </exception>
         /// <returns> A collection of <see cref="EventGridNamespaceResource"/> that may take multiple service requests to iterate over. </returns>
-        public static Pageable<EventGridNamespaceResource> GetEventGridNamespaces(this Resources.SubscriptionResource subscriptionResource, string filter = default, int? top = default, CancellationToken cancellationToken = default)
+        public static Pageable<EventGridNamespaceResource> GetEventGridNamespaces(this SubscriptionResource subscriptionResource, string filter = default, int? top = default, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNull(subscriptionResource, nameof(subscriptionResource));
 
@@ -1790,13 +1790,13 @@ namespace Azure.ResourceManager.EventGrid
         /// <description> To mock this method, please mock <see cref="MockableEventGridSubscriptionResource.GetPartnerNamespacesAsync(string, int?, CancellationToken)"/> instead. </description>
         /// </item>
         /// </summary>
-        /// <param name="subscriptionResource"> The <see cref="Resources.SubscriptionResource"/> the method will execute against. </param>
+        /// <param name="subscriptionResource"> The <see cref="SubscriptionResource"/> the method will execute against. </param>
         /// <param name="filter"> The query used to filter the search results using OData syntax. Filtering is permitted on the 'name' property only and with limited number of OData operations. These operations are: the 'contains' function as well as the following logical operations: not, and, or, eq (for equal), and ne (for not equal). No arithmetic operations are supported. The following is a valid filter example: $filter=contains(namE, 'PATTERN') and name ne 'PATTERN-1'. The following is not a valid filter example: $filter=location eq 'westus'. </param>
         /// <param name="top"> The number of results to return per page for the list operation. Valid range for top parameter is 1 to 100. If not specified, the default number of results to be returned is 20 items per page. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="subscriptionResource"/> is null. </exception>
         /// <returns> A collection of <see cref="PartnerNamespaceResource"/> that may take multiple service requests to iterate over. </returns>
-        public static AsyncPageable<PartnerNamespaceResource> GetPartnerNamespacesAsync(this Resources.SubscriptionResource subscriptionResource, string filter = default, int? top = default, CancellationToken cancellationToken = default)
+        public static AsyncPageable<PartnerNamespaceResource> GetPartnerNamespacesAsync(this SubscriptionResource subscriptionResource, string filter = default, int? top = default, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNull(subscriptionResource, nameof(subscriptionResource));
 
@@ -1810,13 +1810,13 @@ namespace Azure.ResourceManager.EventGrid
         /// <description> To mock this method, please mock <see cref="MockableEventGridSubscriptionResource.GetPartnerNamespaces(string, int?, CancellationToken)"/> instead. </description>
         /// </item>
         /// </summary>
-        /// <param name="subscriptionResource"> The <see cref="Resources.SubscriptionResource"/> the method will execute against. </param>
+        /// <param name="subscriptionResource"> The <see cref="SubscriptionResource"/> the method will execute against. </param>
         /// <param name="filter"> The query used to filter the search results using OData syntax. Filtering is permitted on the 'name' property only and with limited number of OData operations. These operations are: the 'contains' function as well as the following logical operations: not, and, or, eq (for equal), and ne (for not equal). No arithmetic operations are supported. The following is a valid filter example: $filter=contains(namE, 'PATTERN') and name ne 'PATTERN-1'. The following is not a valid filter example: $filter=location eq 'westus'. </param>
         /// <param name="top"> The number of results to return per page for the list operation. Valid range for top parameter is 1 to 100. If not specified, the default number of results to be returned is 20 items per page. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="subscriptionResource"/> is null. </exception>
         /// <returns> A collection of <see cref="PartnerNamespaceResource"/> that may take multiple service requests to iterate over. </returns>
-        public static Pageable<PartnerNamespaceResource> GetPartnerNamespaces(this Resources.SubscriptionResource subscriptionResource, string filter = default, int? top = default, CancellationToken cancellationToken = default)
+        public static Pageable<PartnerNamespaceResource> GetPartnerNamespaces(this SubscriptionResource subscriptionResource, string filter = default, int? top = default, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNull(subscriptionResource, nameof(subscriptionResource));
 
@@ -1830,13 +1830,13 @@ namespace Azure.ResourceManager.EventGrid
         /// <description> To mock this method, please mock <see cref="MockableEventGridSubscriptionResource.GetEventGridDomainsAsync(string, int?, CancellationToken)"/> instead. </description>
         /// </item>
         /// </summary>
-        /// <param name="subscriptionResource"> The <see cref="Resources.SubscriptionResource"/> the method will execute against. </param>
+        /// <param name="subscriptionResource"> The <see cref="SubscriptionResource"/> the method will execute against. </param>
         /// <param name="filter"> The query used to filter the search results using OData syntax. Filtering is permitted on the 'name' property only and with limited number of OData operations. These operations are: the 'contains' function as well as the following logical operations: not, and, or, eq (for equal), and ne (for not equal). No arithmetic operations are supported. The following is a valid filter example: $filter=contains(namE, 'PATTERN') and name ne 'PATTERN-1'. The following is not a valid filter example: $filter=location eq 'westus'. </param>
         /// <param name="top"> The number of results to return per page for the list operation. Valid range for top parameter is 1 to 100. If not specified, the default number of results to be returned is 20 items per page. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="subscriptionResource"/> is null. </exception>
         /// <returns> A collection of <see cref="EventGridDomainResource"/> that may take multiple service requests to iterate over. </returns>
-        public static AsyncPageable<EventGridDomainResource> GetEventGridDomainsAsync(this Resources.SubscriptionResource subscriptionResource, string filter = default, int? top = default, CancellationToken cancellationToken = default)
+        public static AsyncPageable<EventGridDomainResource> GetEventGridDomainsAsync(this SubscriptionResource subscriptionResource, string filter = default, int? top = default, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNull(subscriptionResource, nameof(subscriptionResource));
 
@@ -1850,13 +1850,13 @@ namespace Azure.ResourceManager.EventGrid
         /// <description> To mock this method, please mock <see cref="MockableEventGridSubscriptionResource.GetEventGridDomains(string, int?, CancellationToken)"/> instead. </description>
         /// </item>
         /// </summary>
-        /// <param name="subscriptionResource"> The <see cref="Resources.SubscriptionResource"/> the method will execute against. </param>
+        /// <param name="subscriptionResource"> The <see cref="SubscriptionResource"/> the method will execute against. </param>
         /// <param name="filter"> The query used to filter the search results using OData syntax. Filtering is permitted on the 'name' property only and with limited number of OData operations. These operations are: the 'contains' function as well as the following logical operations: not, and, or, eq (for equal), and ne (for not equal). No arithmetic operations are supported. The following is a valid filter example: $filter=contains(namE, 'PATTERN') and name ne 'PATTERN-1'. The following is not a valid filter example: $filter=location eq 'westus'. </param>
         /// <param name="top"> The number of results to return per page for the list operation. Valid range for top parameter is 1 to 100. If not specified, the default number of results to be returned is 20 items per page. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="subscriptionResource"/> is null. </exception>
         /// <returns> A collection of <see cref="EventGridDomainResource"/> that may take multiple service requests to iterate over. </returns>
-        public static Pageable<EventGridDomainResource> GetEventGridDomains(this Resources.SubscriptionResource subscriptionResource, string filter = default, int? top = default, CancellationToken cancellationToken = default)
+        public static Pageable<EventGridDomainResource> GetEventGridDomains(this SubscriptionResource subscriptionResource, string filter = default, int? top = default, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNull(subscriptionResource, nameof(subscriptionResource));
 
@@ -1870,13 +1870,13 @@ namespace Azure.ResourceManager.EventGrid
         /// <description> To mock this method, please mock <see cref="MockableEventGridSubscriptionResource.GetEventSubscriptionsAsync(string, int?, CancellationToken)"/> instead. </description>
         /// </item>
         /// </summary>
-        /// <param name="subscriptionResource"> The <see cref="Resources.SubscriptionResource"/> the method will execute against. </param>
+        /// <param name="subscriptionResource"> The <see cref="SubscriptionResource"/> the method will execute against. </param>
         /// <param name="filter"> The query used to filter the search results using OData syntax. Filtering is permitted on the 'name' property only and with limited number of OData operations. These operations are: the 'contains' function as well as the following logical operations: not, and, or, eq (for equal), and ne (for not equal). No arithmetic operations are supported. The following is a valid filter example: $filter=contains(namE, 'PATTERN') and name ne 'PATTERN-1'. The following is not a valid filter example: $filter=location eq 'westus'. </param>
         /// <param name="top"> The number of results to return per page for the list operation. Valid range for top parameter is 1 to 100. If not specified, the default number of results to be returned is 20 items per page. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="subscriptionResource"/> is null. </exception>
         /// <returns> A collection of <see cref="EventSubscriptionResource"/> that may take multiple service requests to iterate over. </returns>
-        public static AsyncPageable<EventSubscriptionResource> GetEventSubscriptionsAsync(this Resources.SubscriptionResource subscriptionResource, string filter = default, int? top = default, CancellationToken cancellationToken = default)
+        public static AsyncPageable<EventSubscriptionResource> GetEventSubscriptionsAsync(this SubscriptionResource subscriptionResource, string filter = default, int? top = default, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNull(subscriptionResource, nameof(subscriptionResource));
 
@@ -1890,13 +1890,13 @@ namespace Azure.ResourceManager.EventGrid
         /// <description> To mock this method, please mock <see cref="MockableEventGridSubscriptionResource.GetEventSubscriptions(string, int?, CancellationToken)"/> instead. </description>
         /// </item>
         /// </summary>
-        /// <param name="subscriptionResource"> The <see cref="Resources.SubscriptionResource"/> the method will execute against. </param>
+        /// <param name="subscriptionResource"> The <see cref="SubscriptionResource"/> the method will execute against. </param>
         /// <param name="filter"> The query used to filter the search results using OData syntax. Filtering is permitted on the 'name' property only and with limited number of OData operations. These operations are: the 'contains' function as well as the following logical operations: not, and, or, eq (for equal), and ne (for not equal). No arithmetic operations are supported. The following is a valid filter example: $filter=contains(namE, 'PATTERN') and name ne 'PATTERN-1'. The following is not a valid filter example: $filter=location eq 'westus'. </param>
         /// <param name="top"> The number of results to return per page for the list operation. Valid range for top parameter is 1 to 100. If not specified, the default number of results to be returned is 20 items per page. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="subscriptionResource"/> is null. </exception>
         /// <returns> A collection of <see cref="EventSubscriptionResource"/> that may take multiple service requests to iterate over. </returns>
-        public static Pageable<EventSubscriptionResource> GetEventSubscriptions(this Resources.SubscriptionResource subscriptionResource, string filter = default, int? top = default, CancellationToken cancellationToken = default)
+        public static Pageable<EventSubscriptionResource> GetEventSubscriptions(this SubscriptionResource subscriptionResource, string filter = default, int? top = default, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNull(subscriptionResource, nameof(subscriptionResource));
 
@@ -1910,13 +1910,13 @@ namespace Azure.ResourceManager.EventGrid
         /// <description> To mock this method, please mock <see cref="MockableEventGridSubscriptionResource.GetPartnerConfigurationsAsync(string, int?, CancellationToken)"/> instead. </description>
         /// </item>
         /// </summary>
-        /// <param name="subscriptionResource"> The <see cref="Resources.SubscriptionResource"/> the method will execute against. </param>
+        /// <param name="subscriptionResource"> The <see cref="SubscriptionResource"/> the method will execute against. </param>
         /// <param name="filter"> The query used to filter the search results using OData syntax. Filtering is permitted on the 'name' property only and with limited number of OData operations. These operations are: the 'contains' function as well as the following logical operations: not, and, or, eq (for equal), and ne (for not equal). No arithmetic operations are supported. The following is a valid filter example: $filter=contains(namE, 'PATTERN') and name ne 'PATTERN-1'. The following is not a valid filter example: $filter=location eq 'westus'. </param>
         /// <param name="top"> The number of results to return per page for the list operation. Valid range for top parameter is 1 to 100. If not specified, the default number of results to be returned is 20 items per page. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="subscriptionResource"/> is null. </exception>
         /// <returns> A collection of <see cref="PartnerConfigurationResource"/> that may take multiple service requests to iterate over. </returns>
-        public static AsyncPageable<PartnerConfigurationResource> GetPartnerConfigurationsAsync(this Resources.SubscriptionResource subscriptionResource, string filter = default, int? top = default, CancellationToken cancellationToken = default)
+        public static AsyncPageable<PartnerConfigurationResource> GetPartnerConfigurationsAsync(this SubscriptionResource subscriptionResource, string filter = default, int? top = default, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNull(subscriptionResource, nameof(subscriptionResource));
 
@@ -1930,13 +1930,13 @@ namespace Azure.ResourceManager.EventGrid
         /// <description> To mock this method, please mock <see cref="MockableEventGridSubscriptionResource.GetPartnerConfigurations(string, int?, CancellationToken)"/> instead. </description>
         /// </item>
         /// </summary>
-        /// <param name="subscriptionResource"> The <see cref="Resources.SubscriptionResource"/> the method will execute against. </param>
+        /// <param name="subscriptionResource"> The <see cref="SubscriptionResource"/> the method will execute against. </param>
         /// <param name="filter"> The query used to filter the search results using OData syntax. Filtering is permitted on the 'name' property only and with limited number of OData operations. These operations are: the 'contains' function as well as the following logical operations: not, and, or, eq (for equal), and ne (for not equal). No arithmetic operations are supported. The following is a valid filter example: $filter=contains(namE, 'PATTERN') and name ne 'PATTERN-1'. The following is not a valid filter example: $filter=location eq 'westus'. </param>
         /// <param name="top"> The number of results to return per page for the list operation. Valid range for top parameter is 1 to 100. If not specified, the default number of results to be returned is 20 items per page. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="subscriptionResource"/> is null. </exception>
         /// <returns> A collection of <see cref="PartnerConfigurationResource"/> that may take multiple service requests to iterate over. </returns>
-        public static Pageable<PartnerConfigurationResource> GetPartnerConfigurations(this Resources.SubscriptionResource subscriptionResource, string filter = default, int? top = default, CancellationToken cancellationToken = default)
+        public static Pageable<PartnerConfigurationResource> GetPartnerConfigurations(this SubscriptionResource subscriptionResource, string filter = default, int? top = default, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNull(subscriptionResource, nameof(subscriptionResource));
 
@@ -1950,13 +1950,13 @@ namespace Azure.ResourceManager.EventGrid
         /// <description> To mock this method, please mock <see cref="MockableEventGridSubscriptionResource.GetPartnerDestinationsAsync(string, int?, CancellationToken)"/> instead. </description>
         /// </item>
         /// </summary>
-        /// <param name="subscriptionResource"> The <see cref="Resources.SubscriptionResource"/> the method will execute against. </param>
+        /// <param name="subscriptionResource"> The <see cref="SubscriptionResource"/> the method will execute against. </param>
         /// <param name="filter"> The query used to filter the search results using OData syntax. Filtering is permitted on the 'name' property only and with limited number of OData operations. These operations are: the 'contains' function as well as the following logical operations: not, and, or, eq (for equal), and ne (for not equal). No arithmetic operations are supported. The following is a valid filter example: $filter=contains(namE, 'PATTERN') and name ne 'PATTERN-1'. The following is not a valid filter example: $filter=location eq 'westus'. </param>
         /// <param name="top"> The number of results to return per page for the list operation. Valid range for top parameter is 1 to 100. If not specified, the default number of results to be returned is 20 items per page. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="subscriptionResource"/> is null. </exception>
         /// <returns> A collection of <see cref="PartnerDestinationResource"/> that may take multiple service requests to iterate over. </returns>
-        public static AsyncPageable<PartnerDestinationResource> GetPartnerDestinationsAsync(this Resources.SubscriptionResource subscriptionResource, string filter = default, int? top = default, CancellationToken cancellationToken = default)
+        public static AsyncPageable<PartnerDestinationResource> GetPartnerDestinationsAsync(this SubscriptionResource subscriptionResource, string filter = default, int? top = default, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNull(subscriptionResource, nameof(subscriptionResource));
 
@@ -1970,13 +1970,13 @@ namespace Azure.ResourceManager.EventGrid
         /// <description> To mock this method, please mock <see cref="MockableEventGridSubscriptionResource.GetPartnerDestinations(string, int?, CancellationToken)"/> instead. </description>
         /// </item>
         /// </summary>
-        /// <param name="subscriptionResource"> The <see cref="Resources.SubscriptionResource"/> the method will execute against. </param>
+        /// <param name="subscriptionResource"> The <see cref="SubscriptionResource"/> the method will execute against. </param>
         /// <param name="filter"> The query used to filter the search results using OData syntax. Filtering is permitted on the 'name' property only and with limited number of OData operations. These operations are: the 'contains' function as well as the following logical operations: not, and, or, eq (for equal), and ne (for not equal). No arithmetic operations are supported. The following is a valid filter example: $filter=contains(namE, 'PATTERN') and name ne 'PATTERN-1'. The following is not a valid filter example: $filter=location eq 'westus'. </param>
         /// <param name="top"> The number of results to return per page for the list operation. Valid range for top parameter is 1 to 100. If not specified, the default number of results to be returned is 20 items per page. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="subscriptionResource"/> is null. </exception>
         /// <returns> A collection of <see cref="PartnerDestinationResource"/> that may take multiple service requests to iterate over. </returns>
-        public static Pageable<PartnerDestinationResource> GetPartnerDestinations(this Resources.SubscriptionResource subscriptionResource, string filter = default, int? top = default, CancellationToken cancellationToken = default)
+        public static Pageable<PartnerDestinationResource> GetPartnerDestinations(this SubscriptionResource subscriptionResource, string filter = default, int? top = default, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNull(subscriptionResource, nameof(subscriptionResource));
 
@@ -1990,13 +1990,13 @@ namespace Azure.ResourceManager.EventGrid
         /// <description> To mock this method, please mock <see cref="MockableEventGridSubscriptionResource.GetPartnerRegistrationsAsync(string, int?, CancellationToken)"/> instead. </description>
         /// </item>
         /// </summary>
-        /// <param name="subscriptionResource"> The <see cref="Resources.SubscriptionResource"/> the method will execute against. </param>
+        /// <param name="subscriptionResource"> The <see cref="SubscriptionResource"/> the method will execute against. </param>
         /// <param name="filter"> The query used to filter the search results using OData syntax. Filtering is permitted on the 'name' property only and with limited number of OData operations. These operations are: the 'contains' function as well as the following logical operations: not, and, or, eq (for equal), and ne (for not equal). No arithmetic operations are supported. The following is a valid filter example: $filter=contains(namE, 'PATTERN') and name ne 'PATTERN-1'. The following is not a valid filter example: $filter=location eq 'westus'. </param>
         /// <param name="top"> The number of results to return per page for the list operation. Valid range for top parameter is 1 to 100. If not specified, the default number of results to be returned is 20 items per page. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="subscriptionResource"/> is null. </exception>
         /// <returns> A collection of <see cref="PartnerRegistrationResource"/> that may take multiple service requests to iterate over. </returns>
-        public static AsyncPageable<PartnerRegistrationResource> GetPartnerRegistrationsAsync(this Resources.SubscriptionResource subscriptionResource, string filter = default, int? top = default, CancellationToken cancellationToken = default)
+        public static AsyncPageable<PartnerRegistrationResource> GetPartnerRegistrationsAsync(this SubscriptionResource subscriptionResource, string filter = default, int? top = default, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNull(subscriptionResource, nameof(subscriptionResource));
 
@@ -2010,13 +2010,13 @@ namespace Azure.ResourceManager.EventGrid
         /// <description> To mock this method, please mock <see cref="MockableEventGridSubscriptionResource.GetPartnerRegistrations(string, int?, CancellationToken)"/> instead. </description>
         /// </item>
         /// </summary>
-        /// <param name="subscriptionResource"> The <see cref="Resources.SubscriptionResource"/> the method will execute against. </param>
+        /// <param name="subscriptionResource"> The <see cref="SubscriptionResource"/> the method will execute against. </param>
         /// <param name="filter"> The query used to filter the search results using OData syntax. Filtering is permitted on the 'name' property only and with limited number of OData operations. These operations are: the 'contains' function as well as the following logical operations: not, and, or, eq (for equal), and ne (for not equal). No arithmetic operations are supported. The following is a valid filter example: $filter=contains(namE, 'PATTERN') and name ne 'PATTERN-1'. The following is not a valid filter example: $filter=location eq 'westus'. </param>
         /// <param name="top"> The number of results to return per page for the list operation. Valid range for top parameter is 1 to 100. If not specified, the default number of results to be returned is 20 items per page. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="subscriptionResource"/> is null. </exception>
         /// <returns> A collection of <see cref="PartnerRegistrationResource"/> that may take multiple service requests to iterate over. </returns>
-        public static Pageable<PartnerRegistrationResource> GetPartnerRegistrations(this Resources.SubscriptionResource subscriptionResource, string filter = default, int? top = default, CancellationToken cancellationToken = default)
+        public static Pageable<PartnerRegistrationResource> GetPartnerRegistrations(this SubscriptionResource subscriptionResource, string filter = default, int? top = default, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNull(subscriptionResource, nameof(subscriptionResource));
 
@@ -2030,13 +2030,13 @@ namespace Azure.ResourceManager.EventGrid
         /// <description> To mock this method, please mock <see cref="MockableEventGridSubscriptionResource.GetPartnerTopicsAsync(string, int?, CancellationToken)"/> instead. </description>
         /// </item>
         /// </summary>
-        /// <param name="subscriptionResource"> The <see cref="Resources.SubscriptionResource"/> the method will execute against. </param>
+        /// <param name="subscriptionResource"> The <see cref="SubscriptionResource"/> the method will execute against. </param>
         /// <param name="filter"> The query used to filter the search results using OData syntax. Filtering is permitted on the 'name' property only and with limited number of OData operations. These operations are: the 'contains' function as well as the following logical operations: not, and, or, eq (for equal), and ne (for not equal). No arithmetic operations are supported. The following is a valid filter example: $filter=contains(namE, 'PATTERN') and name ne 'PATTERN-1'. The following is not a valid filter example: $filter=location eq 'westus'. </param>
         /// <param name="top"> The number of results to return per page for the list operation. Valid range for top parameter is 1 to 100. If not specified, the default number of results to be returned is 20 items per page. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="subscriptionResource"/> is null. </exception>
         /// <returns> A collection of <see cref="PartnerTopicResource"/> that may take multiple service requests to iterate over. </returns>
-        public static AsyncPageable<PartnerTopicResource> GetPartnerTopicsAsync(this Resources.SubscriptionResource subscriptionResource, string filter = default, int? top = default, CancellationToken cancellationToken = default)
+        public static AsyncPageable<PartnerTopicResource> GetPartnerTopicsAsync(this SubscriptionResource subscriptionResource, string filter = default, int? top = default, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNull(subscriptionResource, nameof(subscriptionResource));
 
@@ -2050,13 +2050,13 @@ namespace Azure.ResourceManager.EventGrid
         /// <description> To mock this method, please mock <see cref="MockableEventGridSubscriptionResource.GetPartnerTopics(string, int?, CancellationToken)"/> instead. </description>
         /// </item>
         /// </summary>
-        /// <param name="subscriptionResource"> The <see cref="Resources.SubscriptionResource"/> the method will execute against. </param>
+        /// <param name="subscriptionResource"> The <see cref="SubscriptionResource"/> the method will execute against. </param>
         /// <param name="filter"> The query used to filter the search results using OData syntax. Filtering is permitted on the 'name' property only and with limited number of OData operations. These operations are: the 'contains' function as well as the following logical operations: not, and, or, eq (for equal), and ne (for not equal). No arithmetic operations are supported. The following is a valid filter example: $filter=contains(namE, 'PATTERN') and name ne 'PATTERN-1'. The following is not a valid filter example: $filter=location eq 'westus'. </param>
         /// <param name="top"> The number of results to return per page for the list operation. Valid range for top parameter is 1 to 100. If not specified, the default number of results to be returned is 20 items per page. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="subscriptionResource"/> is null. </exception>
         /// <returns> A collection of <see cref="PartnerTopicResource"/> that may take multiple service requests to iterate over. </returns>
-        public static Pageable<PartnerTopicResource> GetPartnerTopics(this Resources.SubscriptionResource subscriptionResource, string filter = default, int? top = default, CancellationToken cancellationToken = default)
+        public static Pageable<PartnerTopicResource> GetPartnerTopics(this SubscriptionResource subscriptionResource, string filter = default, int? top = default, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNull(subscriptionResource, nameof(subscriptionResource));
 
@@ -2070,13 +2070,13 @@ namespace Azure.ResourceManager.EventGrid
         /// <description> To mock this method, please mock <see cref="MockableEventGridSubscriptionResource.GetSystemTopicsAsync(string, int?, CancellationToken)"/> instead. </description>
         /// </item>
         /// </summary>
-        /// <param name="subscriptionResource"> The <see cref="Resources.SubscriptionResource"/> the method will execute against. </param>
+        /// <param name="subscriptionResource"> The <see cref="SubscriptionResource"/> the method will execute against. </param>
         /// <param name="filter"> The query used to filter the search results using OData syntax. Filtering is permitted on the 'name' property only and with limited number of OData operations. These operations are: the 'contains' function as well as the following logical operations: not, and, or, eq (for equal), and ne (for not equal). No arithmetic operations are supported. The following is a valid filter example: $filter=contains(namE, 'PATTERN') and name ne 'PATTERN-1'. The following is not a valid filter example: $filter=location eq 'westus'. </param>
         /// <param name="top"> The number of results to return per page for the list operation. Valid range for top parameter is 1 to 100. If not specified, the default number of results to be returned is 20 items per page. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="subscriptionResource"/> is null. </exception>
         /// <returns> A collection of <see cref="SystemTopicResource"/> that may take multiple service requests to iterate over. </returns>
-        public static AsyncPageable<SystemTopicResource> GetSystemTopicsAsync(this Resources.SubscriptionResource subscriptionResource, string filter = default, int? top = default, CancellationToken cancellationToken = default)
+        public static AsyncPageable<SystemTopicResource> GetSystemTopicsAsync(this SubscriptionResource subscriptionResource, string filter = default, int? top = default, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNull(subscriptionResource, nameof(subscriptionResource));
 
@@ -2090,13 +2090,13 @@ namespace Azure.ResourceManager.EventGrid
         /// <description> To mock this method, please mock <see cref="MockableEventGridSubscriptionResource.GetSystemTopics(string, int?, CancellationToken)"/> instead. </description>
         /// </item>
         /// </summary>
-        /// <param name="subscriptionResource"> The <see cref="Resources.SubscriptionResource"/> the method will execute against. </param>
+        /// <param name="subscriptionResource"> The <see cref="SubscriptionResource"/> the method will execute against. </param>
         /// <param name="filter"> The query used to filter the search results using OData syntax. Filtering is permitted on the 'name' property only and with limited number of OData operations. These operations are: the 'contains' function as well as the following logical operations: not, and, or, eq (for equal), and ne (for not equal). No arithmetic operations are supported. The following is a valid filter example: $filter=contains(namE, 'PATTERN') and name ne 'PATTERN-1'. The following is not a valid filter example: $filter=location eq 'westus'. </param>
         /// <param name="top"> The number of results to return per page for the list operation. Valid range for top parameter is 1 to 100. If not specified, the default number of results to be returned is 20 items per page. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="subscriptionResource"/> is null. </exception>
         /// <returns> A collection of <see cref="SystemTopicResource"/> that may take multiple service requests to iterate over. </returns>
-        public static Pageable<SystemTopicResource> GetSystemTopics(this Resources.SubscriptionResource subscriptionResource, string filter = default, int? top = default, CancellationToken cancellationToken = default)
+        public static Pageable<SystemTopicResource> GetSystemTopics(this SubscriptionResource subscriptionResource, string filter = default, int? top = default, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNull(subscriptionResource, nameof(subscriptionResource));
 
@@ -2110,13 +2110,13 @@ namespace Azure.ResourceManager.EventGrid
         /// <description> To mock this method, please mock <see cref="MockableEventGridSubscriptionResource.GetEventGridTopicsAsync(string, int?, CancellationToken)"/> instead. </description>
         /// </item>
         /// </summary>
-        /// <param name="subscriptionResource"> The <see cref="Resources.SubscriptionResource"/> the method will execute against. </param>
+        /// <param name="subscriptionResource"> The <see cref="SubscriptionResource"/> the method will execute against. </param>
         /// <param name="filter"> The query used to filter the search results using OData syntax. Filtering is permitted on the 'name' property only and with limited number of OData operations. These operations are: the 'contains' function as well as the following logical operations: not, and, or, eq (for equal), and ne (for not equal). No arithmetic operations are supported. The following is a valid filter example: $filter=contains(namE, 'PATTERN') and name ne 'PATTERN-1'. The following is not a valid filter example: $filter=location eq 'westus'. </param>
         /// <param name="top"> The number of results to return per page for the list operation. Valid range for top parameter is 1 to 100. If not specified, the default number of results to be returned is 20 items per page. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="subscriptionResource"/> is null. </exception>
         /// <returns> A collection of <see cref="EventGridTopicResource"/> that may take multiple service requests to iterate over. </returns>
-        public static AsyncPageable<EventGridTopicResource> GetEventGridTopicsAsync(this Resources.SubscriptionResource subscriptionResource, string filter = default, int? top = default, CancellationToken cancellationToken = default)
+        public static AsyncPageable<EventGridTopicResource> GetEventGridTopicsAsync(this SubscriptionResource subscriptionResource, string filter = default, int? top = default, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNull(subscriptionResource, nameof(subscriptionResource));
 
@@ -2130,13 +2130,13 @@ namespace Azure.ResourceManager.EventGrid
         /// <description> To mock this method, please mock <see cref="MockableEventGridSubscriptionResource.GetEventGridTopics(string, int?, CancellationToken)"/> instead. </description>
         /// </item>
         /// </summary>
-        /// <param name="subscriptionResource"> The <see cref="Resources.SubscriptionResource"/> the method will execute against. </param>
+        /// <param name="subscriptionResource"> The <see cref="SubscriptionResource"/> the method will execute against. </param>
         /// <param name="filter"> The query used to filter the search results using OData syntax. Filtering is permitted on the 'name' property only and with limited number of OData operations. These operations are: the 'contains' function as well as the following logical operations: not, and, or, eq (for equal), and ne (for not equal). No arithmetic operations are supported. The following is a valid filter example: $filter=contains(namE, 'PATTERN') and name ne 'PATTERN-1'. The following is not a valid filter example: $filter=location eq 'westus'. </param>
         /// <param name="top"> The number of results to return per page for the list operation. Valid range for top parameter is 1 to 100. If not specified, the default number of results to be returned is 20 items per page. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="subscriptionResource"/> is null. </exception>
         /// <returns> A collection of <see cref="EventGridTopicResource"/> that may take multiple service requests to iterate over. </returns>
-        public static Pageable<EventGridTopicResource> GetEventGridTopics(this Resources.SubscriptionResource subscriptionResource, string filter = default, int? top = default, CancellationToken cancellationToken = default)
+        public static Pageable<EventGridTopicResource> GetEventGridTopics(this SubscriptionResource subscriptionResource, string filter = default, int? top = default, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNull(subscriptionResource, nameof(subscriptionResource));
 
@@ -2150,14 +2150,14 @@ namespace Azure.ResourceManager.EventGrid
         /// <description> To mock this method, please mock <see cref="MockableEventGridSubscriptionResource.GetGlobalBySubscriptionForTopicTypeAsync(string, string, int?, CancellationToken)"/> instead. </description>
         /// </item>
         /// </summary>
-        /// <param name="subscriptionResource"> The <see cref="Resources.SubscriptionResource"/> the method will execute against. </param>
+        /// <param name="subscriptionResource"> The <see cref="SubscriptionResource"/> the method will execute against. </param>
         /// <param name="topicTypeName"> Name of the topic type. </param>
         /// <param name="filter"> The query used to filter the search results using OData syntax. Filtering is permitted on the 'name' property only and with limited number of OData operations. These operations are: the 'contains' function as well as the following logical operations: not, and, or, eq (for equal), and ne (for not equal). No arithmetic operations are supported. The following is a valid filter example: $filter=contains(namE, 'PATTERN') and name ne 'PATTERN-1'. The following is not a valid filter example: $filter=location eq 'westus'. </param>
         /// <param name="top"> The number of results to return per page for the list operation. Valid range for top parameter is 1 to 100. If not specified, the default number of results to be returned is 20 items per page. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="subscriptionResource"/> is null. </exception>
         /// <returns> A collection of <see cref="EventSubscriptionResource"/> that may take multiple service requests to iterate over. </returns>
-        public static AsyncPageable<EventSubscriptionResource> GetGlobalBySubscriptionForTopicTypeAsync(this Resources.SubscriptionResource subscriptionResource, string topicTypeName, string filter = default, int? top = default, CancellationToken cancellationToken = default)
+        public static AsyncPageable<EventSubscriptionResource> GetGlobalBySubscriptionForTopicTypeAsync(this SubscriptionResource subscriptionResource, string topicTypeName, string filter = default, int? top = default, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNull(subscriptionResource, nameof(subscriptionResource));
 
@@ -2171,14 +2171,14 @@ namespace Azure.ResourceManager.EventGrid
         /// <description> To mock this method, please mock <see cref="MockableEventGridSubscriptionResource.GetGlobalBySubscriptionForTopicType(string, string, int?, CancellationToken)"/> instead. </description>
         /// </item>
         /// </summary>
-        /// <param name="subscriptionResource"> The <see cref="Resources.SubscriptionResource"/> the method will execute against. </param>
+        /// <param name="subscriptionResource"> The <see cref="SubscriptionResource"/> the method will execute against. </param>
         /// <param name="topicTypeName"> Name of the topic type. </param>
         /// <param name="filter"> The query used to filter the search results using OData syntax. Filtering is permitted on the 'name' property only and with limited number of OData operations. These operations are: the 'contains' function as well as the following logical operations: not, and, or, eq (for equal), and ne (for not equal). No arithmetic operations are supported. The following is a valid filter example: $filter=contains(namE, 'PATTERN') and name ne 'PATTERN-1'. The following is not a valid filter example: $filter=location eq 'westus'. </param>
         /// <param name="top"> The number of results to return per page for the list operation. Valid range for top parameter is 1 to 100. If not specified, the default number of results to be returned is 20 items per page. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="subscriptionResource"/> is null. </exception>
         /// <returns> A collection of <see cref="EventSubscriptionResource"/> that may take multiple service requests to iterate over. </returns>
-        public static Pageable<EventSubscriptionResource> GetGlobalBySubscriptionForTopicType(this Resources.SubscriptionResource subscriptionResource, string topicTypeName, string filter = default, int? top = default, CancellationToken cancellationToken = default)
+        public static Pageable<EventSubscriptionResource> GetGlobalBySubscriptionForTopicType(this SubscriptionResource subscriptionResource, string topicTypeName, string filter = default, int? top = default, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNull(subscriptionResource, nameof(subscriptionResource));
 
@@ -2192,14 +2192,14 @@ namespace Azure.ResourceManager.EventGrid
         /// <description> To mock this method, please mock <see cref="MockableEventGridSubscriptionResource.GetRegionalBySubscriptionAsync(string, string, int?, CancellationToken)"/> instead. </description>
         /// </item>
         /// </summary>
-        /// <param name="subscriptionResource"> The <see cref="Resources.SubscriptionResource"/> the method will execute against. </param>
+        /// <param name="subscriptionResource"> The <see cref="SubscriptionResource"/> the method will execute against. </param>
         /// <param name="location"> The location name. </param>
         /// <param name="filter"> The query used to filter the search results using OData syntax. Filtering is permitted on the 'name' property only and with limited number of OData operations. These operations are: the 'contains' function as well as the following logical operations: not, and, or, eq (for equal), and ne (for not equal). No arithmetic operations are supported. The following is a valid filter example: $filter=contains(namE, 'PATTERN') and name ne 'PATTERN-1'. The following is not a valid filter example: $filter=location eq 'westus'. </param>
         /// <param name="top"> The number of results to return per page for the list operation. Valid range for top parameter is 1 to 100. If not specified, the default number of results to be returned is 20 items per page. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="subscriptionResource"/> is null. </exception>
         /// <returns> A collection of <see cref="EventSubscriptionResource"/> that may take multiple service requests to iterate over. </returns>
-        public static AsyncPageable<EventSubscriptionResource> GetRegionalBySubscriptionAsync(this Resources.SubscriptionResource subscriptionResource, string location, string filter = default, int? top = default, CancellationToken cancellationToken = default)
+        public static AsyncPageable<EventSubscriptionResource> GetRegionalBySubscriptionAsync(this SubscriptionResource subscriptionResource, string location, string filter = default, int? top = default, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNull(subscriptionResource, nameof(subscriptionResource));
 
@@ -2213,14 +2213,14 @@ namespace Azure.ResourceManager.EventGrid
         /// <description> To mock this method, please mock <see cref="MockableEventGridSubscriptionResource.GetRegionalBySubscription(string, string, int?, CancellationToken)"/> instead. </description>
         /// </item>
         /// </summary>
-        /// <param name="subscriptionResource"> The <see cref="Resources.SubscriptionResource"/> the method will execute against. </param>
+        /// <param name="subscriptionResource"> The <see cref="SubscriptionResource"/> the method will execute against. </param>
         /// <param name="location"> The location name. </param>
         /// <param name="filter"> The query used to filter the search results using OData syntax. Filtering is permitted on the 'name' property only and with limited number of OData operations. These operations are: the 'contains' function as well as the following logical operations: not, and, or, eq (for equal), and ne (for not equal). No arithmetic operations are supported. The following is a valid filter example: $filter=contains(namE, 'PATTERN') and name ne 'PATTERN-1'. The following is not a valid filter example: $filter=location eq 'westus'. </param>
         /// <param name="top"> The number of results to return per page for the list operation. Valid range for top parameter is 1 to 100. If not specified, the default number of results to be returned is 20 items per page. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="subscriptionResource"/> is null. </exception>
         /// <returns> A collection of <see cref="EventSubscriptionResource"/> that may take multiple service requests to iterate over. </returns>
-        public static Pageable<EventSubscriptionResource> GetRegionalBySubscription(this Resources.SubscriptionResource subscriptionResource, string location, string filter = default, int? top = default, CancellationToken cancellationToken = default)
+        public static Pageable<EventSubscriptionResource> GetRegionalBySubscription(this SubscriptionResource subscriptionResource, string location, string filter = default, int? top = default, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNull(subscriptionResource, nameof(subscriptionResource));
 
@@ -2234,7 +2234,7 @@ namespace Azure.ResourceManager.EventGrid
         /// <description> To mock this method, please mock <see cref="MockableEventGridSubscriptionResource.GetRegionalBySubscriptionForTopicTypeAsync(string, string, string, int?, CancellationToken)"/> instead. </description>
         /// </item>
         /// </summary>
-        /// <param name="subscriptionResource"> The <see cref="Resources.SubscriptionResource"/> the method will execute against. </param>
+        /// <param name="subscriptionResource"> The <see cref="SubscriptionResource"/> the method will execute against. </param>
         /// <param name="location"> The location name. </param>
         /// <param name="topicTypeName"> Name of the topic type. </param>
         /// <param name="filter"> The query used to filter the search results using OData syntax. Filtering is permitted on the 'name' property only and with limited number of OData operations. These operations are: the 'contains' function as well as the following logical operations: not, and, or, eq (for equal), and ne (for not equal). No arithmetic operations are supported. The following is a valid filter example: $filter=contains(namE, 'PATTERN') and name ne 'PATTERN-1'. The following is not a valid filter example: $filter=location eq 'westus'. </param>
@@ -2242,7 +2242,7 @@ namespace Azure.ResourceManager.EventGrid
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="subscriptionResource"/> is null. </exception>
         /// <returns> A collection of <see cref="EventSubscriptionResource"/> that may take multiple service requests to iterate over. </returns>
-        public static AsyncPageable<EventSubscriptionResource> GetRegionalBySubscriptionForTopicTypeAsync(this Resources.SubscriptionResource subscriptionResource, string location, string topicTypeName, string filter = default, int? top = default, CancellationToken cancellationToken = default)
+        public static AsyncPageable<EventSubscriptionResource> GetRegionalBySubscriptionForTopicTypeAsync(this SubscriptionResource subscriptionResource, string location, string topicTypeName, string filter = default, int? top = default, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNull(subscriptionResource, nameof(subscriptionResource));
 
@@ -2256,7 +2256,7 @@ namespace Azure.ResourceManager.EventGrid
         /// <description> To mock this method, please mock <see cref="MockableEventGridSubscriptionResource.GetRegionalBySubscriptionForTopicType(string, string, string, int?, CancellationToken)"/> instead. </description>
         /// </item>
         /// </summary>
-        /// <param name="subscriptionResource"> The <see cref="Resources.SubscriptionResource"/> the method will execute against. </param>
+        /// <param name="subscriptionResource"> The <see cref="SubscriptionResource"/> the method will execute against. </param>
         /// <param name="location"> The location name. </param>
         /// <param name="topicTypeName"> Name of the topic type. </param>
         /// <param name="filter"> The query used to filter the search results using OData syntax. Filtering is permitted on the 'name' property only and with limited number of OData operations. These operations are: the 'contains' function as well as the following logical operations: not, and, or, eq (for equal), and ne (for not equal). No arithmetic operations are supported. The following is a valid filter example: $filter=contains(namE, 'PATTERN') and name ne 'PATTERN-1'. The following is not a valid filter example: $filter=location eq 'westus'. </param>
@@ -2264,7 +2264,7 @@ namespace Azure.ResourceManager.EventGrid
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="subscriptionResource"/> is null. </exception>
         /// <returns> A collection of <see cref="EventSubscriptionResource"/> that may take multiple service requests to iterate over. </returns>
-        public static Pageable<EventSubscriptionResource> GetRegionalBySubscriptionForTopicType(this Resources.SubscriptionResource subscriptionResource, string location, string topicTypeName, string filter = default, int? top = default, CancellationToken cancellationToken = default)
+        public static Pageable<EventSubscriptionResource> GetRegionalBySubscriptionForTopicType(this SubscriptionResource subscriptionResource, string location, string topicTypeName, string filter = default, int? top = default, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNull(subscriptionResource, nameof(subscriptionResource));
 
@@ -2327,27 +2327,27 @@ namespace Azure.ResourceManager.EventGrid
         }
 
         /// <summary>
-        /// Gets a collection of TopicTypeInfos in the <see cref="TenantResource"/>
+        /// Gets a collection of TopicTypes in the <see cref="TenantResource"/>
         /// <item>
         /// <term> Mocking. </term>
-        /// <description> To mock this method, please mock <see cref="MockableEventGridTenantResource.GetTopicTypeInfos()"/> instead. </description>
+        /// <description> To mock this method, please mock <see cref="MockableEventGridTenantResource.GetTopicTypes()"/> instead. </description>
         /// </item>
         /// </summary>
         /// <param name="tenantResource"> The <see cref="TenantResource"/> the method will execute against. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="tenantResource"/> is null. </exception>
-        /// <returns> An object representing collection of TopicTypeInfos and their operations over a TopicTypeInfoResource. </returns>
-        public static TopicTypeInfoCollection GetTopicTypeInfos(this TenantResource tenantResource)
+        /// <returns> An object representing collection of TopicTypes and their operations over a TopicTypeResource. </returns>
+        public static TopicTypeCollection GetTopicTypes(this TenantResource tenantResource)
         {
             Argument.AssertNotNull(tenantResource, nameof(tenantResource));
 
-            return GetMockableEventGridTenantResource(tenantResource).GetTopicTypeInfos();
+            return GetMockableEventGridTenantResource(tenantResource).GetTopicTypes();
         }
 
         /// <summary>
         /// Get information about a topic type.
         /// <item>
         /// <term> Mocking. </term>
-        /// <description> To mock this method, please mock <see cref="MockableEventGridTenantResource.GetTopicTypeInfoAsync(string, CancellationToken)"/> instead. </description>
+        /// <description> To mock this method, please mock <see cref="MockableEventGridTenantResource.GetTopicTypeAsync(string, CancellationToken)"/> instead. </description>
         /// </item>
         /// </summary>
         /// <param name="tenantResource"> The <see cref="TenantResource"/> the method will execute against. </param>
@@ -2355,18 +2355,18 @@ namespace Azure.ResourceManager.EventGrid
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="tenantResource"/> is null. </exception>
         [ForwardsClientCalls]
-        public static async Task<Response<TopicTypeInfoResource>> GetTopicTypeInfoAsync(this TenantResource tenantResource, string topicTypeName, CancellationToken cancellationToken = default)
+        public static async Task<Response<TopicTypeResource>> GetTopicTypeAsync(this TenantResource tenantResource, string topicTypeName, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNull(tenantResource, nameof(tenantResource));
 
-            return await GetMockableEventGridTenantResource(tenantResource).GetTopicTypeInfoAsync(topicTypeName, cancellationToken).ConfigureAwait(false);
+            return await GetMockableEventGridTenantResource(tenantResource).GetTopicTypeAsync(topicTypeName, cancellationToken).ConfigureAwait(false);
         }
 
         /// <summary>
         /// Get information about a topic type.
         /// <item>
         /// <term> Mocking. </term>
-        /// <description> To mock this method, please mock <see cref="MockableEventGridTenantResource.GetTopicTypeInfo(string, CancellationToken)"/> instead. </description>
+        /// <description> To mock this method, please mock <see cref="MockableEventGridTenantResource.GetTopicType(string, CancellationToken)"/> instead. </description>
         /// </item>
         /// </summary>
         /// <param name="tenantResource"> The <see cref="TenantResource"/> the method will execute against. </param>
@@ -2374,11 +2374,11 @@ namespace Azure.ResourceManager.EventGrid
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="tenantResource"/> is null. </exception>
         [ForwardsClientCalls]
-        public static Response<TopicTypeInfoResource> GetTopicTypeInfo(this TenantResource tenantResource, string topicTypeName, CancellationToken cancellationToken = default)
+        public static Response<TopicTypeResource> GetTopicType(this TenantResource tenantResource, string topicTypeName, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNull(tenantResource, nameof(tenantResource));
 
-            return GetMockableEventGridTenantResource(tenantResource).GetTopicTypeInfo(topicTypeName, cancellationToken);
+            return GetMockableEventGridTenantResource(tenantResource).GetTopicType(topicTypeName, cancellationToken);
         }
     }
 }

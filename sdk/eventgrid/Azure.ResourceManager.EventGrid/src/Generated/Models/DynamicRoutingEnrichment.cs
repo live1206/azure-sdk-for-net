@@ -7,6 +7,7 @@
 
 using System;
 using System.Collections.Generic;
+using Azure.ResourceManager.EventGrid;
 
 namespace Azure.ResourceManager.EventGrid.Models
 {
@@ -33,9 +34,11 @@ namespace Azure.ResourceManager.EventGrid.Models
         }
 
         /// <summary> Dynamic routing enrichment key. </summary>
+        [WirePath("key")]
         public string Key { get; set; }
 
         /// <summary> Dynamic routing enrichment value. </summary>
+        [WirePath("value")]
         public string Value { get; set; }
     }
 }

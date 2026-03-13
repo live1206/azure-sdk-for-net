@@ -7,6 +7,7 @@
 
 using System;
 using System.Collections.Generic;
+using Azure.ResourceManager.EventGrid;
 
 namespace Azure.ResourceManager.EventGrid.Models
 {
@@ -17,7 +18,7 @@ namespace Azure.ResourceManager.EventGrid.Models
         private protected readonly IDictionary<string, BinaryData> _additionalBinaryDataProperties;
 
         /// <summary> Initializes a new instance of <see cref="TopicTypeAdditionalEnforcedPermission"/>. </summary>
-        internal TopicTypeAdditionalEnforcedPermission()
+        public TopicTypeAdditionalEnforcedPermission()
         {
         }
 
@@ -32,10 +33,12 @@ namespace Azure.ResourceManager.EventGrid.Models
             _additionalBinaryDataProperties = additionalBinaryDataProperties;
         }
 
-        /// <summary> Gets the PermissionName. </summary>
-        public string PermissionName { get; }
+        /// <summary> Gets or sets the PermissionName. </summary>
+        [WirePath("permissionName")]
+        public string PermissionName { get; set; }
 
-        /// <summary> Gets the IsDataAction. </summary>
-        public bool? IsDataAction { get; }
+        /// <summary> Gets or sets the IsDataAction. </summary>
+        [WirePath("isDataAction")]
+        public bool? IsDataAction { get; set; }
     }
 }

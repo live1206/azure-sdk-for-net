@@ -7,6 +7,7 @@
 
 using System;
 using System.Collections.Generic;
+using Azure.ResourceManager.EventGrid;
 
 namespace Azure.ResourceManager.EventGrid.Models
 {
@@ -25,7 +26,7 @@ namespace Azure.ResourceManager.EventGrid.Models
         /// <param name="partnerRegistrationImmutableId"> The immutableId of the corresponding partner registration. </param>
         /// <param name="source"> Source associated with this partner topic. This represents a unique partner resource. </param>
         /// <param name="eventTypeInfo"> Event Type information from the corresponding event channel. </param>
-        /// <param name="expirationTimeIfNotActivatedUtc">
+        /// <param name="expireOnIfNotActivated">
         /// Expiration time of the partner topic. If this timer expires while the partner topic is still never activated,
         /// the partner topic and corresponding event channel are deleted.
         /// </param>
@@ -37,12 +38,12 @@ namespace Azure.ResourceManager.EventGrid.Models
         /// </param>
         /// <param name="messageForActivation"> Context or helpful message that can be used during the approval process by the subscriber. </param>
         /// <param name="additionalBinaryDataProperties"> Keeps track of any properties unknown to the library. </param>
-        internal PartnerTopicProperties(string partnerRegistrationImmutableId, string source, PartnerTopicEventTypeInfo eventTypeInfo, DateTimeOffset? expirationTimeIfNotActivatedUtc, PartnerTopicProvisioningState? provisioningState, PartnerTopicActivationState? activationState, string partnerTopicFriendlyDescription, string messageForActivation, IDictionary<string, BinaryData> additionalBinaryDataProperties)
+        internal PartnerTopicProperties(Guid? partnerRegistrationImmutableId, string source, PartnerTopicEventTypeInfo eventTypeInfo, DateTimeOffset? expireOnIfNotActivated, PartnerTopicProvisioningState? provisioningState, PartnerTopicActivationState? activationState, string partnerTopicFriendlyDescription, string messageForActivation, IDictionary<string, BinaryData> additionalBinaryDataProperties)
         {
             PartnerRegistrationImmutableId = partnerRegistrationImmutableId;
             Source = source;
             EventTypeInfo = eventTypeInfo;
-            ExpirationTimeIfNotActivatedUtc = expirationTimeIfNotActivatedUtc;
+            ExpireOnIfNotActivated = expireOnIfNotActivated;
             ProvisioningState = provisioningState;
             ActivationState = activationState;
             PartnerTopicFriendlyDescription = partnerTopicFriendlyDescription;
@@ -51,33 +52,41 @@ namespace Azure.ResourceManager.EventGrid.Models
         }
 
         /// <summary> The immutableId of the corresponding partner registration. </summary>
-        public string PartnerRegistrationImmutableId { get; set; }
+        [WirePath("partnerRegistrationImmutableId")]
+        public Guid? PartnerRegistrationImmutableId { get; set; }
 
         /// <summary> Source associated with this partner topic. This represents a unique partner resource. </summary>
+        [WirePath("source")]
         public string Source { get; set; }
 
         /// <summary> Event Type information from the corresponding event channel. </summary>
+        [WirePath("eventTypeInfo")]
         public PartnerTopicEventTypeInfo EventTypeInfo { get; set; }
 
         /// <summary>
         /// Expiration time of the partner topic. If this timer expires while the partner topic is still never activated,
         /// the partner topic and corresponding event channel are deleted.
         /// </summary>
-        public DateTimeOffset? ExpirationTimeIfNotActivatedUtc { get; set; }
+        [WirePath("expirationTimeIfNotActivatedUtc")]
+        public DateTimeOffset? ExpireOnIfNotActivated { get; set; }
 
         /// <summary> Provisioning state of the partner topic. </summary>
+        [WirePath("provisioningState")]
         public PartnerTopicProvisioningState? ProvisioningState { get; }
 
         /// <summary> Activation state of the partner topic. </summary>
+        [WirePath("activationState")]
         public PartnerTopicActivationState? ActivationState { get; set; }
 
         /// <summary>
         /// Friendly description about the topic. This can be set by the publisher/partner to show custom description for the customer partner topic.
         /// This will be helpful to remove any ambiguity of the origin of creation of the partner topic for the customer.
         /// </summary>
+        [WirePath("partnerTopicFriendlyDescription")]
         public string PartnerTopicFriendlyDescription { get; set; }
 
         /// <summary> Context or helpful message that can be used during the approval process by the subscriber. </summary>
+        [WirePath("messageForActivation")]
         public string MessageForActivation { get; set; }
     }
 }

@@ -7,6 +7,7 @@
 
 using System;
 using System.Collections.Generic;
+using Azure.ResourceManager.EventGrid;
 
 namespace Azure.ResourceManager.EventGrid.Models
 {
@@ -31,6 +32,7 @@ namespace Azure.ResourceManager.EventGrid.Models
         }
 
         /// <summary> The Sku name of the resource. The possible values are: Basic or Premium. </summary>
+        [WirePath("name")]
         public EventGridSku? Name { get; set; }
     }
 }

@@ -36,7 +36,7 @@ namespace Azure.ResourceManager.EventGrid.Models
         /// </param>
         /// <param name="filter"> Information about the filter for the event subscription. </param>
         /// <param name="labels"> List of user defined labels. </param>
-        /// <param name="expirationTimeUtc"> Expiration time of the event subscription. </param>
+        /// <param name="expireOn"> Expiration time of the event subscription. </param>
         /// <param name="eventDeliverySchema"> The event delivery schema for the event subscription. </param>
         /// <param name="retryPolicy"> The retry policy for events. This can be used to configure maximum number of delivery attempts and time to live for events. </param>
         /// <param name="deadLetterDestination">
@@ -48,7 +48,7 @@ namespace Azure.ResourceManager.EventGrid.Models
         /// Uses the managed identity setup on the parent resource (namely, topic or domain) to acquire the authentication tokens being used during delivery / dead-lettering.
         /// </param>
         /// <param name="additionalBinaryDataProperties"> Keeps track of any properties unknown to the library. </param>
-        internal EventSubscriptionProperties(string topic, EventSubscriptionProvisioningState? provisioningState, EventSubscriptionDestination destination, DeliveryWithResourceIdentity deliveryWithResourceIdentity, EventSubscriptionFilter filter, IList<string> labels, DateTimeOffset? expirationTimeUtc, EventDeliverySchema? eventDeliverySchema, EventSubscriptionRetryPolicy retryPolicy, DeadLetterDestination deadLetterDestination, DeadLetterWithResourceIdentity deadLetterWithResourceIdentity, IDictionary<string, BinaryData> additionalBinaryDataProperties)
+        internal EventSubscriptionProperties(string topic, EventSubscriptionProvisioningState? provisioningState, EventSubscriptionDestination destination, DeliveryWithResourceIdentity deliveryWithResourceIdentity, EventSubscriptionFilter filter, IList<string> labels, DateTimeOffset? expireOn, EventDeliverySchema? eventDeliverySchema, EventSubscriptionRetryPolicy retryPolicy, DeadLetterDestination deadLetterDestination, DeadLetterWithResourceIdentity deadLetterWithResourceIdentity, IDictionary<string, BinaryData> additionalBinaryDataProperties)
         {
             Topic = topic;
             ProvisioningState = provisioningState;
@@ -56,7 +56,7 @@ namespace Azure.ResourceManager.EventGrid.Models
             DeliveryWithResourceIdentity = deliveryWithResourceIdentity;
             Filter = filter;
             Labels = labels;
-            ExpirationTimeUtc = expirationTimeUtc;
+            ExpireOn = expireOn;
             EventDeliverySchema = eventDeliverySchema;
             RetryPolicy = retryPolicy;
             DeadLetterDestination = deadLetterDestination;
@@ -65,48 +65,59 @@ namespace Azure.ResourceManager.EventGrid.Models
         }
 
         /// <summary> Name of the topic of the event subscription. </summary>
+        [WirePath("topic")]
         public string Topic { get; }
 
         /// <summary> Provisioning state of the event subscription. </summary>
+        [WirePath("provisioningState")]
         public EventSubscriptionProvisioningState? ProvisioningState { get; }
 
         /// <summary>
         /// Information about the destination where events have to be delivered for the event subscription.
         /// Uses Azure Event Grid's identity to acquire the authentication tokens being used during delivery / dead-lettering.
         /// </summary>
+        [WirePath("destination")]
         public EventSubscriptionDestination Destination { get; set; }
 
         /// <summary>
         /// Information about the destination where events have to be delivered for the event subscription.
         /// Uses the managed identity setup on the parent resource (namely, topic or domain) to acquire the authentication tokens being used during delivery / dead-lettering.
         /// </summary>
+        [WirePath("deliveryWithResourceIdentity")]
         public DeliveryWithResourceIdentity DeliveryWithResourceIdentity { get; set; }
 
         /// <summary> Information about the filter for the event subscription. </summary>
+        [WirePath("filter")]
         public EventSubscriptionFilter Filter { get; set; }
 
         /// <summary> List of user defined labels. </summary>
+        [WirePath("labels")]
         public IList<string> Labels { get; } = new ChangeTrackingList<string>();
 
         /// <summary> Expiration time of the event subscription. </summary>
-        public DateTimeOffset? ExpirationTimeUtc { get; set; }
+        [WirePath("expirationTimeUtc")]
+        public DateTimeOffset? ExpireOn { get; set; }
 
         /// <summary> The event delivery schema for the event subscription. </summary>
+        [WirePath("eventDeliverySchema")]
         public EventDeliverySchema? EventDeliverySchema { get; set; }
 
         /// <summary> The retry policy for events. This can be used to configure maximum number of delivery attempts and time to live for events. </summary>
+        [WirePath("retryPolicy")]
         public EventSubscriptionRetryPolicy RetryPolicy { get; set; }
 
         /// <summary>
         /// The dead letter destination of the event subscription. Any event that cannot be delivered to its' destination is sent to the dead letter destination.
         /// Uses Azure Event Grid's identity to acquire the authentication tokens being used during delivery / dead-lettering.
         /// </summary>
+        [WirePath("deadLetterDestination")]
         public DeadLetterDestination DeadLetterDestination { get; set; }
 
         /// <summary>
         /// The dead letter destination of the event subscription. Any event that cannot be delivered to its' destination is sent to the dead letter destination.
         /// Uses the managed identity setup on the parent resource (namely, topic or domain) to acquire the authentication tokens being used during delivery / dead-lettering.
         /// </summary>
+        [WirePath("deadLetterWithResourceIdentity")]
         public DeadLetterWithResourceIdentity DeadLetterWithResourceIdentity { get; set; }
     }
 }

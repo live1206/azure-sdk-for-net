@@ -38,9 +38,11 @@ namespace Azure.ResourceManager.EventGrid
         }
 
         /// <summary> The properties of CA certificate. </summary>
+        [WirePath("properties")]
         internal CaCertificateProperties Properties { get; set; }
 
         /// <summary> Description for the CA Certificate resource. </summary>
+        [WirePath("properties.description")]
         public string Description
         {
             get
@@ -58,6 +60,7 @@ namespace Azure.ResourceManager.EventGrid
         }
 
         /// <summary> Base64 encoded PEM (Privacy Enhanced Mail) format certificate data. </summary>
+        [WirePath("properties.encodedCertificate")]
         public string EncodedCertificate
         {
             get
@@ -75,6 +78,7 @@ namespace Azure.ResourceManager.EventGrid
         }
 
         /// <summary> Certificate issue time in UTC. This is a read-only field. </summary>
+        [WirePath("properties.issueTimeInUtc")]
         public DateTimeOffset? IssueTimeInUtc
         {
             get
@@ -84,6 +88,7 @@ namespace Azure.ResourceManager.EventGrid
         }
 
         /// <summary> Certificate expiry time in UTC. This is a read-only field. </summary>
+        [WirePath("properties.expiryTimeInUtc")]
         public DateTimeOffset? ExpiryTimeInUtc
         {
             get
@@ -93,6 +98,7 @@ namespace Azure.ResourceManager.EventGrid
         }
 
         /// <summary> Provisioning state of the CA Certificate resource. </summary>
+        [WirePath("properties.provisioningState")]
         public CaCertificateProvisioningState? ProvisioningState
         {
             get

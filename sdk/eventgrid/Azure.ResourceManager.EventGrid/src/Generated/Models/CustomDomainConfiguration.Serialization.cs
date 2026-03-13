@@ -94,7 +94,7 @@ namespace Azure.ResourceManager.EventGrid.Models
             if (Optional.IsDefined(CertificateUri))
             {
                 writer.WritePropertyName("certificateUrl"u8);
-                writer.WriteStringValue(CertificateUri);
+                writer.WriteStringValue(CertificateUri.AbsoluteUri);
             }
             if (Optional.IsDefined(ExpectedTxtRecordName))
             {
@@ -151,7 +151,7 @@ namespace Azure.ResourceManager.EventGrid.Models
             string fullyQualifiedDomainName = default;
             CustomDomainValidationState? validationState = default;
             CustomDomainIdentity identity = default;
-            string certificateUri = default;
+            Uri certificateUri = default;
             string expectedTxtRecordName = default;
             string expectedTxtRecordValue = default;
             IDictionary<string, BinaryData> additionalBinaryDataProperties = new ChangeTrackingDictionary<string, BinaryData>();
@@ -182,7 +182,11 @@ namespace Azure.ResourceManager.EventGrid.Models
                 }
                 if (prop.NameEquals("certificateUrl"u8))
                 {
-                    certificateUri = prop.Value.GetString();
+                    if (prop.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    certificateUri = string.IsNullOrEmpty(prop.Value.GetString()) ? null : new Uri(prop.Value.GetString(), UriKind.RelativeOrAbsolute);
                     continue;
                 }
                 if (prop.NameEquals("expectedTxtRecordName"u8))

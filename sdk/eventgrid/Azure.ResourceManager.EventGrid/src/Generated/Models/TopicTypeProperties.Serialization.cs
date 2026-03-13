@@ -189,7 +189,7 @@ namespace Azure.ResourceManager.EventGrid.Models
             string provider = default;
             string displayName = default;
             string description = default;
-            ResourceRegionType? resourceRegionType = default;
+            EventGridResourceRegionType? resourceRegionType = default;
             TopicTypeProvisioningState? provisioningState = default;
             IList<string> supportedLocations = default;
             string sourceResourceFormat = default;
@@ -220,7 +220,7 @@ namespace Azure.ResourceManager.EventGrid.Models
                     {
                         continue;
                     }
-                    resourceRegionType = new ResourceRegionType(prop.Value.GetString());
+                    resourceRegionType = new EventGridResourceRegionType(prop.Value.GetString());
                     continue;
                 }
                 if (prop.NameEquals("provisioningState"u8))

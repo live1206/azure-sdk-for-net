@@ -41,18 +41,23 @@ namespace Azure.ResourceManager.EventGrid.Models
         }
 
         /// <summary> Provisioning state to reflect configuration state and indicate status of nsp profile configuration retrieval. </summary>
+        [WirePath("provisioningState")]
         public NetworkSecurityPerimeterConfigProvisioningState? ProvisioningState { get; }
 
         /// <summary> Provisioning issues to reflect status when attempting to retrieve nsp profile configuration. </summary>
+        [WirePath("provisioningIssues")]
         public IList<NetworkSecurityPerimeterConfigurationIssues> ProvisioningIssues { get; } = new ChangeTrackingList<NetworkSecurityPerimeterConfigurationIssues>();
 
         /// <summary> Perimeter info for nsp association. </summary>
+        [WirePath("networkSecurityPerimeter")]
         public NetworkSecurityPerimeterInfo NetworkSecurityPerimeter { get; }
 
         /// <summary> Nsp association name and access mode of association. </summary>
+        [WirePath("resourceAssociation")]
         public ResourceAssociation ResourceAssociation { get; }
 
         /// <summary> Nsp profile configuration, access rules and diagnostic settings. </summary>
+        [WirePath("profile")]
         public NetworkSecurityPerimeterConfigurationProfile Profile { get; }
     }
 }

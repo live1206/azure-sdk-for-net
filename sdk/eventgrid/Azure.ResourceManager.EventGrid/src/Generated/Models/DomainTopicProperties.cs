@@ -7,6 +7,7 @@
 
 using System;
 using System.Collections.Generic;
+using Azure.ResourceManager.EventGrid;
 
 namespace Azure.ResourceManager.EventGrid.Models
 {
@@ -31,6 +32,7 @@ namespace Azure.ResourceManager.EventGrid.Models
         }
 
         /// <summary> Provisioning state of the domain topic. </summary>
+        [WirePath("provisioningState")]
         public DomainTopicProvisioningState? ProvisioningState { get; }
     }
 }

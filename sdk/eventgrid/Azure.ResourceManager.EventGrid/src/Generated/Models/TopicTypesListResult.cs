@@ -20,14 +20,14 @@ namespace Azure.ResourceManager.EventGrid.Models
         /// <summary> Initializes a new instance of <see cref="TopicTypesListResult"/>. </summary>
         internal TopicTypesListResult()
         {
-            Value = new ChangeTrackingList<TopicTypeInfoData>();
+            Value = new ChangeTrackingList<TopicTypeData>();
         }
 
         /// <summary> Initializes a new instance of <see cref="TopicTypesListResult"/>. </summary>
         /// <param name="value"> A collection of topic types. </param>
         /// <param name="nextLink"></param>
         /// <param name="additionalBinaryDataProperties"> Keeps track of any properties unknown to the library. </param>
-        internal TopicTypesListResult(IList<TopicTypeInfoData> value, string nextLink, IDictionary<string, BinaryData> additionalBinaryDataProperties)
+        internal TopicTypesListResult(IList<TopicTypeData> value, string nextLink, IDictionary<string, BinaryData> additionalBinaryDataProperties)
         {
             Value = value;
             NextLink = nextLink;
@@ -35,9 +35,11 @@ namespace Azure.ResourceManager.EventGrid.Models
         }
 
         /// <summary> A collection of topic types. </summary>
-        public IList<TopicTypeInfoData> Value { get; }
+        [WirePath("value")]
+        public IList<TopicTypeData> Value { get; }
 
         /// <summary> Gets the NextLink. </summary>
+        [WirePath("nextLink")]
         public string NextLink { get; }
     }
 }

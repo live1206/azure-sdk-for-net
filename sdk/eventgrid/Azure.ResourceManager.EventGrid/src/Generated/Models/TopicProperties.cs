@@ -21,7 +21,7 @@ namespace Azure.ResourceManager.EventGrid.Models
         public TopicProperties()
         {
             PrivateEndpointConnections = new ChangeTrackingList<EventGridPrivateEndpointConnectionData>();
-            InboundIpRules = new ChangeTrackingList<EventGridInboundIPRule>();
+            InboundIPRules = new ChangeTrackingList<EventGridInboundIPRule>();
         }
 
         /// <summary> Initializes a new instance of <see cref="TopicProperties"/>. </summary>
@@ -40,13 +40,13 @@ namespace Azure.ResourceManager.EventGrid.Models
         /// This determines if traffic is allowed over public network. By default it is enabled.
         /// You can further restrict to specific IPs by configuring &lt;seealso cref="P:Microsoft.Azure.Events.ResourceProvider.Common.Contracts.TopicProperties.InboundIpRules" /&gt;
         /// </param>
-        /// <param name="inboundIpRules"> This can be used to restrict traffic from specific IPs instead of all IPs. Note: These are considered only if PublicNetworkAccess is enabled. </param>
-        /// <param name="disableLocalAuth"> This boolean is used to enable or disable local auth. Default value is false. When the property is set to true, only Microsoft Entra ID token will be used to authenticate if user is allowed to publish to the topic. </param>
+        /// <param name="inboundIPRules"> This can be used to restrict traffic from specific IPs instead of all IPs. Note: These are considered only if PublicNetworkAccess is enabled. </param>
+        /// <param name="isLocalAuthDisabled"> This boolean is used to enable or disable local auth. Default value is false. When the property is set to true, only Microsoft Entra ID token will be used to authenticate if user is allowed to publish to the topic. </param>
         /// <param name="dataResidencyBoundary"> Data Residency Boundary of the resource. </param>
         /// <param name="encryption"> Key encryption configuration properties of the topic resource. This is an optional property. When not specified, no key encryption is used. </param>
         /// <param name="platformCapabilities"> Represents the platform capabilities of the resource, including Azure Confidential Compute related properties. </param>
         /// <param name="additionalBinaryDataProperties"> Keeps track of any properties unknown to the library. </param>
-        internal TopicProperties(IReadOnlyList<EventGridPrivateEndpointConnectionData> privateEndpointConnections, EventGridTopicProvisioningState? provisioningState, string endpoint, PartnerTopicEventTypeInfo eventTypeInfo, TlsVersion? minimumTlsVersionAllowed, EventGridInputSchema? inputSchema, EventGridInputSchemaMapping inputSchemaMapping, string metricResourceId, EventGridPublicNetworkAccess? publicNetworkAccess, IList<EventGridInboundIPRule> inboundIpRules, bool? disableLocalAuth, DataResidencyBoundary? dataResidencyBoundary, KeyEncryption encryption, PlatformCapabilities platformCapabilities, IDictionary<string, BinaryData> additionalBinaryDataProperties)
+        internal TopicProperties(IReadOnlyList<EventGridPrivateEndpointConnectionData> privateEndpointConnections, EventGridTopicProvisioningState? provisioningState, Uri endpoint, PartnerTopicEventTypeInfo eventTypeInfo, TlsVersion? minimumTlsVersionAllowed, EventGridInputSchema? inputSchema, EventGridInputSchemaMapping inputSchemaMapping, string metricResourceId, EventGridPublicNetworkAccess? publicNetworkAccess, IList<EventGridInboundIPRule> inboundIPRules, bool? isLocalAuthDisabled, DataResidencyBoundary? dataResidencyBoundary, KeyEncryption encryption, PlatformCapabilities platformCapabilities, IDictionary<string, BinaryData> additionalBinaryDataProperties)
         {
             PrivateEndpointConnections = privateEndpointConnections;
             ProvisioningState = provisioningState;
@@ -57,8 +57,8 @@ namespace Azure.ResourceManager.EventGrid.Models
             InputSchemaMapping = inputSchemaMapping;
             MetricResourceId = metricResourceId;
             PublicNetworkAccess = publicNetworkAccess;
-            InboundIpRules = inboundIpRules;
-            DisableLocalAuth = disableLocalAuth;
+            InboundIPRules = inboundIPRules;
+            IsLocalAuthDisabled = isLocalAuthDisabled;
             DataResidencyBoundary = dataResidencyBoundary;
             Encryption = encryption;
             PlatformCapabilities = platformCapabilities;
@@ -66,54 +66,69 @@ namespace Azure.ResourceManager.EventGrid.Models
         }
 
         /// <summary> List of private endpoint connections. </summary>
+        [WirePath("privateEndpointConnections")]
         public IReadOnlyList<EventGridPrivateEndpointConnectionData> PrivateEndpointConnections { get; } = new ChangeTrackingList<EventGridPrivateEndpointConnectionData>();
 
         /// <summary> Provisioning state of the topic. </summary>
+        [WirePath("provisioningState")]
         public EventGridTopicProvisioningState? ProvisioningState { get; }
 
         /// <summary> Endpoint for the topic. </summary>
-        public string Endpoint { get; }
+        [WirePath("endpoint")]
+        public Uri Endpoint { get; }
 
         /// <summary>
         /// Event Type Information for the user topic. This information is provided by the publisher and can be used by the
         /// subscriber to view different types of events that are published.
         /// </summary>
+        [WirePath("eventTypeInfo")]
         public PartnerTopicEventTypeInfo EventTypeInfo { get; set; }
 
         /// <summary> Minimum TLS version of the publisher allowed to publish to this topic. </summary>
+        [WirePath("minimumTlsVersionAllowed")]
         public TlsVersion? MinimumTlsVersionAllowed { get; set; }
 
         /// <summary> This determines the format that Event Grid should expect for incoming events published to the topic. </summary>
+        [WirePath("inputSchema")]
         public EventGridInputSchema? InputSchema { get; set; }
 
         /// <summary> This enables publishing using custom event schemas. An InputSchemaMapping can be specified to map various properties of a source schema to various required properties of the EventGridEvent schema. </summary>
+        [WirePath("inputSchemaMapping")]
         public EventGridInputSchemaMapping InputSchemaMapping { get; set; }
 
         /// <summary> Metric resource id for the topic. </summary>
+        [WirePath("metricResourceId")]
         public string MetricResourceId { get; }
 
         /// <summary>
         /// This determines if traffic is allowed over public network. By default it is enabled.
         /// You can further restrict to specific IPs by configuring &lt;seealso cref="P:Microsoft.Azure.Events.ResourceProvider.Common.Contracts.TopicProperties.InboundIpRules" /&gt;
         /// </summary>
+        [WirePath("publicNetworkAccess")]
         public EventGridPublicNetworkAccess? PublicNetworkAccess { get; set; }
 
         /// <summary> This can be used to restrict traffic from specific IPs instead of all IPs. Note: These are considered only if PublicNetworkAccess is enabled. </summary>
-        public IList<EventGridInboundIPRule> InboundIpRules { get; } = new ChangeTrackingList<EventGridInboundIPRule>();
+        [WirePath("inboundIpRules")]
+        public IList<EventGridInboundIPRule> InboundIPRules { get; } = new ChangeTrackingList<EventGridInboundIPRule>();
 
         /// <summary> This boolean is used to enable or disable local auth. Default value is false. When the property is set to true, only Microsoft Entra ID token will be used to authenticate if user is allowed to publish to the topic. </summary>
-        public bool? DisableLocalAuth { get; set; }
+        [WirePath("disableLocalAuth")]
+        public bool? IsLocalAuthDisabled { get; set; }
 
         /// <summary> Data Residency Boundary of the resource. </summary>
+        [WirePath("dataResidencyBoundary")]
         public DataResidencyBoundary? DataResidencyBoundary { get; set; }
 
         /// <summary> Key encryption configuration properties of the topic resource. This is an optional property. When not specified, no key encryption is used. </summary>
+        [WirePath("encryption")]
         internal KeyEncryption Encryption { get; set; }
 
         /// <summary> Represents the platform capabilities of the resource, including Azure Confidential Compute related properties. </summary>
+        [WirePath("platformCapabilities")]
         internal PlatformCapabilities PlatformCapabilities { get; set; }
 
         /// <summary> List of all customer-managed key encryption properties for the resource. However only one key is supported at a time. </summary>
+        [WirePath("encryption.customerManagedKeyEncryption")]
         public IList<CustomerManagedKeyEncryption> CustomerManagedKeyEncryption
         {
             get
@@ -132,6 +147,7 @@ namespace Azure.ResourceManager.EventGrid.Models
         /// This is an immutable property set at the time of resource creation and cannot be modified later.
         /// Enabling this property ensures that messages are processed and stored in a Azure Confidential Compute environment.
         /// </summary>
+        [WirePath("platformCapabilities.confidentialCompute.mode")]
         public ConfidentialComputeMode? PlatformCapabilitiesConfidentialComputeMode
         {
             get

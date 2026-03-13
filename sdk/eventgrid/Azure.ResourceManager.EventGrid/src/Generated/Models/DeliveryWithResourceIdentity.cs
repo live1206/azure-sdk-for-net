@@ -7,6 +7,7 @@
 
 using System;
 using System.Collections.Generic;
+using Azure.ResourceManager.EventGrid;
 
 namespace Azure.ResourceManager.EventGrid.Models
 {
@@ -36,12 +37,14 @@ namespace Azure.ResourceManager.EventGrid.Models
         }
 
         /// <summary> The identity to use when delivering events. </summary>
+        [WirePath("identity")]
         public EventSubscriptionIdentity Identity { get; set; }
 
         /// <summary>
         /// Information about the destination where events have to be delivered for the event subscription.
         /// Uses the managed identity setup on the parent resource (namely, topic or domain) to acquire the authentication tokens being used during delivery.
         /// </summary>
+        [WirePath("destination")]
         public EventSubscriptionDestination Destination { get; set; }
     }
 }

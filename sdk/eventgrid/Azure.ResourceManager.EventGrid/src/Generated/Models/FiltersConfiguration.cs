@@ -36,9 +36,11 @@ namespace Azure.ResourceManager.EventGrid.Models
         }
 
         /// <summary> A list of applicable event types that need to be part of the event subscription. If it is desired to subscribe to all default event types, set the IncludedEventTypes to null. </summary>
+        [WirePath("includedEventTypes")]
         public IList<string> IncludedEventTypes { get; }
 
         /// <summary> An array of filters that are used for filtering event subscriptions. </summary>
+        [WirePath("filters")]
         public IList<EventGridFilter> Filters { get; }
     }
 }

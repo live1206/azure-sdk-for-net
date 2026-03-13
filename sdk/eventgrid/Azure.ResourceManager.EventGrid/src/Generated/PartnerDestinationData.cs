@@ -41,10 +41,12 @@ namespace Azure.ResourceManager.EventGrid
         }
 
         /// <summary> Properties of the Partner Destination. </summary>
+        [WirePath("properties")]
         internal PartnerDestinationProperties Properties { get; set; }
 
         /// <summary> The immutable Id of the corresponding partner registration. </summary>
-        public string PartnerRegistrationImmutableId
+        [WirePath("properties.partnerRegistrationImmutableId")]
+        public Guid? PartnerRegistrationImmutableId
         {
             get
             {
@@ -56,11 +58,12 @@ namespace Azure.ResourceManager.EventGrid
                 {
                     Properties = new PartnerDestinationProperties();
                 }
-                Properties.PartnerRegistrationImmutableId = value;
+                Properties.PartnerRegistrationImmutableId = value.Value;
             }
         }
 
         /// <summary> Endpoint context associated with this partner destination. </summary>
+        [WirePath("properties.endpointServiceContext")]
         public string EndpointServiceContext
         {
             get
@@ -81,6 +84,7 @@ namespace Azure.ResourceManager.EventGrid
         /// Expiration time of the partner destination. If this timer expires and the partner destination was never activated,
         /// the partner destination and corresponding channel are deleted.
         /// </summary>
+        [WirePath("properties.expirationTimeIfNotActivatedUtc")]
         public DateTimeOffset? ExpirationTimeIfNotActivatedUtc
         {
             get
@@ -98,6 +102,7 @@ namespace Azure.ResourceManager.EventGrid
         }
 
         /// <summary> Provisioning state of the partner destination. </summary>
+        [WirePath("properties.provisioningState")]
         public PartnerDestinationProvisioningState? ProvisioningState
         {
             get
@@ -107,6 +112,7 @@ namespace Azure.ResourceManager.EventGrid
         }
 
         /// <summary> Activation state of the partner destination. </summary>
+        [WirePath("properties.activationState")]
         public PartnerDestinationActivationState? ActivationState
         {
             get
@@ -124,6 +130,7 @@ namespace Azure.ResourceManager.EventGrid
         }
 
         /// <summary> Endpoint Base URL of the partner destination. </summary>
+        [WirePath("properties.endpointBaseUrl")]
         public Uri EndpointBaseUri
         {
             get
@@ -141,6 +148,7 @@ namespace Azure.ResourceManager.EventGrid
         }
 
         /// <summary> Context or helpful message that can be used during the approval process. </summary>
+        [WirePath("properties.messageForActivation")]
         public string MessageForActivation
         {
             get

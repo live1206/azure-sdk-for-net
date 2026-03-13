@@ -7,6 +7,7 @@
 
 using System;
 using System.Collections.Generic;
+using Azure.ResourceManager.EventGrid;
 
 namespace Azure.ResourceManager.EventGrid.Models
 {
@@ -36,6 +37,7 @@ namespace Azure.ResourceManager.EventGrid.Models
         }
 
         /// <summary> Type of the endpoint for the dead letter destination. </summary>
+        [WirePath("endpointType")]
         internal DeadLetterEndPointType EndpointType { get; set; }
     }
 }

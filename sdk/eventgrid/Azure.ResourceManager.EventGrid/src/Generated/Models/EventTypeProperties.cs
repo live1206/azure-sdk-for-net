@@ -7,6 +7,7 @@
 
 using System;
 using System.Collections.Generic;
+using Azure.ResourceManager.EventGrid;
 
 namespace Azure.ResourceManager.EventGrid.Models
 {
@@ -17,7 +18,7 @@ namespace Azure.ResourceManager.EventGrid.Models
         private protected readonly IDictionary<string, BinaryData> _additionalBinaryDataProperties;
 
         /// <summary> Initializes a new instance of <see cref="EventTypeProperties"/>. </summary>
-        internal EventTypeProperties()
+        public EventTypeProperties()
         {
         }
 
@@ -27,7 +28,7 @@ namespace Azure.ResourceManager.EventGrid.Models
         /// <param name="schemaUri"> URL of the schema for this event type. </param>
         /// <param name="isInDefaultSet"> IsInDefaultSet flag of the event type. </param>
         /// <param name="additionalBinaryDataProperties"> Keeps track of any properties unknown to the library. </param>
-        internal EventTypeProperties(string displayName, string description, string schemaUri, bool? isInDefaultSet, IDictionary<string, BinaryData> additionalBinaryDataProperties)
+        internal EventTypeProperties(string displayName, string description, Uri schemaUri, bool? isInDefaultSet, IDictionary<string, BinaryData> additionalBinaryDataProperties)
         {
             DisplayName = displayName;
             Description = description;
@@ -37,15 +38,19 @@ namespace Azure.ResourceManager.EventGrid.Models
         }
 
         /// <summary> Display name of the event type. </summary>
-        public string DisplayName { get; }
+        [WirePath("displayName")]
+        public string DisplayName { get; set; }
 
         /// <summary> Description of the event type. </summary>
-        public string Description { get; }
+        [WirePath("description")]
+        public string Description { get; set; }
 
         /// <summary> URL of the schema for this event type. </summary>
-        public string SchemaUri { get; }
+        [WirePath("schemaUrl")]
+        public Uri SchemaUri { get; set; }
 
         /// <summary> IsInDefaultSet flag of the event type. </summary>
-        public bool? IsInDefaultSet { get; }
+        [WirePath("isInDefaultSet")]
+        public bool? IsInDefaultSet { get; set; }
     }
 }

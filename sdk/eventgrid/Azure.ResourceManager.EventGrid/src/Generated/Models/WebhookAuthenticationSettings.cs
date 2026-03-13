@@ -54,18 +54,23 @@ namespace Azure.ResourceManager.EventGrid.Models
         }
 
         /// <summary> The identity configuration required for authenticating a custom webhook. </summary>
+        [WirePath("identity")]
         public CustomWebhookAuthenticationManagedIdentity Identity { get; set; }
 
         /// <summary> The URL endpoint where the Event Grid service sends authenticated webhook requests using the specified managed identity. </summary>
+        [WirePath("endpointUrl")]
         public Uri EndpointUri { get; set; }
 
         /// <summary> The base URL endpoint where the Event Grid service sends authenticated webhook requests using the specified managed identity. </summary>
+        [WirePath("endpointBaseUrl")]
         public Uri EndpointBaseUri { get; set; }
 
         /// <summary> Microsoft Entra ID Application ID or URI to get the access token that will be included as the bearer token in delivery requests. </summary>
+        [WirePath("azureActiveDirectoryApplicationIdOrUri")]
         public string AzureActiveDirectoryApplicationIdOrUri { get; set; }
 
         /// <summary> Microsoft Entra ID Tenant ID to get the access token that will be included as the bearer token in delivery requests. </summary>
+        [WirePath("azureActiveDirectoryTenantId")]
         public string AzureActiveDirectoryTenantId { get; set; }
     }
 }

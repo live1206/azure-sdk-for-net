@@ -7,6 +7,7 @@
 
 using System;
 using System.Collections.Generic;
+using Azure.ResourceManager.EventGrid;
 
 namespace Azure.ResourceManager.EventGrid.Models
 {
@@ -31,12 +32,14 @@ namespace Azure.ResourceManager.EventGrid.Models
         }
 
         /// <summary> Properties of the namespace topic resource. </summary>
+        [WirePath("properties")]
         internal NamespaceTopicUpdateParameterProperties Properties { get; set; }
 
         /// <summary>
         /// Event retention for the namespace topic expressed in days. The property default value is 1 day.
         /// Min event retention duration value is 1 day and max event retention duration value is 1 day.
         /// </summary>
+        [WirePath("properties.eventRetentionInDays")]
         public int? EventRetentionInDays
         {
             get

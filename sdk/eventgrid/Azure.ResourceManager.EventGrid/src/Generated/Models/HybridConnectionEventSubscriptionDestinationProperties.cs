@@ -36,9 +36,11 @@ namespace Azure.ResourceManager.EventGrid.Models
         }
 
         /// <summary> The Azure Resource ID of an hybrid connection that is the destination of an event subscription. </summary>
+        [WirePath("resourceId")]
         public ResourceIdentifier ResourceId { get; set; }
 
         /// <summary> Delivery attribute details. </summary>
+        [WirePath("deliveryAttributeMappings")]
         public IList<DeliveryAttributeMapping> DeliveryAttributeMappings { get; } = new ChangeTrackingList<DeliveryAttributeMapping>();
     }
 }

@@ -38,9 +38,11 @@ namespace Azure.ResourceManager.EventGrid
         }
 
         /// <summary> Properties of the event subscription. </summary>
+        [WirePath("properties")]
         internal EventSubscriptionProperties Properties { get; set; }
 
         /// <summary> Name of the topic of the event subscription. </summary>
+        [WirePath("properties.topic")]
         public string Topic
         {
             get
@@ -50,6 +52,7 @@ namespace Azure.ResourceManager.EventGrid
         }
 
         /// <summary> Provisioning state of the event subscription. </summary>
+        [WirePath("properties.provisioningState")]
         public EventSubscriptionProvisioningState? ProvisioningState
         {
             get
@@ -62,6 +65,7 @@ namespace Azure.ResourceManager.EventGrid
         /// Information about the destination where events have to be delivered for the event subscription.
         /// Uses Azure Event Grid's identity to acquire the authentication tokens being used during delivery / dead-lettering.
         /// </summary>
+        [WirePath("properties.destination")]
         public EventSubscriptionDestination Destination
         {
             get
@@ -82,6 +86,7 @@ namespace Azure.ResourceManager.EventGrid
         /// Information about the destination where events have to be delivered for the event subscription.
         /// Uses the managed identity setup on the parent resource (namely, topic or domain) to acquire the authentication tokens being used during delivery / dead-lettering.
         /// </summary>
+        [WirePath("properties.deliveryWithResourceIdentity")]
         public DeliveryWithResourceIdentity DeliveryWithResourceIdentity
         {
             get
@@ -99,6 +104,7 @@ namespace Azure.ResourceManager.EventGrid
         }
 
         /// <summary> Information about the filter for the event subscription. </summary>
+        [WirePath("properties.filter")]
         public EventSubscriptionFilter Filter
         {
             get
@@ -116,6 +122,7 @@ namespace Azure.ResourceManager.EventGrid
         }
 
         /// <summary> List of user defined labels. </summary>
+        [WirePath("properties.labels")]
         public IList<string> Labels
         {
             get
@@ -129,11 +136,12 @@ namespace Azure.ResourceManager.EventGrid
         }
 
         /// <summary> Expiration time of the event subscription. </summary>
-        public DateTimeOffset? ExpirationTimeUtc
+        [WirePath("properties.expirationTimeUtc")]
+        public DateTimeOffset? ExpireOn
         {
             get
             {
-                return Properties is null ? default : Properties.ExpirationTimeUtc;
+                return Properties is null ? default : Properties.ExpireOn;
             }
             set
             {
@@ -141,11 +149,12 @@ namespace Azure.ResourceManager.EventGrid
                 {
                     Properties = new EventSubscriptionProperties();
                 }
-                Properties.ExpirationTimeUtc = value.Value;
+                Properties.ExpireOn = value.Value;
             }
         }
 
         /// <summary> The event delivery schema for the event subscription. </summary>
+        [WirePath("properties.eventDeliverySchema")]
         public EventDeliverySchema? EventDeliverySchema
         {
             get
@@ -163,6 +172,7 @@ namespace Azure.ResourceManager.EventGrid
         }
 
         /// <summary> The retry policy for events. This can be used to configure maximum number of delivery attempts and time to live for events. </summary>
+        [WirePath("properties.retryPolicy")]
         public EventSubscriptionRetryPolicy RetryPolicy
         {
             get
@@ -183,6 +193,7 @@ namespace Azure.ResourceManager.EventGrid
         /// The dead letter destination of the event subscription. Any event that cannot be delivered to its' destination is sent to the dead letter destination.
         /// Uses Azure Event Grid's identity to acquire the authentication tokens being used during delivery / dead-lettering.
         /// </summary>
+        [WirePath("properties.deadLetterDestination")]
         public DeadLetterDestination DeadLetterDestination
         {
             get
@@ -203,6 +214,7 @@ namespace Azure.ResourceManager.EventGrid
         /// The dead letter destination of the event subscription. Any event that cannot be delivered to its' destination is sent to the dead letter destination.
         /// Uses the managed identity setup on the parent resource (namely, topic or domain) to acquire the authentication tokens being used during delivery / dead-lettering.
         /// </summary>
+        [WirePath("properties.deadLetterWithResourceIdentity")]
         public DeadLetterWithResourceIdentity DeadLetterWithResourceIdentity
         {
             get

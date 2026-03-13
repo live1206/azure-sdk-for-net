@@ -36,7 +36,7 @@ namespace Azure.ResourceManager.EventGrid.Models
         /// </param>
         /// <param name="provisioningState"> Provisioning state of the Client resource. </param>
         /// <param name="additionalBinaryDataProperties"> Keeps track of any properties unknown to the library. </param>
-        internal ClientProperties(string description, string authenticationName, ClientCertificateAuthentication clientCertificateAuthentication, ClientState? state, IDictionary<string, BinaryData> attributes, ClientProvisioningState? provisioningState, IDictionary<string, BinaryData> additionalBinaryDataProperties)
+        internal ClientProperties(string description, string authenticationName, ClientCertificateAuthentication clientCertificateAuthentication, EventGridNamespaceClientState? state, IDictionary<string, BinaryData> attributes, EventGridNamespaceClientProvisioningState? provisioningState, IDictionary<string, BinaryData> additionalBinaryDataProperties)
         {
             Description = description;
             AuthenticationName = authenticationName;
@@ -48,16 +48,20 @@ namespace Azure.ResourceManager.EventGrid.Models
         }
 
         /// <summary> Description for the Client resource. </summary>
+        [WirePath("description")]
         public string Description { get; set; }
 
         /// <summary> The name presented by the client for authentication. The default value is the name of the resource. </summary>
+        [WirePath("authenticationName")]
         public string AuthenticationName { get; set; }
 
         /// <summary> The client certificate authentication information. </summary>
+        [WirePath("clientCertificateAuthentication")]
         public ClientCertificateAuthentication ClientCertificateAuthentication { get; set; }
 
         /// <summary> Indicates if the client is enabled or not. Default value is Enabled. </summary>
-        public ClientState? State { get; set; }
+        [WirePath("state")]
+        public EventGridNamespaceClientState? State { get; set; }
 
         /// <summary>
         /// Attributes for the client. Supported values are int, bool, string, string[].
@@ -87,9 +91,11 @@ namespace Azure.ResourceManager.EventGrid.Models
         /// </list>
         /// </para>
         /// </summary>
+        [WirePath("attributes")]
         public IDictionary<string, BinaryData> Attributes { get; } = new ChangeTrackingDictionary<string, BinaryData>();
 
         /// <summary> Provisioning state of the Client resource. </summary>
-        public ClientProvisioningState? ProvisioningState { get; }
+        [WirePath("provisioningState")]
+        public EventGridNamespaceClientProvisioningState? ProvisioningState { get; }
     }
 }

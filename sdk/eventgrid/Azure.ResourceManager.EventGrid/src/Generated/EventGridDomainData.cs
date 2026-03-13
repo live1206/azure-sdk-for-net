@@ -36,7 +36,7 @@ namespace Azure.ResourceManager.EventGrid
         /// <param name="properties"> Properties of the Event Grid Domain resource. </param>
         /// <param name="sku"> The Sku pricing tier for the Event Grid Domain resource. </param>
         /// <param name="identity"> Identity information for the Event Grid Domain resource. </param>
-        internal EventGridDomainData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, IDictionary<string, BinaryData> additionalBinaryDataProperties, IDictionary<string, string> tags, AzureLocation location, DomainProperties properties, ResourceSku sku, IdentityInfo identity) : base(id, name, resourceType, systemData, tags, location)
+        internal EventGridDomainData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, IDictionary<string, BinaryData> additionalBinaryDataProperties, IDictionary<string, string> tags, AzureLocation location, DomainProperties properties, ResourceSku sku, ManagedServiceIdentity identity) : base(id, name, resourceType, systemData, tags, location)
         {
             _additionalBinaryDataProperties = additionalBinaryDataProperties;
             Properties = properties;
@@ -45,15 +45,19 @@ namespace Azure.ResourceManager.EventGrid
         }
 
         /// <summary> Properties of the Event Grid Domain resource. </summary>
+        [WirePath("properties")]
         internal DomainProperties Properties { get; set; }
 
         /// <summary> The Sku pricing tier for the Event Grid Domain resource. </summary>
+        [WirePath("sku")]
         internal ResourceSku Sku { get; set; }
 
         /// <summary> Identity information for the Event Grid Domain resource. </summary>
-        public IdentityInfo Identity { get; set; }
+        [WirePath("identity")]
+        public ManagedServiceIdentity Identity { get; set; }
 
         /// <summary> List of private endpoint connections. </summary>
+        [WirePath("properties.privateEndpointConnections")]
         public IReadOnlyList<EventGridPrivateEndpointConnectionData> PrivateEndpointConnections
         {
             get
@@ -67,6 +71,7 @@ namespace Azure.ResourceManager.EventGrid
         }
 
         /// <summary> Provisioning state of the Event Grid Domain Resource. </summary>
+        [WirePath("properties.provisioningState")]
         public EventGridDomainProvisioningState? ProvisioningState
         {
             get
@@ -76,6 +81,7 @@ namespace Azure.ResourceManager.EventGrid
         }
 
         /// <summary> Minimum TLS version of the publisher allowed to publish to this domain. </summary>
+        [WirePath("properties.minimumTlsVersionAllowed")]
         public TlsVersion? MinimumTlsVersionAllowed
         {
             get
@@ -93,7 +99,8 @@ namespace Azure.ResourceManager.EventGrid
         }
 
         /// <summary> Endpoint for the Event Grid Domain Resource which is used for publishing the events. </summary>
-        public string Endpoint
+        [WirePath("properties.endpoint")]
+        public Uri Endpoint
         {
             get
             {
@@ -102,6 +109,7 @@ namespace Azure.ResourceManager.EventGrid
         }
 
         /// <summary> This determines the format that Event Grid should expect for incoming events published to the Event Grid Domain Resource. </summary>
+        [WirePath("properties.inputSchema")]
         public EventGridInputSchema? InputSchema
         {
             get
@@ -122,6 +130,7 @@ namespace Azure.ResourceManager.EventGrid
         /// Event Type Information for the domain. This information is provided by the publisher and can be used by the
         /// subscriber to view different types of events that are published.
         /// </summary>
+        [WirePath("properties.eventTypeInfo")]
         public PartnerTopicEventTypeInfo EventTypeInfo
         {
             get
@@ -139,6 +148,7 @@ namespace Azure.ResourceManager.EventGrid
         }
 
         /// <summary> Information about the InputSchemaMapping which specified the info about mapping event payload. </summary>
+        [WirePath("properties.inputSchemaMapping")]
         public EventGridInputSchemaMapping InputSchemaMapping
         {
             get
@@ -156,6 +166,7 @@ namespace Azure.ResourceManager.EventGrid
         }
 
         /// <summary> Metric resource id for the Event Grid Domain Resource. </summary>
+        [WirePath("properties.metricResourceId")]
         public string MetricResourceId
         {
             get
@@ -168,6 +179,7 @@ namespace Azure.ResourceManager.EventGrid
         /// This determines if traffic is allowed over public network. By default it is enabled.
         /// You can further restrict to specific IPs by configuring &lt;seealso cref="P:Microsoft.Azure.Events.ResourceProvider.Common.Contracts.DomainProperties.InboundIpRules" /&gt;
         /// </summary>
+        [WirePath("properties.publicNetworkAccess")]
         public EventGridPublicNetworkAccess? PublicNetworkAccess
         {
             get
@@ -185,7 +197,8 @@ namespace Azure.ResourceManager.EventGrid
         }
 
         /// <summary> This can be used to restrict traffic from specific IPs instead of all IPs. Note: These are considered only if PublicNetworkAccess is enabled. </summary>
-        public IList<EventGridInboundIPRule> InboundIpRules
+        [WirePath("properties.inboundIpRules")]
+        public IList<EventGridInboundIPRule> InboundIPRules
         {
             get
             {
@@ -193,16 +206,17 @@ namespace Azure.ResourceManager.EventGrid
                 {
                     Properties = new DomainProperties();
                 }
-                return Properties.InboundIpRules;
+                return Properties.InboundIPRules;
             }
         }
 
         /// <summary> This boolean is used to enable or disable local auth. Default value is false. When the property is set to true, only Microsoft Entra ID token will be used to authenticate if user is allowed to publish to the domain. </summary>
-        public bool? DisableLocalAuth
+        [WirePath("properties.disableLocalAuth")]
+        public bool? IsLocalAuthDisabled
         {
             get
             {
-                return Properties is null ? default : Properties.DisableLocalAuth;
+                return Properties is null ? default : Properties.IsLocalAuthDisabled;
             }
             set
             {
@@ -210,7 +224,7 @@ namespace Azure.ResourceManager.EventGrid
                 {
                     Properties = new DomainProperties();
                 }
-                Properties.DisableLocalAuth = value.Value;
+                Properties.IsLocalAuthDisabled = value.Value;
             }
         }
 
@@ -223,6 +237,7 @@ namespace Azure.ResourceManager.EventGrid
         /// flexibility to perform less operations and manage fewer resources by the user. Also, note that in auto-managed creation mode, user is allowed to create the
         /// domain topic on demand if needed.
         /// </summary>
+        [WirePath("properties.autoCreateTopicWithFirstSubscription")]
         public bool? AutoCreateTopicWithFirstSubscription
         {
             get
@@ -248,6 +263,7 @@ namespace Azure.ResourceManager.EventGrid
         /// control of when the domain topic needs to be deleted, while auto-managed mode provides the flexibility to perform less operations and manage fewer
         /// resources by the user.
         /// </summary>
+        [WirePath("properties.autoDeleteTopicWithLastSubscription")]
         public bool? AutoDeleteTopicWithLastSubscription
         {
             get
@@ -265,6 +281,7 @@ namespace Azure.ResourceManager.EventGrid
         }
 
         /// <summary> Data Residency Boundary of the resource. </summary>
+        [WirePath("properties.dataResidencyBoundary")]
         public DataResidencyBoundary? DataResidencyBoundary
         {
             get
@@ -282,6 +299,7 @@ namespace Azure.ResourceManager.EventGrid
         }
 
         /// <summary> The Sku name of the resource. The possible values are: Basic or Premium. </summary>
+        [WirePath("sku.name")]
         public EventGridSku? SkuName
         {
             get

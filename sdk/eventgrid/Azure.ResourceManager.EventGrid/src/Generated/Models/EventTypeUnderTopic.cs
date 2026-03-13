@@ -8,6 +8,7 @@
 using System;
 using System.Collections.Generic;
 using Azure.Core;
+using Azure.ResourceManager.EventGrid;
 using Azure.ResourceManager.Models;
 
 namespace Azure.ResourceManager.EventGrid.Models
@@ -19,7 +20,7 @@ namespace Azure.ResourceManager.EventGrid.Models
         private protected readonly IDictionary<string, BinaryData> _additionalBinaryDataProperties;
 
         /// <summary> Initializes a new instance of <see cref="EventTypeUnderTopic"/>. </summary>
-        internal EventTypeUnderTopic()
+        public EventTypeUnderTopic()
         {
         }
 
@@ -37,41 +38,78 @@ namespace Azure.ResourceManager.EventGrid.Models
         }
 
         /// <summary> Properties of the event type. </summary>
-        internal EventTypeProperties Properties { get; }
+        [WirePath("properties")]
+        internal EventTypeProperties Properties { get; set; }
 
         /// <summary> Display name of the event type. </summary>
+        [WirePath("properties.displayName")]
         public string DisplayName
         {
             get
             {
-                return Properties.DisplayName;
+                return Properties is null ? default : Properties.DisplayName;
+            }
+            set
+            {
+                if (Properties is null)
+                {
+                    Properties = new EventTypeProperties();
+                }
+                Properties.DisplayName = value;
             }
         }
 
         /// <summary> Description of the event type. </summary>
+        [WirePath("properties.description")]
         public string Description
         {
             get
             {
-                return Properties.Description;
+                return Properties is null ? default : Properties.Description;
+            }
+            set
+            {
+                if (Properties is null)
+                {
+                    Properties = new EventTypeProperties();
+                }
+                Properties.Description = value;
             }
         }
 
         /// <summary> URL of the schema for this event type. </summary>
-        public string SchemaUri
+        [WirePath("properties.schemaUrl")]
+        public Uri SchemaUri
         {
             get
             {
-                return Properties.SchemaUri;
+                return Properties is null ? default : Properties.SchemaUri;
+            }
+            set
+            {
+                if (Properties is null)
+                {
+                    Properties = new EventTypeProperties();
+                }
+                Properties.SchemaUri = value;
             }
         }
 
         /// <summary> IsInDefaultSet flag of the event type. </summary>
+        [WirePath("properties.isInDefaultSet")]
         public bool? IsInDefaultSet
         {
             get
             {
-                return Properties.IsInDefaultSet;
+                return Properties is null ? default : Properties.IsInDefaultSet;
+            }
+            set
+            {
+                if (Properties is null)
+                {
+                    Properties = new EventTypeProperties();
+                }
+                Properties.IsInDefaultSet = value.Value;
             }
         }
     }

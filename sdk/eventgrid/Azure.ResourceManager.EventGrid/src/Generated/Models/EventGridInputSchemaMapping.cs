@@ -7,12 +7,13 @@
 
 using System;
 using System.Collections.Generic;
+using Azure.ResourceManager.EventGrid;
 
 namespace Azure.ResourceManager.EventGrid.Models
 {
     /// <summary>
     /// By default, Event Grid expects events to be in the Event Grid event schema. Specifying an input schema mapping enables publishing to Event Grid using a custom input schema. Currently, the only supported type of InputSchemaMapping is 'JsonInputSchemaMapping'.
-    /// Please note this is the abstract base class. The derived classes available for instantiation are: <see cref="JsonInputSchemaMapping"/>.
+    /// Please note this is the abstract base class. The derived classes available for instantiation are: <see cref="EventGridJsonInputSchemaMapping"/>.
     /// </summary>
     public abstract partial class EventGridInputSchemaMapping
     {
@@ -36,6 +37,7 @@ namespace Azure.ResourceManager.EventGrid.Models
         }
 
         /// <summary> Type of the custom mapping. </summary>
+        [WirePath("inputSchemaMappingType")]
         internal InputSchemaMappingType InputSchemaMappingType { get; set; }
     }
 }
