@@ -1881,10 +1881,10 @@ namespace Azure.ResourceManager.EventGrid.Models
         /// <param name="dataResidencyBoundary"> Data Residency Boundary of the resource. </param>
         /// <returns> A new <see cref="EventGrid.EventGridDomainData"/> instance for mocking. </returns>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public static EventGridDomainData EventGridDomainData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, IDictionary<string, string> tags, AzureLocation location, ManagedServiceIdentity identity, IEnumerable<EventGridPrivateEndpointConnectionData> privateEndpointConnections, EventGridDomainProvisioningState? provisioningState, TlsVersion? minimumTlsVersionAllowed, Uri endpoint, EventGridInputSchema? inputSchema, PartnerTopicEventTypeInfo eventTypeInfo, EventGridInputSchemaMapping inputSchemaMapping, string metricResourceId, EventGridPublicNetworkAccess? publicNetworkAccess, IEnumerable<EventGridInboundIPRule> inboundIPRules, bool? isLocalAuthDisabled, bool? autoCreateTopicWithFirstSubscription, bool? autoDeleteTopicWithLastSubscription, DataResidencyBoundary? dataResidencyBoundary)
+        public static EventGridDomainData EventGridDomainData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, IDictionary<string, string> tags, AzureLocation location, ManagedServiceIdentity identity, IEnumerable<EventGrid.EventGridPrivateEndpointConnectionData> privateEndpointConnections, EventGridDomainProvisioningState? provisioningState, TlsVersion? minimumTlsVersionAllowed, Uri endpoint, EventGridInputSchema? inputSchema, PartnerTopicEventTypeInfo eventTypeInfo, EventGridInputSchemaMapping inputSchemaMapping, string metricResourceId, EventGridPublicNetworkAccess? publicNetworkAccess, IEnumerable<EventGridInboundIPRule> inboundIPRules, bool? isLocalAuthDisabled, bool? autoCreateTopicWithFirstSubscription, bool? autoDeleteTopicWithLastSubscription, DataResidencyBoundary? dataResidencyBoundary)
         {
             tags ??= new ChangeTrackingDictionary<string, string>();
-            privateEndpointConnections ??= new ChangeTrackingList<EventGridPrivateEndpointConnectionData>();
+            privateEndpointConnections ??= new ChangeTrackingList<EventGrid.EventGridPrivateEndpointConnectionData>();
             inboundIPRules ??= new ChangeTrackingList<EventGridInboundIPRule>();
 
             return new EventGridDomainData(
@@ -1945,10 +1945,10 @@ namespace Azure.ResourceManager.EventGrid.Models
         /// <param name="minimumTlsVersionAllowed"> Minimum TLS version of the publisher allowed to publish to this namespace. Only TLS version 1.2 is supported. </param>
         /// <returns> A new <see cref="EventGrid.EventGridNamespaceData"/> instance for mocking. </returns>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public static EventGridNamespaceData EventGridNamespaceData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, IDictionary<string, string> tags, AzureLocation location, NamespaceSku sku, ManagedServiceIdentity identity, IEnumerable<EventGridPrivateEndpointConnectionData> privateEndpointConnections, NamespaceProvisioningState? provisioningState, TopicsConfiguration topicsConfiguration, TopicSpacesConfiguration topicSpacesConfiguration, bool? isZoneRedundant, EventGridPublicNetworkAccess? publicNetworkAccess, IEnumerable<EventGridInboundIPRule> inboundIPRules, TlsVersion? minimumTlsVersionAllowed)
+        public static EventGridNamespaceData EventGridNamespaceData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, IDictionary<string, string> tags, AzureLocation location, NamespaceSku sku, ManagedServiceIdentity identity, IEnumerable<EventGrid.EventGridPrivateEndpointConnectionData> privateEndpointConnections, NamespaceProvisioningState? provisioningState, TopicsConfiguration topicsConfiguration, TopicSpacesConfiguration topicSpacesConfiguration, bool? isZoneRedundant, EventGridPublicNetworkAccess? publicNetworkAccess, IEnumerable<EventGridInboundIPRule> inboundIPRules, TlsVersion? minimumTlsVersionAllowed)
         {
             tags ??= new ChangeTrackingDictionary<string, string>();
-            privateEndpointConnections ??= new ChangeTrackingList<EventGridPrivateEndpointConnectionData>();
+            privateEndpointConnections ??= new ChangeTrackingList<EventGrid.EventGridPrivateEndpointConnectionData>();
             inboundIPRules ??= new ChangeTrackingList<EventGridInboundIPRule>();
 
             return new EventGridNamespaceData(
@@ -2022,10 +2022,10 @@ namespace Azure.ResourceManager.EventGrid.Models
         /// <param name="dataResidencyBoundary"> Data Residency Boundary of the resource. </param>
         /// <returns> A new <see cref="EventGrid.EventGridTopicData"/> instance for mocking. </returns>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public static EventGridTopicData EventGridTopicData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, IDictionary<string, string> tags, AzureLocation location, ManagedServiceIdentity identity, IEnumerable<EventGridPrivateEndpointConnectionData> privateEndpointConnections, EventGridTopicProvisioningState? provisioningState, Uri endpoint, PartnerTopicEventTypeInfo eventTypeInfo, TlsVersion? minimumTlsVersionAllowed, EventGridInputSchema? inputSchema, EventGridInputSchemaMapping inputSchemaMapping, string metricResourceId, EventGridPublicNetworkAccess? publicNetworkAccess, IEnumerable<EventGridInboundIPRule> inboundIPRules, bool? isLocalAuthDisabled, DataResidencyBoundary? dataResidencyBoundary)
+        public static EventGridTopicData EventGridTopicData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, IDictionary<string, string> tags, AzureLocation location, ManagedServiceIdentity identity, IEnumerable<EventGrid.EventGridPrivateEndpointConnectionData> privateEndpointConnections, EventGridTopicProvisioningState? provisioningState, Uri endpoint, PartnerTopicEventTypeInfo eventTypeInfo, TlsVersion? minimumTlsVersionAllowed, EventGridInputSchema? inputSchema, EventGridInputSchemaMapping inputSchemaMapping, string metricResourceId, EventGridPublicNetworkAccess? publicNetworkAccess, IEnumerable<EventGridInboundIPRule> inboundIPRules, bool? isLocalAuthDisabled, DataResidencyBoundary? dataResidencyBoundary)
         {
             tags ??= new ChangeTrackingDictionary<string, string>();
-            privateEndpointConnections ??= new ChangeTrackingList<EventGridPrivateEndpointConnectionData>();
+            privateEndpointConnections ??= new ChangeTrackingList<EventGrid.EventGridPrivateEndpointConnectionData>();
             inboundIPRules ??= new ChangeTrackingList<EventGridInboundIPRule>();
 
             return new EventGridTopicData(

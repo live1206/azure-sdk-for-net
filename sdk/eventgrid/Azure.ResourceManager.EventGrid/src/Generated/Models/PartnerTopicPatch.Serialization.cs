@@ -66,9 +66,7 @@ namespace Azure.ResourceManager.EventGrid.Models
             {
                 return null;
             }
-            Utf8JsonRequestContent content = new Utf8JsonRequestContent();
-            content.JsonWriter.WriteObjectValue(partnerTopicPatch, ModelSerializationExtensions.WireOptions);
-            return content;
+            return RequestContent.Create(partnerTopicPatch, ModelSerializationExtensions.WireOptions);
         }
 
         /// <param name="writer"> The JSON writer. </param>

@@ -67,9 +67,7 @@ namespace Azure.ResourceManager.EventGrid
             {
                 return null;
             }
-            Utf8JsonRequestContent content = new Utf8JsonRequestContent();
-            content.JsonWriter.WriteObjectValue(eventGridNamespaceClientData, ModelSerializationExtensions.WireOptions);
-            return content;
+            return RequestContent.Create(eventGridNamespaceClientData, ModelSerializationExtensions.WireOptions);
         }
 
         /// <param name="response"> The <see cref="Response"/> to deserialize the <see cref="EventGridNamespaceClientData"/> from. </param>
