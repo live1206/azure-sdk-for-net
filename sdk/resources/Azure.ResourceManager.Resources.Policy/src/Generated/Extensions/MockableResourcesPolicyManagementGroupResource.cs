@@ -293,74 +293,6 @@ namespace Azure.ResourceManager.Resources.Policy.Mocking
         }
 
         /// <summary>
-        /// This operation retrieves a list of all the policy definition versions for the given policy definition in the given management group.
-        /// <list type="bullet">
-        /// <item>
-        /// <term> Request Path. </term>
-        /// <description> /providers/Microsoft.Management/managementGroups/{managementGroupName}/providers/Microsoft.Authorization/policyDefinitions/{policyDefinitionName}/versions. </description>
-        /// </item>
-        /// <item>
-        /// <term> Operation Id. </term>
-        /// <description> PolicyDefinitionVersions_ListByManagementGroup. </description>
-        /// </item>
-        /// <item>
-        /// <term> Default Api Version. </term>
-        /// <description> 2025-11-01. </description>
-        /// </item>
-        /// </list>
-        /// </summary>
-        /// <param name="policyDefinitionName"> The name of the policy definition. </param>
-        /// <param name="top"> Maximum number of records to return. When the $top filter is not provided, it will return 500 records. </param>
-        /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="policyDefinitionName"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="policyDefinitionName"/> is an empty string, and was expected to be non-empty. </exception>
-        /// <returns> A collection of <see cref="PolicyDefinitionVersionResource"/> that may take multiple service requests to iterate over. </returns>
-        public virtual AsyncPageable<PolicyDefinitionVersionResource> GetPolicyDefinitionVersionsAsync(string policyDefinitionName, int? top = default, CancellationToken cancellationToken = default)
-        {
-            Argument.AssertNotNullOrEmpty(policyDefinitionName, nameof(policyDefinitionName));
-
-            RequestContext context = new RequestContext
-            {
-                CancellationToken = cancellationToken
-            };
-            return new AsyncPageableWrapper<PolicyDefinitionVersionData, PolicyDefinitionVersionResource>(new PolicyDefinitionVersionsGetByManagementGroupAsyncCollectionResultOfT(PolicyDefinitionVersionsRestClient, Id.Name, policyDefinitionName, top, context), data => new PolicyDefinitionVersionResource(Client, data));
-        }
-
-        /// <summary>
-        /// This operation retrieves a list of all the policy definition versions for the given policy definition in the given management group.
-        /// <list type="bullet">
-        /// <item>
-        /// <term> Request Path. </term>
-        /// <description> /providers/Microsoft.Management/managementGroups/{managementGroupName}/providers/Microsoft.Authorization/policyDefinitions/{policyDefinitionName}/versions. </description>
-        /// </item>
-        /// <item>
-        /// <term> Operation Id. </term>
-        /// <description> PolicyDefinitionVersions_ListByManagementGroup. </description>
-        /// </item>
-        /// <item>
-        /// <term> Default Api Version. </term>
-        /// <description> 2025-11-01. </description>
-        /// </item>
-        /// </list>
-        /// </summary>
-        /// <param name="policyDefinitionName"> The name of the policy definition. </param>
-        /// <param name="top"> Maximum number of records to return. When the $top filter is not provided, it will return 500 records. </param>
-        /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="policyDefinitionName"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="policyDefinitionName"/> is an empty string, and was expected to be non-empty. </exception>
-        /// <returns> A collection of <see cref="PolicyDefinitionVersionResource"/> that may take multiple service requests to iterate over. </returns>
-        public virtual Pageable<PolicyDefinitionVersionResource> GetPolicyDefinitionVersions(string policyDefinitionName, int? top = default, CancellationToken cancellationToken = default)
-        {
-            Argument.AssertNotNullOrEmpty(policyDefinitionName, nameof(policyDefinitionName));
-
-            RequestContext context = new RequestContext
-            {
-                CancellationToken = cancellationToken
-            };
-            return new PageableWrapper<PolicyDefinitionVersionData, PolicyDefinitionVersionResource>(new PolicyDefinitionVersionsGetByManagementGroupCollectionResultOfT(PolicyDefinitionVersionsRestClient, Id.Name, policyDefinitionName, top, context), data => new PolicyDefinitionVersionResource(Client, data));
-        }
-
-        /// <summary>
         /// This operation lists all the policy set definition versions for all policy set definitions at the management group scope.
         /// <list type="bullet">
         /// <item>
@@ -523,88 +455,6 @@ namespace Azure.ResourceManager.Resources.Policy.Mocking
         }
 
         /// <summary>
-        /// This operation retrieves a list of all the policy set definition versions for the given policy set definition in a given management group.
-        /// <list type="bullet">
-        /// <item>
-        /// <term> Request Path. </term>
-        /// <description> /providers/Microsoft.Management/managementGroups/{managementGroupName}/providers/Microsoft.Authorization/policySetDefinitions/{policySetDefinitionName}/versions. </description>
-        /// </item>
-        /// <item>
-        /// <term> Operation Id. </term>
-        /// <description> PolicySetDefinitionVersions_ListByManagementGroup. </description>
-        /// </item>
-        /// <item>
-        /// <term> Default Api Version. </term>
-        /// <description> 2025-11-01. </description>
-        /// </item>
-        /// </list>
-        /// </summary>
-        /// <param name="policySetDefinitionName"> The name of the policy set definition. </param>
-        /// <param name="expand"> Comma-separated list of additional properties to be included in the response. Supported values are 'LatestDefinitionVersion, EffectiveDefinitionVersion'. </param>
-        /// <param name="top"> Maximum number of records to return. When the $top filter is not provided, it will return 500 records. </param>
-        /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="policySetDefinitionName"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="policySetDefinitionName"/> is an empty string, and was expected to be non-empty. </exception>
-        /// <returns> A collection of <see cref="PolicySetDefinitionVersionResource"/> that may take multiple service requests to iterate over. </returns>
-        public virtual AsyncPageable<PolicySetDefinitionVersionResource> GetPolicySetDefinitionVersionsAsync(string policySetDefinitionName, string expand = default, int? top = default, CancellationToken cancellationToken = default)
-        {
-            Argument.AssertNotNullOrEmpty(policySetDefinitionName, nameof(policySetDefinitionName));
-
-            RequestContext context = new RequestContext
-            {
-                CancellationToken = cancellationToken
-            };
-            return new AsyncPageableWrapper<PolicySetDefinitionVersionData, PolicySetDefinitionVersionResource>(new PolicySetDefinitionVersionsGetByManagementGroupAsyncCollectionResultOfT(
-                PolicySetDefinitionVersionsRestClient,
-                Id.Name,
-                policySetDefinitionName,
-                expand,
-                top,
-                context), data => new PolicySetDefinitionVersionResource(Client, data));
-        }
-
-        /// <summary>
-        /// This operation retrieves a list of all the policy set definition versions for the given policy set definition in a given management group.
-        /// <list type="bullet">
-        /// <item>
-        /// <term> Request Path. </term>
-        /// <description> /providers/Microsoft.Management/managementGroups/{managementGroupName}/providers/Microsoft.Authorization/policySetDefinitions/{policySetDefinitionName}/versions. </description>
-        /// </item>
-        /// <item>
-        /// <term> Operation Id. </term>
-        /// <description> PolicySetDefinitionVersions_ListByManagementGroup. </description>
-        /// </item>
-        /// <item>
-        /// <term> Default Api Version. </term>
-        /// <description> 2025-11-01. </description>
-        /// </item>
-        /// </list>
-        /// </summary>
-        /// <param name="policySetDefinitionName"> The name of the policy set definition. </param>
-        /// <param name="expand"> Comma-separated list of additional properties to be included in the response. Supported values are 'LatestDefinitionVersion, EffectiveDefinitionVersion'. </param>
-        /// <param name="top"> Maximum number of records to return. When the $top filter is not provided, it will return 500 records. </param>
-        /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="policySetDefinitionName"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="policySetDefinitionName"/> is an empty string, and was expected to be non-empty. </exception>
-        /// <returns> A collection of <see cref="PolicySetDefinitionVersionResource"/> that may take multiple service requests to iterate over. </returns>
-        public virtual Pageable<PolicySetDefinitionVersionResource> GetPolicySetDefinitionVersions(string policySetDefinitionName, string expand = default, int? top = default, CancellationToken cancellationToken = default)
-        {
-            Argument.AssertNotNullOrEmpty(policySetDefinitionName, nameof(policySetDefinitionName));
-
-            RequestContext context = new RequestContext
-            {
-                CancellationToken = cancellationToken
-            };
-            return new PageableWrapper<PolicySetDefinitionVersionData, PolicySetDefinitionVersionResource>(new PolicySetDefinitionVersionsGetByManagementGroupCollectionResultOfT(
-                PolicySetDefinitionVersionsRestClient,
-                Id.Name,
-                policySetDefinitionName,
-                expand,
-                top,
-                context), data => new PolicySetDefinitionVersionResource(Client, data));
-        }
-
-        /// <summary>
         /// This operation acquires a policy token in the given management group for the given request body.
         /// <list type="bullet">
         /// <item>
@@ -621,12 +471,12 @@ namespace Azure.ResourceManager.Resources.Policy.Mocking
         /// </item>
         /// </list>
         /// </summary>
-        /// <param name="policyTokenRequest"> The policy token properties. </param>
+        /// <param name="content"> The policy token properties. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="policyTokenRequest"/> is null. </exception>
-        public virtual async Task<Response<PolicyTokenResponse>> AcquireAtManagementGroupAsync(PolicyTokenRequest policyTokenRequest, CancellationToken cancellationToken = default)
+        /// <exception cref="ArgumentNullException"> <paramref name="content"/> is null. </exception>
+        public virtual async Task<Response<PolicyTokenResponseResult>> AcquireAtManagementGroupAsync(PolicyTokenRequestContent content, CancellationToken cancellationToken = default)
         {
-            Argument.AssertNotNull(policyTokenRequest, nameof(policyTokenRequest));
+            Argument.AssertNotNull(content, nameof(content));
 
             using DiagnosticScope scope = PolicyTokensClientDiagnostics.CreateScope("MockableResourcesPolicyManagementGroupResource.AcquireAtManagementGroup");
             scope.Start();
@@ -636,9 +486,9 @@ namespace Azure.ResourceManager.Resources.Policy.Mocking
                 {
                     CancellationToken = cancellationToken
                 };
-                HttpMessage message = PolicyTokensRestClient.CreateAcquireAtManagementGroupRequest(Id.Name, PolicyTokenRequest.ToRequestContent(policyTokenRequest), context);
+                HttpMessage message = PolicyTokensRestClient.CreateAcquireAtManagementGroupRequest(Id.Name, PolicyTokenRequestContent.ToRequestContent(content), context);
                 Response result = await Pipeline.ProcessMessageAsync(message, context).ConfigureAwait(false);
-                Response<PolicyTokenResponse> response = Response.FromValue(PolicyTokenResponse.FromResponse(result), result);
+                Response<PolicyTokenResponseResult> response = Response.FromValue(PolicyTokenResponseResult.FromResponse(result), result);
                 if (response.Value == null)
                 {
                     throw new RequestFailedException(response.GetRawResponse());
@@ -669,12 +519,12 @@ namespace Azure.ResourceManager.Resources.Policy.Mocking
         /// </item>
         /// </list>
         /// </summary>
-        /// <param name="policyTokenRequest"> The policy token properties. </param>
+        /// <param name="content"> The policy token properties. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="policyTokenRequest"/> is null. </exception>
-        public virtual Response<PolicyTokenResponse> AcquireAtManagementGroup(PolicyTokenRequest policyTokenRequest, CancellationToken cancellationToken = default)
+        /// <exception cref="ArgumentNullException"> <paramref name="content"/> is null. </exception>
+        public virtual Response<PolicyTokenResponseResult> AcquireAtManagementGroup(PolicyTokenRequestContent content, CancellationToken cancellationToken = default)
         {
-            Argument.AssertNotNull(policyTokenRequest, nameof(policyTokenRequest));
+            Argument.AssertNotNull(content, nameof(content));
 
             using DiagnosticScope scope = PolicyTokensClientDiagnostics.CreateScope("MockableResourcesPolicyManagementGroupResource.AcquireAtManagementGroup");
             scope.Start();
@@ -684,9 +534,9 @@ namespace Azure.ResourceManager.Resources.Policy.Mocking
                 {
                     CancellationToken = cancellationToken
                 };
-                HttpMessage message = PolicyTokensRestClient.CreateAcquireAtManagementGroupRequest(Id.Name, PolicyTokenRequest.ToRequestContent(policyTokenRequest), context);
+                HttpMessage message = PolicyTokensRestClient.CreateAcquireAtManagementGroupRequest(Id.Name, PolicyTokenRequestContent.ToRequestContent(content), context);
                 Response result = Pipeline.ProcessMessage(message, context);
-                Response<PolicyTokenResponse> response = Response.FromValue(PolicyTokenResponse.FromResponse(result), result);
+                Response<PolicyTokenResponseResult> response = Response.FromValue(PolicyTokenResponseResult.FromResponse(result), result);
                 if (response.Value == null)
                 {
                     throw new RequestFailedException(response.GetRawResponse());

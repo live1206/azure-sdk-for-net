@@ -41,9 +41,16 @@ namespace Azure.Generator.Management.Providers
         {
             var methods = new List<MethodProvider>(_resources.Count + _nonResourceMethods.Count * 2);
 
-            // Build methods for extension resources
+            // Build methods for extension resources, deduplicating by resource name
+            // to avoid generating identical methods when the same resource type appears
+            // at multiple scopes (e.g., subscription, tenant, management group).
+            var seenResourceNames = new HashSet<string>();
             foreach (var resource in _resources)
             {
+                if (!seenResourceNames.Add(resource.Name))
+                {
+                    continue;
+                }
                 methods.Add(BuildGetResourceIdMethodForResource(resource));
                 if (resource.IsExtensionResource)
                 {

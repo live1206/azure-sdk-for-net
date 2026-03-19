@@ -51,7 +51,10 @@ namespace Azure.ResourceManager.Resources.Policy
             uri.AppendPath(policyDefinitionName, true);
             uri.AppendPath("/versions/", false);
             uri.AppendPath(policyDefinitionVersion, true);
-            uri.AppendQuery("api-version", _apiVersion, true);
+            if (_apiVersion != null)
+            {
+                uri.AppendQuery("api-version", _apiVersion, true);
+            }
             HttpMessage message = Pipeline.CreateMessage();
             Request request = message.Request;
             request.Uri = uri;
@@ -70,7 +73,10 @@ namespace Azure.ResourceManager.Resources.Policy
             uri.AppendPath(policyDefinitionName, true);
             uri.AppendPath("/versions/", false);
             uri.AppendPath(policyDefinitionVersion, true);
-            uri.AppendQuery("api-version", _apiVersion, true);
+            if (_apiVersion != null)
+            {
+                uri.AppendQuery("api-version", _apiVersion, true);
+            }
             HttpMessage message = Pipeline.CreateMessage();
             Request request = message.Request;
             request.Uri = uri;
@@ -91,7 +97,10 @@ namespace Azure.ResourceManager.Resources.Policy
             uri.AppendPath(policyDefinitionName, true);
             uri.AppendPath("/versions/", false);
             uri.AppendPath(policyDefinitionVersion, true);
-            uri.AppendQuery("api-version", _apiVersion, true);
+            if (_apiVersion != null)
+            {
+                uri.AppendQuery("api-version", _apiVersion, true);
+            }
             HttpMessage message = Pipeline.CreateMessage();
             Request request = message.Request;
             request.Uri = uri;
@@ -108,7 +117,10 @@ namespace Azure.ResourceManager.Resources.Policy
             uri.AppendPath("/providers/Microsoft.Authorization/policyDefinitions/", false);
             uri.AppendPath(policyDefinitionName, true);
             uri.AppendPath("/versions", false);
-            uri.AppendQuery("api-version", _apiVersion, true);
+            if (_apiVersion != null)
+            {
+                uri.AppendQuery("api-version", _apiVersion, true);
+            }
             if (top != null)
             {
                 uri.AppendQuery("$top", TypeFormatters.ConvertToString(top), true);
@@ -124,8 +136,18 @@ namespace Azure.ResourceManager.Resources.Policy
         internal HttpMessage CreateNextGetAllRequest(Uri nextPage, Guid subscriptionId, string policyDefinitionName, int? top, RequestContext context)
         {
             RawRequestUriBuilder uri = new RawRequestUriBuilder();
-            uri.Reset(nextPage);
-            uri.UpdateQuery("api-version", _apiVersion);
+            if (nextPage.IsAbsoluteUri)
+            {
+                uri.Reset(nextPage);
+            }
+            else
+            {
+                uri.Reset(new Uri(_endpoint, nextPage));
+            }
+            if (_apiVersion != null)
+            {
+                uri.UpdateQuery("api-version", _apiVersion);
+            }
             HttpMessage message = Pipeline.CreateMessage();
             Request request = message.Request;
             request.Uri = uri;
@@ -142,7 +164,10 @@ namespace Azure.ResourceManager.Resources.Policy
             uri.AppendPath(policyDefinitionName, true);
             uri.AppendPath("/versions/", false);
             uri.AppendPath(policyDefinitionVersion, true);
-            uri.AppendQuery("api-version", _apiVersion, true);
+            if (_apiVersion != null)
+            {
+                uri.AppendQuery("api-version", _apiVersion, true);
+            }
             HttpMessage message = Pipeline.CreateMessage();
             Request request = message.Request;
             request.Uri = uri;
@@ -158,7 +183,10 @@ namespace Azure.ResourceManager.Resources.Policy
             uri.AppendPath("/providers/Microsoft.Authorization/policyDefinitions/", false);
             uri.AppendPath(policyDefinitionName, true);
             uri.AppendPath("/versions", false);
-            uri.AppendQuery("api-version", _apiVersion, true);
+            if (_apiVersion != null)
+            {
+                uri.AppendQuery("api-version", _apiVersion, true);
+            }
             if (top != null)
             {
                 uri.AppendQuery("$top", TypeFormatters.ConvertToString(top), true);
@@ -174,8 +202,18 @@ namespace Azure.ResourceManager.Resources.Policy
         internal HttpMessage CreateNextGetBuiltInRequest(Uri nextPage, string policyDefinitionName, int? top, RequestContext context)
         {
             RawRequestUriBuilder uri = new RawRequestUriBuilder();
-            uri.Reset(nextPage);
-            uri.UpdateQuery("api-version", _apiVersion);
+            if (nextPage.IsAbsoluteUri)
+            {
+                uri.Reset(nextPage);
+            }
+            else
+            {
+                uri.Reset(new Uri(_endpoint, nextPage));
+            }
+            if (_apiVersion != null)
+            {
+                uri.UpdateQuery("api-version", _apiVersion);
+            }
             HttpMessage message = Pipeline.CreateMessage();
             Request request = message.Request;
             request.Uri = uri;
@@ -194,7 +232,10 @@ namespace Azure.ResourceManager.Resources.Policy
             uri.AppendPath(policyDefinitionName, true);
             uri.AppendPath("/versions/", false);
             uri.AppendPath(policyDefinitionVersion, true);
-            uri.AppendQuery("api-version", _apiVersion, true);
+            if (_apiVersion != null)
+            {
+                uri.AppendQuery("api-version", _apiVersion, true);
+            }
             HttpMessage message = Pipeline.CreateMessage();
             Request request = message.Request;
             request.Uri = uri;
@@ -213,7 +254,10 @@ namespace Azure.ResourceManager.Resources.Policy
             uri.AppendPath(policyDefinitionName, true);
             uri.AppendPath("/versions/", false);
             uri.AppendPath(policyDefinitionVersion, true);
-            uri.AppendQuery("api-version", _apiVersion, true);
+            if (_apiVersion != null)
+            {
+                uri.AppendQuery("api-version", _apiVersion, true);
+            }
             HttpMessage message = Pipeline.CreateMessage();
             Request request = message.Request;
             request.Uri = uri;
@@ -234,7 +278,10 @@ namespace Azure.ResourceManager.Resources.Policy
             uri.AppendPath(policyDefinitionName, true);
             uri.AppendPath("/versions/", false);
             uri.AppendPath(policyDefinitionVersion, true);
-            uri.AppendQuery("api-version", _apiVersion, true);
+            if (_apiVersion != null)
+            {
+                uri.AppendQuery("api-version", _apiVersion, true);
+            }
             HttpMessage message = Pipeline.CreateMessage();
             Request request = message.Request;
             request.Uri = uri;
@@ -251,7 +298,10 @@ namespace Azure.ResourceManager.Resources.Policy
             uri.AppendPath("/providers/Microsoft.Authorization/policyDefinitions/", false);
             uri.AppendPath(policyDefinitionName, true);
             uri.AppendPath("/versions", false);
-            uri.AppendQuery("api-version", _apiVersion, true);
+            if (_apiVersion != null)
+            {
+                uri.AppendQuery("api-version", _apiVersion, true);
+            }
             if (top != null)
             {
                 uri.AppendQuery("$top", TypeFormatters.ConvertToString(top), true);
@@ -267,8 +317,18 @@ namespace Azure.ResourceManager.Resources.Policy
         internal HttpMessage CreateNextGetByManagementGroupRequest(Uri nextPage, string managementGroupName, string policyDefinitionName, int? top, RequestContext context)
         {
             RawRequestUriBuilder uri = new RawRequestUriBuilder();
-            uri.Reset(nextPage);
-            uri.UpdateQuery("api-version", _apiVersion);
+            if (nextPage.IsAbsoluteUri)
+            {
+                uri.Reset(nextPage);
+            }
+            else
+            {
+                uri.Reset(new Uri(_endpoint, nextPage));
+            }
+            if (_apiVersion != null)
+            {
+                uri.UpdateQuery("api-version", _apiVersion);
+            }
             HttpMessage message = Pipeline.CreateMessage();
             Request request = message.Request;
             request.Uri = uri;
@@ -282,7 +342,10 @@ namespace Azure.ResourceManager.Resources.Policy
             RawRequestUriBuilder uri = new RawRequestUriBuilder();
             uri.Reset(_endpoint);
             uri.AppendPath("/providers/Microsoft.Authorization/listPolicyDefinitionVersions", false);
-            uri.AppendQuery("api-version", _apiVersion, true);
+            if (_apiVersion != null)
+            {
+                uri.AppendQuery("api-version", _apiVersion, true);
+            }
             HttpMessage message = Pipeline.CreateMessage();
             Request request = message.Request;
             request.Uri = uri;
@@ -298,7 +361,10 @@ namespace Azure.ResourceManager.Resources.Policy
             uri.AppendPath("/providers/Microsoft.Management/managementGroups/", false);
             uri.AppendPath(managementGroupName, true);
             uri.AppendPath("/providers/Microsoft.Authorization/listPolicyDefinitionVersions", false);
-            uri.AppendQuery("api-version", _apiVersion, true);
+            if (_apiVersion != null)
+            {
+                uri.AppendQuery("api-version", _apiVersion, true);
+            }
             HttpMessage message = Pipeline.CreateMessage();
             Request request = message.Request;
             request.Uri = uri;
@@ -314,7 +380,10 @@ namespace Azure.ResourceManager.Resources.Policy
             uri.AppendPath("/subscriptions/", false);
             uri.AppendPath(subscriptionId.ToString(), true);
             uri.AppendPath("/providers/Microsoft.Authorization/listPolicyDefinitionVersions", false);
-            uri.AppendQuery("api-version", _apiVersion, true);
+            if (_apiVersion != null)
+            {
+                uri.AppendQuery("api-version", _apiVersion, true);
+            }
             HttpMessage message = Pipeline.CreateMessage();
             Request request = message.Request;
             request.Uri = uri;

@@ -132,9 +132,18 @@ namespace Azure.Generator.Management
                 }
             }
 
+            // Deduplicate collections by name to prevent file overwrites when
+            // the same resource type appears at multiple scopes (e.g., subscription,
+            // tenant, management group). Keep only the first collection per name.
+            var seenCollectionNames = new HashSet<string>();
+            collections = collections.Where(c => seenCollectionNames.Add(c.Name)).ToList();
+
             // resources and collections are now initialized
             _resourcesByIdDict = resourceDict.ToDictionary(kv => kv.Key.ResourceIdPattern, kv => kv.Value);
-            _resources = [.. resourceDict.Values];
+            // Deduplicate resources by name to prevent file overwrites when the same
+            // resource type appears at multiple scopes. Keep only the first per name.
+            var seenResourceNames = new HashSet<string>();
+            _resources = [.. resourceDict.Values.Where(r => seenResourceNames.Add(r.Name))];
             _resourceCollections = collections;
 
             // build mockable resources
@@ -190,7 +199,13 @@ namespace Azure.Generator.Management
                 {
                     if (metadata.ParentResourceId is null)
                     {
-                        resourcesAndMethodsPerScope[metadata.ResourceScope].ResourceClients.Add(resourceClient);
+                        // Deduplicate resources per scope by name to avoid generating
+                        // duplicate methods when the same resource appears at multiple scopes.
+                        var scopeClients = resourcesAndMethodsPerScope[metadata.ResourceScope].ResourceClients;
+                        if (!scopeClients.Any(r => r.Name == resourceClient.Name))
+                        {
+                            scopeClients.Add(resourceClient);
+                        }
                     }
                 }
                 foreach (var (metadata, category) in resourceMethods)

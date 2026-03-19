@@ -216,7 +216,21 @@ namespace Azure.Generator.Management.Providers
                 methods.Add(BuildServiceMethod(method.InputMethod, method.InputClient, false));
             }
 
-            return [.. methods];
+            // Deduplicate methods by signature to avoid CS0111 when the same
+            // resource type appears at multiple scopes with identical operations.
+            var seen = new HashSet<string>();
+            var deduplicated = new List<MethodProvider>(methods.Count);
+            foreach (var method in methods)
+            {
+                var sig = method.Signature;
+                var key = $"{sig.Name}({string.Join(",", sig.Parameters.Select(p => p.Type.ToString()))})";
+                if (seen.Add(key))
+                {
+                    deduplicated.Add(method);
+                }
+            }
+
+            return [.. deduplicated];
         }
 
         private IEnumerable<MethodProvider> BuildMethodsForResource(ResourceClientProvider resource)
