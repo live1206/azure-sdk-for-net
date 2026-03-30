@@ -20,7 +20,7 @@ namespace Azure.ResourceManager.EventGrid.Models
         /// <summary> Initializes a new instance of <see cref="TopicProperties"/>. </summary>
         public TopicProperties()
         {
-            PrivateEndpointConnections = new ChangeTrackingList<EventGridPrivateEndpointConnectionData>();
+            PrivateEndpointConnections = new ChangeTrackingList<EventGridPrivateEndpointConnection>();
             InboundIPRules = new ChangeTrackingList<EventGridInboundIPRule>();
         }
 
@@ -46,7 +46,7 @@ namespace Azure.ResourceManager.EventGrid.Models
         /// <param name="encryption"> Key encryption configuration properties of the topic resource. This is an optional property. When not specified, no key encryption is used. </param>
         /// <param name="platformCapabilities"> Represents the platform capabilities of the resource, including Azure Confidential Compute related properties. </param>
         /// <param name="additionalBinaryDataProperties"> Keeps track of any properties unknown to the library. </param>
-        internal TopicProperties(IReadOnlyList<EventGridPrivateEndpointConnectionData> privateEndpointConnections, EventGridTopicProvisioningState? provisioningState, Uri endpoint, PartnerTopicEventTypeInfo eventTypeInfo, TlsVersion? minimumTlsVersionAllowed, EventGridInputSchema? inputSchema, EventGridInputSchemaMapping inputSchemaMapping, string metricResourceId, EventGridPublicNetworkAccess? publicNetworkAccess, IList<EventGridInboundIPRule> inboundIPRules, bool? isLocalAuthDisabled, DataResidencyBoundary? dataResidencyBoundary, KeyEncryption encryption, PlatformCapabilities platformCapabilities, IDictionary<string, BinaryData> additionalBinaryDataProperties)
+        internal TopicProperties(IReadOnlyList<EventGridPrivateEndpointConnection> privateEndpointConnections, EventGridTopicProvisioningState? provisioningState, Uri endpoint, PartnerTopicEventTypeInfo eventTypeInfo, TlsVersion? minimumTlsVersionAllowed, EventGridInputSchema? inputSchema, EventGridInputSchemaMapping inputSchemaMapping, string metricResourceId, EventGridPublicNetworkAccess? publicNetworkAccess, IList<EventGridInboundIPRule> inboundIPRules, bool? isLocalAuthDisabled, DataResidencyBoundary? dataResidencyBoundary, KeyEncryption encryption, PlatformCapabilities platformCapabilities, IDictionary<string, BinaryData> additionalBinaryDataProperties)
         {
             PrivateEndpointConnections = privateEndpointConnections;
             ProvisioningState = provisioningState;
@@ -67,7 +67,7 @@ namespace Azure.ResourceManager.EventGrid.Models
 
         /// <summary> List of private endpoint connections. </summary>
         [WirePath("privateEndpointConnections")]
-        public IReadOnlyList<EventGridPrivateEndpointConnectionData> PrivateEndpointConnections { get; } = new ChangeTrackingList<EventGridPrivateEndpointConnectionData>();
+        public IReadOnlyList<EventGridPrivateEndpointConnection> PrivateEndpointConnections { get; } = new ChangeTrackingList<EventGridPrivateEndpointConnection>();
 
         /// <summary> Provisioning state of the topic. </summary>
         [WirePath("provisioningState")]

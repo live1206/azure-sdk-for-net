@@ -20,7 +20,7 @@ namespace Azure.ResourceManager.EventGrid.Models
         /// <summary> Initializes a new instance of <see cref="NamespaceProperties"/>. </summary>
         public NamespaceProperties()
         {
-            PrivateEndpointConnections = new ChangeTrackingList<EventGridPrivateEndpointConnectionData>();
+            PrivateEndpointConnections = new ChangeTrackingList<EventGridPrivateEndpointConnection>();
             InboundIPRules = new ChangeTrackingList<EventGridInboundIPRule>();
         }
 
@@ -43,7 +43,7 @@ namespace Azure.ResourceManager.EventGrid.Models
         /// <param name="inboundIPRules"> This can be used to restrict traffic from specific IPs instead of all IPs. Note: These are considered only if PublicNetworkAccess is enabled. </param>
         /// <param name="minimumTlsVersionAllowed"> Minimum TLS version of the publisher allowed to publish to this namespace. Only TLS version 1.2 is supported. </param>
         /// <param name="additionalBinaryDataProperties"> Keeps track of any properties unknown to the library. </param>
-        internal NamespaceProperties(IList<EventGridPrivateEndpointConnectionData> privateEndpointConnections, NamespaceProvisioningState? provisioningState, TopicsConfiguration topicsConfiguration, TopicSpacesConfiguration topicSpacesConfiguration, bool? isZoneRedundant, EventGridPublicNetworkAccess? publicNetworkAccess, IList<EventGridInboundIPRule> inboundIPRules, TlsVersion? minimumTlsVersionAllowed, IDictionary<string, BinaryData> additionalBinaryDataProperties)
+        internal NamespaceProperties(IList<EventGridPrivateEndpointConnection> privateEndpointConnections, NamespaceProvisioningState? provisioningState, TopicsConfiguration topicsConfiguration, TopicSpacesConfiguration topicSpacesConfiguration, bool? isZoneRedundant, EventGridPublicNetworkAccess? publicNetworkAccess, IList<EventGridInboundIPRule> inboundIPRules, TlsVersion? minimumTlsVersionAllowed, IDictionary<string, BinaryData> additionalBinaryDataProperties)
         {
             PrivateEndpointConnections = privateEndpointConnections;
             ProvisioningState = provisioningState;
@@ -58,7 +58,7 @@ namespace Azure.ResourceManager.EventGrid.Models
 
         /// <summary> List of private endpoint connections. </summary>
         [WirePath("privateEndpointConnections")]
-        public IList<EventGridPrivateEndpointConnectionData> PrivateEndpointConnections { get; } = new ChangeTrackingList<EventGridPrivateEndpointConnectionData>();
+        public IList<EventGridPrivateEndpointConnection> PrivateEndpointConnections { get; } = new ChangeTrackingList<EventGridPrivateEndpointConnection>();
 
         /// <summary> Provisioning state of the namespace resource. </summary>
         [WirePath("provisioningState")]

@@ -213,7 +213,7 @@ namespace Azure.ResourceManager.EventGrid
         /// <param name="patch"> PartnerTopic update information. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="patch"/> is null. </exception>
-        public virtual async Task<Response> UpdateAsync(PartnerTopicPatch patch, CancellationToken cancellationToken = default)
+        public virtual async Task<Response<PartnerTopicResource>> UpdateAsync(PartnerTopicPatch patch, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNull(patch, nameof(patch));
 
@@ -226,8 +226,13 @@ namespace Azure.ResourceManager.EventGrid
                     CancellationToken = cancellationToken
                 };
                 HttpMessage message = _partnerTopicsRestClient.CreateUpdateRequest(Guid.Parse(Id.SubscriptionId), Id.ResourceGroupName, Id.Name, PartnerTopicPatch.ToRequestContent(patch), context);
-                Response response = await Pipeline.ProcessMessageAsync(message, context).ConfigureAwait(false);
-                return response;
+                Response result = await Pipeline.ProcessMessageAsync(message, context).ConfigureAwait(false);
+                Response<PartnerTopicData> response = Response.FromValue(PartnerTopicData.FromResponse(result), result);
+                if (response.Value == null)
+                {
+                    throw new RequestFailedException(response.GetRawResponse());
+                }
+                return Response.FromValue(new PartnerTopicResource(Client, response.Value), response.GetRawResponse());
             }
             catch (Exception e)
             {
@@ -260,7 +265,7 @@ namespace Azure.ResourceManager.EventGrid
         /// <param name="patch"> PartnerTopic update information. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="patch"/> is null. </exception>
-        public virtual Response Update(PartnerTopicPatch patch, CancellationToken cancellationToken = default)
+        public virtual Response<PartnerTopicResource> Update(PartnerTopicPatch patch, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNull(patch, nameof(patch));
 
@@ -273,8 +278,13 @@ namespace Azure.ResourceManager.EventGrid
                     CancellationToken = cancellationToken
                 };
                 HttpMessage message = _partnerTopicsRestClient.CreateUpdateRequest(Guid.Parse(Id.SubscriptionId), Id.ResourceGroupName, Id.Name, PartnerTopicPatch.ToRequestContent(patch), context);
-                Response response = Pipeline.ProcessMessage(message, context);
-                return response;
+                Response result = Pipeline.ProcessMessage(message, context);
+                Response<PartnerTopicData> response = Response.FromValue(PartnerTopicData.FromResponse(result), result);
+                if (response.Value == null)
+                {
+                    throw new RequestFailedException(response.GetRawResponse());
+                }
+                return Response.FromValue(new PartnerTopicResource(Client, response.Value), response.GetRawResponse());
             }
             catch (Exception e)
             {
@@ -610,7 +620,7 @@ namespace Azure.ResourceManager.EventGrid
                         patch.Tags.Add(tag);
                     }
                     patch.Tags[key] = value;
-                    Response result = await UpdateAsync(patch, cancellationToken: cancellationToken).ConfigureAwait(false);
+                    Response<PartnerTopicResource> result = await UpdateAsync(patch, cancellationToken: cancellationToken).ConfigureAwait(false);
                     return Response.FromValue(result.Value, result.GetRawResponse());
                 }
             }
@@ -658,7 +668,7 @@ namespace Azure.ResourceManager.EventGrid
                         patch.Tags.Add(tag);
                     }
                     patch.Tags[key] = value;
-                    Response result = Update(patch, cancellationToken: cancellationToken);
+                    Response<PartnerTopicResource> result = Update(patch, cancellationToken: cancellationToken);
                     return Response.FromValue(result.Value, result.GetRawResponse());
                 }
             }
@@ -701,7 +711,7 @@ namespace Azure.ResourceManager.EventGrid
                     PartnerTopicData current = (await GetAsync(cancellationToken: cancellationToken).ConfigureAwait(false)).Value.Data;
                     PartnerTopicPatch patch = new PartnerTopicPatch();
                     patch.Tags.ReplaceWith(tags);
-                    Response result = await UpdateAsync(patch, cancellationToken: cancellationToken).ConfigureAwait(false);
+                    Response<PartnerTopicResource> result = await UpdateAsync(patch, cancellationToken: cancellationToken).ConfigureAwait(false);
                     return Response.FromValue(result.Value, result.GetRawResponse());
                 }
             }
@@ -744,7 +754,7 @@ namespace Azure.ResourceManager.EventGrid
                     PartnerTopicData current = Get(cancellationToken: cancellationToken).Value.Data;
                     PartnerTopicPatch patch = new PartnerTopicPatch();
                     patch.Tags.ReplaceWith(tags);
-                    Response result = Update(patch, cancellationToken: cancellationToken);
+                    Response<PartnerTopicResource> result = Update(patch, cancellationToken: cancellationToken);
                     return Response.FromValue(result.Value, result.GetRawResponse());
                 }
             }
@@ -790,7 +800,7 @@ namespace Azure.ResourceManager.EventGrid
                         patch.Tags.Add(tag);
                     }
                     patch.Tags.Remove(key);
-                    Response result = await UpdateAsync(patch, cancellationToken: cancellationToken).ConfigureAwait(false);
+                    Response<PartnerTopicResource> result = await UpdateAsync(patch, cancellationToken: cancellationToken).ConfigureAwait(false);
                     return Response.FromValue(result.Value, result.GetRawResponse());
                 }
             }
@@ -836,7 +846,7 @@ namespace Azure.ResourceManager.EventGrid
                         patch.Tags.Add(tag);
                     }
                     patch.Tags.Remove(key);
-                    Response result = Update(patch, cancellationToken: cancellationToken);
+                    Response<PartnerTopicResource> result = Update(patch, cancellationToken: cancellationToken);
                     return Response.FromValue(result.Value, result.GetRawResponse());
                 }
             }

@@ -21,7 +21,7 @@ namespace Azure.ResourceManager.EventGrid.Models
         /// <summary> Initializes a new instance of <see cref="PartnerNamespaceProperties"/>. </summary>
         public PartnerNamespaceProperties()
         {
-            PrivateEndpointConnections = new ChangeTrackingList<EventGridPrivateEndpointConnectionData>();
+            PrivateEndpointConnections = new ChangeTrackingList<EventGridPrivateEndpointConnection>();
             InboundIPRules = new ChangeTrackingList<EventGridInboundIPRule>();
         }
 
@@ -45,7 +45,7 @@ namespace Azure.ResourceManager.EventGrid.Models
         /// or use the channel name in the header when matching to the partner topic. If none is specified, source attribute routing will be used to match the partner topic.
         /// </param>
         /// <param name="additionalBinaryDataProperties"> Keeps track of any properties unknown to the library. </param>
-        internal PartnerNamespaceProperties(IReadOnlyList<EventGridPrivateEndpointConnectionData> privateEndpointConnections, PartnerNamespaceProvisioningState? provisioningState, ResourceIdentifier partnerRegistrationFullyQualifiedId, TlsVersion? minimumTlsVersionAllowed, Uri endpoint, EventGridPublicNetworkAccess? publicNetworkAccess, IList<EventGridInboundIPRule> inboundIPRules, bool? isLocalAuthDisabled, PartnerTopicRoutingMode? partnerTopicRoutingMode, IDictionary<string, BinaryData> additionalBinaryDataProperties)
+        internal PartnerNamespaceProperties(IReadOnlyList<EventGridPrivateEndpointConnection> privateEndpointConnections, PartnerNamespaceProvisioningState? provisioningState, ResourceIdentifier partnerRegistrationFullyQualifiedId, TlsVersion? minimumTlsVersionAllowed, Uri endpoint, EventGridPublicNetworkAccess? publicNetworkAccess, IList<EventGridInboundIPRule> inboundIPRules, bool? isLocalAuthDisabled, PartnerTopicRoutingMode? partnerTopicRoutingMode, IDictionary<string, BinaryData> additionalBinaryDataProperties)
         {
             PrivateEndpointConnections = privateEndpointConnections;
             ProvisioningState = provisioningState;
@@ -61,7 +61,7 @@ namespace Azure.ResourceManager.EventGrid.Models
 
         /// <summary> List of private endpoint connections. </summary>
         [WirePath("privateEndpointConnections")]
-        public IReadOnlyList<EventGridPrivateEndpointConnectionData> PrivateEndpointConnections { get; } = new ChangeTrackingList<EventGridPrivateEndpointConnectionData>();
+        public IReadOnlyList<EventGridPrivateEndpointConnection> PrivateEndpointConnections { get; } = new ChangeTrackingList<EventGridPrivateEndpointConnection>();
 
         /// <summary> Provisioning state of the partner namespace. </summary>
         [WirePath("provisioningState")]

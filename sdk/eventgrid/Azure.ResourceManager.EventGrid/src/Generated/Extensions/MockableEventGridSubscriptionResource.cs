@@ -715,8 +715,8 @@ namespace Azure.ResourceManager.EventGrid.Mocking
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="topicTypeName"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="topicTypeName"/> is an empty string, and was expected to be non-empty. </exception>
-        /// <returns> A collection of <see cref="EventSubscriptionResource"/> that may take multiple service requests to iterate over. </returns>
-        public virtual AsyncPageable<EventSubscriptionResource> GetGlobalBySubscriptionForTopicTypeAsync(string topicTypeName, string filter = default, int? top = default, CancellationToken cancellationToken = default)
+        /// <returns> A collection of <see cref="EventGridSubscriptionData"/> that may take multiple service requests to iterate over. </returns>
+        public virtual AsyncPageable<EventGridSubscriptionData> GetGlobalBySubscriptionForTopicTypeAsync(string topicTypeName, string filter = default, int? top = default, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(topicTypeName, nameof(topicTypeName));
 
@@ -724,13 +724,13 @@ namespace Azure.ResourceManager.EventGrid.Mocking
             {
                 CancellationToken = cancellationToken
             };
-            return new AsyncPageableWrapper<EventGridSubscriptionData, EventSubscriptionResource>(new EventSubscriptionsGetGlobalBySubscriptionForTopicTypeAsyncCollectionResultOfT(
+            return new EventSubscriptionsGetGlobalBySubscriptionForTopicTypeAsyncCollectionResultOfT(
                 EventSubscriptionsRestClient,
                 Guid.Parse(Id.SubscriptionId),
                 topicTypeName,
                 filter,
                 top,
-                context), data => new EventSubscriptionResource(Client, data));
+                context);
         }
 
         /// <summary>
@@ -756,8 +756,8 @@ namespace Azure.ResourceManager.EventGrid.Mocking
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="topicTypeName"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="topicTypeName"/> is an empty string, and was expected to be non-empty. </exception>
-        /// <returns> A collection of <see cref="EventSubscriptionResource"/> that may take multiple service requests to iterate over. </returns>
-        public virtual Pageable<EventSubscriptionResource> GetGlobalBySubscriptionForTopicType(string topicTypeName, string filter = default, int? top = default, CancellationToken cancellationToken = default)
+        /// <returns> A collection of <see cref="EventGridSubscriptionData"/> that may take multiple service requests to iterate over. </returns>
+        public virtual Pageable<EventGridSubscriptionData> GetGlobalBySubscriptionForTopicType(string topicTypeName, string filter = default, int? top = default, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(topicTypeName, nameof(topicTypeName));
 
@@ -765,13 +765,13 @@ namespace Azure.ResourceManager.EventGrid.Mocking
             {
                 CancellationToken = cancellationToken
             };
-            return new PageableWrapper<EventGridSubscriptionData, EventSubscriptionResource>(new EventSubscriptionsGetGlobalBySubscriptionForTopicTypeCollectionResultOfT(
+            return new EventSubscriptionsGetGlobalBySubscriptionForTopicTypeCollectionResultOfT(
                 EventSubscriptionsRestClient,
                 Guid.Parse(Id.SubscriptionId),
                 topicTypeName,
                 filter,
                 top,
-                context), data => new EventSubscriptionResource(Client, data));
+                context);
         }
 
         /// <summary>
@@ -797,8 +797,8 @@ namespace Azure.ResourceManager.EventGrid.Mocking
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="location"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="location"/> is an empty string, and was expected to be non-empty. </exception>
-        /// <returns> A collection of <see cref="EventSubscriptionResource"/> that may take multiple service requests to iterate over. </returns>
-        public virtual AsyncPageable<EventSubscriptionResource> GetRegionalBySubscriptionAsync(string location, string filter = default, int? top = default, CancellationToken cancellationToken = default)
+        /// <returns> A collection of <see cref="EventGridSubscriptionData"/> that may take multiple service requests to iterate over. </returns>
+        public virtual AsyncPageable<EventGridSubscriptionData> GetRegionalBySubscriptionAsync(string location, string filter = default, int? top = default, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(location, nameof(location));
 
@@ -806,13 +806,13 @@ namespace Azure.ResourceManager.EventGrid.Mocking
             {
                 CancellationToken = cancellationToken
             };
-            return new AsyncPageableWrapper<EventGridSubscriptionData, EventSubscriptionResource>(new EventSubscriptionsGetRegionalBySubscriptionAsyncCollectionResultOfT(
+            return new EventSubscriptionsGetRegionalBySubscriptionAsyncCollectionResultOfT(
                 EventSubscriptionsRestClient,
                 Guid.Parse(Id.SubscriptionId),
                 location,
                 filter,
                 top,
-                context), data => new EventSubscriptionResource(Client, data));
+                context);
         }
 
         /// <summary>
@@ -838,8 +838,8 @@ namespace Azure.ResourceManager.EventGrid.Mocking
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="location"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="location"/> is an empty string, and was expected to be non-empty. </exception>
-        /// <returns> A collection of <see cref="EventSubscriptionResource"/> that may take multiple service requests to iterate over. </returns>
-        public virtual Pageable<EventSubscriptionResource> GetRegionalBySubscription(string location, string filter = default, int? top = default, CancellationToken cancellationToken = default)
+        /// <returns> A collection of <see cref="EventGridSubscriptionData"/> that may take multiple service requests to iterate over. </returns>
+        public virtual Pageable<EventGridSubscriptionData> GetRegionalBySubscription(string location, string filter = default, int? top = default, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(location, nameof(location));
 
@@ -847,13 +847,13 @@ namespace Azure.ResourceManager.EventGrid.Mocking
             {
                 CancellationToken = cancellationToken
             };
-            return new PageableWrapper<EventGridSubscriptionData, EventSubscriptionResource>(new EventSubscriptionsGetRegionalBySubscriptionCollectionResultOfT(
+            return new EventSubscriptionsGetRegionalBySubscriptionCollectionResultOfT(
                 EventSubscriptionsRestClient,
                 Guid.Parse(Id.SubscriptionId),
                 location,
                 filter,
                 top,
-                context), data => new EventSubscriptionResource(Client, data));
+                context);
         }
 
         /// <summary>
@@ -880,8 +880,8 @@ namespace Azure.ResourceManager.EventGrid.Mocking
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="location"/> or <paramref name="topicTypeName"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="location"/> or <paramref name="topicTypeName"/> is an empty string, and was expected to be non-empty. </exception>
-        /// <returns> A collection of <see cref="EventSubscriptionResource"/> that may take multiple service requests to iterate over. </returns>
-        public virtual AsyncPageable<EventSubscriptionResource> GetRegionalBySubscriptionForTopicTypeAsync(string location, string topicTypeName, string filter = default, int? top = default, CancellationToken cancellationToken = default)
+        /// <returns> A collection of <see cref="EventGridSubscriptionData"/> that may take multiple service requests to iterate over. </returns>
+        public virtual AsyncPageable<EventGridSubscriptionData> GetRegionalBySubscriptionForTopicTypeAsync(string location, string topicTypeName, string filter = default, int? top = default, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(location, nameof(location));
             Argument.AssertNotNullOrEmpty(topicTypeName, nameof(topicTypeName));
@@ -890,14 +890,14 @@ namespace Azure.ResourceManager.EventGrid.Mocking
             {
                 CancellationToken = cancellationToken
             };
-            return new AsyncPageableWrapper<EventGridSubscriptionData, EventSubscriptionResource>(new EventSubscriptionsGetRegionalBySubscriptionForTopicTypeAsyncCollectionResultOfT(
+            return new EventSubscriptionsGetRegionalBySubscriptionForTopicTypeAsyncCollectionResultOfT(
                 EventSubscriptionsRestClient,
                 Guid.Parse(Id.SubscriptionId),
                 location,
                 topicTypeName,
                 filter,
                 top,
-                context), data => new EventSubscriptionResource(Client, data));
+                context);
         }
 
         /// <summary>
@@ -924,8 +924,8 @@ namespace Azure.ResourceManager.EventGrid.Mocking
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="location"/> or <paramref name="topicTypeName"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="location"/> or <paramref name="topicTypeName"/> is an empty string, and was expected to be non-empty. </exception>
-        /// <returns> A collection of <see cref="EventSubscriptionResource"/> that may take multiple service requests to iterate over. </returns>
-        public virtual Pageable<EventSubscriptionResource> GetRegionalBySubscriptionForTopicType(string location, string topicTypeName, string filter = default, int? top = default, CancellationToken cancellationToken = default)
+        /// <returns> A collection of <see cref="EventGridSubscriptionData"/> that may take multiple service requests to iterate over. </returns>
+        public virtual Pageable<EventGridSubscriptionData> GetRegionalBySubscriptionForTopicType(string location, string topicTypeName, string filter = default, int? top = default, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(location, nameof(location));
             Argument.AssertNotNullOrEmpty(topicTypeName, nameof(topicTypeName));
@@ -934,14 +934,14 @@ namespace Azure.ResourceManager.EventGrid.Mocking
             {
                 CancellationToken = cancellationToken
             };
-            return new PageableWrapper<EventGridSubscriptionData, EventSubscriptionResource>(new EventSubscriptionsGetRegionalBySubscriptionForTopicTypeCollectionResultOfT(
+            return new EventSubscriptionsGetRegionalBySubscriptionForTopicTypeCollectionResultOfT(
                 EventSubscriptionsRestClient,
                 Guid.Parse(Id.SubscriptionId),
                 location,
                 topicTypeName,
                 filter,
                 top,
-                context), data => new EventSubscriptionResource(Client, data));
+                context);
         }
     }
 }

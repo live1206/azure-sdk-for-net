@@ -892,8 +892,8 @@ namespace Azure.ResourceManager.EventGrid.Mocking
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="topicTypeName"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="topicTypeName"/> is an empty string, and was expected to be non-empty. </exception>
-        /// <returns> A collection of <see cref="EventSubscriptionResource"/> that may take multiple service requests to iterate over. </returns>
-        public virtual AsyncPageable<EventSubscriptionResource> GetGlobalByResourceGroupForTopicTypeAsync(string topicTypeName, string filter = default, int? top = default, CancellationToken cancellationToken = default)
+        /// <returns> A collection of <see cref="EventGridSubscriptionData"/> that may take multiple service requests to iterate over. </returns>
+        public virtual AsyncPageable<EventGridSubscriptionData> GetGlobalByResourceGroupForTopicTypeAsync(string topicTypeName, string filter = default, int? top = default, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(topicTypeName, nameof(topicTypeName));
 
@@ -901,14 +901,14 @@ namespace Azure.ResourceManager.EventGrid.Mocking
             {
                 CancellationToken = cancellationToken
             };
-            return new AsyncPageableWrapper<EventGridSubscriptionData, EventSubscriptionResource>(new EventSubscriptionsGetGlobalByResourceGroupForTopicTypeAsyncCollectionResultOfT(
+            return new EventSubscriptionsGetGlobalByResourceGroupForTopicTypeAsyncCollectionResultOfT(
                 EventSubscriptionsRestClient,
                 Guid.Parse(Id.SubscriptionId),
                 Id.ResourceGroupName,
                 topicTypeName,
                 filter,
                 top,
-                context), data => new EventSubscriptionResource(Client, data));
+                context);
         }
 
         /// <summary>
@@ -934,8 +934,8 @@ namespace Azure.ResourceManager.EventGrid.Mocking
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="topicTypeName"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="topicTypeName"/> is an empty string, and was expected to be non-empty. </exception>
-        /// <returns> A collection of <see cref="EventSubscriptionResource"/> that may take multiple service requests to iterate over. </returns>
-        public virtual Pageable<EventSubscriptionResource> GetGlobalByResourceGroupForTopicType(string topicTypeName, string filter = default, int? top = default, CancellationToken cancellationToken = default)
+        /// <returns> A collection of <see cref="EventGridSubscriptionData"/> that may take multiple service requests to iterate over. </returns>
+        public virtual Pageable<EventGridSubscriptionData> GetGlobalByResourceGroupForTopicType(string topicTypeName, string filter = default, int? top = default, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(topicTypeName, nameof(topicTypeName));
 
@@ -943,14 +943,14 @@ namespace Azure.ResourceManager.EventGrid.Mocking
             {
                 CancellationToken = cancellationToken
             };
-            return new PageableWrapper<EventGridSubscriptionData, EventSubscriptionResource>(new EventSubscriptionsGetGlobalByResourceGroupForTopicTypeCollectionResultOfT(
+            return new EventSubscriptionsGetGlobalByResourceGroupForTopicTypeCollectionResultOfT(
                 EventSubscriptionsRestClient,
                 Guid.Parse(Id.SubscriptionId),
                 Id.ResourceGroupName,
                 topicTypeName,
                 filter,
                 top,
-                context), data => new EventSubscriptionResource(Client, data));
+                context);
         }
 
         /// <summary>
@@ -976,8 +976,8 @@ namespace Azure.ResourceManager.EventGrid.Mocking
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="location"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="location"/> is an empty string, and was expected to be non-empty. </exception>
-        /// <returns> A collection of <see cref="EventSubscriptionResource"/> that may take multiple service requests to iterate over. </returns>
-        public virtual AsyncPageable<EventSubscriptionResource> GetRegionalByResourceGroupAsync(string location, string filter = default, int? top = default, CancellationToken cancellationToken = default)
+        /// <returns> A collection of <see cref="EventGridSubscriptionData"/> that may take multiple service requests to iterate over. </returns>
+        public virtual AsyncPageable<EventGridSubscriptionData> GetRegionalByResourceGroupAsync(string location, string filter = default, int? top = default, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(location, nameof(location));
 
@@ -985,14 +985,14 @@ namespace Azure.ResourceManager.EventGrid.Mocking
             {
                 CancellationToken = cancellationToken
             };
-            return new AsyncPageableWrapper<EventGridSubscriptionData, EventSubscriptionResource>(new EventSubscriptionsGetRegionalByResourceGroupAsyncCollectionResultOfT(
+            return new EventSubscriptionsGetRegionalByResourceGroupAsyncCollectionResultOfT(
                 EventSubscriptionsRestClient,
                 Guid.Parse(Id.SubscriptionId),
                 Id.ResourceGroupName,
                 location,
                 filter,
                 top,
-                context), data => new EventSubscriptionResource(Client, data));
+                context);
         }
 
         /// <summary>
@@ -1018,8 +1018,8 @@ namespace Azure.ResourceManager.EventGrid.Mocking
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="location"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="location"/> is an empty string, and was expected to be non-empty. </exception>
-        /// <returns> A collection of <see cref="EventSubscriptionResource"/> that may take multiple service requests to iterate over. </returns>
-        public virtual Pageable<EventSubscriptionResource> GetRegionalByResourceGroup(string location, string filter = default, int? top = default, CancellationToken cancellationToken = default)
+        /// <returns> A collection of <see cref="EventGridSubscriptionData"/> that may take multiple service requests to iterate over. </returns>
+        public virtual Pageable<EventGridSubscriptionData> GetRegionalByResourceGroup(string location, string filter = default, int? top = default, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(location, nameof(location));
 
@@ -1027,14 +1027,14 @@ namespace Azure.ResourceManager.EventGrid.Mocking
             {
                 CancellationToken = cancellationToken
             };
-            return new PageableWrapper<EventGridSubscriptionData, EventSubscriptionResource>(new EventSubscriptionsGetRegionalByResourceGroupCollectionResultOfT(
+            return new EventSubscriptionsGetRegionalByResourceGroupCollectionResultOfT(
                 EventSubscriptionsRestClient,
                 Guid.Parse(Id.SubscriptionId),
                 Id.ResourceGroupName,
                 location,
                 filter,
                 top,
-                context), data => new EventSubscriptionResource(Client, data));
+                context);
         }
 
         /// <summary>
@@ -1061,8 +1061,8 @@ namespace Azure.ResourceManager.EventGrid.Mocking
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="location"/> or <paramref name="topicTypeName"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="location"/> or <paramref name="topicTypeName"/> is an empty string, and was expected to be non-empty. </exception>
-        /// <returns> A collection of <see cref="EventSubscriptionResource"/> that may take multiple service requests to iterate over. </returns>
-        public virtual AsyncPageable<EventSubscriptionResource> GetRegionalByResourceGroupForTopicTypeAsync(string location, string topicTypeName, string filter = default, int? top = default, CancellationToken cancellationToken = default)
+        /// <returns> A collection of <see cref="EventGridSubscriptionData"/> that may take multiple service requests to iterate over. </returns>
+        public virtual AsyncPageable<EventGridSubscriptionData> GetRegionalByResourceGroupForTopicTypeAsync(string location, string topicTypeName, string filter = default, int? top = default, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(location, nameof(location));
             Argument.AssertNotNullOrEmpty(topicTypeName, nameof(topicTypeName));
@@ -1071,7 +1071,7 @@ namespace Azure.ResourceManager.EventGrid.Mocking
             {
                 CancellationToken = cancellationToken
             };
-            return new AsyncPageableWrapper<EventGridSubscriptionData, EventSubscriptionResource>(new EventSubscriptionsGetRegionalByResourceGroupForTopicTypeAsyncCollectionResultOfT(
+            return new EventSubscriptionsGetRegionalByResourceGroupForTopicTypeAsyncCollectionResultOfT(
                 EventSubscriptionsRestClient,
                 Guid.Parse(Id.SubscriptionId),
                 Id.ResourceGroupName,
@@ -1079,7 +1079,7 @@ namespace Azure.ResourceManager.EventGrid.Mocking
                 topicTypeName,
                 filter,
                 top,
-                context), data => new EventSubscriptionResource(Client, data));
+                context);
         }
 
         /// <summary>
@@ -1106,8 +1106,8 @@ namespace Azure.ResourceManager.EventGrid.Mocking
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="location"/> or <paramref name="topicTypeName"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="location"/> or <paramref name="topicTypeName"/> is an empty string, and was expected to be non-empty. </exception>
-        /// <returns> A collection of <see cref="EventSubscriptionResource"/> that may take multiple service requests to iterate over. </returns>
-        public virtual Pageable<EventSubscriptionResource> GetRegionalByResourceGroupForTopicType(string location, string topicTypeName, string filter = default, int? top = default, CancellationToken cancellationToken = default)
+        /// <returns> A collection of <see cref="EventGridSubscriptionData"/> that may take multiple service requests to iterate over. </returns>
+        public virtual Pageable<EventGridSubscriptionData> GetRegionalByResourceGroupForTopicType(string location, string topicTypeName, string filter = default, int? top = default, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(location, nameof(location));
             Argument.AssertNotNullOrEmpty(topicTypeName, nameof(topicTypeName));
@@ -1116,7 +1116,7 @@ namespace Azure.ResourceManager.EventGrid.Mocking
             {
                 CancellationToken = cancellationToken
             };
-            return new PageableWrapper<EventGridSubscriptionData, EventSubscriptionResource>(new EventSubscriptionsGetRegionalByResourceGroupForTopicTypeCollectionResultOfT(
+            return new EventSubscriptionsGetRegionalByResourceGroupForTopicTypeCollectionResultOfT(
                 EventSubscriptionsRestClient,
                 Guid.Parse(Id.SubscriptionId),
                 Id.ResourceGroupName,
@@ -1124,7 +1124,7 @@ namespace Azure.ResourceManager.EventGrid.Mocking
                 topicTypeName,
                 filter,
                 top,
-                context), data => new EventSubscriptionResource(Client, data));
+                context);
         }
 
         /// <summary>
@@ -1150,7 +1150,7 @@ namespace Azure.ResourceManager.EventGrid.Mocking
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="parentName"/> or <paramref name="privateEndpointConnectionName"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="parentName"/> or <paramref name="privateEndpointConnectionName"/> is an empty string, and was expected to be non-empty. </exception>
-        public virtual async Task<Response<EventGridPrivateEndpointConnectionData>> GetAsync(PrivateEndpointConnectionsParentType parentType, string parentName, string privateEndpointConnectionName, CancellationToken cancellationToken = default)
+        public virtual async Task<Response<EventGridPrivateEndpointConnection>> GetAsync(PrivateEndpointConnectionsParentType parentType, string parentName, string privateEndpointConnectionName, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(parentName, nameof(parentName));
             Argument.AssertNotNullOrEmpty(privateEndpointConnectionName, nameof(privateEndpointConnectionName));
@@ -1165,7 +1165,7 @@ namespace Azure.ResourceManager.EventGrid.Mocking
                 };
                 HttpMessage message = PrivateEndpointConnectionsRestClient.CreateGetRequest(Guid.Parse(Id.SubscriptionId), Id.ResourceGroupName, parentType.ToString(), parentName, privateEndpointConnectionName, context);
                 Response result = await Pipeline.ProcessMessageAsync(message, context).ConfigureAwait(false);
-                Response<EventGridPrivateEndpointConnectionData> response = Response.FromValue(EventGridPrivateEndpointConnectionData.FromResponse(result), result);
+                Response<EventGridPrivateEndpointConnection> response = Response.FromValue(EventGridPrivateEndpointConnection.FromResponse(result), result);
                 if (response.Value == null)
                 {
                     throw new RequestFailedException(response.GetRawResponse());
@@ -1202,7 +1202,7 @@ namespace Azure.ResourceManager.EventGrid.Mocking
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="parentName"/> or <paramref name="privateEndpointConnectionName"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="parentName"/> or <paramref name="privateEndpointConnectionName"/> is an empty string, and was expected to be non-empty. </exception>
-        public virtual Response<EventGridPrivateEndpointConnectionData> Get(PrivateEndpointConnectionsParentType parentType, string parentName, string privateEndpointConnectionName, CancellationToken cancellationToken = default)
+        public virtual Response<EventGridPrivateEndpointConnection> Get(PrivateEndpointConnectionsParentType parentType, string parentName, string privateEndpointConnectionName, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(parentName, nameof(parentName));
             Argument.AssertNotNullOrEmpty(privateEndpointConnectionName, nameof(privateEndpointConnectionName));
@@ -1217,7 +1217,7 @@ namespace Azure.ResourceManager.EventGrid.Mocking
                 };
                 HttpMessage message = PrivateEndpointConnectionsRestClient.CreateGetRequest(Guid.Parse(Id.SubscriptionId), Id.ResourceGroupName, parentType.ToString(), parentName, privateEndpointConnectionName, context);
                 Response result = Pipeline.ProcessMessage(message, context);
-                Response<EventGridPrivateEndpointConnectionData> response = Response.FromValue(EventGridPrivateEndpointConnectionData.FromResponse(result), result);
+                Response<EventGridPrivateEndpointConnection> response = Response.FromValue(EventGridPrivateEndpointConnection.FromResponse(result), result);
                 if (response.Value == null)
                 {
                     throw new RequestFailedException(response.GetRawResponse());
@@ -1252,15 +1252,15 @@ namespace Azure.ResourceManager.EventGrid.Mocking
         /// <param name="parentType"> The type of the parent resource. This can be either \\'topics\\', \\'domains\\', or \\'partnerNamespaces\\' or \\'namespaces\\'. </param>
         /// <param name="parentName"> The name of the parent resource (namely, either, the topic name, domain name, or partner namespace name or namespace name). </param>
         /// <param name="privateEndpointConnectionName"> The type of the parent resource. This can be either \'topics\', \'domains\', or \'partnerNamespaces\' or \'namespaces\'. </param>
-        /// <param name="data"> The private endpoint connection object to update. </param>
+        /// <param name="privateEndpointConnection"> The private endpoint connection object to update. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="parentName"/>, <paramref name="privateEndpointConnectionName"/> or <paramref name="data"/> is null. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="parentName"/>, <paramref name="privateEndpointConnectionName"/> or <paramref name="privateEndpointConnection"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="parentName"/> or <paramref name="privateEndpointConnectionName"/> is an empty string, and was expected to be non-empty. </exception>
-        public virtual async Task<ArmOperation<EventGridPrivateEndpointConnectionData>> UpdateAsync(WaitUntil waitUntil, PrivateEndpointConnectionsParentType parentType, string parentName, string privateEndpointConnectionName, EventGridPrivateEndpointConnectionData data, CancellationToken cancellationToken = default)
+        public virtual async Task<ArmOperation<EventGridPrivateEndpointConnection>> UpdateAsync(WaitUntil waitUntil, PrivateEndpointConnectionsParentType parentType, string parentName, string privateEndpointConnectionName, EventGridPrivateEndpointConnection privateEndpointConnection, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(parentName, nameof(parentName));
             Argument.AssertNotNullOrEmpty(privateEndpointConnectionName, nameof(privateEndpointConnectionName));
-            Argument.AssertNotNull(data, nameof(data));
+            Argument.AssertNotNull(privateEndpointConnection, nameof(privateEndpointConnection));
 
             using DiagnosticScope scope = PrivateEndpointConnectionsClientDiagnostics.CreateScope("MockableEventGridResourceGroupResource.Update");
             scope.Start();
@@ -1270,10 +1270,10 @@ namespace Azure.ResourceManager.EventGrid.Mocking
                 {
                     CancellationToken = cancellationToken
                 };
-                HttpMessage message = PrivateEndpointConnectionsRestClient.CreateUpdateRequest(Guid.Parse(Id.SubscriptionId), Id.ResourceGroupName, parentType.ToString(), parentName, privateEndpointConnectionName, EventGridPrivateEndpointConnectionData.ToRequestContent(data), context);
+                HttpMessage message = PrivateEndpointConnectionsRestClient.CreateUpdateRequest(Guid.Parse(Id.SubscriptionId), Id.ResourceGroupName, parentType.ToString(), parentName, privateEndpointConnectionName, EventGridPrivateEndpointConnection.ToRequestContent(privateEndpointConnection), context);
                 Response response = await Pipeline.ProcessMessageAsync(message, context).ConfigureAwait(false);
-                EventGridArmOperation<EventGridPrivateEndpointConnectionData> operation = new EventGridArmOperation<EventGridPrivateEndpointConnectionData>(
-                    new EventGridPrivateEndpointConnectionDataOperationSource(),
+                EventGridArmOperation<EventGridPrivateEndpointConnection> operation = new EventGridArmOperation<EventGridPrivateEndpointConnection>(
+                    new EventGridPrivateEndpointConnectionOperationSource(),
                     PrivateEndpointConnectionsClientDiagnostics,
                     Pipeline,
                     message.Request,
@@ -1313,15 +1313,15 @@ namespace Azure.ResourceManager.EventGrid.Mocking
         /// <param name="parentType"> The type of the parent resource. This can be either \\'topics\\', \\'domains\\', or \\'partnerNamespaces\\' or \\'namespaces\\'. </param>
         /// <param name="parentName"> The name of the parent resource (namely, either, the topic name, domain name, or partner namespace name or namespace name). </param>
         /// <param name="privateEndpointConnectionName"> The type of the parent resource. This can be either \'topics\', \'domains\', or \'partnerNamespaces\' or \'namespaces\'. </param>
-        /// <param name="data"> The private endpoint connection object to update. </param>
+        /// <param name="privateEndpointConnection"> The private endpoint connection object to update. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="parentName"/>, <paramref name="privateEndpointConnectionName"/> or <paramref name="data"/> is null. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="parentName"/>, <paramref name="privateEndpointConnectionName"/> or <paramref name="privateEndpointConnection"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="parentName"/> or <paramref name="privateEndpointConnectionName"/> is an empty string, and was expected to be non-empty. </exception>
-        public virtual ArmOperation<EventGridPrivateEndpointConnectionData> Update(WaitUntil waitUntil, PrivateEndpointConnectionsParentType parentType, string parentName, string privateEndpointConnectionName, EventGridPrivateEndpointConnectionData data, CancellationToken cancellationToken = default)
+        public virtual ArmOperation<EventGridPrivateEndpointConnection> Update(WaitUntil waitUntil, PrivateEndpointConnectionsParentType parentType, string parentName, string privateEndpointConnectionName, EventGridPrivateEndpointConnection privateEndpointConnection, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(parentName, nameof(parentName));
             Argument.AssertNotNullOrEmpty(privateEndpointConnectionName, nameof(privateEndpointConnectionName));
-            Argument.AssertNotNull(data, nameof(data));
+            Argument.AssertNotNull(privateEndpointConnection, nameof(privateEndpointConnection));
 
             using DiagnosticScope scope = PrivateEndpointConnectionsClientDiagnostics.CreateScope("MockableEventGridResourceGroupResource.Update");
             scope.Start();
@@ -1331,10 +1331,10 @@ namespace Azure.ResourceManager.EventGrid.Mocking
                 {
                     CancellationToken = cancellationToken
                 };
-                HttpMessage message = PrivateEndpointConnectionsRestClient.CreateUpdateRequest(Guid.Parse(Id.SubscriptionId), Id.ResourceGroupName, parentType.ToString(), parentName, privateEndpointConnectionName, EventGridPrivateEndpointConnectionData.ToRequestContent(data), context);
+                HttpMessage message = PrivateEndpointConnectionsRestClient.CreateUpdateRequest(Guid.Parse(Id.SubscriptionId), Id.ResourceGroupName, parentType.ToString(), parentName, privateEndpointConnectionName, EventGridPrivateEndpointConnection.ToRequestContent(privateEndpointConnection), context);
                 Response response = Pipeline.ProcessMessage(message, context);
-                EventGridArmOperation<EventGridPrivateEndpointConnectionData> operation = new EventGridArmOperation<EventGridPrivateEndpointConnectionData>(
-                    new EventGridPrivateEndpointConnectionDataOperationSource(),
+                EventGridArmOperation<EventGridPrivateEndpointConnection> operation = new EventGridArmOperation<EventGridPrivateEndpointConnection>(
+                    new EventGridPrivateEndpointConnectionOperationSource(),
                     PrivateEndpointConnectionsClientDiagnostics,
                     Pipeline,
                     message.Request,
@@ -1881,8 +1881,8 @@ namespace Azure.ResourceManager.EventGrid.Mocking
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="parentName"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="parentName"/> is an empty string, and was expected to be non-empty. </exception>
-        /// <returns> A collection of <see cref="EventGridPrivateEndpointConnectionData"/> that may take multiple service requests to iterate over. </returns>
-        public virtual AsyncPageable<EventGridPrivateEndpointConnectionData> GetByResourceAsync(PrivateEndpointConnectionsParentType parentType, string parentName, string filter = default, int? top = default, CancellationToken cancellationToken = default)
+        /// <returns> A collection of <see cref="EventGridPrivateEndpointConnection"/> that may take multiple service requests to iterate over. </returns>
+        public virtual AsyncPageable<EventGridPrivateEndpointConnection> GetByResourceAsync(PrivateEndpointConnectionsParentType parentType, string parentName, string filter = default, int? top = default, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(parentName, nameof(parentName));
 
@@ -1925,8 +1925,8 @@ namespace Azure.ResourceManager.EventGrid.Mocking
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="parentName"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="parentName"/> is an empty string, and was expected to be non-empty. </exception>
-        /// <returns> A collection of <see cref="EventGridPrivateEndpointConnectionData"/> that may take multiple service requests to iterate over. </returns>
-        public virtual Pageable<EventGridPrivateEndpointConnectionData> GetByResource(PrivateEndpointConnectionsParentType parentType, string parentName, string filter = default, int? top = default, CancellationToken cancellationToken = default)
+        /// <returns> A collection of <see cref="EventGridPrivateEndpointConnection"/> that may take multiple service requests to iterate over. </returns>
+        public virtual Pageable<EventGridPrivateEndpointConnection> GetByResource(PrivateEndpointConnectionsParentType parentType, string parentName, string filter = default, int? top = default, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(parentName, nameof(parentName));
 
