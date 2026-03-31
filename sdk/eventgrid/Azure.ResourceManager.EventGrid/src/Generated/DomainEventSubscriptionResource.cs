@@ -426,30 +426,20 @@ namespace Azure.ResourceManager.EventGrid
         /// </list>
         /// </summary>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        public virtual async Task<Response<DeliveryAttributeListResult>> GetDeliveryAttributesAsync(CancellationToken cancellationToken = default)
+        /// <returns> A collection of <see cref="DeliveryAttributeMapping"/> that may take multiple service requests to iterate over. </returns>
+        public virtual AsyncPageable<DeliveryAttributeMapping> GetDeliveryAttributesAsync(CancellationToken cancellationToken = default)
         {
-            using DiagnosticScope scope = _domainEventSubscriptionsClientDiagnostics.CreateScope("DomainEventSubscriptionResource.GetDeliveryAttributes");
-            scope.Start();
-            try
+            RequestContext context = new RequestContext
             {
-                RequestContext context = new RequestContext
-                {
-                    CancellationToken = cancellationToken
-                };
-                HttpMessage message = _domainEventSubscriptionsRestClient.CreateGetDeliveryAttributesRequest(Guid.Parse(Id.SubscriptionId), Id.ResourceGroupName, Id.Parent.Name, Id.Name, context);
-                Response result = await Pipeline.ProcessMessageAsync(message, context).ConfigureAwait(false);
-                Response<DeliveryAttributeListResult> response = Response.FromValue(DeliveryAttributeListResult.FromResponse(result), result);
-                if (response.Value == null)
-                {
-                    throw new RequestFailedException(response.GetRawResponse());
-                }
-                return response;
-            }
-            catch (Exception e)
-            {
-                scope.Failed(e);
-                throw;
-            }
+                CancellationToken = cancellationToken
+            };
+            return new DomainEventSubscriptionsGetDeliveryAttributesAsyncCollectionResultOfT(
+                _domainEventSubscriptionsRestClient,
+                Guid.Parse(Id.SubscriptionId),
+                Id.ResourceGroupName,
+                Id.Parent.Name,
+                Id.Name,
+                context);
         }
 
         /// <summary>
@@ -474,30 +464,20 @@ namespace Azure.ResourceManager.EventGrid
         /// </list>
         /// </summary>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        public virtual Response<DeliveryAttributeListResult> GetDeliveryAttributes(CancellationToken cancellationToken = default)
+        /// <returns> A collection of <see cref="DeliveryAttributeMapping"/> that may take multiple service requests to iterate over. </returns>
+        public virtual Pageable<DeliveryAttributeMapping> GetDeliveryAttributes(CancellationToken cancellationToken = default)
         {
-            using DiagnosticScope scope = _domainEventSubscriptionsClientDiagnostics.CreateScope("DomainEventSubscriptionResource.GetDeliveryAttributes");
-            scope.Start();
-            try
+            RequestContext context = new RequestContext
             {
-                RequestContext context = new RequestContext
-                {
-                    CancellationToken = cancellationToken
-                };
-                HttpMessage message = _domainEventSubscriptionsRestClient.CreateGetDeliveryAttributesRequest(Guid.Parse(Id.SubscriptionId), Id.ResourceGroupName, Id.Parent.Name, Id.Name, context);
-                Response result = Pipeline.ProcessMessage(message, context);
-                Response<DeliveryAttributeListResult> response = Response.FromValue(DeliveryAttributeListResult.FromResponse(result), result);
-                if (response.Value == null)
-                {
-                    throw new RequestFailedException(response.GetRawResponse());
-                }
-                return response;
-            }
-            catch (Exception e)
-            {
-                scope.Failed(e);
-                throw;
-            }
+                CancellationToken = cancellationToken
+            };
+            return new DomainEventSubscriptionsGetDeliveryAttributesCollectionResultOfT(
+                _domainEventSubscriptionsRestClient,
+                Guid.Parse(Id.SubscriptionId),
+                Id.ResourceGroupName,
+                Id.Parent.Name,
+                Id.Name,
+                context);
         }
 
         /// <summary>

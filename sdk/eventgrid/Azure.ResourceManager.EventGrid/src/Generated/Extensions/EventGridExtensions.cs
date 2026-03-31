@@ -1334,7 +1334,7 @@ namespace Azure.ResourceManager.EventGrid
         /// <param name="privateEndpointConnectionName"> The type of the parent resource. This can be either \'topics\', \'domains\', or \'partnerNamespaces\' or \'namespaces\'. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupResource"/> is null. </exception>
-        public static async Task<Response<EventGridPrivateEndpointConnection>> GetAsync(this ResourceGroupResource resourceGroupResource, PrivateEndpointConnectionsParentType parentType, string parentName, string privateEndpointConnectionName, CancellationToken cancellationToken = default)
+        public static async Task<Response<EventGridPrivateEndpointConnectionData>> GetAsync(this ResourceGroupResource resourceGroupResource, PrivateEndpointConnectionsParentType parentType, string parentName, string privateEndpointConnectionName, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNull(resourceGroupResource, nameof(resourceGroupResource));
 
@@ -1354,7 +1354,7 @@ namespace Azure.ResourceManager.EventGrid
         /// <param name="privateEndpointConnectionName"> The type of the parent resource. This can be either \'topics\', \'domains\', or \'partnerNamespaces\' or \'namespaces\'. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupResource"/> is null. </exception>
-        public static Response<EventGridPrivateEndpointConnection> Get(this ResourceGroupResource resourceGroupResource, PrivateEndpointConnectionsParentType parentType, string parentName, string privateEndpointConnectionName, CancellationToken cancellationToken = default)
+        public static Response<EventGridPrivateEndpointConnectionData> Get(this ResourceGroupResource resourceGroupResource, PrivateEndpointConnectionsParentType parentType, string parentName, string privateEndpointConnectionName, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNull(resourceGroupResource, nameof(resourceGroupResource));
 
@@ -1365,7 +1365,7 @@ namespace Azure.ResourceManager.EventGrid
         /// Update a specific private endpoint connection under a topic, domain or partner namespace.
         /// <item>
         /// <term> Mocking. </term>
-        /// <description> To mock this method, please mock <see cref="MockableEventGridResourceGroupResource.UpdateAsync(WaitUntil, PrivateEndpointConnectionsParentType, string, string, EventGridPrivateEndpointConnection, CancellationToken)"/> instead. </description>
+        /// <description> To mock this method, please mock <see cref="MockableEventGridResourceGroupResource.UpdateAsync(WaitUntil, PrivateEndpointConnectionsParentType, string, string, EventGridPrivateEndpointConnectionData, CancellationToken)"/> instead. </description>
         /// </item>
         /// </summary>
         /// <param name="resourceGroupResource"> The <see cref="ResourceGroupResource"/> the method will execute against. </param>
@@ -1373,21 +1373,21 @@ namespace Azure.ResourceManager.EventGrid
         /// <param name="parentType"> The type of the parent resource. This can be either \\'topics\\', \\'domains\\', or \\'partnerNamespaces\\' or \\'namespaces\\'. </param>
         /// <param name="parentName"> The name of the parent resource (namely, either, the topic name, domain name, or partner namespace name or namespace name). </param>
         /// <param name="privateEndpointConnectionName"> The type of the parent resource. This can be either \'topics\', \'domains\', or \'partnerNamespaces\' or \'namespaces\'. </param>
-        /// <param name="privateEndpointConnection"> The private endpoint connection object to update. </param>
+        /// <param name="data"> The private endpoint connection object to update. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupResource"/> is null. </exception>
-        public static async Task<ArmOperation<EventGridPrivateEndpointConnection>> UpdateAsync(this ResourceGroupResource resourceGroupResource, WaitUntil waitUntil, PrivateEndpointConnectionsParentType parentType, string parentName, string privateEndpointConnectionName, EventGridPrivateEndpointConnection privateEndpointConnection, CancellationToken cancellationToken = default)
+        public static async Task<ArmOperation<EventGridPrivateEndpointConnectionData>> UpdateAsync(this ResourceGroupResource resourceGroupResource, WaitUntil waitUntil, PrivateEndpointConnectionsParentType parentType, string parentName, string privateEndpointConnectionName, EventGridPrivateEndpointConnectionData data, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNull(resourceGroupResource, nameof(resourceGroupResource));
 
-            return await GetMockableEventGridResourceGroupResource(resourceGroupResource).UpdateAsync(waitUntil, parentType, parentName, privateEndpointConnectionName, privateEndpointConnection, cancellationToken).ConfigureAwait(false);
+            return await GetMockableEventGridResourceGroupResource(resourceGroupResource).UpdateAsync(waitUntil, parentType, parentName, privateEndpointConnectionName, data, cancellationToken).ConfigureAwait(false);
         }
 
         /// <summary>
         /// Update a specific private endpoint connection under a topic, domain or partner namespace.
         /// <item>
         /// <term> Mocking. </term>
-        /// <description> To mock this method, please mock <see cref="MockableEventGridResourceGroupResource.Update(WaitUntil, PrivateEndpointConnectionsParentType, string, string, EventGridPrivateEndpointConnection, CancellationToken)"/> instead. </description>
+        /// <description> To mock this method, please mock <see cref="MockableEventGridResourceGroupResource.Update(WaitUntil, PrivateEndpointConnectionsParentType, string, string, EventGridPrivateEndpointConnectionData, CancellationToken)"/> instead. </description>
         /// </item>
         /// </summary>
         /// <param name="resourceGroupResource"> The <see cref="ResourceGroupResource"/> the method will execute against. </param>
@@ -1395,14 +1395,14 @@ namespace Azure.ResourceManager.EventGrid
         /// <param name="parentType"> The type of the parent resource. This can be either \\'topics\\', \\'domains\\', or \\'partnerNamespaces\\' or \\'namespaces\\'. </param>
         /// <param name="parentName"> The name of the parent resource (namely, either, the topic name, domain name, or partner namespace name or namespace name). </param>
         /// <param name="privateEndpointConnectionName"> The type of the parent resource. This can be either \'topics\', \'domains\', or \'partnerNamespaces\' or \'namespaces\'. </param>
-        /// <param name="privateEndpointConnection"> The private endpoint connection object to update. </param>
+        /// <param name="data"> The private endpoint connection object to update. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupResource"/> is null. </exception>
-        public static ArmOperation<EventGridPrivateEndpointConnection> Update(this ResourceGroupResource resourceGroupResource, WaitUntil waitUntil, PrivateEndpointConnectionsParentType parentType, string parentName, string privateEndpointConnectionName, EventGridPrivateEndpointConnection privateEndpointConnection, CancellationToken cancellationToken = default)
+        public static ArmOperation<EventGridPrivateEndpointConnectionData> Update(this ResourceGroupResource resourceGroupResource, WaitUntil waitUntil, PrivateEndpointConnectionsParentType parentType, string parentName, string privateEndpointConnectionName, EventGridPrivateEndpointConnectionData data, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNull(resourceGroupResource, nameof(resourceGroupResource));
 
-            return GetMockableEventGridResourceGroupResource(resourceGroupResource).Update(waitUntil, parentType, parentName, privateEndpointConnectionName, privateEndpointConnection, cancellationToken);
+            return GetMockableEventGridResourceGroupResource(resourceGroupResource).Update(waitUntil, parentType, parentName, privateEndpointConnectionName, data, cancellationToken);
         }
 
         /// <summary>
@@ -1629,8 +1629,8 @@ namespace Azure.ResourceManager.EventGrid
         /// <param name="top"> The number of results to return per page for the list operation. Valid range for top parameter is 1 to 100. If not specified, the default number of results to be returned is 20 items per page. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupResource"/> is null. </exception>
-        /// <returns> A collection of <see cref="EventGridPrivateEndpointConnection"/> that may take multiple service requests to iterate over. </returns>
-        public static AsyncPageable<EventGridPrivateEndpointConnection> GetByResourceAsync(this ResourceGroupResource resourceGroupResource, PrivateEndpointConnectionsParentType parentType, string parentName, string filter = default, int? top = default, CancellationToken cancellationToken = default)
+        /// <returns> A collection of <see cref="EventGridPrivateEndpointConnectionData"/> that may take multiple service requests to iterate over. </returns>
+        public static AsyncPageable<EventGridPrivateEndpointConnectionData> GetByResourceAsync(this ResourceGroupResource resourceGroupResource, PrivateEndpointConnectionsParentType parentType, string parentName, string filter = default, int? top = default, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNull(resourceGroupResource, nameof(resourceGroupResource));
 
@@ -1651,8 +1651,8 @@ namespace Azure.ResourceManager.EventGrid
         /// <param name="top"> The number of results to return per page for the list operation. Valid range for top parameter is 1 to 100. If not specified, the default number of results to be returned is 20 items per page. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupResource"/> is null. </exception>
-        /// <returns> A collection of <see cref="EventGridPrivateEndpointConnection"/> that may take multiple service requests to iterate over. </returns>
-        public static Pageable<EventGridPrivateEndpointConnection> GetByResource(this ResourceGroupResource resourceGroupResource, PrivateEndpointConnectionsParentType parentType, string parentName, string filter = default, int? top = default, CancellationToken cancellationToken = default)
+        /// <returns> A collection of <see cref="EventGridPrivateEndpointConnectionData"/> that may take multiple service requests to iterate over. </returns>
+        public static Pageable<EventGridPrivateEndpointConnectionData> GetByResource(this ResourceGroupResource resourceGroupResource, PrivateEndpointConnectionsParentType parentType, string parentName, string filter = default, int? top = default, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNull(resourceGroupResource, nameof(resourceGroupResource));
 

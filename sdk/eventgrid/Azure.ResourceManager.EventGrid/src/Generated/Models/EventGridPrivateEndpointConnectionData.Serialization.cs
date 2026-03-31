@@ -12,74 +12,74 @@ using System.Text;
 using System.Text.Json;
 using Azure;
 using Azure.Core;
-using Azure.ResourceManager.EventGrid;
+using Azure.ResourceManager.EventGrid.Models;
 using Azure.ResourceManager.Models;
 
-namespace Azure.ResourceManager.EventGrid.Models
+namespace Azure.ResourceManager.EventGrid
 {
     /// <summary> Concrete proxy resource types can be created by aliasing this type using a specific property type. </summary>
-    public partial class EventGridPrivateEndpointConnection : ResourceData, IJsonModel<EventGridPrivateEndpointConnection>
+    public partial class EventGridPrivateEndpointConnectionData : ResourceData, IJsonModel<EventGridPrivateEndpointConnectionData>
     {
         /// <param name="data"> The data to parse. </param>
         /// <param name="options"> The client options for reading and writing models. </param>
         protected virtual ResourceData PersistableModelCreateCore(BinaryData data, ModelReaderWriterOptions options)
         {
-            string format = options.Format == "W" ? ((IPersistableModel<EventGridPrivateEndpointConnection>)this).GetFormatFromOptions(options) : options.Format;
+            string format = options.Format == "W" ? ((IPersistableModel<EventGridPrivateEndpointConnectionData>)this).GetFormatFromOptions(options) : options.Format;
             switch (format)
             {
                 case "J":
                     using (JsonDocument document = JsonDocument.Parse(data, ModelSerializationExtensions.JsonDocumentOptions))
                     {
-                        return DeserializeEventGridPrivateEndpointConnection(document.RootElement, options);
+                        return DeserializeEventGridPrivateEndpointConnectionData(document.RootElement, options);
                     }
                 default:
-                    throw new FormatException($"The model {nameof(EventGridPrivateEndpointConnection)} does not support reading '{options.Format}' format.");
+                    throw new FormatException($"The model {nameof(EventGridPrivateEndpointConnectionData)} does not support reading '{options.Format}' format.");
             }
         }
 
         /// <param name="options"> The client options for reading and writing models. </param>
         protected virtual BinaryData PersistableModelWriteCore(ModelReaderWriterOptions options)
         {
-            string format = options.Format == "W" ? ((IPersistableModel<EventGridPrivateEndpointConnection>)this).GetFormatFromOptions(options) : options.Format;
+            string format = options.Format == "W" ? ((IPersistableModel<EventGridPrivateEndpointConnectionData>)this).GetFormatFromOptions(options) : options.Format;
             switch (format)
             {
                 case "J":
                     return ModelReaderWriter.Write(this, options, AzureResourceManagerEventGridContext.Default);
                 default:
-                    throw new FormatException($"The model {nameof(EventGridPrivateEndpointConnection)} does not support writing '{options.Format}' format.");
+                    throw new FormatException($"The model {nameof(EventGridPrivateEndpointConnectionData)} does not support writing '{options.Format}' format.");
             }
         }
 
         /// <param name="options"> The client options for reading and writing models. </param>
-        BinaryData IPersistableModel<EventGridPrivateEndpointConnection>.Write(ModelReaderWriterOptions options) => PersistableModelWriteCore(options);
+        BinaryData IPersistableModel<EventGridPrivateEndpointConnectionData>.Write(ModelReaderWriterOptions options) => PersistableModelWriteCore(options);
 
         /// <param name="data"> The data to parse. </param>
         /// <param name="options"> The client options for reading and writing models. </param>
-        EventGridPrivateEndpointConnection IPersistableModel<EventGridPrivateEndpointConnection>.Create(BinaryData data, ModelReaderWriterOptions options) => (EventGridPrivateEndpointConnection)PersistableModelCreateCore(data, options);
+        EventGridPrivateEndpointConnectionData IPersistableModel<EventGridPrivateEndpointConnectionData>.Create(BinaryData data, ModelReaderWriterOptions options) => (EventGridPrivateEndpointConnectionData)PersistableModelCreateCore(data, options);
 
         /// <param name="options"> The client options for reading and writing models. </param>
-        string IPersistableModel<EventGridPrivateEndpointConnection>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
+        string IPersistableModel<EventGridPrivateEndpointConnectionData>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
 
-        /// <param name="eventGridPrivateEndpointConnection"> The <see cref="EventGridPrivateEndpointConnection"/> to serialize into <see cref="RequestContent"/>. </param>
-        internal static RequestContent ToRequestContent(EventGridPrivateEndpointConnection eventGridPrivateEndpointConnection)
+        /// <param name="eventGridPrivateEndpointConnectionData"> The <see cref="EventGridPrivateEndpointConnectionData"/> to serialize into <see cref="RequestContent"/>. </param>
+        internal static RequestContent ToRequestContent(EventGridPrivateEndpointConnectionData eventGridPrivateEndpointConnectionData)
         {
-            if (eventGridPrivateEndpointConnection == null)
+            if (eventGridPrivateEndpointConnectionData == null)
             {
                 return null;
             }
-            return RequestContent.Create(eventGridPrivateEndpointConnection, ModelSerializationExtensions.WireOptions);
+            return RequestContent.Create(eventGridPrivateEndpointConnectionData, ModelSerializationExtensions.WireOptions);
         }
 
-        /// <param name="response"> The <see cref="Response"/> to deserialize the <see cref="EventGridPrivateEndpointConnection"/> from. </param>
-        internal static EventGridPrivateEndpointConnection FromResponse(Response response)
+        /// <param name="response"> The <see cref="Response"/> to deserialize the <see cref="EventGridPrivateEndpointConnectionData"/> from. </param>
+        internal static EventGridPrivateEndpointConnectionData FromResponse(Response response)
         {
             using JsonDocument document = JsonDocument.Parse(response.Content, ModelSerializationExtensions.JsonDocumentOptions);
-            return DeserializeEventGridPrivateEndpointConnection(document.RootElement, ModelSerializationExtensions.WireOptions);
+            return DeserializeEventGridPrivateEndpointConnectionData(document.RootElement, ModelSerializationExtensions.WireOptions);
         }
 
         /// <param name="writer"> The JSON writer. </param>
         /// <param name="options"> The client options for reading and writing models. </param>
-        void IJsonModel<EventGridPrivateEndpointConnection>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
+        void IJsonModel<EventGridPrivateEndpointConnectionData>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
             writer.WriteStartObject();
             JsonModelWriteCore(writer, options);
@@ -90,10 +90,10 @@ namespace Azure.ResourceManager.EventGrid.Models
         /// <param name="options"> The client options for reading and writing models. </param>
         protected override void JsonModelWriteCore(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
-            string format = options.Format == "W" ? ((IPersistableModel<EventGridPrivateEndpointConnection>)this).GetFormatFromOptions(options) : options.Format;
+            string format = options.Format == "W" ? ((IPersistableModel<EventGridPrivateEndpointConnectionData>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
-                throw new FormatException($"The model {nameof(EventGridPrivateEndpointConnection)} does not support writing '{format}' format.");
+                throw new FormatException($"The model {nameof(EventGridPrivateEndpointConnectionData)} does not support writing '{format}' format.");
             }
             base.JsonModelWriteCore(writer, options);
             if (Optional.IsDefined(Properties))
@@ -105,24 +105,24 @@ namespace Azure.ResourceManager.EventGrid.Models
 
         /// <param name="reader"> The JSON reader. </param>
         /// <param name="options"> The client options for reading and writing models. </param>
-        EventGridPrivateEndpointConnection IJsonModel<EventGridPrivateEndpointConnection>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options) => (EventGridPrivateEndpointConnection)JsonModelCreateCore(ref reader, options);
+        EventGridPrivateEndpointConnectionData IJsonModel<EventGridPrivateEndpointConnectionData>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options) => (EventGridPrivateEndpointConnectionData)JsonModelCreateCore(ref reader, options);
 
         /// <param name="reader"> The JSON reader. </param>
         /// <param name="options"> The client options for reading and writing models. </param>
         protected virtual ResourceData JsonModelCreateCore(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
         {
-            string format = options.Format == "W" ? ((IPersistableModel<EventGridPrivateEndpointConnection>)this).GetFormatFromOptions(options) : options.Format;
+            string format = options.Format == "W" ? ((IPersistableModel<EventGridPrivateEndpointConnectionData>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
-                throw new FormatException($"The model {nameof(EventGridPrivateEndpointConnection)} does not support reading '{format}' format.");
+                throw new FormatException($"The model {nameof(EventGridPrivateEndpointConnectionData)} does not support reading '{format}' format.");
             }
             using JsonDocument document = JsonDocument.ParseValue(ref reader);
-            return DeserializeEventGridPrivateEndpointConnection(document.RootElement, options);
+            return DeserializeEventGridPrivateEndpointConnectionData(document.RootElement, options);
         }
 
         /// <param name="element"> The JSON element to deserialize. </param>
         /// <param name="options"> The client options for reading and writing models. </param>
-        internal static EventGridPrivateEndpointConnection DeserializeEventGridPrivateEndpointConnection(JsonElement element, ModelReaderWriterOptions options)
+        internal static EventGridPrivateEndpointConnectionData DeserializeEventGridPrivateEndpointConnectionData(JsonElement element, ModelReaderWriterOptions options)
         {
             if (element.ValueKind == JsonValueKind.Null)
             {
@@ -182,7 +182,7 @@ namespace Azure.ResourceManager.EventGrid.Models
                     additionalBinaryDataProperties.Add(prop.Name, BinaryData.FromString(prop.Value.GetRawText()));
                 }
             }
-            return new EventGridPrivateEndpointConnection(
+            return new EventGridPrivateEndpointConnectionData(
                 id,
                 name,
                 resourceType,

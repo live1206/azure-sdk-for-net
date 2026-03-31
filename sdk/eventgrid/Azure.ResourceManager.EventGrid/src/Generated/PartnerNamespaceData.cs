@@ -46,7 +46,7 @@ namespace Azure.ResourceManager.EventGrid
 
         /// <summary> List of private endpoint connections. </summary>
         [WirePath("properties.privateEndpointConnections")]
-        public IReadOnlyList<EventGridPrivateEndpointConnection> PrivateEndpointConnections
+        public IReadOnlyList<EventGridPrivateEndpointConnectionData> PrivateEndpointConnections
         {
             get
             {

@@ -20,7 +20,7 @@ namespace Azure.ResourceManager.EventGrid.Models
 
         /// <summary> Initializes a new instance of <see cref="EventGridPrivateEndpointConnectionListResult"/>. </summary>
         /// <param name="value"> The PrivateEndpointConnection items on this page. </param>
-        internal EventGridPrivateEndpointConnectionListResult(IEnumerable<EventGridPrivateEndpointConnection> value)
+        internal EventGridPrivateEndpointConnectionListResult(IEnumerable<EventGridPrivateEndpointConnectionData> value)
         {
             Value = value.ToList();
         }
@@ -29,7 +29,7 @@ namespace Azure.ResourceManager.EventGrid.Models
         /// <param name="value"> The PrivateEndpointConnection items on this page. </param>
         /// <param name="nextLink"> The link to the next page of items. </param>
         /// <param name="additionalBinaryDataProperties"> Keeps track of any properties unknown to the library. </param>
-        internal EventGridPrivateEndpointConnectionListResult(IList<EventGridPrivateEndpointConnection> value, Uri nextLink, IDictionary<string, BinaryData> additionalBinaryDataProperties)
+        internal EventGridPrivateEndpointConnectionListResult(IList<EventGridPrivateEndpointConnectionData> value, Uri nextLink, IDictionary<string, BinaryData> additionalBinaryDataProperties)
         {
             Value = value;
             NextLink = nextLink;
@@ -38,7 +38,7 @@ namespace Azure.ResourceManager.EventGrid.Models
 
         /// <summary> The PrivateEndpointConnection items on this page. </summary>
         [WirePath("value")]
-        public IList<EventGridPrivateEndpointConnection> Value { get; }
+        public IList<EventGridPrivateEndpointConnectionData> Value { get; }
 
         /// <summary> The link to the next page of items. </summary>
         [WirePath("nextLink")]

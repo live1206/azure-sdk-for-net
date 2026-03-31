@@ -8,30 +8,25 @@
 using System;
 using System.Collections.Generic;
 using Azure.Core;
-using Azure.ResourceManager.EventGrid;
+using Azure.ResourceManager.EventGrid.Models;
 using Azure.ResourceManager.Models;
 
-namespace Azure.ResourceManager.EventGrid.Models
+namespace Azure.ResourceManager.EventGrid
 {
     /// <summary> Concrete proxy resource types can be created by aliasing this type using a specific property type. </summary>
-    public partial class EventGridPrivateEndpointConnection : ResourceData
+    public partial class EventGridPrivateEndpointConnectionData : ResourceData
     {
         /// <summary> Keeps track of any properties unknown to the library. </summary>
         private protected readonly IDictionary<string, BinaryData> _additionalBinaryDataProperties;
 
-        /// <summary> Initializes a new instance of <see cref="EventGridPrivateEndpointConnection"/>. </summary>
-        public EventGridPrivateEndpointConnection()
-        {
-        }
-
-        /// <summary> Initializes a new instance of <see cref="EventGridPrivateEndpointConnection"/>. </summary>
+        /// <summary> Initializes a new instance of <see cref="EventGridPrivateEndpointConnectionData"/>. </summary>
         /// <param name="id"> Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}. </param>
         /// <param name="name"> The name of the resource. </param>
         /// <param name="resourceType"> The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts". </param>
         /// <param name="systemData"> Azure Resource Manager metadata containing createdBy and modifiedBy information. </param>
         /// <param name="additionalBinaryDataProperties"> Keeps track of any properties unknown to the library. </param>
         /// <param name="properties"> Properties of the PrivateEndpointConnection. </param>
-        internal EventGridPrivateEndpointConnection(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, IDictionary<string, BinaryData> additionalBinaryDataProperties, PrivateEndpointConnectionProperties properties) : base(id, name, resourceType, systemData)
+        internal EventGridPrivateEndpointConnectionData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, IDictionary<string, BinaryData> additionalBinaryDataProperties, PrivateEndpointConnectionProperties properties) : base(id, name, resourceType, systemData)
         {
             _additionalBinaryDataProperties = additionalBinaryDataProperties;
             Properties = properties;
@@ -57,11 +52,11 @@ namespace Azure.ResourceManager.EventGrid.Models
 
         /// <summary> Details about the state of the connection. </summary>
         [WirePath("properties.privateLinkServiceConnectionState")]
-        public EventGridPrivateEndpointConnectionState PrivateLinkServiceConnectionState
+        public EventGridPrivateEndpointConnectionState ConnectionState
         {
             get
             {
-                return Properties is null ? default : Properties.PrivateLinkServiceConnectionState;
+                return Properties is null ? default : Properties.ConnectionState;
             }
             set
             {
@@ -69,7 +64,7 @@ namespace Azure.ResourceManager.EventGrid.Models
                 {
                     Properties = new PrivateEndpointConnectionProperties();
                 }
-                Properties.PrivateLinkServiceConnectionState = value;
+                Properties.ConnectionState = value;
             }
         }
 
@@ -93,7 +88,7 @@ namespace Azure.ResourceManager.EventGrid.Models
 
         /// <summary> The ARM identifier for Private Endpoint. </summary>
         [WirePath("properties.privateEndpoint.id")]
-        public string PrivateEndpointId
+        public ResourceIdentifier PrivateEndpointId
         {
             get
             {

@@ -10,35 +10,34 @@ using System.Threading;
 using System.Threading.Tasks;
 using Azure;
 using Azure.Core;
-using Azure.ResourceManager.EventGrid.Models;
 
 namespace Azure.ResourceManager.EventGrid
 {
     /// <summary></summary>
-    internal partial class EventGridPrivateEndpointConnectionOperationSource : IOperationSource<EventGridPrivateEndpointConnection>
+    internal partial class EventGridPrivateEndpointConnectionDataOperationSource : IOperationSource<EventGridPrivateEndpointConnectionData>
     {
         /// <summary></summary>
-        internal EventGridPrivateEndpointConnectionOperationSource()
+        internal EventGridPrivateEndpointConnectionDataOperationSource()
         {
         }
 
         /// <param name="response"> The response from the service. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <returns></returns>
-        EventGridPrivateEndpointConnection IOperationSource<EventGridPrivateEndpointConnection>.CreateResult(Response response, CancellationToken cancellationToken)
+        EventGridPrivateEndpointConnectionData IOperationSource<EventGridPrivateEndpointConnectionData>.CreateResult(Response response, CancellationToken cancellationToken)
         {
             using JsonDocument document = JsonDocument.Parse(response.ContentStream);
-            EventGridPrivateEndpointConnection result = EventGridPrivateEndpointConnection.DeserializeEventGridPrivateEndpointConnection(document.RootElement, ModelSerializationExtensions.WireOptions);
+            EventGridPrivateEndpointConnectionData result = EventGridPrivateEndpointConnectionData.DeserializeEventGridPrivateEndpointConnectionData(document.RootElement, ModelSerializationExtensions.WireOptions);
             return result;
         }
 
         /// <param name="response"> The response from the service. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <returns></returns>
-        async ValueTask<EventGridPrivateEndpointConnection> IOperationSource<EventGridPrivateEndpointConnection>.CreateResultAsync(Response response, CancellationToken cancellationToken)
+        async ValueTask<EventGridPrivateEndpointConnectionData> IOperationSource<EventGridPrivateEndpointConnectionData>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
             using JsonDocument document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
-            EventGridPrivateEndpointConnection result = EventGridPrivateEndpointConnection.DeserializeEventGridPrivateEndpointConnection(document.RootElement, ModelSerializationExtensions.WireOptions);
+            EventGridPrivateEndpointConnectionData result = EventGridPrivateEndpointConnectionData.DeserializeEventGridPrivateEndpointConnectionData(document.RootElement, ModelSerializationExtensions.WireOptions);
             return result;
         }
     }

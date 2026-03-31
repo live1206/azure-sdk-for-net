@@ -20,7 +20,7 @@ namespace Azure.ResourceManager.EventGrid.Models
         /// <summary> Initializes a new instance of <see cref="DomainProperties"/>. </summary>
         public DomainProperties()
         {
-            PrivateEndpointConnections = new ChangeTrackingList<EventGridPrivateEndpointConnection>();
+            PrivateEndpointConnections = new ChangeTrackingList<EventGridPrivateEndpointConnectionData>();
             InboundIPRules = new ChangeTrackingList<EventGridInboundIPRule>();
         }
 
@@ -62,7 +62,7 @@ namespace Azure.ResourceManager.EventGrid.Models
         /// </param>
         /// <param name="dataResidencyBoundary"> Data Residency Boundary of the resource. </param>
         /// <param name="additionalBinaryDataProperties"> Keeps track of any properties unknown to the library. </param>
-        internal DomainProperties(IReadOnlyList<EventGridPrivateEndpointConnection> privateEndpointConnections, EventGridDomainProvisioningState? provisioningState, TlsVersion? minimumTlsVersionAllowed, Uri endpoint, EventGridInputSchema? inputSchema, PartnerTopicEventTypeInfo eventTypeInfo, EventGridInputSchemaMapping inputSchemaMapping, string metricResourceId, EventGridPublicNetworkAccess? publicNetworkAccess, IList<EventGridInboundIPRule> inboundIPRules, bool? isLocalAuthDisabled, bool? autoCreateTopicWithFirstSubscription, bool? autoDeleteTopicWithLastSubscription, DataResidencyBoundary? dataResidencyBoundary, IDictionary<string, BinaryData> additionalBinaryDataProperties)
+        internal DomainProperties(IReadOnlyList<EventGridPrivateEndpointConnectionData> privateEndpointConnections, EventGridDomainProvisioningState? provisioningState, TlsVersion? minimumTlsVersionAllowed, Uri endpoint, EventGridInputSchema? inputSchema, PartnerTopicEventTypeInfo eventTypeInfo, EventGridInputSchemaMapping inputSchemaMapping, string metricResourceId, EventGridPublicNetworkAccess? publicNetworkAccess, IList<EventGridInboundIPRule> inboundIPRules, bool? isLocalAuthDisabled, bool? autoCreateTopicWithFirstSubscription, bool? autoDeleteTopicWithLastSubscription, DataResidencyBoundary? dataResidencyBoundary, IDictionary<string, BinaryData> additionalBinaryDataProperties)
         {
             PrivateEndpointConnections = privateEndpointConnections;
             ProvisioningState = provisioningState;
@@ -83,7 +83,7 @@ namespace Azure.ResourceManager.EventGrid.Models
 
         /// <summary> List of private endpoint connections. </summary>
         [WirePath("privateEndpointConnections")]
-        public IReadOnlyList<EventGridPrivateEndpointConnection> PrivateEndpointConnections { get; } = new ChangeTrackingList<EventGridPrivateEndpointConnection>();
+        public IReadOnlyList<EventGridPrivateEndpointConnectionData> PrivateEndpointConnections { get; } = new ChangeTrackingList<EventGridPrivateEndpointConnectionData>();
 
         /// <summary> Provisioning state of the Event Grid Domain Resource. </summary>
         [WirePath("provisioningState")]

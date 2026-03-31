@@ -10,12 +10,12 @@ using System.Collections.Generic;
 
 namespace Azure.ResourceManager.EventGrid.Models
 {
-    internal partial class UnknownEventGridInputSchemaMapping : EventGridInputSchemaMapping
+    internal partial class UnknownInputSchemaMapping : EventGridInputSchemaMapping
     {
-        /// <summary> Initializes a new instance of <see cref="UnknownEventGridInputSchemaMapping"/>. </summary>
+        /// <summary> Initializes a new instance of <see cref="UnknownInputSchemaMapping"/>. </summary>
         /// <param name="inputSchemaMappingType"> Type of the custom mapping. </param>
         /// <param name="additionalBinaryDataProperties"> Keeps track of any properties unknown to the library. </param>
-        internal UnknownEventGridInputSchemaMapping(InputSchemaMappingType inputSchemaMappingType, IDictionary<string, BinaryData> additionalBinaryDataProperties) : base(inputSchemaMappingType != default ? inputSchemaMappingType : "unknown", additionalBinaryDataProperties)
+        internal UnknownInputSchemaMapping(InputSchemaMappingType inputSchemaMappingType, IDictionary<string, BinaryData> additionalBinaryDataProperties) : base(inputSchemaMappingType != default ? inputSchemaMappingType : "unknown", additionalBinaryDataProperties)
         {
         }
     }

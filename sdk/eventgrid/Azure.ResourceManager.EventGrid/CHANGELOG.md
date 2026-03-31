@@ -4,7 +4,16 @@
 
 ### Features Added
 
+- Upgraded api-version to `2025-07-15-preview`.
+
 ### Breaking Changes
+
+- The return type of `EventGridDomainResource.Update`/`UpdateAsync` changed from `ArmOperation` to `ArmOperation<EventGridDomainResource>`.
+- The return type of `EventGridTopicResource.Update`/`UpdateAsync` changed from `ArmOperation` to `ArmOperation<EventGridTopicResource>`.
+- The return type of `PartnerNamespaceResource.Update`/`UpdateAsync` changed from `ArmOperation` to `ArmOperation<PartnerNamespaceResource>`.
+- The return type of `PartnerRegistrationResource.Update`/`UpdateAsync` changed from `ArmOperation` to `ArmOperation<PartnerRegistrationResource>`.
+- The return type of `PartnerTopicResource.Update`/`UpdateAsync` changed from `Response<PartnerTopicResource>` to `Response`.
+- `PartnerConfigurationData` no longer inherits from `TrackedResourceData`; it now inherits from `ResourceData`.
 
 ### Bugs Fixed
 
