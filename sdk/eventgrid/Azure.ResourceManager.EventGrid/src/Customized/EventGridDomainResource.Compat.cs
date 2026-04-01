@@ -38,6 +38,7 @@ namespace Azure.ResourceManager.EventGrid
             return GetEventGridDomainPrivateEndpointConnections().Get(privateEndpointConnectionName, cancellationToken);
         }
 
+        /*
         // Backward compat: old SDK exposed private link resource accessors on domain resource.
         [EditorBrowsable(EditorBrowsableState.Never)]
         public virtual EventGridDomainPrivateLinkResourceCollection GetEventGridDomainPrivateLinkResources()
@@ -58,5 +59,6 @@ namespace Azure.ResourceManager.EventGrid
         {
             return GetEventGridDomainPrivateLinkResources().Get(privateLinkResourceName, cancellationToken);
         }
+        */
     }
 }

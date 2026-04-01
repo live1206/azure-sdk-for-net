@@ -12,7 +12,7 @@ using Azure.ResourceManager.EventGrid;
 namespace Azure.ResourceManager.EventGrid.Models
 {
     /// <summary> The EventGridPrivateLinkResourceProperties. </summary>
-    internal partial class EventGridPrivateLinkResourceProperties
+    public partial class EventGridPrivateLinkResourceProperties
     {
         /// <summary> Keeps track of any properties unknown to the library. </summary>
         private protected readonly IDictionary<string, BinaryData> _additionalBinaryDataProperties;
@@ -49,10 +49,10 @@ namespace Azure.ResourceManager.EventGrid.Models
 
         /// <summary> Gets the RequiredMembers. </summary>
         [WirePath("requiredMembers")]
-        public IList<string> RequiredMembers { get; } = new ChangeTrackingList<string>();
+        public IList<string> RequiredMembers { get; }
 
         /// <summary> Gets the RequiredZoneNames. </summary>
         [WirePath("requiredZoneNames")]
-        public IList<string> RequiredZoneNames { get; } = new ChangeTrackingList<string>();
+        public IList<string> RequiredZoneNames { get; }
     }
 }

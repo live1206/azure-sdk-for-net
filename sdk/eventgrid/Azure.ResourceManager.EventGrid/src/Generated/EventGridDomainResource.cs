@@ -944,5 +944,38 @@ namespace Azure.ResourceManager.EventGrid
 
             return GetDomainEventSubscriptions().Get(eventSubscriptionName, cancellationToken);
         }
+
+        /// <summary> Gets a collection of EventGridDomainPrivateLinkResources in the <see cref="EventGridDomainResource"/>. </summary>
+        /// <returns> An object representing collection of EventGridDomainPrivateLinkResources and their operations over a EventGridDomainPrivateLinkResource. </returns>
+        public virtual EventGridDomainPrivateLinkResourceCollection GetEventGridDomainPrivateLinkResources()
+        {
+            return GetCachedClient(client => new EventGridDomainPrivateLinkResourceCollection(client, Id));
+        }
+
+        /// <summary> Get properties of a private link resource. </summary>
+        /// <param name="privateLinkResourceName"> The name of the DomainPrivateLinkResource. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="privateLinkResourceName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="privateLinkResourceName"/> is an empty string, and was expected to be non-empty. </exception>
+        [ForwardsClientCalls]
+        public virtual async Task<Response<EventGridDomainPrivateLinkResource>> GetEventGridDomainPrivateLinkResourceAsync(string privateLinkResourceName, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNullOrEmpty(privateLinkResourceName, nameof(privateLinkResourceName));
+
+            return await GetEventGridDomainPrivateLinkResources().GetAsync(privateLinkResourceName, cancellationToken).ConfigureAwait(false);
+        }
+
+        /// <summary> Get properties of a private link resource. </summary>
+        /// <param name="privateLinkResourceName"> The name of the DomainPrivateLinkResource. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="privateLinkResourceName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="privateLinkResourceName"/> is an empty string, and was expected to be non-empty. </exception>
+        [ForwardsClientCalls]
+        public virtual Response<EventGridDomainPrivateLinkResource> GetEventGridDomainPrivateLinkResource(string privateLinkResourceName, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNullOrEmpty(privateLinkResourceName, nameof(privateLinkResourceName));
+
+            return GetEventGridDomainPrivateLinkResources().Get(privateLinkResourceName, cancellationToken);
+        }
     }
 }

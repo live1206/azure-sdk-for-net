@@ -1,6 +1,7 @@
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License.
 
+/*
 #nullable disable
 
 // Backward compat: the old 1.1.0 GA API exposed EventGridPrivateLinkResourceData as a ResourceData subclass.
@@ -76,3 +77,4 @@ namespace Azure.ResourceManager.EventGrid
         BinaryData IPersistableModel<EventGridPrivateLinkResourceData>.Write(ModelReaderWriterOptions options) => throw new NotImplementedException();
     }
 }
+*/

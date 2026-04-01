@@ -38,6 +38,7 @@ namespace Azure.ResourceManager.EventGrid
             return GetEventGridPartnerNamespacePrivateEndpointConnections().Get(privateEndpointConnectionName, cancellationToken);
         }
 
+        /*
         [EditorBrowsable(EditorBrowsableState.Never)]
         public virtual PartnerNamespacePrivateLinkResourceCollection GetPartnerNamespacePrivateLinkResources()
         {
@@ -57,5 +58,6 @@ namespace Azure.ResourceManager.EventGrid
         {
             return GetPartnerNamespacePrivateLinkResources().Get(privateLinkResourceName, cancellationToken);
         }
+        */
     }
 }

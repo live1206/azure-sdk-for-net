@@ -25,12 +25,14 @@ namespace Azure.ResourceManager.EventGrid
             return GetMockableEventGridArmClient(client).GetEventGridDomainPrivateEndpointConnectionResource(id);
         }
 
+        /*
         [EditorBrowsable(EditorBrowsableState.Never)]
         public static EventGridDomainPrivateLinkResource GetEventGridDomainPrivateLinkResource(this ArmClient client, ResourceIdentifier id)
         {
             Argument.AssertNotNull(client, nameof(client));
             return GetMockableEventGridArmClient(client).GetEventGridDomainPrivateLinkResource(id);
         }
+        */
 
         [EditorBrowsable(EditorBrowsableState.Never)]
         public static EventGridTopicPrivateEndpointConnectionResource GetEventGridTopicPrivateEndpointConnectionResource(this ArmClient client, ResourceIdentifier id)
@@ -39,12 +41,14 @@ namespace Azure.ResourceManager.EventGrid
             return GetMockableEventGridArmClient(client).GetEventGridTopicPrivateEndpointConnectionResource(id);
         }
 
+        /*
         [EditorBrowsable(EditorBrowsableState.Never)]
         public static EventGridTopicPrivateLinkResource GetEventGridTopicPrivateLinkResource(this ArmClient client, ResourceIdentifier id)
         {
             Argument.AssertNotNull(client, nameof(client));
             return GetMockableEventGridArmClient(client).GetEventGridTopicPrivateLinkResource(id);
         }
+        */
 
         [EditorBrowsable(EditorBrowsableState.Never)]
         public static EventGridPartnerNamespacePrivateEndpointConnectionResource GetEventGridPartnerNamespacePrivateEndpointConnectionResource(this ArmClient client, ResourceIdentifier id)
@@ -53,12 +57,14 @@ namespace Azure.ResourceManager.EventGrid
             return GetMockableEventGridArmClient(client).GetEventGridPartnerNamespacePrivateEndpointConnectionResource(id);
         }
 
+        /*
         [EditorBrowsable(EditorBrowsableState.Never)]
         public static PartnerNamespacePrivateLinkResource GetPartnerNamespacePrivateLinkResource(this ArmClient client, ResourceIdentifier id)
         {
             Argument.AssertNotNull(client, nameof(client));
             return GetMockableEventGridArmClient(client).GetPartnerNamespacePrivateLinkResource(id);
         }
+        */
 
         // ArmClient-scoped GetEventTypes for backward compat.
         [EditorBrowsable(EditorBrowsableState.Never)]

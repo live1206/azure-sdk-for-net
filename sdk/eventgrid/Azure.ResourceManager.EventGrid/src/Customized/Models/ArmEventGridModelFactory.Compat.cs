@@ -17,6 +17,7 @@ namespace Azure.ResourceManager.EventGrid.Models
 {
     public static partial class ArmEventGridModelFactory
     {
+        /*
         [EditorBrowsable(EditorBrowsableState.Never)]
         public static EventGridPrivateLinkResourceData EventGridPrivateLinkResourceData(
             ResourceIdentifier id = default,
@@ -34,5 +35,6 @@ namespace Azure.ResourceManager.EventGrid.Models
                 requiredMembers?.ToList(),
                 requiredZoneNames?.ToList());
         }
+        */
     }
 }

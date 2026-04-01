@@ -1,6 +1,7 @@
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License.
 
+/*
 #nullable disable
 
 #pragma warning disable CS1591
@@ -115,3 +116,4 @@ namespace Azure.ResourceManager.EventGrid
         BinaryData IPersistableModel<EventGridPrivateLinkResourceData>.Write(ModelReaderWriterOptions options) => throw new NotImplementedException();
     }
 }
+*/

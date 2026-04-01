@@ -1229,17 +1229,72 @@ namespace Azure.ResourceManager.EventGrid.Models
                     null));
         }
 
-        /// <param name="groupId"> Gets the GroupId. </param>
-        /// <param name="displayName"> Gets the DisplayName. </param>
-        /// <param name="requiredMembers"> Gets the RequiredMembers. </param>
-        /// <param name="requiredZoneNames"> Gets the RequiredZoneNames. </param>
+        /// <summary> Private link resource under a Domain. </summary>
         /// <param name="id"> Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}. </param>
-        /// <param name="name"> The name of private link resource will be either topic, domain, partnerNamespace or namespace. </param>
-        /// <param name="type"> The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts". </param>
-        /// <returns> A new <see cref="Models.EventGridPrivateLinkResource"/> instance for mocking. </returns>
-        public static EventGridPrivateLinkResource EventGridPrivateLinkResource(string groupId = default, string displayName = default, IEnumerable<string> requiredMembers = default, IEnumerable<string> requiredZoneNames = default, ResourceIdentifier id = default, string name = default, ResourceType? @type = default)
+        /// <param name="name"> The name of the resource. </param>
+        /// <param name="resourceType"> The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts". </param>
+        /// <param name="systemData"> Azure Resource Manager metadata containing createdBy and modifiedBy information. </param>
+        /// <param name="properties"> The resource-specific properties for this resource. </param>
+        /// <returns> A new <see cref="EventGrid.EventGridDomainPrivateLinkResourceData"/> instance for mocking. </returns>
+        public static EventGridDomainPrivateLinkResourceData EventGridDomainPrivateLinkResourceData(ResourceIdentifier id = default, string name = default, ResourceType resourceType = default, SystemData systemData = default, EventGridPrivateLinkResourceProperties properties = default)
         {
-            return new EventGridPrivateLinkResource(groupId is null && displayName is null && requiredMembers is null && requiredZoneNames is null ? default : new EventGridPrivateLinkResourceProperties(groupId, displayName, (requiredMembers ?? new ChangeTrackingList<string>()).ToList(), (requiredZoneNames ?? new ChangeTrackingList<string>()).ToList(), null), id, name, @type, additionalBinaryDataProperties: null);
+            return new EventGridDomainPrivateLinkResourceData(
+                id,
+                name,
+                resourceType,
+                systemData,
+                additionalBinaryDataProperties: null,
+                properties);
+        }
+
+        /// <summary> The EventGridPrivateLinkResourceProperties. </summary>
+        /// <param name="groupId"></param>
+        /// <param name="displayName"></param>
+        /// <param name="requiredMembers"></param>
+        /// <param name="requiredZoneNames"></param>
+        /// <returns> A new <see cref="Models.EventGridPrivateLinkResourceProperties"/> instance for mocking. </returns>
+        public static EventGridPrivateLinkResourceProperties EventGridPrivateLinkResourceProperties(string groupId = default, string displayName = default, IEnumerable<string> requiredMembers = default, IEnumerable<string> requiredZoneNames = default)
+        {
+            requiredMembers ??= new ChangeTrackingList<string>();
+            requiredZoneNames ??= new ChangeTrackingList<string>();
+
+            return new EventGridPrivateLinkResourceProperties(groupId, displayName, requiredMembers.ToList(), requiredZoneNames.ToList(), additionalBinaryDataProperties: null);
+        }
+
+        /// <summary> Private link resource under a Topic. </summary>
+        /// <param name="id"> Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}. </param>
+        /// <param name="name"> The name of the resource. </param>
+        /// <param name="resourceType"> The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts". </param>
+        /// <param name="systemData"> Azure Resource Manager metadata containing createdBy and modifiedBy information. </param>
+        /// <param name="properties"> The resource-specific properties for this resource. </param>
+        /// <returns> A new <see cref="EventGrid.EventGridTopicPrivateLinkResourceData"/> instance for mocking. </returns>
+        public static EventGridTopicPrivateLinkResourceData EventGridTopicPrivateLinkResourceData(ResourceIdentifier id = default, string name = default, ResourceType resourceType = default, SystemData systemData = default, EventGridPrivateLinkResourceProperties properties = default)
+        {
+            return new EventGridTopicPrivateLinkResourceData(
+                id,
+                name,
+                resourceType,
+                systemData,
+                additionalBinaryDataProperties: null,
+                properties);
+        }
+
+        /// <summary> Private link resource under a PartnerNamespace. </summary>
+        /// <param name="id"> Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}. </param>
+        /// <param name="name"> The name of the resource. </param>
+        /// <param name="resourceType"> The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts". </param>
+        /// <param name="systemData"> Azure Resource Manager metadata containing createdBy and modifiedBy information. </param>
+        /// <param name="properties"> The resource-specific properties for this resource. </param>
+        /// <returns> A new <see cref="EventGrid.PartnerNamespacePrivateLinkResourceData"/> instance for mocking. </returns>
+        public static PartnerNamespacePrivateLinkResourceData PartnerNamespacePrivateLinkResourceData(ResourceIdentifier id = default, string name = default, ResourceType resourceType = default, SystemData systemData = default, EventGridPrivateLinkResourceProperties properties = default)
+        {
+            return new PartnerNamespacePrivateLinkResourceData(
+                id,
+                name,
+                resourceType,
+                systemData,
+                additionalBinaryDataProperties: null,
+                properties);
         }
 
         /// <param name="id"> Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}. </param>

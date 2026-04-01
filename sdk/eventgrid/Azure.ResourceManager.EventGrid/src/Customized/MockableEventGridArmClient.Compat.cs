@@ -24,25 +24,31 @@ namespace Azure.ResourceManager.EventGrid.Mocking
         public virtual EventGridDomainPrivateEndpointConnectionResource GetEventGridDomainPrivateEndpointConnectionResource(ResourceIdentifier id)
             => new EventGridDomainPrivateEndpointConnectionResource(Client, id);
 
+        /*
         [EditorBrowsable(EditorBrowsableState.Never)]
         public virtual EventGridDomainPrivateLinkResource GetEventGridDomainPrivateLinkResource(ResourceIdentifier id)
             => new EventGridDomainPrivateLinkResource(Client, id);
+        */
 
         [EditorBrowsable(EditorBrowsableState.Never)]
         public virtual EventGridTopicPrivateEndpointConnectionResource GetEventGridTopicPrivateEndpointConnectionResource(ResourceIdentifier id)
             => new EventGridTopicPrivateEndpointConnectionResource(Client, id);
 
+        /*
         [EditorBrowsable(EditorBrowsableState.Never)]
         public virtual EventGridTopicPrivateLinkResource GetEventGridTopicPrivateLinkResource(ResourceIdentifier id)
             => new EventGridTopicPrivateLinkResource(Client, id);
+        */
 
         [EditorBrowsable(EditorBrowsableState.Never)]
         public virtual EventGridPartnerNamespacePrivateEndpointConnectionResource GetEventGridPartnerNamespacePrivateEndpointConnectionResource(ResourceIdentifier id)
             => new EventGridPartnerNamespacePrivateEndpointConnectionResource(Client, id);
 
+        /*
         [EditorBrowsable(EditorBrowsableState.Never)]
         public virtual PartnerNamespacePrivateLinkResource GetPartnerNamespacePrivateLinkResource(ResourceIdentifier id)
             => new PartnerNamespacePrivateLinkResource(Client, id);
+        */
 
         // Backward compat: old SDK had GetEventTypes on ArmClient scope taking a ResourceIdentifier.
         [EditorBrowsable(EditorBrowsableState.Never)]
