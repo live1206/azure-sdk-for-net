@@ -50,7 +50,7 @@ namespace Azure.ResourceManager.EventGrid
         {
             if (id.ResourceType != EventGridNamespaceResource.ResourceType)
             {
-                throw new ArgumentException(string.Format("Invalid resource type {0} expected {1}", id.ResourceType, EventGridNamespaceResource.ResourceType), id);
+                throw new ArgumentException(string.Format("Invalid resource type {0} expected {1}", id.ResourceType, EventGridNamespaceResource.ResourceType), nameof(id));
             }
         }
 
@@ -302,7 +302,8 @@ namespace Azure.ResourceManager.EventGrid
                 Id.Name,
                 filter,
                 top,
-                context), data => new EventGridNamespacePermissionBindingResource(Client, data));
+                context,
+                "EventGridNamespacePermissionBindingCollection.GetAll"), data => new EventGridNamespacePermissionBindingResource(Client, data));
         }
 
         /// <summary>
@@ -339,7 +340,8 @@ namespace Azure.ResourceManager.EventGrid
                 Id.Name,
                 filter,
                 top,
-                context), data => new EventGridNamespacePermissionBindingResource(Client, data));
+                context,
+                "EventGridNamespacePermissionBindingCollection.GetAll"), data => new EventGridNamespacePermissionBindingResource(Client, data));
         }
 
         /// <summary>

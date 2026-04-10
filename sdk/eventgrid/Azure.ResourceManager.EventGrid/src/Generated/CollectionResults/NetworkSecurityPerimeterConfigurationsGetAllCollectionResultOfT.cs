@@ -22,6 +22,7 @@ namespace Azure.ResourceManager.EventGrid
         private readonly string _resourceType;
         private readonly string _resourceName;
         private readonly RequestContext _context;
+        private readonly string _diagnosticScope;
 
         /// <summary> Initializes a new instance of NetworkSecurityPerimeterConfigurationsGetAllCollectionResultOfT, which is used to iterate over the pages of a collection. </summary>
         /// <param name="client"> The NetworkSecurityPerimeterConfigurations client used to send requests. </param>
@@ -30,7 +31,8 @@ namespace Azure.ResourceManager.EventGrid
         /// <param name="resourceType"> The type of the resource. This can be either \\'topics\\', or \\'domains\\'. </param>
         /// <param name="resourceName"> The name of the resource group within the user's subscription. </param>
         /// <param name="context"> The request options, which can override default behaviors of the client pipeline on a per-call basis. </param>
-        public NetworkSecurityPerimeterConfigurationsGetAllCollectionResultOfT(NetworkSecurityPerimeterConfigurations client, Guid subscriptionId, string resourceGroupName, string resourceType, string resourceName, RequestContext context) : base(context?.CancellationToken ?? default)
+        /// <param name="diagnosticScope"> The diagnostic scope name. </param>
+        public NetworkSecurityPerimeterConfigurationsGetAllCollectionResultOfT(NetworkSecurityPerimeterConfigurations client, Guid subscriptionId, string resourceGroupName, string resourceType, string resourceName, RequestContext context, string diagnosticScope) : base(context?.CancellationToken ?? default)
         {
             _client = client;
             _subscriptionId = subscriptionId;
@@ -38,6 +40,7 @@ namespace Azure.ResourceManager.EventGrid
             _resourceType = resourceType;
             _resourceName = resourceName;
             _context = context;
+            _diagnosticScope = diagnosticScope;
         }
 
         /// <summary> Gets the pages of NetworkSecurityPerimeterConfigurationsGetAllCollectionResultOfT as an enumerable collection. </summary>
@@ -70,7 +73,7 @@ namespace Azure.ResourceManager.EventGrid
         private Response GetNextResponse(int? pageSizeHint, Uri nextLink)
         {
             HttpMessage message = nextLink != null ? _client.CreateNextGetAllRequest(nextLink, _subscriptionId, _resourceGroupName, _resourceType, _resourceName, _context) : _client.CreateGetAllRequest(_subscriptionId, _resourceGroupName, _resourceType, _resourceName, _context);
-            using DiagnosticScope scope = _client.ClientDiagnostics.CreateScope("MockableEventGridResourceGroupResource.GetAll");
+            using DiagnosticScope scope = _client.ClientDiagnostics.CreateScope(_diagnosticScope);
             scope.Start();
             try
             {

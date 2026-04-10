@@ -20,6 +20,11 @@ namespace Azure.ResourceManager.EventGrid
         private protected readonly IDictionary<string, BinaryData> _additionalBinaryDataProperties;
 
         /// <summary> Initializes a new instance of <see cref="TopicTypeData"/>. </summary>
+        internal TopicTypeData()
+        {
+        }
+
+        /// <summary> Initializes a new instance of <see cref="TopicTypeData"/>. </summary>
         /// <param name="id"> Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}. </param>
         /// <param name="name"> The name of the resource. </param>
         /// <param name="resourceType"> The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts". </param>
@@ -36,6 +41,56 @@ namespace Azure.ResourceManager.EventGrid
         [WirePath("properties")]
         internal TopicTypeProperties Properties { get; }
 
+        /// <summary> Namespace of the provider of the topic type. </summary>
+        [WirePath("properties.provider")]
+        public string Provider
+        {
+            get
+            {
+                return Properties.Provider;
+            }
+        }
+
+        /// <summary> Display Name for the topic type. </summary>
+        [WirePath("properties.displayName")]
+        public string DisplayName
+        {
+            get
+            {
+                return Properties.DisplayName;
+            }
+        }
+
+        /// <summary> Description of the topic type. </summary>
+        [WirePath("properties.description")]
+        public string Description
+        {
+            get
+            {
+                return Properties.Description;
+            }
+        }
+
+        /// <summary> Region type of the resource. </summary>
+        [WirePath("properties.resourceRegionType")]
+        public EventGridResourceRegionType? ResourceRegionType
+        {
+            get
+            {
+                return Properties.ResourceRegionType;
+            }
+        }
+
+        /// <summary> Provisioning state of the topic type. </summary>
+        [WirePath("properties.provisioningState")]
+        public TopicTypeProvisioningState? ProvisioningState
+        {
+            get
+            {
+                return Properties.ProvisioningState;
+            }
+        }
+
         /// <summary> List of locations supported by this topic type. </summary>
         [WirePath("properties.supportedLocations")]
         public IList<string> SupportedLocations
@@ -46,6 +101,16 @@ namespace Azure.ResourceManager.EventGrid
             }
         }
 
+        /// <summary> Source resource format. </summary>
+        [WirePath("properties.sourceResourceFormat")]
+        public string SourceResourceFormat
+        {
+            get
+            {
+                return Properties.SourceResourceFormat;
+            }
+        }
+
         /// <summary> Supported source scopes. </summary>
         [WirePath("properties.supportedScopesForSource")]
         public IList<TopicTypeSourceScope> SupportedScopesForSource
@@ -53,6 +118,16 @@ namespace Azure.ResourceManager.EventGrid
             get
             {
                 return Properties.SupportedScopesForSource;
+            }
+        }
+
+        /// <summary> Flag to indicate that a topic type can support both regional or global system topics. </summary>
+        [WirePath("properties.areRegionalAndGlobalSourcesSupported")]
+        public bool? AreRegionalAndGlobalSourcesSupported
+        {
+            get
+            {
+                return Properties.AreRegionalAndGlobalSourcesSupported;
             }
         }
 

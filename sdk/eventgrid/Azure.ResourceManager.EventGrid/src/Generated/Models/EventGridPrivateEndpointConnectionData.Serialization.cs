@@ -12,10 +12,10 @@ using System.Text;
 using System.Text.Json;
 using Azure;
 using Azure.Core;
-using Azure.ResourceManager.EventGrid.Models;
+using Azure.ResourceManager.EventGrid;
 using Azure.ResourceManager.Models;
 
-namespace Azure.ResourceManager.EventGrid
+namespace Azure.ResourceManager.EventGrid.Models
 {
     /// <summary> Concrete proxy resource types can be created by aliasing this type using a specific property type. </summary>
     public partial class EventGridPrivateEndpointConnectionData : ResourceData, IJsonModel<EventGridPrivateEndpointConnectionData>

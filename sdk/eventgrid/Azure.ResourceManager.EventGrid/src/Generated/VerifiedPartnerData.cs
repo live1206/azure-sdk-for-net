@@ -20,6 +20,11 @@ namespace Azure.ResourceManager.EventGrid
         private protected readonly IDictionary<string, BinaryData> _additionalBinaryDataProperties;
 
         /// <summary> Initializes a new instance of <see cref="VerifiedPartnerData"/>. </summary>
+        internal VerifiedPartnerData()
+        {
+        }
+
+        /// <summary> Initializes a new instance of <see cref="VerifiedPartnerData"/>. </summary>
         /// <param name="id"> Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}. </param>
         /// <param name="name"> The name of the resource. </param>
         /// <param name="resourceType"> The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts". </param>
@@ -36,6 +41,46 @@ namespace Azure.ResourceManager.EventGrid
         [WirePath("properties")]
         internal VerifiedPartnerProperties Properties { get; }
 
+        /// <summary> ImmutableId of the corresponding partner registration. </summary>
+        [WirePath("properties.partnerRegistrationImmutableId")]
+        public Guid? PartnerRegistrationImmutableId
+        {
+            get
+            {
+                return Properties.PartnerRegistrationImmutableId;
+            }
+        }
+
+        /// <summary> Official name of the Partner. </summary>
+        [WirePath("properties.organizationName")]
+        public string OrganizationName
+        {
+            get
+            {
+                return Properties.OrganizationName;
+            }
+        }
+
+        /// <summary> Display name of the verified partner. </summary>
+        [WirePath("properties.partnerDisplayName")]
+        public string PartnerDisplayName
+        {
+            get
+            {
+                return Properties.PartnerDisplayName;
+            }
+        }
+
+        /// <summary> Details of the partner topic scenario. </summary>
+        [WirePath("properties.partnerTopicDetails")]
+        public PartnerDetails PartnerTopicDetails
+        {
+            get
+            {
+                return Properties.PartnerTopicDetails;
+            }
+        }
+
         /// <summary> Details of the partner destination scenario. </summary>
         [WirePath("properties.partnerDestinationDetails")]
         public PartnerDetails PartnerDestinationDetails
@@ -43,6 +88,16 @@ namespace Azure.ResourceManager.EventGrid
             get
             {
                 return Properties.PartnerDestinationDetails;
+            }
+        }
+
+        /// <summary> Provisioning state of the verified partner. </summary>
+        [WirePath("properties.provisioningState")]
+        public VerifiedPartnerProvisioningState? ProvisioningState
+        {
+            get
+            {
+                return Properties.ProvisioningState;
             }
         }
     }

@@ -50,7 +50,7 @@ namespace Azure.ResourceManager.EventGrid
         {
             if (id.ResourceType != EventGridDomainResource.ResourceType)
             {
-                throw new ArgumentException(string.Format("Invalid resource type {0} expected {1}", id.ResourceType, EventGridDomainResource.ResourceType), id);
+                throw new ArgumentException(string.Format("Invalid resource type {0} expected {1}", id.ResourceType, EventGridDomainResource.ResourceType), nameof(id));
             }
         }
 
@@ -186,7 +186,8 @@ namespace Azure.ResourceManager.EventGrid
                 Id.Name,
                 filter,
                 top,
-                context), data => new EventGridDomainPrivateLinkResource(Client, data));
+                context,
+                "EventGridDomainPrivateLinkResourceCollection.GetAll"), data => new EventGridDomainPrivateLinkResource(Client, data));
         }
 
         /// <summary>
@@ -223,7 +224,8 @@ namespace Azure.ResourceManager.EventGrid
                 Id.Name,
                 filter,
                 top,
-                context), data => new EventGridDomainPrivateLinkResource(Client, data));
+                context,
+                "EventGridDomainPrivateLinkResourceCollection.GetAll"), data => new EventGridDomainPrivateLinkResource(Client, data));
         }
 
         /// <summary>

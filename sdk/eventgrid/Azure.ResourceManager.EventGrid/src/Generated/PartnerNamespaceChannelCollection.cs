@@ -50,7 +50,7 @@ namespace Azure.ResourceManager.EventGrid
         {
             if (id.ResourceType != PartnerNamespaceResource.ResourceType)
             {
-                throw new ArgumentException(string.Format("Invalid resource type {0} expected {1}", id.ResourceType, PartnerNamespaceResource.ResourceType), id);
+                throw new ArgumentException(string.Format("Invalid resource type {0} expected {1}", id.ResourceType, PartnerNamespaceResource.ResourceType), nameof(id));
             }
         }
 
@@ -296,7 +296,8 @@ namespace Azure.ResourceManager.EventGrid
                 Id.Name,
                 filter,
                 top,
-                context), data => new PartnerNamespaceChannelResource(Client, data));
+                context,
+                "PartnerNamespaceChannelCollection.GetAll"), data => new PartnerNamespaceChannelResource(Client, data));
         }
 
         /// <summary>
@@ -333,7 +334,8 @@ namespace Azure.ResourceManager.EventGrid
                 Id.Name,
                 filter,
                 top,
-                context), data => new PartnerNamespaceChannelResource(Client, data));
+                context,
+                "PartnerNamespaceChannelCollection.GetAll"), data => new PartnerNamespaceChannelResource(Client, data));
         }
 
         /// <summary>

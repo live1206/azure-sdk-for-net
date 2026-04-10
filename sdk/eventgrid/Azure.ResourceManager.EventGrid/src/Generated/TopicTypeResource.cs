@@ -86,7 +86,7 @@ namespace Azure.ResourceManager.EventGrid
         {
             if (id.ResourceType != ResourceType)
             {
-                throw new ArgumentException(string.Format("Invalid resource type {0} expected {1}", id.ResourceType, ResourceType), id);
+                throw new ArgumentException(string.Format("Invalid resource type {0} expected {1}", id.ResourceType, ResourceType), nameof(id));
             }
         }
 
@@ -215,7 +215,7 @@ namespace Azure.ResourceManager.EventGrid
             {
                 CancellationToken = cancellationToken
             };
-            return new TopicTypesGetEventTypesAsyncCollectionResultOfT(_topicTypesRestClient, Id.Name, context);
+            return new TopicTypesGetEventTypesAsyncCollectionResultOfT(_topicTypesRestClient, Id.Name, context, "TopicTypeResource.GetEventTypes");
         }
 
         /// <summary>
@@ -247,7 +247,7 @@ namespace Azure.ResourceManager.EventGrid
             {
                 CancellationToken = cancellationToken
             };
-            return new TopicTypesGetEventTypesCollectionResultOfT(_topicTypesRestClient, Id.Name, context);
+            return new TopicTypesGetEventTypesCollectionResultOfT(_topicTypesRestClient, Id.Name, context, "TopicTypeResource.GetEventTypes");
         }
     }
 }

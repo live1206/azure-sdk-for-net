@@ -8,16 +8,21 @@
 using System;
 using System.Collections.Generic;
 using Azure.Core;
-using Azure.ResourceManager.EventGrid.Models;
+using Azure.ResourceManager.EventGrid;
 using Azure.ResourceManager.Models;
 
-namespace Azure.ResourceManager.EventGrid
+namespace Azure.ResourceManager.EventGrid.Models
 {
     /// <summary> Concrete proxy resource types can be created by aliasing this type using a specific property type. </summary>
     public partial class EventGridPrivateEndpointConnectionData : ResourceData
     {
         /// <summary> Keeps track of any properties unknown to the library. </summary>
         private protected readonly IDictionary<string, BinaryData> _additionalBinaryDataProperties;
+
+        /// <summary> Initializes a new instance of <see cref="EventGridPrivateEndpointConnectionData"/>. </summary>
+        public EventGridPrivateEndpointConnectionData()
+        {
+        }
 
         /// <summary> Initializes a new instance of <see cref="EventGridPrivateEndpointConnectionData"/>. </summary>
         /// <param name="id"> Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}. </param>

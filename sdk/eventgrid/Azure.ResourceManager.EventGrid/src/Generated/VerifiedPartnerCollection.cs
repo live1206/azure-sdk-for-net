@@ -51,7 +51,7 @@ namespace Azure.ResourceManager.EventGrid
         {
             if (id.ResourceType != TenantResource.ResourceType)
             {
-                throw new ArgumentException(string.Format("Invalid resource type {0} expected {1}", id.ResourceType, TenantResource.ResourceType), id);
+                throw new ArgumentException(string.Format("Invalid resource type {0} expected {1}", id.ResourceType, TenantResource.ResourceType), nameof(id));
             }
         }
 
@@ -180,7 +180,7 @@ namespace Azure.ResourceManager.EventGrid
             {
                 CancellationToken = cancellationToken
             };
-            return new AsyncPageableWrapper<VerifiedPartnerData, VerifiedPartnerResource>(new VerifiedPartnersGetAllAsyncCollectionResultOfT(_verifiedPartnersRestClient, filter, top, context), data => new VerifiedPartnerResource(Client, data));
+            return new AsyncPageableWrapper<VerifiedPartnerData, VerifiedPartnerResource>(new VerifiedPartnersGetAllAsyncCollectionResultOfT(_verifiedPartnersRestClient, filter, top, context, "VerifiedPartnerCollection.GetAll"), data => new VerifiedPartnerResource(Client, data));
         }
 
         /// <summary>
@@ -210,7 +210,7 @@ namespace Azure.ResourceManager.EventGrid
             {
                 CancellationToken = cancellationToken
             };
-            return new PageableWrapper<VerifiedPartnerData, VerifiedPartnerResource>(new VerifiedPartnersGetAllCollectionResultOfT(_verifiedPartnersRestClient, filter, top, context), data => new VerifiedPartnerResource(Client, data));
+            return new PageableWrapper<VerifiedPartnerData, VerifiedPartnerResource>(new VerifiedPartnersGetAllCollectionResultOfT(_verifiedPartnersRestClient, filter, top, context, "VerifiedPartnerCollection.GetAll"), data => new VerifiedPartnerResource(Client, data));
         }
 
         /// <summary>

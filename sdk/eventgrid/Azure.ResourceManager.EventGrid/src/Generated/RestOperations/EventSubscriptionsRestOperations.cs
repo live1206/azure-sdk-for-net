@@ -382,7 +382,7 @@ namespace Azure.ResourceManager.EventGrid
             return message;
         }
 
-        internal HttpMessage CreateGetGlobalBySubscriptionForTopicTypeRequest(Guid subscriptionId, string topicTypeName, string filter, int? top, RequestContext context)
+        internal HttpMessage CreateGetGlobalEventSubscriptionsDataForTopicTypeRequest(Guid subscriptionId, string topicTypeName, string filter, int? top, RequestContext context)
         {
             RawRequestUriBuilder uri = new RawRequestUriBuilder();
             uri.Reset(_endpoint);
@@ -411,7 +411,7 @@ namespace Azure.ResourceManager.EventGrid
             return message;
         }
 
-        internal HttpMessage CreateNextGetGlobalBySubscriptionForTopicTypeRequest(Uri nextPage, Guid subscriptionId, string topicTypeName, string filter, int? top, RequestContext context)
+        internal HttpMessage CreateNextGetGlobalEventSubscriptionsDataForTopicTypeRequest(Uri nextPage, Guid subscriptionId, string topicTypeName, string filter, int? top, RequestContext context)
         {
             RawRequestUriBuilder uri = new RawRequestUriBuilder();
             if (nextPage.IsAbsoluteUri)
@@ -434,7 +434,7 @@ namespace Azure.ResourceManager.EventGrid
             return message;
         }
 
-        internal HttpMessage CreateGetGlobalByResourceGroupForTopicTypeRequest(Guid subscriptionId, string resourceGroupName, string topicTypeName, string filter, int? top, RequestContext context)
+        internal HttpMessage CreateGetGlobalEventSubscriptionsDataByResourceGroupForTopicTypeRequest(Guid subscriptionId, string resourceGroupName, string topicTypeName, string filter, int? top, RequestContext context)
         {
             RawRequestUriBuilder uri = new RawRequestUriBuilder();
             uri.Reset(_endpoint);
@@ -465,7 +465,7 @@ namespace Azure.ResourceManager.EventGrid
             return message;
         }
 
-        internal HttpMessage CreateNextGetGlobalByResourceGroupForTopicTypeRequest(Uri nextPage, Guid subscriptionId, string resourceGroupName, string topicTypeName, string filter, int? top, RequestContext context)
+        internal HttpMessage CreateNextGetGlobalEventSubscriptionsDataByResourceGroupForTopicTypeRequest(Uri nextPage, Guid subscriptionId, string resourceGroupName, string topicTypeName, string filter, int? top, RequestContext context)
         {
             RawRequestUriBuilder uri = new RawRequestUriBuilder();
             if (nextPage.IsAbsoluteUri)
@@ -488,7 +488,7 @@ namespace Azure.ResourceManager.EventGrid
             return message;
         }
 
-        internal HttpMessage CreateGetRegionalBySubscriptionRequest(Guid subscriptionId, string location, string filter, int? top, RequestContext context)
+        internal HttpMessage CreateGetRegionalEventSubscriptionsDataRequest(Guid subscriptionId, string location, string filter, int? top, RequestContext context)
         {
             RawRequestUriBuilder uri = new RawRequestUriBuilder();
             uri.Reset(_endpoint);
@@ -517,7 +517,7 @@ namespace Azure.ResourceManager.EventGrid
             return message;
         }
 
-        internal HttpMessage CreateNextGetRegionalBySubscriptionRequest(Uri nextPage, Guid subscriptionId, string location, string filter, int? top, RequestContext context)
+        internal HttpMessage CreateNextGetRegionalEventSubscriptionsDataRequest(Uri nextPage, Guid subscriptionId, string location, string filter, int? top, RequestContext context)
         {
             RawRequestUriBuilder uri = new RawRequestUriBuilder();
             if (nextPage.IsAbsoluteUri)
@@ -540,7 +540,7 @@ namespace Azure.ResourceManager.EventGrid
             return message;
         }
 
-        internal HttpMessage CreateGetRegionalByResourceGroupRequest(Guid subscriptionId, string resourceGroupName, string location, string filter, int? top, RequestContext context)
+        internal HttpMessage CreateGetRegionalEventSubscriptionsDataByResourceGroupRequest(Guid subscriptionId, string resourceGroupName, string location, string filter, int? top, RequestContext context)
         {
             RawRequestUriBuilder uri = new RawRequestUriBuilder();
             uri.Reset(_endpoint);
@@ -571,7 +571,7 @@ namespace Azure.ResourceManager.EventGrid
             return message;
         }
 
-        internal HttpMessage CreateNextGetRegionalByResourceGroupRequest(Uri nextPage, Guid subscriptionId, string resourceGroupName, string location, string filter, int? top, RequestContext context)
+        internal HttpMessage CreateNextGetRegionalEventSubscriptionsDataByResourceGroupRequest(Uri nextPage, Guid subscriptionId, string resourceGroupName, string location, string filter, int? top, RequestContext context)
         {
             RawRequestUriBuilder uri = new RawRequestUriBuilder();
             if (nextPage.IsAbsoluteUri)
@@ -594,7 +594,7 @@ namespace Azure.ResourceManager.EventGrid
             return message;
         }
 
-        internal HttpMessage CreateGetRegionalBySubscriptionForTopicTypeRequest(Guid subscriptionId, string location, string topicTypeName, string filter, int? top, RequestContext context)
+        internal HttpMessage CreateGetRegionalEventSubscriptionsDataForTopicTypeRequest(Guid subscriptionId, string location, string topicTypeName, string filter, int? top, RequestContext context)
         {
             RawRequestUriBuilder uri = new RawRequestUriBuilder();
             uri.Reset(_endpoint);
@@ -625,7 +625,7 @@ namespace Azure.ResourceManager.EventGrid
             return message;
         }
 
-        internal HttpMessage CreateNextGetRegionalBySubscriptionForTopicTypeRequest(Uri nextPage, Guid subscriptionId, string location, string topicTypeName, string filter, int? top, RequestContext context)
+        internal HttpMessage CreateNextGetRegionalEventSubscriptionsDataForTopicTypeRequest(Uri nextPage, Guid subscriptionId, string location, string topicTypeName, string filter, int? top, RequestContext context)
         {
             RawRequestUriBuilder uri = new RawRequestUriBuilder();
             if (nextPage.IsAbsoluteUri)
@@ -648,7 +648,7 @@ namespace Azure.ResourceManager.EventGrid
             return message;
         }
 
-        internal HttpMessage CreateGetRegionalByResourceGroupForTopicTypeRequest(Guid subscriptionId, string resourceGroupName, string location, string topicTypeName, string filter, int? top, RequestContext context)
+        internal HttpMessage CreateGetRegionalEventSubscriptionsDataByResourceGroupForTopicTypeRequest(Guid subscriptionId, string resourceGroupName, string location, string topicTypeName, string filter, int? top, RequestContext context)
         {
             RawRequestUriBuilder uri = new RawRequestUriBuilder();
             uri.Reset(_endpoint);
@@ -681,7 +681,7 @@ namespace Azure.ResourceManager.EventGrid
             return message;
         }
 
-        internal HttpMessage CreateNextGetRegionalByResourceGroupForTopicTypeRequest(Uri nextPage, Guid subscriptionId, string resourceGroupName, string location, string topicTypeName, string filter, int? top, RequestContext context)
+        internal HttpMessage CreateNextGetRegionalEventSubscriptionsDataByResourceGroupForTopicTypeRequest(Uri nextPage, Guid subscriptionId, string resourceGroupName, string location, string topicTypeName, string filter, int? top, RequestContext context)
         {
             RawRequestUriBuilder uri = new RawRequestUriBuilder();
             if (nextPage.IsAbsoluteUri)

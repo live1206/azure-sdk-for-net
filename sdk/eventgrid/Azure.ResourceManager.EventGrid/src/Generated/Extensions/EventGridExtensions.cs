@@ -1251,7 +1251,7 @@ namespace Azure.ResourceManager.EventGrid
         /// List all global event subscriptions under a resource group for a specific topic type.
         /// <item>
         /// <term> Mocking. </term>
-        /// <description> To mock this method, please mock <see cref="MockableEventGridResourceGroupResource.GetGlobalByResourceGroupForTopicTypeAsync(string, string, int?, CancellationToken)"/> instead. </description>
+        /// <description> To mock this method, please mock <see cref="MockableEventGridResourceGroupResource.GetGlobalEventSubscriptionsDataByResourceGroupForTopicTypeAsync(string, string, int?, CancellationToken)"/> instead. </description>
         /// </item>
         /// </summary>
         /// <param name="resourceGroupResource"> The <see cref="ResourceGroupResource"/> the method will execute against. </param>
@@ -1261,18 +1261,18 @@ namespace Azure.ResourceManager.EventGrid
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupResource"/> is null. </exception>
         /// <returns> A collection of <see cref="EventGridSubscriptionData"/> that may take multiple service requests to iterate over. </returns>
-        public static AsyncPageable<EventGridSubscriptionData> GetGlobalByResourceGroupForTopicTypeAsync(this ResourceGroupResource resourceGroupResource, string topicTypeName, string filter = default, int? top = default, CancellationToken cancellationToken = default)
+        public static AsyncPageable<EventGridSubscriptionData> GetGlobalEventSubscriptionsDataByResourceGroupForTopicTypeAsync(this ResourceGroupResource resourceGroupResource, string topicTypeName, string filter = default, int? top = default, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNull(resourceGroupResource, nameof(resourceGroupResource));
 
-            return GetMockableEventGridResourceGroupResource(resourceGroupResource).GetGlobalByResourceGroupForTopicTypeAsync(topicTypeName, filter, top, cancellationToken);
+            return GetMockableEventGridResourceGroupResource(resourceGroupResource).GetGlobalEventSubscriptionsDataByResourceGroupForTopicTypeAsync(topicTypeName, filter, top, cancellationToken);
         }
 
         /// <summary>
         /// List all global event subscriptions under a resource group for a specific topic type.
         /// <item>
         /// <term> Mocking. </term>
-        /// <description> To mock this method, please mock <see cref="MockableEventGridResourceGroupResource.GetGlobalByResourceGroupForTopicType(string, string, int?, CancellationToken)"/> instead. </description>
+        /// <description> To mock this method, please mock <see cref="MockableEventGridResourceGroupResource.GetGlobalEventSubscriptionsDataByResourceGroupForTopicType(string, string, int?, CancellationToken)"/> instead. </description>
         /// </item>
         /// </summary>
         /// <param name="resourceGroupResource"> The <see cref="ResourceGroupResource"/> the method will execute against. </param>
@@ -1282,18 +1282,18 @@ namespace Azure.ResourceManager.EventGrid
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupResource"/> is null. </exception>
         /// <returns> A collection of <see cref="EventGridSubscriptionData"/> that may take multiple service requests to iterate over. </returns>
-        public static Pageable<EventGridSubscriptionData> GetGlobalByResourceGroupForTopicType(this ResourceGroupResource resourceGroupResource, string topicTypeName, string filter = default, int? top = default, CancellationToken cancellationToken = default)
+        public static Pageable<EventGridSubscriptionData> GetGlobalEventSubscriptionsDataByResourceGroupForTopicType(this ResourceGroupResource resourceGroupResource, string topicTypeName, string filter = default, int? top = default, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNull(resourceGroupResource, nameof(resourceGroupResource));
 
-            return GetMockableEventGridResourceGroupResource(resourceGroupResource).GetGlobalByResourceGroupForTopicType(topicTypeName, filter, top, cancellationToken);
+            return GetMockableEventGridResourceGroupResource(resourceGroupResource).GetGlobalEventSubscriptionsDataByResourceGroupForTopicType(topicTypeName, filter, top, cancellationToken);
         }
 
         /// <summary>
         /// List all event subscriptions from the given location under a specific Azure subscription and resource group.
         /// <item>
         /// <term> Mocking. </term>
-        /// <description> To mock this method, please mock <see cref="MockableEventGridResourceGroupResource.GetRegionalByResourceGroupAsync(string, string, int?, CancellationToken)"/> instead. </description>
+        /// <description> To mock this method, please mock <see cref="MockableEventGridResourceGroupResource.GetRegionalEventSubscriptionsDataByResourceGroupAsync(string, string, int?, CancellationToken)"/> instead. </description>
         /// </item>
         /// </summary>
         /// <param name="resourceGroupResource"> The <see cref="ResourceGroupResource"/> the method will execute against. </param>
@@ -1303,18 +1303,18 @@ namespace Azure.ResourceManager.EventGrid
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupResource"/> is null. </exception>
         /// <returns> A collection of <see cref="EventGridSubscriptionData"/> that may take multiple service requests to iterate over. </returns>
-        public static AsyncPageable<EventGridSubscriptionData> GetRegionalByResourceGroupAsync(this ResourceGroupResource resourceGroupResource, string location, string filter = default, int? top = default, CancellationToken cancellationToken = default)
+        public static AsyncPageable<EventGridSubscriptionData> GetRegionalEventSubscriptionsDataByResourceGroupAsync(this ResourceGroupResource resourceGroupResource, string location, string filter = default, int? top = default, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNull(resourceGroupResource, nameof(resourceGroupResource));
 
-            return GetMockableEventGridResourceGroupResource(resourceGroupResource).GetRegionalByResourceGroupAsync(location, filter, top, cancellationToken);
+            return GetMockableEventGridResourceGroupResource(resourceGroupResource).GetRegionalEventSubscriptionsDataByResourceGroupAsync(location, filter, top, cancellationToken);
         }
 
         /// <summary>
         /// List all event subscriptions from the given location under a specific Azure subscription and resource group.
         /// <item>
         /// <term> Mocking. </term>
-        /// <description> To mock this method, please mock <see cref="MockableEventGridResourceGroupResource.GetRegionalByResourceGroup(string, string, int?, CancellationToken)"/> instead. </description>
+        /// <description> To mock this method, please mock <see cref="MockableEventGridResourceGroupResource.GetRegionalEventSubscriptionsDataByResourceGroup(string, string, int?, CancellationToken)"/> instead. </description>
         /// </item>
         /// </summary>
         /// <param name="resourceGroupResource"> The <see cref="ResourceGroupResource"/> the method will execute against. </param>
@@ -1324,18 +1324,18 @@ namespace Azure.ResourceManager.EventGrid
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupResource"/> is null. </exception>
         /// <returns> A collection of <see cref="EventGridSubscriptionData"/> that may take multiple service requests to iterate over. </returns>
-        public static Pageable<EventGridSubscriptionData> GetRegionalByResourceGroup(this ResourceGroupResource resourceGroupResource, string location, string filter = default, int? top = default, CancellationToken cancellationToken = default)
+        public static Pageable<EventGridSubscriptionData> GetRegionalEventSubscriptionsDataByResourceGroup(this ResourceGroupResource resourceGroupResource, string location, string filter = default, int? top = default, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNull(resourceGroupResource, nameof(resourceGroupResource));
 
-            return GetMockableEventGridResourceGroupResource(resourceGroupResource).GetRegionalByResourceGroup(location, filter, top, cancellationToken);
+            return GetMockableEventGridResourceGroupResource(resourceGroupResource).GetRegionalEventSubscriptionsDataByResourceGroup(location, filter, top, cancellationToken);
         }
 
         /// <summary>
         /// List all event subscriptions from the given location under a specific Azure subscription and resource group and topic type.
         /// <item>
         /// <term> Mocking. </term>
-        /// <description> To mock this method, please mock <see cref="MockableEventGridResourceGroupResource.GetRegionalByResourceGroupForTopicTypeAsync(string, string, string, int?, CancellationToken)"/> instead. </description>
+        /// <description> To mock this method, please mock <see cref="MockableEventGridResourceGroupResource.GetRegionalEventSubscriptionsDataByResourceGroupForTopicTypeAsync(string, string, string, int?, CancellationToken)"/> instead. </description>
         /// </item>
         /// </summary>
         /// <param name="resourceGroupResource"> The <see cref="ResourceGroupResource"/> the method will execute against. </param>
@@ -1346,18 +1346,18 @@ namespace Azure.ResourceManager.EventGrid
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupResource"/> is null. </exception>
         /// <returns> A collection of <see cref="EventGridSubscriptionData"/> that may take multiple service requests to iterate over. </returns>
-        public static AsyncPageable<EventGridSubscriptionData> GetRegionalByResourceGroupForTopicTypeAsync(this ResourceGroupResource resourceGroupResource, string location, string topicTypeName, string filter = default, int? top = default, CancellationToken cancellationToken = default)
+        public static AsyncPageable<EventGridSubscriptionData> GetRegionalEventSubscriptionsDataByResourceGroupForTopicTypeAsync(this ResourceGroupResource resourceGroupResource, string location, string topicTypeName, string filter = default, int? top = default, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNull(resourceGroupResource, nameof(resourceGroupResource));
 
-            return GetMockableEventGridResourceGroupResource(resourceGroupResource).GetRegionalByResourceGroupForTopicTypeAsync(location, topicTypeName, filter, top, cancellationToken);
+            return GetMockableEventGridResourceGroupResource(resourceGroupResource).GetRegionalEventSubscriptionsDataByResourceGroupForTopicTypeAsync(location, topicTypeName, filter, top, cancellationToken);
         }
 
         /// <summary>
         /// List all event subscriptions from the given location under a specific Azure subscription and resource group and topic type.
         /// <item>
         /// <term> Mocking. </term>
-        /// <description> To mock this method, please mock <see cref="MockableEventGridResourceGroupResource.GetRegionalByResourceGroupForTopicType(string, string, string, int?, CancellationToken)"/> instead. </description>
+        /// <description> To mock this method, please mock <see cref="MockableEventGridResourceGroupResource.GetRegionalEventSubscriptionsDataByResourceGroupForTopicType(string, string, string, int?, CancellationToken)"/> instead. </description>
         /// </item>
         /// </summary>
         /// <param name="resourceGroupResource"> The <see cref="ResourceGroupResource"/> the method will execute against. </param>
@@ -1368,11 +1368,11 @@ namespace Azure.ResourceManager.EventGrid
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupResource"/> is null. </exception>
         /// <returns> A collection of <see cref="EventGridSubscriptionData"/> that may take multiple service requests to iterate over. </returns>
-        public static Pageable<EventGridSubscriptionData> GetRegionalByResourceGroupForTopicType(this ResourceGroupResource resourceGroupResource, string location, string topicTypeName, string filter = default, int? top = default, CancellationToken cancellationToken = default)
+        public static Pageable<EventGridSubscriptionData> GetRegionalEventSubscriptionsDataByResourceGroupForTopicType(this ResourceGroupResource resourceGroupResource, string location, string topicTypeName, string filter = default, int? top = default, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNull(resourceGroupResource, nameof(resourceGroupResource));
 
-            return GetMockableEventGridResourceGroupResource(resourceGroupResource).GetRegionalByResourceGroupForTopicType(location, topicTypeName, filter, top, cancellationToken);
+            return GetMockableEventGridResourceGroupResource(resourceGroupResource).GetRegionalEventSubscriptionsDataByResourceGroupForTopicType(location, topicTypeName, filter, top, cancellationToken);
         }
 
         /// <summary>
@@ -2117,7 +2117,7 @@ namespace Azure.ResourceManager.EventGrid
         /// List all global event subscriptions under an Azure subscription for a topic type.
         /// <item>
         /// <term> Mocking. </term>
-        /// <description> To mock this method, please mock <see cref="MockableEventGridSubscriptionResource.GetGlobalBySubscriptionForTopicTypeAsync(string, string, int?, CancellationToken)"/> instead. </description>
+        /// <description> To mock this method, please mock <see cref="MockableEventGridSubscriptionResource.GetGlobalEventSubscriptionsDataForTopicTypeAsync(string, string, int?, CancellationToken)"/> instead. </description>
         /// </item>
         /// </summary>
         /// <param name="subscriptionResource"> The <see cref="SubscriptionResource"/> the method will execute against. </param>
@@ -2127,18 +2127,18 @@ namespace Azure.ResourceManager.EventGrid
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="subscriptionResource"/> is null. </exception>
         /// <returns> A collection of <see cref="EventGridSubscriptionData"/> that may take multiple service requests to iterate over. </returns>
-        public static AsyncPageable<EventGridSubscriptionData> GetGlobalBySubscriptionForTopicTypeAsync(this SubscriptionResource subscriptionResource, string topicTypeName, string filter = default, int? top = default, CancellationToken cancellationToken = default)
+        public static AsyncPageable<EventGridSubscriptionData> GetGlobalEventSubscriptionsDataForTopicTypeAsync(this SubscriptionResource subscriptionResource, string topicTypeName, string filter = default, int? top = default, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNull(subscriptionResource, nameof(subscriptionResource));
 
-            return GetMockableEventGridSubscriptionResource(subscriptionResource).GetGlobalBySubscriptionForTopicTypeAsync(topicTypeName, filter, top, cancellationToken);
+            return GetMockableEventGridSubscriptionResource(subscriptionResource).GetGlobalEventSubscriptionsDataForTopicTypeAsync(topicTypeName, filter, top, cancellationToken);
         }
 
         /// <summary>
         /// List all global event subscriptions under an Azure subscription for a topic type.
         /// <item>
         /// <term> Mocking. </term>
-        /// <description> To mock this method, please mock <see cref="MockableEventGridSubscriptionResource.GetGlobalBySubscriptionForTopicType(string, string, int?, CancellationToken)"/> instead. </description>
+        /// <description> To mock this method, please mock <see cref="MockableEventGridSubscriptionResource.GetGlobalEventSubscriptionsDataForTopicType(string, string, int?, CancellationToken)"/> instead. </description>
         /// </item>
         /// </summary>
         /// <param name="subscriptionResource"> The <see cref="SubscriptionResource"/> the method will execute against. </param>
@@ -2148,18 +2148,18 @@ namespace Azure.ResourceManager.EventGrid
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="subscriptionResource"/> is null. </exception>
         /// <returns> A collection of <see cref="EventGridSubscriptionData"/> that may take multiple service requests to iterate over. </returns>
-        public static Pageable<EventGridSubscriptionData> GetGlobalBySubscriptionForTopicType(this SubscriptionResource subscriptionResource, string topicTypeName, string filter = default, int? top = default, CancellationToken cancellationToken = default)
+        public static Pageable<EventGridSubscriptionData> GetGlobalEventSubscriptionsDataForTopicType(this SubscriptionResource subscriptionResource, string topicTypeName, string filter = default, int? top = default, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNull(subscriptionResource, nameof(subscriptionResource));
 
-            return GetMockableEventGridSubscriptionResource(subscriptionResource).GetGlobalBySubscriptionForTopicType(topicTypeName, filter, top, cancellationToken);
+            return GetMockableEventGridSubscriptionResource(subscriptionResource).GetGlobalEventSubscriptionsDataForTopicType(topicTypeName, filter, top, cancellationToken);
         }
 
         /// <summary>
         /// List all event subscriptions from the given location under a specific Azure subscription.
         /// <item>
         /// <term> Mocking. </term>
-        /// <description> To mock this method, please mock <see cref="MockableEventGridSubscriptionResource.GetRegionalBySubscriptionAsync(string, string, int?, CancellationToken)"/> instead. </description>
+        /// <description> To mock this method, please mock <see cref="MockableEventGridSubscriptionResource.GetRegionalEventSubscriptionsDataAsync(string, string, int?, CancellationToken)"/> instead. </description>
         /// </item>
         /// </summary>
         /// <param name="subscriptionResource"> The <see cref="SubscriptionResource"/> the method will execute against. </param>
@@ -2169,18 +2169,18 @@ namespace Azure.ResourceManager.EventGrid
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="subscriptionResource"/> is null. </exception>
         /// <returns> A collection of <see cref="EventGridSubscriptionData"/> that may take multiple service requests to iterate over. </returns>
-        public static AsyncPageable<EventGridSubscriptionData> GetRegionalBySubscriptionAsync(this SubscriptionResource subscriptionResource, string location, string filter = default, int? top = default, CancellationToken cancellationToken = default)
+        public static AsyncPageable<EventGridSubscriptionData> GetRegionalEventSubscriptionsDataAsync(this SubscriptionResource subscriptionResource, string location, string filter = default, int? top = default, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNull(subscriptionResource, nameof(subscriptionResource));
 
-            return GetMockableEventGridSubscriptionResource(subscriptionResource).GetRegionalBySubscriptionAsync(location, filter, top, cancellationToken);
+            return GetMockableEventGridSubscriptionResource(subscriptionResource).GetRegionalEventSubscriptionsDataAsync(location, filter, top, cancellationToken);
         }
 
         /// <summary>
         /// List all event subscriptions from the given location under a specific Azure subscription.
         /// <item>
         /// <term> Mocking. </term>
-        /// <description> To mock this method, please mock <see cref="MockableEventGridSubscriptionResource.GetRegionalBySubscription(string, string, int?, CancellationToken)"/> instead. </description>
+        /// <description> To mock this method, please mock <see cref="MockableEventGridSubscriptionResource.GetRegionalEventSubscriptionsData(string, string, int?, CancellationToken)"/> instead. </description>
         /// </item>
         /// </summary>
         /// <param name="subscriptionResource"> The <see cref="SubscriptionResource"/> the method will execute against. </param>
@@ -2190,18 +2190,18 @@ namespace Azure.ResourceManager.EventGrid
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="subscriptionResource"/> is null. </exception>
         /// <returns> A collection of <see cref="EventGridSubscriptionData"/> that may take multiple service requests to iterate over. </returns>
-        public static Pageable<EventGridSubscriptionData> GetRegionalBySubscription(this SubscriptionResource subscriptionResource, string location, string filter = default, int? top = default, CancellationToken cancellationToken = default)
+        public static Pageable<EventGridSubscriptionData> GetRegionalEventSubscriptionsData(this SubscriptionResource subscriptionResource, string location, string filter = default, int? top = default, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNull(subscriptionResource, nameof(subscriptionResource));
 
-            return GetMockableEventGridSubscriptionResource(subscriptionResource).GetRegionalBySubscription(location, filter, top, cancellationToken);
+            return GetMockableEventGridSubscriptionResource(subscriptionResource).GetRegionalEventSubscriptionsData(location, filter, top, cancellationToken);
         }
 
         /// <summary>
         /// List all event subscriptions from the given location under a specific Azure subscription and topic type.
         /// <item>
         /// <term> Mocking. </term>
-        /// <description> To mock this method, please mock <see cref="MockableEventGridSubscriptionResource.GetRegionalBySubscriptionForTopicTypeAsync(string, string, string, int?, CancellationToken)"/> instead. </description>
+        /// <description> To mock this method, please mock <see cref="MockableEventGridSubscriptionResource.GetRegionalEventSubscriptionsDataForTopicTypeAsync(string, string, string, int?, CancellationToken)"/> instead. </description>
         /// </item>
         /// </summary>
         /// <param name="subscriptionResource"> The <see cref="SubscriptionResource"/> the method will execute against. </param>
@@ -2212,18 +2212,18 @@ namespace Azure.ResourceManager.EventGrid
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="subscriptionResource"/> is null. </exception>
         /// <returns> A collection of <see cref="EventGridSubscriptionData"/> that may take multiple service requests to iterate over. </returns>
-        public static AsyncPageable<EventGridSubscriptionData> GetRegionalBySubscriptionForTopicTypeAsync(this SubscriptionResource subscriptionResource, string location, string topicTypeName, string filter = default, int? top = default, CancellationToken cancellationToken = default)
+        public static AsyncPageable<EventGridSubscriptionData> GetRegionalEventSubscriptionsDataForTopicTypeAsync(this SubscriptionResource subscriptionResource, string location, string topicTypeName, string filter = default, int? top = default, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNull(subscriptionResource, nameof(subscriptionResource));
 
-            return GetMockableEventGridSubscriptionResource(subscriptionResource).GetRegionalBySubscriptionForTopicTypeAsync(location, topicTypeName, filter, top, cancellationToken);
+            return GetMockableEventGridSubscriptionResource(subscriptionResource).GetRegionalEventSubscriptionsDataForTopicTypeAsync(location, topicTypeName, filter, top, cancellationToken);
         }
 
         /// <summary>
         /// List all event subscriptions from the given location under a specific Azure subscription and topic type.
         /// <item>
         /// <term> Mocking. </term>
-        /// <description> To mock this method, please mock <see cref="MockableEventGridSubscriptionResource.GetRegionalBySubscriptionForTopicType(string, string, string, int?, CancellationToken)"/> instead. </description>
+        /// <description> To mock this method, please mock <see cref="MockableEventGridSubscriptionResource.GetRegionalEventSubscriptionsDataForTopicType(string, string, string, int?, CancellationToken)"/> instead. </description>
         /// </item>
         /// </summary>
         /// <param name="subscriptionResource"> The <see cref="SubscriptionResource"/> the method will execute against. </param>
@@ -2234,11 +2234,11 @@ namespace Azure.ResourceManager.EventGrid
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="subscriptionResource"/> is null. </exception>
         /// <returns> A collection of <see cref="EventGridSubscriptionData"/> that may take multiple service requests to iterate over. </returns>
-        public static Pageable<EventGridSubscriptionData> GetRegionalBySubscriptionForTopicType(this SubscriptionResource subscriptionResource, string location, string topicTypeName, string filter = default, int? top = default, CancellationToken cancellationToken = default)
+        public static Pageable<EventGridSubscriptionData> GetRegionalEventSubscriptionsDataForTopicType(this SubscriptionResource subscriptionResource, string location, string topicTypeName, string filter = default, int? top = default, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNull(subscriptionResource, nameof(subscriptionResource));
 
-            return GetMockableEventGridSubscriptionResource(subscriptionResource).GetRegionalBySubscriptionForTopicType(location, topicTypeName, filter, top, cancellationToken);
+            return GetMockableEventGridSubscriptionResource(subscriptionResource).GetRegionalEventSubscriptionsDataForTopicType(location, topicTypeName, filter, top, cancellationToken);
         }
 
         /// <summary>

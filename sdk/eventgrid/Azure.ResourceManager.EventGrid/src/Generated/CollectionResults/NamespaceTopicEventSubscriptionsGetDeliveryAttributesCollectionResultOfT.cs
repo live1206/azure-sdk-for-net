@@ -23,6 +23,7 @@ namespace Azure.ResourceManager.EventGrid
         private readonly string _topicName;
         private readonly string _eventSubscriptionName;
         private readonly RequestContext _context;
+        private readonly string _diagnosticScope;
 
         /// <summary> Initializes a new instance of NamespaceTopicEventSubscriptionsGetDeliveryAttributesCollectionResultOfT, which is used to iterate over the pages of a collection. </summary>
         /// <param name="client"> The NamespaceTopicEventSubscriptions client used to send requests. </param>
@@ -32,7 +33,8 @@ namespace Azure.ResourceManager.EventGrid
         /// <param name="topicName"> Name of the namespace topic. </param>
         /// <param name="eventSubscriptionName"> Name of the event subscription to be found. </param>
         /// <param name="context"> The request options, which can override default behaviors of the client pipeline on a per-call basis. </param>
-        public NamespaceTopicEventSubscriptionsGetDeliveryAttributesCollectionResultOfT(NamespaceTopicEventSubscriptions client, Guid subscriptionId, string resourceGroupName, string namespaceName, string topicName, string eventSubscriptionName, RequestContext context) : base(context?.CancellationToken ?? default)
+        /// <param name="diagnosticScope"> The diagnostic scope name. </param>
+        public NamespaceTopicEventSubscriptionsGetDeliveryAttributesCollectionResultOfT(NamespaceTopicEventSubscriptions client, Guid subscriptionId, string resourceGroupName, string namespaceName, string topicName, string eventSubscriptionName, RequestContext context, string diagnosticScope) : base(context?.CancellationToken ?? default)
         {
             _client = client;
             _subscriptionId = subscriptionId;
@@ -41,6 +43,7 @@ namespace Azure.ResourceManager.EventGrid
             _topicName = topicName;
             _eventSubscriptionName = eventSubscriptionName;
             _context = context;
+            _diagnosticScope = diagnosticScope;
         }
 
         /// <summary> Gets the pages of NamespaceTopicEventSubscriptionsGetDeliveryAttributesCollectionResultOfT as an enumerable collection. </summary>
@@ -60,7 +63,7 @@ namespace Azure.ResourceManager.EventGrid
         private Response GetNextResponse(int? pageSizeHint, string continuationToken)
         {
             HttpMessage message = _client.CreateGetDeliveryAttributesRequest(_subscriptionId, _resourceGroupName, _namespaceName, _topicName, _eventSubscriptionName, _context);
-            using DiagnosticScope scope = _client.ClientDiagnostics.CreateScope("NamespaceTopicEventSubscriptionResource.GetDeliveryAttributes");
+            using DiagnosticScope scope = _client.ClientDiagnostics.CreateScope(_diagnosticScope);
             scope.Start();
             try
             {

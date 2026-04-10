@@ -39,6 +39,46 @@ namespace Azure.ResourceManager.EventGrid
 
         /// <summary> The resource-specific properties for this resource. </summary>
         [WirePath("properties")]
-        public EventGridPrivateLinkResourceProperties Properties { get; }
+        internal EventGridPrivateLinkResourceProperties Properties { get; }
+
+        /// <summary> Gets the GroupId. </summary>
+        [WirePath("properties.groupId")]
+        public string GroupId
+        {
+            get
+            {
+                return Properties.GroupId;
+            }
+        }
+
+        /// <summary> Gets the DisplayName. </summary>
+        [WirePath("properties.displayName")]
+        public string DisplayName
+        {
+            get
+            {
+                return Properties.DisplayName;
+            }
+        }
+
+        /// <summary> Gets the RequiredMembers. </summary>
+        [WirePath("properties.requiredMembers")]
+        public IList<string> RequiredMembers
+        {
+            get
+            {
+                return Properties.RequiredMembers;
+            }
+        }
+
+        /// <summary> Gets the RequiredZoneNames. </summary>
+        [WirePath("properties.requiredZoneNames")]
+        public IList<string> RequiredZoneNames
+        {
+            get
+            {
+                return Properties.RequiredZoneNames;
+            }
+        }
     }
 }

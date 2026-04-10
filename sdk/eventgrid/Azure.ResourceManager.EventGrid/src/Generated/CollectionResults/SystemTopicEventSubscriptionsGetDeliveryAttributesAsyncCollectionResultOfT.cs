@@ -23,6 +23,7 @@ namespace Azure.ResourceManager.EventGrid
         private readonly string _systemTopicName;
         private readonly string _eventSubscriptionName;
         private readonly RequestContext _context;
+        private readonly string _diagnosticScope;
 
         /// <summary> Initializes a new instance of SystemTopicEventSubscriptionsGetDeliveryAttributesAsyncCollectionResultOfT, which is used to iterate over the pages of a collection. </summary>
         /// <param name="client"> The SystemTopicEventSubscriptions client used to send requests. </param>
@@ -31,7 +32,8 @@ namespace Azure.ResourceManager.EventGrid
         /// <param name="systemTopicName"> Name of the system topic. </param>
         /// <param name="eventSubscriptionName"> Name of the event subscription to be found. </param>
         /// <param name="context"> The request options, which can override default behaviors of the client pipeline on a per-call basis. </param>
-        public SystemTopicEventSubscriptionsGetDeliveryAttributesAsyncCollectionResultOfT(SystemTopicEventSubscriptions client, Guid subscriptionId, string resourceGroupName, string systemTopicName, string eventSubscriptionName, RequestContext context) : base(context?.CancellationToken ?? default)
+        /// <param name="diagnosticScope"> The diagnostic scope name. </param>
+        public SystemTopicEventSubscriptionsGetDeliveryAttributesAsyncCollectionResultOfT(SystemTopicEventSubscriptions client, Guid subscriptionId, string resourceGroupName, string systemTopicName, string eventSubscriptionName, RequestContext context, string diagnosticScope) : base(context?.CancellationToken ?? default)
         {
             _client = client;
             _subscriptionId = subscriptionId;
@@ -39,6 +41,7 @@ namespace Azure.ResourceManager.EventGrid
             _systemTopicName = systemTopicName;
             _eventSubscriptionName = eventSubscriptionName;
             _context = context;
+            _diagnosticScope = diagnosticScope;
         }
 
         /// <summary> Gets the pages of SystemTopicEventSubscriptionsGetDeliveryAttributesAsyncCollectionResultOfT as an enumerable collection. </summary>
@@ -58,7 +61,7 @@ namespace Azure.ResourceManager.EventGrid
         private async ValueTask<Response> GetNextResponseAsync(int? pageSizeHint, string continuationToken)
         {
             HttpMessage message = _client.CreateGetDeliveryAttributesRequest(_subscriptionId, _resourceGroupName, _systemTopicName, _eventSubscriptionName, _context);
-            using DiagnosticScope scope = _client.ClientDiagnostics.CreateScope("SystemTopicEventSubscriptionResource.GetDeliveryAttributes");
+            using DiagnosticScope scope = _client.ClientDiagnostics.CreateScope(_diagnosticScope);
             scope.Start();
             try
             {

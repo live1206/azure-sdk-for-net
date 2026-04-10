@@ -24,6 +24,7 @@ namespace Azure.ResourceManager.EventGrid
         private readonly string _resourceTypeName;
         private readonly string _resourceName;
         private readonly RequestContext _context;
+        private readonly string _diagnosticScope;
 
         /// <summary> Initializes a new instance of TopicsGetEventTypesAsyncCollectionResultOfT, which is used to iterate over the pages of a collection. </summary>
         /// <param name="client"> The Topics client used to send requests. </param>
@@ -33,7 +34,8 @@ namespace Azure.ResourceManager.EventGrid
         /// <param name="resourceTypeName"> Name of the topic type. </param>
         /// <param name="resourceName"> Name of the topic. </param>
         /// <param name="context"> The request options, which can override default behaviors of the client pipeline on a per-call basis. </param>
-        public TopicsGetEventTypesAsyncCollectionResultOfT(Topics client, Guid subscriptionId, string resourceGroupName, string providerNamespace, string resourceTypeName, string resourceName, RequestContext context) : base(context?.CancellationToken ?? default)
+        /// <param name="diagnosticScope"> The diagnostic scope name. </param>
+        public TopicsGetEventTypesAsyncCollectionResultOfT(Topics client, Guid subscriptionId, string resourceGroupName, string providerNamespace, string resourceTypeName, string resourceName, RequestContext context, string diagnosticScope) : base(context?.CancellationToken ?? default)
         {
             _client = client;
             _subscriptionId = subscriptionId;
@@ -42,6 +44,7 @@ namespace Azure.ResourceManager.EventGrid
             _resourceTypeName = resourceTypeName;
             _resourceName = resourceName;
             _context = context;
+            _diagnosticScope = diagnosticScope;
         }
 
         /// <summary> Gets the pages of TopicsGetEventTypesAsyncCollectionResultOfT as an enumerable collection. </summary>
@@ -75,7 +78,7 @@ namespace Azure.ResourceManager.EventGrid
         private async ValueTask<Response> GetNextResponseAsync(int? pageSizeHint, Uri nextLink)
         {
             HttpMessage message = nextLink != null ? _client.CreateNextGetEventTypesRequest(nextLink, _subscriptionId, _resourceGroupName, _providerNamespace, _resourceTypeName, _resourceName, _context) : _client.CreateGetEventTypesRequest(_subscriptionId, _resourceGroupName, _providerNamespace, _resourceTypeName, _resourceName, _context);
-            using DiagnosticScope scope = _client.ClientDiagnostics.CreateScope("MockableEventGridResourceGroupResource.GetEventTypes");
+            using DiagnosticScope scope = _client.ClientDiagnostics.CreateScope(_diagnosticScope);
             scope.Start();
             try
             {

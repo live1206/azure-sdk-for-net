@@ -86,7 +86,7 @@ namespace Azure.ResourceManager.EventGrid
         {
             if (id.ResourceType != ResourceType)
             {
-                throw new ArgumentException(string.Format("Invalid resource type {0} expected {1}", id.ResourceType, ResourceType), id);
+                throw new ArgumentException(string.Format("Invalid resource type {0} expected {1}", id.ResourceType, ResourceType), nameof(id));
             }
         }
 
@@ -431,7 +431,7 @@ namespace Azure.ResourceManager.EventGrid
             {
                 CancellationToken = cancellationToken
             };
-            return new EventSubscriptionsGetDeliveryAttributesAsyncCollectionResultOfT(_eventSubscriptionsRestClient, Id.Parent, Id.Name, context);
+            return new EventSubscriptionsGetDeliveryAttributesAsyncCollectionResultOfT(_eventSubscriptionsRestClient, Id.Parent, Id.Name, context, "EventSubscriptionResource.GetDeliveryAttributes");
         }
 
         /// <summary>
@@ -463,7 +463,7 @@ namespace Azure.ResourceManager.EventGrid
             {
                 CancellationToken = cancellationToken
             };
-            return new EventSubscriptionsGetDeliveryAttributesCollectionResultOfT(_eventSubscriptionsRestClient, Id.Parent, Id.Name, context);
+            return new EventSubscriptionsGetDeliveryAttributesCollectionResultOfT(_eventSubscriptionsRestClient, Id.Parent, Id.Name, context, "EventSubscriptionResource.GetDeliveryAttributes");
         }
 
         /// <summary>

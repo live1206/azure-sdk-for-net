@@ -650,7 +650,8 @@ namespace Azure.ResourceManager.EventGrid.Mocking
                 resourceName,
                 filter,
                 top,
-                context), data => new EventSubscriptionResource(Client, data));
+                context,
+                "MockableEventGridResourceGroupResource.GetEventSubscriptions"), data => new EventSubscriptionResource(Client, data));
         }
 
         /// <summary>
@@ -698,7 +699,8 @@ namespace Azure.ResourceManager.EventGrid.Mocking
                 resourceName,
                 filter,
                 top,
-                context), data => new EventSubscriptionResource(Client, data));
+                context,
+                "MockableEventGridResourceGroupResource.GetEventSubscriptions"), data => new EventSubscriptionResource(Client, data));
         }
 
         /// <summary>
@@ -743,7 +745,8 @@ namespace Azure.ResourceManager.EventGrid.Mocking
                 topicName,
                 filter,
                 top,
-                context), data => new EventSubscriptionResource(Client, data));
+                context,
+                "MockableEventGridResourceGroupResource.GetEventSubscriptions"), data => new EventSubscriptionResource(Client, data));
         }
 
         /// <summary>
@@ -788,7 +791,8 @@ namespace Azure.ResourceManager.EventGrid.Mocking
                 topicName,
                 filter,
                 top,
-                context), data => new EventSubscriptionResource(Client, data));
+                context,
+                "MockableEventGridResourceGroupResource.GetEventSubscriptions"), data => new EventSubscriptionResource(Client, data));
         }
 
         /// <summary>
@@ -824,7 +828,8 @@ namespace Azure.ResourceManager.EventGrid.Mocking
                 Id.ResourceGroupName,
                 filter,
                 top,
-                context), data => new EventSubscriptionResource(Client, data));
+                context,
+                "MockableEventGridResourceGroupResource.GetEventSubscriptions"), data => new EventSubscriptionResource(Client, data));
         }
 
         /// <summary>
@@ -860,7 +865,8 @@ namespace Azure.ResourceManager.EventGrid.Mocking
                 Id.ResourceGroupName,
                 filter,
                 top,
-                context), data => new EventSubscriptionResource(Client, data));
+                context,
+                "MockableEventGridResourceGroupResource.GetEventSubscriptions"), data => new EventSubscriptionResource(Client, data));
         }
 
         /// <summary>
@@ -887,7 +893,7 @@ namespace Azure.ResourceManager.EventGrid.Mocking
         /// <exception cref="ArgumentNullException"> <paramref name="topicTypeName"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="topicTypeName"/> is an empty string, and was expected to be non-empty. </exception>
         /// <returns> A collection of <see cref="EventGridSubscriptionData"/> that may take multiple service requests to iterate over. </returns>
-        public virtual AsyncPageable<EventGridSubscriptionData> GetGlobalByResourceGroupForTopicTypeAsync(string topicTypeName, string filter = default, int? top = default, CancellationToken cancellationToken = default)
+        public virtual AsyncPageable<EventGridSubscriptionData> GetGlobalEventSubscriptionsDataByResourceGroupForTopicTypeAsync(string topicTypeName, string filter = default, int? top = default, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(topicTypeName, nameof(topicTypeName));
 
@@ -895,14 +901,15 @@ namespace Azure.ResourceManager.EventGrid.Mocking
             {
                 CancellationToken = cancellationToken
             };
-            return new EventSubscriptionsGetGlobalByResourceGroupForTopicTypeAsyncCollectionResultOfT(
+            return new EventSubscriptionsGetGlobalEventSubscriptionsDataByResourceGroupForTopicTypeAsyncCollectionResultOfT(
                 EventSubscriptionsRestClient,
                 Guid.Parse(Id.SubscriptionId),
                 Id.ResourceGroupName,
                 topicTypeName,
                 filter,
                 top,
-                context);
+                context,
+                "MockableEventGridResourceGroupResource.GetGlobalEventSubscriptionsDataByResourceGroupForTopicType");
         }
 
         /// <summary>
@@ -929,7 +936,7 @@ namespace Azure.ResourceManager.EventGrid.Mocking
         /// <exception cref="ArgumentNullException"> <paramref name="topicTypeName"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="topicTypeName"/> is an empty string, and was expected to be non-empty. </exception>
         /// <returns> A collection of <see cref="EventGridSubscriptionData"/> that may take multiple service requests to iterate over. </returns>
-        public virtual Pageable<EventGridSubscriptionData> GetGlobalByResourceGroupForTopicType(string topicTypeName, string filter = default, int? top = default, CancellationToken cancellationToken = default)
+        public virtual Pageable<EventGridSubscriptionData> GetGlobalEventSubscriptionsDataByResourceGroupForTopicType(string topicTypeName, string filter = default, int? top = default, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(topicTypeName, nameof(topicTypeName));
 
@@ -937,14 +944,15 @@ namespace Azure.ResourceManager.EventGrid.Mocking
             {
                 CancellationToken = cancellationToken
             };
-            return new EventSubscriptionsGetGlobalByResourceGroupForTopicTypeCollectionResultOfT(
+            return new EventSubscriptionsGetGlobalEventSubscriptionsDataByResourceGroupForTopicTypeCollectionResultOfT(
                 EventSubscriptionsRestClient,
                 Guid.Parse(Id.SubscriptionId),
                 Id.ResourceGroupName,
                 topicTypeName,
                 filter,
                 top,
-                context);
+                context,
+                "MockableEventGridResourceGroupResource.GetGlobalEventSubscriptionsDataByResourceGroupForTopicType");
         }
 
         /// <summary>
@@ -971,7 +979,7 @@ namespace Azure.ResourceManager.EventGrid.Mocking
         /// <exception cref="ArgumentNullException"> <paramref name="location"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="location"/> is an empty string, and was expected to be non-empty. </exception>
         /// <returns> A collection of <see cref="EventGridSubscriptionData"/> that may take multiple service requests to iterate over. </returns>
-        public virtual AsyncPageable<EventGridSubscriptionData> GetRegionalByResourceGroupAsync(string location, string filter = default, int? top = default, CancellationToken cancellationToken = default)
+        public virtual AsyncPageable<EventGridSubscriptionData> GetRegionalEventSubscriptionsDataByResourceGroupAsync(string location, string filter = default, int? top = default, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(location, nameof(location));
 
@@ -979,14 +987,15 @@ namespace Azure.ResourceManager.EventGrid.Mocking
             {
                 CancellationToken = cancellationToken
             };
-            return new EventSubscriptionsGetRegionalByResourceGroupAsyncCollectionResultOfT(
+            return new EventSubscriptionsGetRegionalEventSubscriptionsDataByResourceGroupAsyncCollectionResultOfT(
                 EventSubscriptionsRestClient,
                 Guid.Parse(Id.SubscriptionId),
                 Id.ResourceGroupName,
                 location,
                 filter,
                 top,
-                context);
+                context,
+                "MockableEventGridResourceGroupResource.GetRegionalEventSubscriptionsDataByResourceGroup");
         }
 
         /// <summary>
@@ -1013,7 +1022,7 @@ namespace Azure.ResourceManager.EventGrid.Mocking
         /// <exception cref="ArgumentNullException"> <paramref name="location"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="location"/> is an empty string, and was expected to be non-empty. </exception>
         /// <returns> A collection of <see cref="EventGridSubscriptionData"/> that may take multiple service requests to iterate over. </returns>
-        public virtual Pageable<EventGridSubscriptionData> GetRegionalByResourceGroup(string location, string filter = default, int? top = default, CancellationToken cancellationToken = default)
+        public virtual Pageable<EventGridSubscriptionData> GetRegionalEventSubscriptionsDataByResourceGroup(string location, string filter = default, int? top = default, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(location, nameof(location));
 
@@ -1021,14 +1030,15 @@ namespace Azure.ResourceManager.EventGrid.Mocking
             {
                 CancellationToken = cancellationToken
             };
-            return new EventSubscriptionsGetRegionalByResourceGroupCollectionResultOfT(
+            return new EventSubscriptionsGetRegionalEventSubscriptionsDataByResourceGroupCollectionResultOfT(
                 EventSubscriptionsRestClient,
                 Guid.Parse(Id.SubscriptionId),
                 Id.ResourceGroupName,
                 location,
                 filter,
                 top,
-                context);
+                context,
+                "MockableEventGridResourceGroupResource.GetRegionalEventSubscriptionsDataByResourceGroup");
         }
 
         /// <summary>
@@ -1056,7 +1066,7 @@ namespace Azure.ResourceManager.EventGrid.Mocking
         /// <exception cref="ArgumentNullException"> <paramref name="location"/> or <paramref name="topicTypeName"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="location"/> or <paramref name="topicTypeName"/> is an empty string, and was expected to be non-empty. </exception>
         /// <returns> A collection of <see cref="EventGridSubscriptionData"/> that may take multiple service requests to iterate over. </returns>
-        public virtual AsyncPageable<EventGridSubscriptionData> GetRegionalByResourceGroupForTopicTypeAsync(string location, string topicTypeName, string filter = default, int? top = default, CancellationToken cancellationToken = default)
+        public virtual AsyncPageable<EventGridSubscriptionData> GetRegionalEventSubscriptionsDataByResourceGroupForTopicTypeAsync(string location, string topicTypeName, string filter = default, int? top = default, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(location, nameof(location));
             Argument.AssertNotNullOrEmpty(topicTypeName, nameof(topicTypeName));
@@ -1065,7 +1075,7 @@ namespace Azure.ResourceManager.EventGrid.Mocking
             {
                 CancellationToken = cancellationToken
             };
-            return new EventSubscriptionsGetRegionalByResourceGroupForTopicTypeAsyncCollectionResultOfT(
+            return new EventSubscriptionsGetRegionalEventSubscriptionsDataByResourceGroupForTopicTypeAsyncCollectionResultOfT(
                 EventSubscriptionsRestClient,
                 Guid.Parse(Id.SubscriptionId),
                 Id.ResourceGroupName,
@@ -1073,7 +1083,8 @@ namespace Azure.ResourceManager.EventGrid.Mocking
                 topicTypeName,
                 filter,
                 top,
-                context);
+                context,
+                "MockableEventGridResourceGroupResource.GetRegionalEventSubscriptionsDataByResourceGroupForTopicType");
         }
 
         /// <summary>
@@ -1101,7 +1112,7 @@ namespace Azure.ResourceManager.EventGrid.Mocking
         /// <exception cref="ArgumentNullException"> <paramref name="location"/> or <paramref name="topicTypeName"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="location"/> or <paramref name="topicTypeName"/> is an empty string, and was expected to be non-empty. </exception>
         /// <returns> A collection of <see cref="EventGridSubscriptionData"/> that may take multiple service requests to iterate over. </returns>
-        public virtual Pageable<EventGridSubscriptionData> GetRegionalByResourceGroupForTopicType(string location, string topicTypeName, string filter = default, int? top = default, CancellationToken cancellationToken = default)
+        public virtual Pageable<EventGridSubscriptionData> GetRegionalEventSubscriptionsDataByResourceGroupForTopicType(string location, string topicTypeName, string filter = default, int? top = default, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(location, nameof(location));
             Argument.AssertNotNullOrEmpty(topicTypeName, nameof(topicTypeName));
@@ -1110,7 +1121,7 @@ namespace Azure.ResourceManager.EventGrid.Mocking
             {
                 CancellationToken = cancellationToken
             };
-            return new EventSubscriptionsGetRegionalByResourceGroupForTopicTypeCollectionResultOfT(
+            return new EventSubscriptionsGetRegionalEventSubscriptionsDataByResourceGroupForTopicTypeCollectionResultOfT(
                 EventSubscriptionsRestClient,
                 Guid.Parse(Id.SubscriptionId),
                 Id.ResourceGroupName,
@@ -1118,7 +1129,8 @@ namespace Azure.ResourceManager.EventGrid.Mocking
                 topicTypeName,
                 filter,
                 top,
-                context);
+                context,
+                "MockableEventGridResourceGroupResource.GetRegionalEventSubscriptionsDataByResourceGroupForTopicType");
         }
 
         /// <summary>
@@ -1494,7 +1506,8 @@ namespace Azure.ResourceManager.EventGrid.Mocking
                 providerNamespace,
                 resourceTypeName,
                 resourceName,
-                context);
+                context,
+                "MockableEventGridResourceGroupResource.GetEventTypes");
         }
 
         /// <summary>
@@ -1538,7 +1551,8 @@ namespace Azure.ResourceManager.EventGrid.Mocking
                 providerNamespace,
                 resourceTypeName,
                 resourceName,
-                context);
+                context,
+                "MockableEventGridResourceGroupResource.GetEventTypes");
         }
 
         /// <summary>
@@ -1686,7 +1700,8 @@ namespace Azure.ResourceManager.EventGrid.Mocking
                 Id.ResourceGroupName,
                 resourceType.ToString(),
                 resourceName,
-                context);
+                context,
+                "MockableEventGridResourceGroupResource.GetAll");
         }
 
         /// <summary>
@@ -1726,7 +1741,8 @@ namespace Azure.ResourceManager.EventGrid.Mocking
                 Id.ResourceGroupName,
                 resourceType.ToString(),
                 resourceName,
-                context);
+                context,
+                "MockableEventGridResourceGroupResource.GetAll");
         }
 
         /// <summary>
@@ -1892,7 +1908,8 @@ namespace Azure.ResourceManager.EventGrid.Mocking
                 parentName,
                 filter,
                 top,
-                context);
+                context,
+                "MockableEventGridResourceGroupResource.GetByResource");
         }
 
         /// <summary>
@@ -1936,7 +1953,8 @@ namespace Azure.ResourceManager.EventGrid.Mocking
                 parentName,
                 filter,
                 top,
-                context);
+                context,
+                "MockableEventGridResourceGroupResource.GetByResource");
         }
     }
 }

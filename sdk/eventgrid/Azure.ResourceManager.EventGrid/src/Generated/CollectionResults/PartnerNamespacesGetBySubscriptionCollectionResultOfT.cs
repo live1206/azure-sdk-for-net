@@ -21,6 +21,7 @@ namespace Azure.ResourceManager.EventGrid
         private readonly string _filter;
         private readonly int? _top;
         private readonly RequestContext _context;
+        private readonly string _diagnosticScope;
 
         /// <summary> Initializes a new instance of PartnerNamespacesGetBySubscriptionCollectionResultOfT, which is used to iterate over the pages of a collection. </summary>
         /// <param name="client"> The PartnerNamespaces client used to send requests. </param>
@@ -28,13 +29,15 @@ namespace Azure.ResourceManager.EventGrid
         /// <param name="filter"> The query used to filter the search results using OData syntax. Filtering is permitted on the 'name' property only and with limited number of OData operations. These operations are: the 'contains' function as well as the following logical operations: not, and, or, eq (for equal), and ne (for not equal). No arithmetic operations are supported. The following is a valid filter example: $filter=contains(namE, 'PATTERN') and name ne 'PATTERN-1'. The following is not a valid filter example: $filter=location eq 'westus'. </param>
         /// <param name="top"> The number of results to return per page for the list operation. Valid range for top parameter is 1 to 100. If not specified, the default number of results to be returned is 20 items per page. </param>
         /// <param name="context"> The request options, which can override default behaviors of the client pipeline on a per-call basis. </param>
-        public PartnerNamespacesGetBySubscriptionCollectionResultOfT(PartnerNamespaces client, Guid subscriptionId, string filter, int? top, RequestContext context) : base(context?.CancellationToken ?? default)
+        /// <param name="diagnosticScope"> The diagnostic scope name. </param>
+        public PartnerNamespacesGetBySubscriptionCollectionResultOfT(PartnerNamespaces client, Guid subscriptionId, string filter, int? top, RequestContext context, string diagnosticScope) : base(context?.CancellationToken ?? default)
         {
             _client = client;
             _subscriptionId = subscriptionId;
             _filter = filter;
             _top = top;
             _context = context;
+            _diagnosticScope = diagnosticScope;
         }
 
         /// <summary> Gets the pages of PartnerNamespacesGetBySubscriptionCollectionResultOfT as an enumerable collection. </summary>
@@ -67,7 +70,7 @@ namespace Azure.ResourceManager.EventGrid
         private Response GetNextResponse(int? pageSizeHint, Uri nextLink)
         {
             HttpMessage message = nextLink != null ? _client.CreateNextGetBySubscriptionRequest(nextLink, _subscriptionId, _filter, _top, _context) : _client.CreateGetBySubscriptionRequest(_subscriptionId, _filter, _top, _context);
-            using DiagnosticScope scope = _client.ClientDiagnostics.CreateScope("MockableEventGridSubscriptionResource.GetPartnerNamespaces");
+            using DiagnosticScope scope = _client.ClientDiagnostics.CreateScope(_diagnosticScope);
             scope.Start();
             try
             {
