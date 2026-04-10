@@ -14,64 +14,64 @@ using Azure.ResourceManager.EventGrid;
 
 namespace Azure.ResourceManager.EventGrid.Models
 {
-    /// <summary> Network security perimeter configuration List. </summary>
-    internal partial class NetworkSecurityPerimeterConfigurationList : IJsonModel<NetworkSecurityPerimeterConfigurationList>
+    /// <summary> The response of a DomainNetworkSecurityPerimeterConfiguration list operation. </summary>
+    internal partial class DomainNetworkSecurityPerimeterConfigurationListResult : IJsonModel<DomainNetworkSecurityPerimeterConfigurationListResult>
     {
-        /// <summary> Initializes a new instance of <see cref="NetworkSecurityPerimeterConfigurationList"/> for deserialization. </summary>
-        internal NetworkSecurityPerimeterConfigurationList()
+        /// <summary> Initializes a new instance of <see cref="DomainNetworkSecurityPerimeterConfigurationListResult"/> for deserialization. </summary>
+        internal DomainNetworkSecurityPerimeterConfigurationListResult()
         {
         }
 
         /// <param name="data"> The data to parse. </param>
         /// <param name="options"> The client options for reading and writing models. </param>
-        protected virtual NetworkSecurityPerimeterConfigurationList PersistableModelCreateCore(BinaryData data, ModelReaderWriterOptions options)
+        protected virtual DomainNetworkSecurityPerimeterConfigurationListResult PersistableModelCreateCore(BinaryData data, ModelReaderWriterOptions options)
         {
-            string format = options.Format == "W" ? ((IPersistableModel<NetworkSecurityPerimeterConfigurationList>)this).GetFormatFromOptions(options) : options.Format;
+            string format = options.Format == "W" ? ((IPersistableModel<DomainNetworkSecurityPerimeterConfigurationListResult>)this).GetFormatFromOptions(options) : options.Format;
             switch (format)
             {
                 case "J":
                     using (JsonDocument document = JsonDocument.Parse(data, ModelSerializationExtensions.JsonDocumentOptions))
                     {
-                        return DeserializeNetworkSecurityPerimeterConfigurationList(document.RootElement, options);
+                        return DeserializeDomainNetworkSecurityPerimeterConfigurationListResult(document.RootElement, options);
                     }
                 default:
-                    throw new FormatException($"The model {nameof(NetworkSecurityPerimeterConfigurationList)} does not support reading '{options.Format}' format.");
+                    throw new FormatException($"The model {nameof(DomainNetworkSecurityPerimeterConfigurationListResult)} does not support reading '{options.Format}' format.");
             }
         }
 
         /// <param name="options"> The client options for reading and writing models. </param>
         protected virtual BinaryData PersistableModelWriteCore(ModelReaderWriterOptions options)
         {
-            string format = options.Format == "W" ? ((IPersistableModel<NetworkSecurityPerimeterConfigurationList>)this).GetFormatFromOptions(options) : options.Format;
+            string format = options.Format == "W" ? ((IPersistableModel<DomainNetworkSecurityPerimeterConfigurationListResult>)this).GetFormatFromOptions(options) : options.Format;
             switch (format)
             {
                 case "J":
                     return ModelReaderWriter.Write(this, options, AzureResourceManagerEventGridContext.Default);
                 default:
-                    throw new FormatException($"The model {nameof(NetworkSecurityPerimeterConfigurationList)} does not support writing '{options.Format}' format.");
+                    throw new FormatException($"The model {nameof(DomainNetworkSecurityPerimeterConfigurationListResult)} does not support writing '{options.Format}' format.");
             }
         }
 
         /// <param name="options"> The client options for reading and writing models. </param>
-        BinaryData IPersistableModel<NetworkSecurityPerimeterConfigurationList>.Write(ModelReaderWriterOptions options) => PersistableModelWriteCore(options);
+        BinaryData IPersistableModel<DomainNetworkSecurityPerimeterConfigurationListResult>.Write(ModelReaderWriterOptions options) => PersistableModelWriteCore(options);
 
         /// <param name="data"> The data to parse. </param>
         /// <param name="options"> The client options for reading and writing models. </param>
-        NetworkSecurityPerimeterConfigurationList IPersistableModel<NetworkSecurityPerimeterConfigurationList>.Create(BinaryData data, ModelReaderWriterOptions options) => PersistableModelCreateCore(data, options);
+        DomainNetworkSecurityPerimeterConfigurationListResult IPersistableModel<DomainNetworkSecurityPerimeterConfigurationListResult>.Create(BinaryData data, ModelReaderWriterOptions options) => PersistableModelCreateCore(data, options);
 
         /// <param name="options"> The client options for reading and writing models. </param>
-        string IPersistableModel<NetworkSecurityPerimeterConfigurationList>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
+        string IPersistableModel<DomainNetworkSecurityPerimeterConfigurationListResult>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
 
-        /// <param name="response"> The <see cref="Response"/> to deserialize the <see cref="NetworkSecurityPerimeterConfigurationList"/> from. </param>
-        internal static NetworkSecurityPerimeterConfigurationList FromResponse(Response response)
+        /// <param name="response"> The <see cref="Response"/> to deserialize the <see cref="DomainNetworkSecurityPerimeterConfigurationListResult"/> from. </param>
+        internal static DomainNetworkSecurityPerimeterConfigurationListResult FromResponse(Response response)
         {
             using JsonDocument document = JsonDocument.Parse(response.Content, ModelSerializationExtensions.JsonDocumentOptions);
-            return DeserializeNetworkSecurityPerimeterConfigurationList(document.RootElement, ModelSerializationExtensions.WireOptions);
+            return DeserializeDomainNetworkSecurityPerimeterConfigurationListResult(document.RootElement, ModelSerializationExtensions.WireOptions);
         }
 
         /// <param name="writer"> The JSON writer. </param>
         /// <param name="options"> The client options for reading and writing models. </param>
-        void IJsonModel<NetworkSecurityPerimeterConfigurationList>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
+        void IJsonModel<DomainNetworkSecurityPerimeterConfigurationListResult>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
             writer.WriteStartObject();
             JsonModelWriteCore(writer, options);
@@ -82,14 +82,14 @@ namespace Azure.ResourceManager.EventGrid.Models
         /// <param name="options"> The client options for reading and writing models. </param>
         protected virtual void JsonModelWriteCore(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
-            string format = options.Format == "W" ? ((IPersistableModel<NetworkSecurityPerimeterConfigurationList>)this).GetFormatFromOptions(options) : options.Format;
+            string format = options.Format == "W" ? ((IPersistableModel<DomainNetworkSecurityPerimeterConfigurationListResult>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
-                throw new FormatException($"The model {nameof(NetworkSecurityPerimeterConfigurationList)} does not support writing '{format}' format.");
+                throw new FormatException($"The model {nameof(DomainNetworkSecurityPerimeterConfigurationListResult)} does not support writing '{format}' format.");
             }
             writer.WritePropertyName("value"u8);
             writer.WriteStartArray();
-            foreach (NetworkSecurityPerimeterConfiguration item in Value)
+            foreach (DomainNetworkSecurityPerimeterConfigurationData item in Value)
             {
                 writer.WriteObjectValue(item, options);
             }
@@ -118,40 +118,40 @@ namespace Azure.ResourceManager.EventGrid.Models
 
         /// <param name="reader"> The JSON reader. </param>
         /// <param name="options"> The client options for reading and writing models. </param>
-        NetworkSecurityPerimeterConfigurationList IJsonModel<NetworkSecurityPerimeterConfigurationList>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options) => JsonModelCreateCore(ref reader, options);
+        DomainNetworkSecurityPerimeterConfigurationListResult IJsonModel<DomainNetworkSecurityPerimeterConfigurationListResult>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options) => JsonModelCreateCore(ref reader, options);
 
         /// <param name="reader"> The JSON reader. </param>
         /// <param name="options"> The client options for reading and writing models. </param>
-        protected virtual NetworkSecurityPerimeterConfigurationList JsonModelCreateCore(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
+        protected virtual DomainNetworkSecurityPerimeterConfigurationListResult JsonModelCreateCore(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
         {
-            string format = options.Format == "W" ? ((IPersistableModel<NetworkSecurityPerimeterConfigurationList>)this).GetFormatFromOptions(options) : options.Format;
+            string format = options.Format == "W" ? ((IPersistableModel<DomainNetworkSecurityPerimeterConfigurationListResult>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
-                throw new FormatException($"The model {nameof(NetworkSecurityPerimeterConfigurationList)} does not support reading '{format}' format.");
+                throw new FormatException($"The model {nameof(DomainNetworkSecurityPerimeterConfigurationListResult)} does not support reading '{format}' format.");
             }
             using JsonDocument document = JsonDocument.ParseValue(ref reader);
-            return DeserializeNetworkSecurityPerimeterConfigurationList(document.RootElement, options);
+            return DeserializeDomainNetworkSecurityPerimeterConfigurationListResult(document.RootElement, options);
         }
 
         /// <param name="element"> The JSON element to deserialize. </param>
         /// <param name="options"> The client options for reading and writing models. </param>
-        internal static NetworkSecurityPerimeterConfigurationList DeserializeNetworkSecurityPerimeterConfigurationList(JsonElement element, ModelReaderWriterOptions options)
+        internal static DomainNetworkSecurityPerimeterConfigurationListResult DeserializeDomainNetworkSecurityPerimeterConfigurationListResult(JsonElement element, ModelReaderWriterOptions options)
         {
             if (element.ValueKind == JsonValueKind.Null)
             {
                 return null;
             }
-            IList<NetworkSecurityPerimeterConfiguration> value = default;
+            IList<DomainNetworkSecurityPerimeterConfigurationData> value = default;
             Uri nextLink = default;
             IDictionary<string, BinaryData> additionalBinaryDataProperties = new ChangeTrackingDictionary<string, BinaryData>();
             foreach (var prop in element.EnumerateObject())
             {
                 if (prop.NameEquals("value"u8))
                 {
-                    List<NetworkSecurityPerimeterConfiguration> array = new List<NetworkSecurityPerimeterConfiguration>();
+                    List<DomainNetworkSecurityPerimeterConfigurationData> array = new List<DomainNetworkSecurityPerimeterConfigurationData>();
                     foreach (var item in prop.Value.EnumerateArray())
                     {
-                        array.Add(NetworkSecurityPerimeterConfiguration.DeserializeNetworkSecurityPerimeterConfiguration(item, options));
+                        array.Add(DomainNetworkSecurityPerimeterConfigurationData.DeserializeDomainNetworkSecurityPerimeterConfigurationData(item, options));
                     }
                     value = array;
                     continue;
@@ -170,7 +170,7 @@ namespace Azure.ResourceManager.EventGrid.Models
                     additionalBinaryDataProperties.Add(prop.Name, BinaryData.FromString(prop.Value.GetRawText()));
                 }
             }
-            return new NetworkSecurityPerimeterConfigurationList(value, nextLink, additionalBinaryDataProperties);
+            return new DomainNetworkSecurityPerimeterConfigurationListResult(value, nextLink, additionalBinaryDataProperties);
         }
     }
 }

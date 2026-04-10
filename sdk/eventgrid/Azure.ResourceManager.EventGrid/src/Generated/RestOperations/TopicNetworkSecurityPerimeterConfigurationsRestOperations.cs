@@ -12,22 +12,22 @@ using Azure.Core.Pipeline;
 
 namespace Azure.ResourceManager.EventGrid
 {
-    internal partial class NetworkSecurityPerimeterConfigurations
+    internal partial class TopicNetworkSecurityPerimeterConfigurations
     {
         private readonly Uri _endpoint;
         private readonly string _apiVersion;
 
-        /// <summary> Initializes a new instance of NetworkSecurityPerimeterConfigurations for mocking. </summary>
-        protected NetworkSecurityPerimeterConfigurations()
+        /// <summary> Initializes a new instance of TopicNetworkSecurityPerimeterConfigurations for mocking. </summary>
+        protected TopicNetworkSecurityPerimeterConfigurations()
         {
         }
 
-        /// <summary> Initializes a new instance of NetworkSecurityPerimeterConfigurations. </summary>
+        /// <summary> Initializes a new instance of TopicNetworkSecurityPerimeterConfigurations. </summary>
         /// <param name="clientDiagnostics"> The ClientDiagnostics is used to provide tracing support for the client library. </param>
         /// <param name="pipeline"> The HTTP pipeline for sending and receiving REST requests and responses. </param>
         /// <param name="endpoint"> Service endpoint. </param>
         /// <param name="apiVersion"></param>
-        internal NetworkSecurityPerimeterConfigurations(ClientDiagnostics clientDiagnostics, HttpPipeline pipeline, Uri endpoint, string apiVersion)
+        internal TopicNetworkSecurityPerimeterConfigurations(ClientDiagnostics clientDiagnostics, HttpPipeline pipeline, Uri endpoint, string apiVersion)
         {
             ClientDiagnostics = clientDiagnostics;
             _endpoint = endpoint;
@@ -41,7 +41,7 @@ namespace Azure.ResourceManager.EventGrid
         /// <summary> The ClientDiagnostics is used to provide tracing support for the client library. </summary>
         internal ClientDiagnostics ClientDiagnostics { get; }
 
-        internal HttpMessage CreateGetRequest(Guid subscriptionId, string resourceGroupName, string resourceType, string resourceName, string perimeterGuid, string associationName, RequestContext context)
+        internal HttpMessage CreateGetRequest(Guid subscriptionId, string resourceGroupName, string topicName, string networkSecurityPerimeterConfigurationName, RequestContext context)
         {
             RawRequestUriBuilder uri = new RawRequestUriBuilder();
             uri.Reset(_endpoint);
@@ -49,14 +49,10 @@ namespace Azure.ResourceManager.EventGrid
             uri.AppendPath(subscriptionId.ToString(), true);
             uri.AppendPath("/resourceGroups/", false);
             uri.AppendPath(resourceGroupName, true);
-            uri.AppendPath("/providers/microsoft.EventGrid/", false);
-            uri.AppendPath(resourceType, true);
-            uri.AppendPath("/", false);
-            uri.AppendPath(resourceName, true);
+            uri.AppendPath("/providers/Microsoft.EventGrid/topics/", false);
+            uri.AppendPath(topicName, true);
             uri.AppendPath("/networkSecurityPerimeterConfigurations/", false);
-            uri.AppendPath(perimeterGuid, true);
-            uri.AppendPath(".", false);
-            uri.AppendPath(associationName, true);
+            uri.AppendPath(networkSecurityPerimeterConfigurationName, true);
             if (_apiVersion != null)
             {
                 uri.AppendQuery("api-version", _apiVersion, true);
@@ -69,7 +65,7 @@ namespace Azure.ResourceManager.EventGrid
             return message;
         }
 
-        internal HttpMessage CreateGetAllRequest(Guid subscriptionId, string resourceGroupName, string resourceType, string resourceName, RequestContext context)
+        internal HttpMessage CreateGetAllRequest(Guid subscriptionId, string resourceGroupName, string topicName, RequestContext context)
         {
             RawRequestUriBuilder uri = new RawRequestUriBuilder();
             uri.Reset(_endpoint);
@@ -77,10 +73,8 @@ namespace Azure.ResourceManager.EventGrid
             uri.AppendPath(subscriptionId.ToString(), true);
             uri.AppendPath("/resourceGroups/", false);
             uri.AppendPath(resourceGroupName, true);
-            uri.AppendPath("/providers/microsoft.EventGrid/", false);
-            uri.AppendPath(resourceType, true);
-            uri.AppendPath("/", false);
-            uri.AppendPath(resourceName, true);
+            uri.AppendPath("/providers/Microsoft.EventGrid/topics/", false);
+            uri.AppendPath(topicName, true);
             uri.AppendPath("/networkSecurityPerimeterConfigurations", false);
             if (_apiVersion != null)
             {
@@ -94,7 +88,7 @@ namespace Azure.ResourceManager.EventGrid
             return message;
         }
 
-        internal HttpMessage CreateNextGetAllRequest(Uri nextPage, Guid subscriptionId, string resourceGroupName, string resourceType, string resourceName, RequestContext context)
+        internal HttpMessage CreateNextGetAllRequest(Uri nextPage, Guid subscriptionId, string resourceGroupName, string topicName, RequestContext context)
         {
             RawRequestUriBuilder uri = new RawRequestUriBuilder();
             if (nextPage.IsAbsoluteUri)
@@ -117,7 +111,7 @@ namespace Azure.ResourceManager.EventGrid
             return message;
         }
 
-        internal HttpMessage CreateReconcileRequest(Guid subscriptionId, string resourceGroupName, string resourceType, string resourceName, string perimeterGuid, string associationName, RequestContext context)
+        internal HttpMessage CreateReconcileRequest(Guid subscriptionId, string resourceGroupName, string topicName, string networkSecurityPerimeterConfigurationName, RequestContext context)
         {
             RawRequestUriBuilder uri = new RawRequestUriBuilder();
             uri.Reset(_endpoint);
@@ -125,14 +119,10 @@ namespace Azure.ResourceManager.EventGrid
             uri.AppendPath(subscriptionId.ToString(), true);
             uri.AppendPath("/resourceGroups/", false);
             uri.AppendPath(resourceGroupName, true);
-            uri.AppendPath("/providers/microsoft.EventGrid/", false);
-            uri.AppendPath(resourceType, true);
-            uri.AppendPath("/", false);
-            uri.AppendPath(resourceName, true);
+            uri.AppendPath("/providers/Microsoft.EventGrid/topics/", false);
+            uri.AppendPath(topicName, true);
             uri.AppendPath("/networkSecurityPerimeterConfigurations/", false);
-            uri.AppendPath(perimeterGuid, true);
-            uri.AppendPath(".", false);
-            uri.AppendPath(associationName, true);
+            uri.AppendPath(networkSecurityPerimeterConfigurationName, true);
             uri.AppendPath("/reconcile", false);
             if (_apiVersion != null)
             {

@@ -926,6 +926,72 @@ namespace Azure.ResourceManager.EventGrid
             return GetTopicEventSubscriptions().Get(eventSubscriptionName, cancellationToken);
         }
 
+        /// <summary> Gets a collection of TopicNetworkSecurityPerimeterConfigurations in the <see cref="EventGridTopicResource"/>. </summary>
+        /// <returns> An object representing collection of TopicNetworkSecurityPerimeterConfigurations and their operations over a TopicNetworkSecurityPerimeterConfigurationResource. </returns>
+        public virtual TopicNetworkSecurityPerimeterConfigurationCollection GetTopicNetworkSecurityPerimeterConfigurations()
+        {
+            return GetCachedClient(client => new TopicNetworkSecurityPerimeterConfigurationCollection(client, Id));
+        }
+
+        /// <summary> Get a specific network security perimeter configuration with a topic. </summary>
+        /// <param name="networkSecurityPerimeterConfigurationName"> The name of the TopicNetworkSecurityPerimeterConfiguration. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="networkSecurityPerimeterConfigurationName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="networkSecurityPerimeterConfigurationName"/> is an empty string, and was expected to be non-empty. </exception>
+        [ForwardsClientCalls]
+        public virtual async Task<Response<TopicNetworkSecurityPerimeterConfigurationResource>> GetTopicNetworkSecurityPerimeterConfigurationAsync(string networkSecurityPerimeterConfigurationName, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNullOrEmpty(networkSecurityPerimeterConfigurationName, nameof(networkSecurityPerimeterConfigurationName));
+
+            return await GetTopicNetworkSecurityPerimeterConfigurations().GetAsync(networkSecurityPerimeterConfigurationName, cancellationToken).ConfigureAwait(false);
+        }
+
+        /// <summary> Get a specific network security perimeter configuration with a topic. </summary>
+        /// <param name="networkSecurityPerimeterConfigurationName"> The name of the TopicNetworkSecurityPerimeterConfiguration. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="networkSecurityPerimeterConfigurationName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="networkSecurityPerimeterConfigurationName"/> is an empty string, and was expected to be non-empty. </exception>
+        [ForwardsClientCalls]
+        public virtual Response<TopicNetworkSecurityPerimeterConfigurationResource> GetTopicNetworkSecurityPerimeterConfiguration(string networkSecurityPerimeterConfigurationName, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNullOrEmpty(networkSecurityPerimeterConfigurationName, nameof(networkSecurityPerimeterConfigurationName));
+
+            return GetTopicNetworkSecurityPerimeterConfigurations().Get(networkSecurityPerimeterConfigurationName, cancellationToken);
+        }
+
+        /// <summary> Gets a collection of EventGridTopicPrivateEndpointConnections in the <see cref="EventGridTopicResource"/>. </summary>
+        /// <returns> An object representing collection of EventGridTopicPrivateEndpointConnections and their operations over a EventGridTopicPrivateEndpointConnectionResource. </returns>
+        public virtual EventGridTopicPrivateEndpointConnectionCollection GetEventGridTopicPrivateEndpointConnections()
+        {
+            return GetCachedClient(client => new EventGridTopicPrivateEndpointConnectionCollection(client, Id));
+        }
+
+        /// <summary> Get a TopicPrivateEndpointConnection. </summary>
+        /// <param name="privateEndpointConnectionName"> The name of the TopicPrivateEndpointConnection. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="privateEndpointConnectionName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="privateEndpointConnectionName"/> is an empty string, and was expected to be non-empty. </exception>
+        [ForwardsClientCalls]
+        public virtual async Task<Response<EventGridTopicPrivateEndpointConnectionResource>> GetEventGridTopicPrivateEndpointConnectionAsync(string privateEndpointConnectionName, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNullOrEmpty(privateEndpointConnectionName, nameof(privateEndpointConnectionName));
+
+            return await GetEventGridTopicPrivateEndpointConnections().GetAsync(privateEndpointConnectionName, cancellationToken).ConfigureAwait(false);
+        }
+
+        /// <summary> Get a TopicPrivateEndpointConnection. </summary>
+        /// <param name="privateEndpointConnectionName"> The name of the TopicPrivateEndpointConnection. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="privateEndpointConnectionName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="privateEndpointConnectionName"/> is an empty string, and was expected to be non-empty. </exception>
+        [ForwardsClientCalls]
+        public virtual Response<EventGridTopicPrivateEndpointConnectionResource> GetEventGridTopicPrivateEndpointConnection(string privateEndpointConnectionName, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNullOrEmpty(privateEndpointConnectionName, nameof(privateEndpointConnectionName));
+
+            return GetEventGridTopicPrivateEndpointConnections().Get(privateEndpointConnectionName, cancellationToken);
+        }
+
         /// <summary> Gets a collection of EventGridTopicPrivateLinkResources in the <see cref="EventGridTopicResource"/>. </summary>
         /// <returns> An object representing collection of EventGridTopicPrivateLinkResources and their operations over a EventGridTopicPrivateLinkResource. </returns>
         public virtual EventGridTopicPrivateLinkResourceCollection GetEventGridTopicPrivateLinkResources()

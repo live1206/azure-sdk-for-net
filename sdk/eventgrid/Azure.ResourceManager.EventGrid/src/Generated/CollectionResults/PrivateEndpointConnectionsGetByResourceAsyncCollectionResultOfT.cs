@@ -20,8 +20,7 @@ namespace Azure.ResourceManager.EventGrid
         private readonly PrivateEndpointConnections _client;
         private readonly Guid _subscriptionId;
         private readonly string _resourceGroupName;
-        private readonly string _parentType;
-        private readonly string _parentName;
+        private readonly string _domainName;
         private readonly string _filter;
         private readonly int? _top;
         private readonly RequestContext _context;
@@ -31,19 +30,17 @@ namespace Azure.ResourceManager.EventGrid
         /// <param name="client"> The PrivateEndpointConnections client used to send requests. </param>
         /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
-        /// <param name="parentType"> The type of the parent resource. This can be either \\'topics\\', \\'domains\\', or \\'partnerNamespaces\\' or \\'namespaces\\'. </param>
-        /// <param name="parentName"> The name of the parent resource (namely, either, the topic name, domain name, or partner namespace name or namespace name). </param>
-        /// <param name="filter"> The query used to filter the search results using OData syntax. Filtering is permitted on the 'name' property only and with limited number of OData operations. These operations are: the 'contains' function as well as the following logical operations: not, and, or, eq (for equal), and ne (for not equal). No arithmetic operations are supported. The following is a valid filter example: $filter=contains(namE, 'PATTERN') and name ne 'PATTERN-1'. The following is not a valid filter example: $filter=location eq 'westus'. </param>
-        /// <param name="top"> The number of results to return per page for the list operation. Valid range for top parameter is 1 to 100. If not specified, the default number of results to be returned is 20 items per page. </param>
+        /// <param name="domainName"> Name of the domain. </param>
+        /// <param name="filter"></param>
+        /// <param name="top"></param>
         /// <param name="context"> The request options, which can override default behaviors of the client pipeline on a per-call basis. </param>
         /// <param name="diagnosticScope"> The diagnostic scope name. </param>
-        public PrivateEndpointConnectionsGetByResourceAsyncCollectionResultOfT(PrivateEndpointConnections client, Guid subscriptionId, string resourceGroupName, string parentType, string parentName, string filter, int? top, RequestContext context, string diagnosticScope) : base(context?.CancellationToken ?? default)
+        public PrivateEndpointConnectionsGetByResourceAsyncCollectionResultOfT(PrivateEndpointConnections client, Guid subscriptionId, string resourceGroupName, string domainName, string filter, int? top, RequestContext context, string diagnosticScope) : base(context?.CancellationToken ?? default)
         {
             _client = client;
             _subscriptionId = subscriptionId;
             _resourceGroupName = resourceGroupName;
-            _parentType = parentType;
-            _parentName = parentName;
+            _domainName = domainName;
             _filter = filter;
             _top = top;
             _context = context;
@@ -79,7 +76,7 @@ namespace Azure.ResourceManager.EventGrid
         /// <param name="nextLink"> The next link to use for the next page of results. </param>
         private async ValueTask<Response> GetNextResponseAsync(int? pageSizeHint, Uri nextLink)
         {
-            HttpMessage message = nextLink != null ? _client.CreateNextGetByResourceRequest(nextLink, _subscriptionId, _resourceGroupName, _parentType, _parentName, _filter, _top, _context) : _client.CreateGetByResourceRequest(_subscriptionId, _resourceGroupName, _parentType, _parentName, _filter, _top, _context);
+            HttpMessage message = nextLink != null ? _client.CreateNextGetByResourceRequest(nextLink, _subscriptionId, _resourceGroupName, _domainName, _filter, _top, _context) : _client.CreateGetByResourceRequest(_subscriptionId, _resourceGroupName, _domainName, _filter, _top, _context);
             using DiagnosticScope scope = _client.ClientDiagnostics.CreateScope(_diagnosticScope);
             scope.Start();
             try

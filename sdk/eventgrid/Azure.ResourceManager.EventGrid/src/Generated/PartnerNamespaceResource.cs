@@ -912,6 +912,39 @@ namespace Azure.ResourceManager.EventGrid
             return GetPartnerNamespaceChannels().Get(channelName, cancellationToken);
         }
 
+        /// <summary> Gets a collection of EventGridPartnerNamespacePrivateEndpointConnections in the <see cref="PartnerNamespaceResource"/>. </summary>
+        /// <returns> An object representing collection of EventGridPartnerNamespacePrivateEndpointConnections and their operations over a EventGridPartnerNamespacePrivateEndpointConnectionResource. </returns>
+        public virtual EventGridPartnerNamespacePrivateEndpointConnectionCollection GetEventGridPartnerNamespacePrivateEndpointConnections()
+        {
+            return GetCachedClient(client => new EventGridPartnerNamespacePrivateEndpointConnectionCollection(client, Id));
+        }
+
+        /// <summary> Get a PartnerNamespacePrivateEndpointConnection. </summary>
+        /// <param name="privateEndpointConnectionName"> The name of the PartnerNamespacePrivateEndpointConnection. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="privateEndpointConnectionName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="privateEndpointConnectionName"/> is an empty string, and was expected to be non-empty. </exception>
+        [ForwardsClientCalls]
+        public virtual async Task<Response<EventGridPartnerNamespacePrivateEndpointConnectionResource>> GetEventGridPartnerNamespacePrivateEndpointConnectionAsync(string privateEndpointConnectionName, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNullOrEmpty(privateEndpointConnectionName, nameof(privateEndpointConnectionName));
+
+            return await GetEventGridPartnerNamespacePrivateEndpointConnections().GetAsync(privateEndpointConnectionName, cancellationToken).ConfigureAwait(false);
+        }
+
+        /// <summary> Get a PartnerNamespacePrivateEndpointConnection. </summary>
+        /// <param name="privateEndpointConnectionName"> The name of the PartnerNamespacePrivateEndpointConnection. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="privateEndpointConnectionName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="privateEndpointConnectionName"/> is an empty string, and was expected to be non-empty. </exception>
+        [ForwardsClientCalls]
+        public virtual Response<EventGridPartnerNamespacePrivateEndpointConnectionResource> GetEventGridPartnerNamespacePrivateEndpointConnection(string privateEndpointConnectionName, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNullOrEmpty(privateEndpointConnectionName, nameof(privateEndpointConnectionName));
+
+            return GetEventGridPartnerNamespacePrivateEndpointConnections().Get(privateEndpointConnectionName, cancellationToken);
+        }
+
         /// <summary> Gets a collection of PartnerNamespacePrivateLinkResources in the <see cref="PartnerNamespaceResource"/>. </summary>
         /// <returns> An object representing collection of PartnerNamespacePrivateLinkResources and their operations over a PartnerNamespacePrivateLinkResource. </returns>
         public virtual PartnerNamespacePrivateLinkResourceCollection GetPartnerNamespacePrivateLinkResources()

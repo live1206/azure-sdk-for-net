@@ -12,74 +12,64 @@ using System.Text;
 using System.Text.Json;
 using Azure;
 using Azure.Core;
-using Azure.ResourceManager.EventGrid;
+using Azure.ResourceManager.EventGrid.Models;
 using Azure.ResourceManager.Models;
 
-namespace Azure.ResourceManager.EventGrid.Models
+namespace Azure.ResourceManager.EventGrid
 {
-    /// <summary> Concrete proxy resource types can be created by aliasing this type using a specific property type. </summary>
-    public partial class EventGridPrivateEndpointConnectionData : ResourceData, IJsonModel<EventGridPrivateEndpointConnectionData>
+    /// <summary> Network security perimeter configuration under a Domain. </summary>
+    public partial class DomainNetworkSecurityPerimeterConfigurationData : ResourceData, IJsonModel<DomainNetworkSecurityPerimeterConfigurationData>
     {
         /// <param name="data"> The data to parse. </param>
         /// <param name="options"> The client options for reading and writing models. </param>
         protected virtual ResourceData PersistableModelCreateCore(BinaryData data, ModelReaderWriterOptions options)
         {
-            string format = options.Format == "W" ? ((IPersistableModel<EventGridPrivateEndpointConnectionData>)this).GetFormatFromOptions(options) : options.Format;
+            string format = options.Format == "W" ? ((IPersistableModel<DomainNetworkSecurityPerimeterConfigurationData>)this).GetFormatFromOptions(options) : options.Format;
             switch (format)
             {
                 case "J":
                     using (JsonDocument document = JsonDocument.Parse(data, ModelSerializationExtensions.JsonDocumentOptions))
                     {
-                        return DeserializeEventGridPrivateEndpointConnectionData(document.RootElement, options);
+                        return DeserializeDomainNetworkSecurityPerimeterConfigurationData(document.RootElement, options);
                     }
                 default:
-                    throw new FormatException($"The model {nameof(EventGridPrivateEndpointConnectionData)} does not support reading '{options.Format}' format.");
+                    throw new FormatException($"The model {nameof(DomainNetworkSecurityPerimeterConfigurationData)} does not support reading '{options.Format}' format.");
             }
         }
 
         /// <param name="options"> The client options for reading and writing models. </param>
         protected virtual BinaryData PersistableModelWriteCore(ModelReaderWriterOptions options)
         {
-            string format = options.Format == "W" ? ((IPersistableModel<EventGridPrivateEndpointConnectionData>)this).GetFormatFromOptions(options) : options.Format;
+            string format = options.Format == "W" ? ((IPersistableModel<DomainNetworkSecurityPerimeterConfigurationData>)this).GetFormatFromOptions(options) : options.Format;
             switch (format)
             {
                 case "J":
                     return ModelReaderWriter.Write(this, options, AzureResourceManagerEventGridContext.Default);
                 default:
-                    throw new FormatException($"The model {nameof(EventGridPrivateEndpointConnectionData)} does not support writing '{options.Format}' format.");
+                    throw new FormatException($"The model {nameof(DomainNetworkSecurityPerimeterConfigurationData)} does not support writing '{options.Format}' format.");
             }
         }
 
         /// <param name="options"> The client options for reading and writing models. </param>
-        BinaryData IPersistableModel<EventGridPrivateEndpointConnectionData>.Write(ModelReaderWriterOptions options) => PersistableModelWriteCore(options);
+        BinaryData IPersistableModel<DomainNetworkSecurityPerimeterConfigurationData>.Write(ModelReaderWriterOptions options) => PersistableModelWriteCore(options);
 
         /// <param name="data"> The data to parse. </param>
         /// <param name="options"> The client options for reading and writing models. </param>
-        EventGridPrivateEndpointConnectionData IPersistableModel<EventGridPrivateEndpointConnectionData>.Create(BinaryData data, ModelReaderWriterOptions options) => (EventGridPrivateEndpointConnectionData)PersistableModelCreateCore(data, options);
+        DomainNetworkSecurityPerimeterConfigurationData IPersistableModel<DomainNetworkSecurityPerimeterConfigurationData>.Create(BinaryData data, ModelReaderWriterOptions options) => (DomainNetworkSecurityPerimeterConfigurationData)PersistableModelCreateCore(data, options);
 
         /// <param name="options"> The client options for reading and writing models. </param>
-        string IPersistableModel<EventGridPrivateEndpointConnectionData>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
+        string IPersistableModel<DomainNetworkSecurityPerimeterConfigurationData>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
 
-        /// <param name="eventGridPrivateEndpointConnectionData"> The <see cref="EventGridPrivateEndpointConnectionData"/> to serialize into <see cref="RequestContent"/>. </param>
-        internal static RequestContent ToRequestContent(EventGridPrivateEndpointConnectionData eventGridPrivateEndpointConnectionData)
-        {
-            if (eventGridPrivateEndpointConnectionData == null)
-            {
-                return null;
-            }
-            return RequestContent.Create(eventGridPrivateEndpointConnectionData, ModelSerializationExtensions.WireOptions);
-        }
-
-        /// <param name="response"> The <see cref="Response"/> to deserialize the <see cref="EventGridPrivateEndpointConnectionData"/> from. </param>
-        internal static EventGridPrivateEndpointConnectionData FromResponse(Response response)
+        /// <param name="response"> The <see cref="Response"/> to deserialize the <see cref="DomainNetworkSecurityPerimeterConfigurationData"/> from. </param>
+        internal static DomainNetworkSecurityPerimeterConfigurationData FromResponse(Response response)
         {
             using JsonDocument document = JsonDocument.Parse(response.Content, ModelSerializationExtensions.JsonDocumentOptions);
-            return DeserializeEventGridPrivateEndpointConnectionData(document.RootElement, ModelSerializationExtensions.WireOptions);
+            return DeserializeDomainNetworkSecurityPerimeterConfigurationData(document.RootElement, ModelSerializationExtensions.WireOptions);
         }
 
         /// <param name="writer"> The JSON writer. </param>
         /// <param name="options"> The client options for reading and writing models. </param>
-        void IJsonModel<EventGridPrivateEndpointConnectionData>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
+        void IJsonModel<DomainNetworkSecurityPerimeterConfigurationData>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
             writer.WriteStartObject();
             JsonModelWriteCore(writer, options);
@@ -90,10 +80,10 @@ namespace Azure.ResourceManager.EventGrid.Models
         /// <param name="options"> The client options for reading and writing models. </param>
         protected override void JsonModelWriteCore(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
-            string format = options.Format == "W" ? ((IPersistableModel<EventGridPrivateEndpointConnectionData>)this).GetFormatFromOptions(options) : options.Format;
+            string format = options.Format == "W" ? ((IPersistableModel<DomainNetworkSecurityPerimeterConfigurationData>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
-                throw new FormatException($"The model {nameof(EventGridPrivateEndpointConnectionData)} does not support writing '{format}' format.");
+                throw new FormatException($"The model {nameof(DomainNetworkSecurityPerimeterConfigurationData)} does not support writing '{format}' format.");
             }
             base.JsonModelWriteCore(writer, options);
             if (Optional.IsDefined(Properties))
@@ -105,24 +95,24 @@ namespace Azure.ResourceManager.EventGrid.Models
 
         /// <param name="reader"> The JSON reader. </param>
         /// <param name="options"> The client options for reading and writing models. </param>
-        EventGridPrivateEndpointConnectionData IJsonModel<EventGridPrivateEndpointConnectionData>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options) => (EventGridPrivateEndpointConnectionData)JsonModelCreateCore(ref reader, options);
+        DomainNetworkSecurityPerimeterConfigurationData IJsonModel<DomainNetworkSecurityPerimeterConfigurationData>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options) => (DomainNetworkSecurityPerimeterConfigurationData)JsonModelCreateCore(ref reader, options);
 
         /// <param name="reader"> The JSON reader. </param>
         /// <param name="options"> The client options for reading and writing models. </param>
         protected virtual ResourceData JsonModelCreateCore(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
         {
-            string format = options.Format == "W" ? ((IPersistableModel<EventGridPrivateEndpointConnectionData>)this).GetFormatFromOptions(options) : options.Format;
+            string format = options.Format == "W" ? ((IPersistableModel<DomainNetworkSecurityPerimeterConfigurationData>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
-                throw new FormatException($"The model {nameof(EventGridPrivateEndpointConnectionData)} does not support reading '{format}' format.");
+                throw new FormatException($"The model {nameof(DomainNetworkSecurityPerimeterConfigurationData)} does not support reading '{format}' format.");
             }
             using JsonDocument document = JsonDocument.ParseValue(ref reader);
-            return DeserializeEventGridPrivateEndpointConnectionData(document.RootElement, options);
+            return DeserializeDomainNetworkSecurityPerimeterConfigurationData(document.RootElement, options);
         }
 
         /// <param name="element"> The JSON element to deserialize. </param>
         /// <param name="options"> The client options for reading and writing models. </param>
-        internal static EventGridPrivateEndpointConnectionData DeserializeEventGridPrivateEndpointConnectionData(JsonElement element, ModelReaderWriterOptions options)
+        internal static DomainNetworkSecurityPerimeterConfigurationData DeserializeDomainNetworkSecurityPerimeterConfigurationData(JsonElement element, ModelReaderWriterOptions options)
         {
             if (element.ValueKind == JsonValueKind.Null)
             {
@@ -133,7 +123,7 @@ namespace Azure.ResourceManager.EventGrid.Models
             ResourceType resourceType = default;
             SystemData systemData = default;
             IDictionary<string, BinaryData> additionalBinaryDataProperties = new ChangeTrackingDictionary<string, BinaryData>();
-            PrivateEndpointConnectionProperties properties = default;
+            NetworkSecurityPerimeterConfigurationProperties properties = default;
             foreach (var prop in element.EnumerateObject())
             {
                 if (prop.NameEquals("id"u8))
@@ -174,7 +164,7 @@ namespace Azure.ResourceManager.EventGrid.Models
                     {
                         continue;
                     }
-                    properties = PrivateEndpointConnectionProperties.DeserializePrivateEndpointConnectionProperties(prop.Value, options);
+                    properties = NetworkSecurityPerimeterConfigurationProperties.DeserializeNetworkSecurityPerimeterConfigurationProperties(prop.Value, options);
                     continue;
                 }
                 if (options.Format != "W")
@@ -182,7 +172,7 @@ namespace Azure.ResourceManager.EventGrid.Models
                     additionalBinaryDataProperties.Add(prop.Name, BinaryData.FromString(prop.Value.GetRawText()));
                 }
             }
-            return new EventGridPrivateEndpointConnectionData(
+            return new DomainNetworkSecurityPerimeterConfigurationData(
                 id,
                 name,
                 resourceType,

@@ -18,7 +18,7 @@ namespace Azure.ResourceManager.EventGrid.Models
         private protected readonly IDictionary<string, BinaryData> _additionalBinaryDataProperties;
 
         /// <summary> Initializes a new instance of <see cref="NetworkSecurityPerimeterProfileAccessRule"/>. </summary>
-        internal NetworkSecurityPerimeterProfileAccessRule()
+        public NetworkSecurityPerimeterProfileAccessRule()
         {
         }
 
@@ -39,19 +39,19 @@ namespace Azure.ResourceManager.EventGrid.Models
 
         /// <summary> Fully Qualified Arm id for network security perimeter profile access rule. </summary>
         [WirePath("fullyQualifiedArmId")]
-        public string FullyQualifiedArmId { get; }
+        public string FullyQualifiedArmId { get; set; }
 
         /// <summary> Name for nsp access rule. </summary>
         [WirePath("name")]
-        public string Name { get; }
+        public string Name { get; set; }
 
         /// <summary> nsp access rule type. </summary>
         [WirePath("type")]
-        public string Type { get; }
+        public string Type { get; set; }
 
         /// <summary> NSP access rule properties. </summary>
         [WirePath("properties")]
-        internal NetworkSecurityPerimeterProfileAccessRuleProperties Properties { get; }
+        internal NetworkSecurityPerimeterProfileAccessRuleProperties Properties { get; set; }
 
         /// <summary> NSP access rule direction. </summary>
         [WirePath("properties.direction")]
@@ -59,7 +59,15 @@ namespace Azure.ResourceManager.EventGrid.Models
         {
             get
             {
-                return Properties.Direction;
+                return Properties is null ? default : Properties.Direction;
+            }
+            set
+            {
+                if (Properties is null)
+                {
+                    Properties = new NetworkSecurityPerimeterProfileAccessRuleProperties();
+                }
+                Properties.Direction = value.Value;
             }
         }
 
@@ -69,6 +77,10 @@ namespace Azure.ResourceManager.EventGrid.Models
         {
             get
             {
+                if (Properties is null)
+                {
+                    Properties = new NetworkSecurityPerimeterProfileAccessRuleProperties();
+                }
                 return Properties.AddressPrefixes;
             }
         }
@@ -79,6 +91,10 @@ namespace Azure.ResourceManager.EventGrid.Models
         {
             get
             {
+                if (Properties is null)
+                {
+                    Properties = new NetworkSecurityPerimeterProfileAccessRuleProperties();
+                }
                 return Properties.Subscriptions;
             }
         }
@@ -89,6 +105,10 @@ namespace Azure.ResourceManager.EventGrid.Models
         {
             get
             {
+                if (Properties is null)
+                {
+                    Properties = new NetworkSecurityPerimeterProfileAccessRuleProperties();
+                }
                 return Properties.NetworkSecurityPerimeters;
             }
         }
@@ -99,6 +119,10 @@ namespace Azure.ResourceManager.EventGrid.Models
         {
             get
             {
+                if (Properties is null)
+                {
+                    Properties = new NetworkSecurityPerimeterProfileAccessRuleProperties();
+                }
                 return Properties.FullyQualifiedDomainNames;
             }
         }
@@ -109,6 +133,10 @@ namespace Azure.ResourceManager.EventGrid.Models
         {
             get
             {
+                if (Properties is null)
+                {
+                    Properties = new NetworkSecurityPerimeterProfileAccessRuleProperties();
+                }
                 return Properties.EmailAddresses;
             }
         }
@@ -119,6 +147,10 @@ namespace Azure.ResourceManager.EventGrid.Models
         {
             get
             {
+                if (Properties is null)
+                {
+                    Properties = new NetworkSecurityPerimeterProfileAccessRuleProperties();
+                }
                 return Properties.PhoneNumbers;
             }
         }

@@ -20,7 +20,7 @@ namespace Azure.ResourceManager.EventGrid.Models
         private protected readonly IDictionary<string, BinaryData> _additionalBinaryDataProperties;
 
         /// <summary> Initializes a new instance of <see cref="NetworkSecurityPerimeterConfiguration"/>. </summary>
-        internal NetworkSecurityPerimeterConfiguration()
+        public NetworkSecurityPerimeterConfiguration()
         {
         }
 
@@ -39,7 +39,7 @@ namespace Azure.ResourceManager.EventGrid.Models
 
         /// <summary> Properties of the network security perimeter configuration. </summary>
         [WirePath("properties")]
-        internal NetworkSecurityPerimeterConfigurationProperties Properties { get; }
+        internal NetworkSecurityPerimeterConfigurationProperties Properties { get; set; }
 
         /// <summary> Provisioning state to reflect configuration state and indicate status of nsp profile configuration retrieval. </summary>
         [WirePath("properties.provisioningState")]
@@ -47,7 +47,15 @@ namespace Azure.ResourceManager.EventGrid.Models
         {
             get
             {
-                return Properties.ProvisioningState;
+                return Properties is null ? default : Properties.ProvisioningState;
+            }
+            set
+            {
+                if (Properties is null)
+                {
+                    Properties = new NetworkSecurityPerimeterConfigurationProperties();
+                }
+                Properties.ProvisioningState = value.Value;
             }
         }
 
@@ -57,6 +65,10 @@ namespace Azure.ResourceManager.EventGrid.Models
         {
             get
             {
+                if (Properties is null)
+                {
+                    Properties = new NetworkSecurityPerimeterConfigurationProperties();
+                }
                 return Properties.ProvisioningIssues;
             }
         }
@@ -67,7 +79,15 @@ namespace Azure.ResourceManager.EventGrid.Models
         {
             get
             {
-                return Properties.NetworkSecurityPerimeter;
+                return Properties is null ? default : Properties.NetworkSecurityPerimeter;
+            }
+            set
+            {
+                if (Properties is null)
+                {
+                    Properties = new NetworkSecurityPerimeterConfigurationProperties();
+                }
+                Properties.NetworkSecurityPerimeter = value;
             }
         }
 
@@ -77,7 +97,15 @@ namespace Azure.ResourceManager.EventGrid.Models
         {
             get
             {
-                return Properties.ResourceAssociation;
+                return Properties is null ? default : Properties.ResourceAssociation;
+            }
+            set
+            {
+                if (Properties is null)
+                {
+                    Properties = new NetworkSecurityPerimeterConfigurationProperties();
+                }
+                Properties.ResourceAssociation = value;
             }
         }
 
@@ -87,7 +115,15 @@ namespace Azure.ResourceManager.EventGrid.Models
         {
             get
             {
-                return Properties.Profile;
+                return Properties is null ? default : Properties.Profile;
+            }
+            set
+            {
+                if (Properties is null)
+                {
+                    Properties = new NetworkSecurityPerimeterConfigurationProperties();
+                }
+                Properties.Profile = value;
             }
         }
     }

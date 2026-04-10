@@ -12,33 +12,33 @@ using Azure.ResourceManager.EventGrid;
 
 namespace Azure.ResourceManager.EventGrid.Models
 {
-    /// <summary> Network security perimeter configuration List. </summary>
-    internal partial class NetworkSecurityPerimeterConfigurationList
+    /// <summary> The response of a TopicPrivateEndpointConnection list operation. </summary>
+    internal partial class TopicPrivateEndpointConnectionListResult
     {
         /// <summary> Keeps track of any properties unknown to the library. </summary>
         private protected readonly IDictionary<string, BinaryData> _additionalBinaryDataProperties;
 
-        /// <summary> Initializes a new instance of <see cref="NetworkSecurityPerimeterConfigurationList"/>. </summary>
-        /// <param name="value"> The NetworkSecurityPerimeterConfiguration items on this page. </param>
-        internal NetworkSecurityPerimeterConfigurationList(IEnumerable<NetworkSecurityPerimeterConfiguration> value)
+        /// <summary> Initializes a new instance of <see cref="TopicPrivateEndpointConnectionListResult"/>. </summary>
+        /// <param name="value"> The TopicPrivateEndpointConnection items on this page. </param>
+        internal TopicPrivateEndpointConnectionListResult(IEnumerable<EventGridTopicPrivateEndpointConnectionData> value)
         {
             Value = value.ToList();
         }
 
-        /// <summary> Initializes a new instance of <see cref="NetworkSecurityPerimeterConfigurationList"/>. </summary>
-        /// <param name="value"> The NetworkSecurityPerimeterConfiguration items on this page. </param>
+        /// <summary> Initializes a new instance of <see cref="TopicPrivateEndpointConnectionListResult"/>. </summary>
+        /// <param name="value"> The TopicPrivateEndpointConnection items on this page. </param>
         /// <param name="nextLink"> The link to the next page of items. </param>
         /// <param name="additionalBinaryDataProperties"> Keeps track of any properties unknown to the library. </param>
-        internal NetworkSecurityPerimeterConfigurationList(IList<NetworkSecurityPerimeterConfiguration> value, Uri nextLink, IDictionary<string, BinaryData> additionalBinaryDataProperties)
+        internal TopicPrivateEndpointConnectionListResult(IList<EventGridTopicPrivateEndpointConnectionData> value, Uri nextLink, IDictionary<string, BinaryData> additionalBinaryDataProperties)
         {
             Value = value;
             NextLink = nextLink;
             _additionalBinaryDataProperties = additionalBinaryDataProperties;
         }
 
-        /// <summary> The NetworkSecurityPerimeterConfiguration items on this page. </summary>
+        /// <summary> The TopicPrivateEndpointConnection items on this page. </summary>
         [WirePath("value")]
-        public IList<NetworkSecurityPerimeterConfiguration> Value { get; }
+        public IList<EventGridTopicPrivateEndpointConnectionData> Value { get; }
 
         /// <summary> The link to the next page of items. </summary>
         [WirePath("nextLink")]

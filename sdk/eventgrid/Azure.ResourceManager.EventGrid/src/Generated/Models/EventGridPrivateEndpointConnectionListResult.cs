@@ -12,7 +12,7 @@ using Azure.ResourceManager.EventGrid;
 
 namespace Azure.ResourceManager.EventGrid.Models
 {
-    /// <summary> Result of the list of all private endpoint connections operation. </summary>
+    /// <summary> The response of a PrivateEndpointConnection list operation. </summary>
     internal partial class EventGridPrivateEndpointConnectionListResult
     {
         /// <summary> Keeps track of any properties unknown to the library. </summary>
