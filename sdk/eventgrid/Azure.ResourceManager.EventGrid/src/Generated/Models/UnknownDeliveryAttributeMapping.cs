@@ -14,9 +14,9 @@ namespace Azure.ResourceManager.EventGrid.Models
     {
         /// <summary> Initializes a new instance of <see cref="UnknownDeliveryAttributeMapping"/>. </summary>
         /// <param name="name"> Name of the delivery attribute or header. </param>
-        /// <param name="type"> Type of the delivery attribute or header name. </param>
+        /// <param name="mappingType"> Type of the delivery attribute or header name. </param>
         /// <param name="additionalBinaryDataProperties"> Keeps track of any properties unknown to the library. </param>
-        internal UnknownDeliveryAttributeMapping(string name, DeliveryAttributeMappingType @type, IDictionary<string, BinaryData> additionalBinaryDataProperties) : base(name, @type != default ? @type : "unknown", additionalBinaryDataProperties)
+        internal UnknownDeliveryAttributeMapping(string name, DeliveryAttributeMappingType mappingType, IDictionary<string, BinaryData> additionalBinaryDataProperties) : base(name, mappingType != default ? mappingType : "unknown", additionalBinaryDataProperties)
         {
         }
     }

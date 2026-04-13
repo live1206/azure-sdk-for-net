@@ -21,20 +21,20 @@ namespace Azure.ResourceManager.EventGrid.Models
         private protected readonly IDictionary<string, BinaryData> _additionalBinaryDataProperties;
 
         /// <summary> Initializes a new instance of <see cref="DeliveryAttributeMapping"/>. </summary>
-        /// <param name="type"> Type of the delivery attribute or header name. </param>
-        private protected DeliveryAttributeMapping(DeliveryAttributeMappingType @type)
+        /// <param name="mappingType"> Type of the delivery attribute or header name. </param>
+        private protected DeliveryAttributeMapping(DeliveryAttributeMappingType mappingType)
         {
-            Type = @type;
+            MappingType = mappingType;
         }
 
         /// <summary> Initializes a new instance of <see cref="DeliveryAttributeMapping"/>. </summary>
         /// <param name="name"> Name of the delivery attribute or header. </param>
-        /// <param name="type"> Type of the delivery attribute or header name. </param>
+        /// <param name="mappingType"> Type of the delivery attribute or header name. </param>
         /// <param name="additionalBinaryDataProperties"> Keeps track of any properties unknown to the library. </param>
-        internal DeliveryAttributeMapping(string name, DeliveryAttributeMappingType @type, IDictionary<string, BinaryData> additionalBinaryDataProperties)
+        internal DeliveryAttributeMapping(string name, DeliveryAttributeMappingType mappingType, IDictionary<string, BinaryData> additionalBinaryDataProperties)
         {
             Name = name;
-            Type = @type;
+            MappingType = mappingType;
             _additionalBinaryDataProperties = additionalBinaryDataProperties;
         }
 
@@ -44,6 +44,6 @@ namespace Azure.ResourceManager.EventGrid.Models
 
         /// <summary> Type of the delivery attribute or header name. </summary>
         [WirePath("type")]
-        internal DeliveryAttributeMappingType Type { get; set; }
+        internal DeliveryAttributeMappingType MappingType { get; set; }
     }
 }

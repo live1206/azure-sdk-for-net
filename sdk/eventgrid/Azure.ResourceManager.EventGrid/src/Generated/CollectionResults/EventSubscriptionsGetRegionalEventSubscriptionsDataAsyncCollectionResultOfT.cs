@@ -19,7 +19,7 @@ namespace Azure.ResourceManager.EventGrid
     {
         private readonly EventSubscriptions _client;
         private readonly Guid _subscriptionId;
-        private readonly string _location;
+        private readonly AzureLocation _location;
         private readonly string _filter;
         private readonly int? _top;
         private readonly RequestContext _context;
@@ -28,12 +28,12 @@ namespace Azure.ResourceManager.EventGrid
         /// <summary> Initializes a new instance of EventSubscriptionsGetRegionalEventSubscriptionsDataAsyncCollectionResultOfT, which is used to iterate over the pages of a collection. </summary>
         /// <param name="client"> The EventSubscriptions client used to send requests. </param>
         /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
-        /// <param name="location"> The location name. </param>
+        /// <param name="location"> The name of the Azure region. </param>
         /// <param name="filter"> The query used to filter the search results using OData syntax. Filtering is permitted on the 'name' property only and with limited number of OData operations. These operations are: the 'contains' function as well as the following logical operations: not, and, or, eq (for equal), and ne (for not equal). No arithmetic operations are supported. The following is a valid filter example: $filter=contains(namE, 'PATTERN') and name ne 'PATTERN-1'. The following is not a valid filter example: $filter=location eq 'westus'. </param>
         /// <param name="top"> The number of results to return per page for the list operation. Valid range for top parameter is 1 to 100. If not specified, the default number of results to be returned is 20 items per page. </param>
         /// <param name="context"> The request options, which can override default behaviors of the client pipeline on a per-call basis. </param>
         /// <param name="diagnosticScope"> The diagnostic scope name. </param>
-        public EventSubscriptionsGetRegionalEventSubscriptionsDataAsyncCollectionResultOfT(EventSubscriptions client, Guid subscriptionId, string location, string filter, int? top, RequestContext context, string diagnosticScope) : base(context?.CancellationToken ?? default)
+        public EventSubscriptionsGetRegionalEventSubscriptionsDataAsyncCollectionResultOfT(EventSubscriptions client, Guid subscriptionId, AzureLocation location, string filter, int? top, RequestContext context, string diagnosticScope) : base(context?.CancellationToken ?? default)
         {
             _client = client;
             _subscriptionId = subscriptionId;

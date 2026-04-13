@@ -28,8 +28,6 @@ namespace Azure.ResourceManager.EventGrid
     {
         private readonly ClientDiagnostics _domainsClientDiagnostics;
         private readonly Domains _domainsRestClient;
-        private readonly ClientDiagnostics _privateEndpointConnectionsClientDiagnostics;
-        private readonly PrivateEndpointConnections _privateEndpointConnectionsRestClient;
 
         /// <summary> Initializes a new instance of EventGridDomainCollection for mocking. </summary>
         protected EventGridDomainCollection()
@@ -44,8 +42,6 @@ namespace Azure.ResourceManager.EventGrid
             TryGetApiVersion(EventGridDomainResource.ResourceType, out string eventGridDomainApiVersion);
             _domainsClientDiagnostics = new ClientDiagnostics("Azure.ResourceManager.EventGrid", EventGridDomainResource.ResourceType.Namespace, Diagnostics);
             _domainsRestClient = new Domains(_domainsClientDiagnostics, Pipeline, Endpoint, eventGridDomainApiVersion ?? "2025-07-15-preview");
-            _privateEndpointConnectionsClientDiagnostics = new ClientDiagnostics("Azure.ResourceManager.EventGrid", EventGridDomainResource.ResourceType.Namespace, Diagnostics);
-            _privateEndpointConnectionsRestClient = new PrivateEndpointConnections(_privateEndpointConnectionsClientDiagnostics, Pipeline, Endpoint, eventGridDomainApiVersion ?? "2025-07-15-preview");
             ValidateResourceId(id);
         }
 

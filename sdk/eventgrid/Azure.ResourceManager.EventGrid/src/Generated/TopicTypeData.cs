@@ -20,7 +20,7 @@ namespace Azure.ResourceManager.EventGrid
         private protected readonly IDictionary<string, BinaryData> _additionalBinaryDataProperties;
 
         /// <summary> Initializes a new instance of <see cref="TopicTypeData"/>. </summary>
-        internal TopicTypeData()
+        public TopicTypeData()
         {
         }
 
@@ -39,7 +39,7 @@ namespace Azure.ResourceManager.EventGrid
 
         /// <summary> Properties of the topic type info. </summary>
         [WirePath("properties")]
-        internal TopicTypeProperties Properties { get; }
+        internal TopicTypeProperties Properties { get; set; }
 
         /// <summary> Namespace of the provider of the topic type. </summary>
         [WirePath("properties.provider")]
@@ -47,7 +47,15 @@ namespace Azure.ResourceManager.EventGrid
         {
             get
             {
-                return Properties.Provider;
+                return Properties is null ? default : Properties.Provider;
+            }
+            set
+            {
+                if (Properties is null)
+                {
+                    Properties = new TopicTypeProperties();
+                }
+                Properties.Provider = value;
             }
         }
 
@@ -57,7 +65,15 @@ namespace Azure.ResourceManager.EventGrid
         {
             get
             {
-                return Properties.DisplayName;
+                return Properties is null ? default : Properties.DisplayName;
+            }
+            set
+            {
+                if (Properties is null)
+                {
+                    Properties = new TopicTypeProperties();
+                }
+                Properties.DisplayName = value;
             }
         }
 
@@ -67,7 +83,15 @@ namespace Azure.ResourceManager.EventGrid
         {
             get
             {
-                return Properties.Description;
+                return Properties is null ? default : Properties.Description;
+            }
+            set
+            {
+                if (Properties is null)
+                {
+                    Properties = new TopicTypeProperties();
+                }
+                Properties.Description = value;
             }
         }
 
@@ -77,7 +101,15 @@ namespace Azure.ResourceManager.EventGrid
         {
             get
             {
-                return Properties.ResourceRegionType;
+                return Properties is null ? default : Properties.ResourceRegionType;
+            }
+            set
+            {
+                if (Properties is null)
+                {
+                    Properties = new TopicTypeProperties();
+                }
+                Properties.ResourceRegionType = value.Value;
             }
         }
 
@@ -87,7 +119,15 @@ namespace Azure.ResourceManager.EventGrid
         {
             get
             {
-                return Properties.ProvisioningState;
+                return Properties is null ? default : Properties.ProvisioningState;
+            }
+            set
+            {
+                if (Properties is null)
+                {
+                    Properties = new TopicTypeProperties();
+                }
+                Properties.ProvisioningState = value.Value;
             }
         }
 
@@ -97,6 +137,10 @@ namespace Azure.ResourceManager.EventGrid
         {
             get
             {
+                if (Properties is null)
+                {
+                    Properties = new TopicTypeProperties();
+                }
                 return Properties.SupportedLocations;
             }
         }
@@ -107,7 +151,15 @@ namespace Azure.ResourceManager.EventGrid
         {
             get
             {
-                return Properties.SourceResourceFormat;
+                return Properties is null ? default : Properties.SourceResourceFormat;
+            }
+            set
+            {
+                if (Properties is null)
+                {
+                    Properties = new TopicTypeProperties();
+                }
+                Properties.SourceResourceFormat = value;
             }
         }
 
@@ -117,6 +169,10 @@ namespace Azure.ResourceManager.EventGrid
         {
             get
             {
+                if (Properties is null)
+                {
+                    Properties = new TopicTypeProperties();
+                }
                 return Properties.SupportedScopesForSource;
             }
         }
@@ -127,7 +183,15 @@ namespace Azure.ResourceManager.EventGrid
         {
             get
             {
-                return Properties.AreRegionalAndGlobalSourcesSupported;
+                return Properties is null ? default : Properties.AreRegionalAndGlobalSourcesSupported;
+            }
+            set
+            {
+                if (Properties is null)
+                {
+                    Properties = new TopicTypeProperties();
+                }
+                Properties.AreRegionalAndGlobalSourcesSupported = value.Value;
             }
         }
 
@@ -137,6 +201,10 @@ namespace Azure.ResourceManager.EventGrid
         {
             get
             {
+                if (Properties is null)
+                {
+                    Properties = new TopicTypeProperties();
+                }
                 return Properties.AdditionalEnforcedPermissions;
             }
         }

@@ -41,7 +41,7 @@ namespace Azure.ResourceManager.EventGrid
         /// <summary> The ClientDiagnostics is used to provide tracing support for the client library. </summary>
         internal ClientDiagnostics ClientDiagnostics { get; }
 
-        internal HttpMessage CreateGetRequest(Guid subscriptionId, string resourceGroupName, string domainName, string privateEndpointConnectionName, RequestContext context)
+        internal HttpMessage CreateGetRequest(Guid subscriptionId, string resourceGroupName, string parentType, string parentName, string privateEndpointConnectionName, RequestContext context)
         {
             RawRequestUriBuilder uri = new RawRequestUriBuilder();
             uri.Reset(_endpoint);
@@ -49,8 +49,10 @@ namespace Azure.ResourceManager.EventGrid
             uri.AppendPath(subscriptionId.ToString(), true);
             uri.AppendPath("/resourceGroups/", false);
             uri.AppendPath(resourceGroupName, true);
-            uri.AppendPath("/providers/Microsoft.EventGrid/domains/", false);
-            uri.AppendPath(domainName, true);
+            uri.AppendPath("/providers/microsoft.EventGrid/", false);
+            uri.AppendPath(parentType, true);
+            uri.AppendPath("/", false);
+            uri.AppendPath(parentName, true);
             uri.AppendPath("/privateEndpointConnections/", false);
             uri.AppendPath(privateEndpointConnectionName, true);
             if (_apiVersion != null)
@@ -65,7 +67,7 @@ namespace Azure.ResourceManager.EventGrid
             return message;
         }
 
-        internal HttpMessage CreateUpdateRequest(Guid subscriptionId, string resourceGroupName, string domainName, string privateEndpointConnectionName, RequestContent content, RequestContext context)
+        internal HttpMessage CreateUpdateRequest(Guid subscriptionId, string resourceGroupName, string parentType, string parentName, string privateEndpointConnectionName, RequestContent content, RequestContext context)
         {
             RawRequestUriBuilder uri = new RawRequestUriBuilder();
             uri.Reset(_endpoint);
@@ -73,8 +75,10 @@ namespace Azure.ResourceManager.EventGrid
             uri.AppendPath(subscriptionId.ToString(), true);
             uri.AppendPath("/resourceGroups/", false);
             uri.AppendPath(resourceGroupName, true);
-            uri.AppendPath("/providers/Microsoft.EventGrid/domains/", false);
-            uri.AppendPath(domainName, true);
+            uri.AppendPath("/providers/microsoft.EventGrid/", false);
+            uri.AppendPath(parentType, true);
+            uri.AppendPath("/", false);
+            uri.AppendPath(parentName, true);
             uri.AppendPath("/privateEndpointConnections/", false);
             uri.AppendPath(privateEndpointConnectionName, true);
             if (_apiVersion != null)
@@ -91,7 +95,7 @@ namespace Azure.ResourceManager.EventGrid
             return message;
         }
 
-        internal HttpMessage CreateDeleteRequest(Guid subscriptionId, string resourceGroupName, string domainName, string privateEndpointConnectionName, RequestContext context)
+        internal HttpMessage CreateDeleteRequest(Guid subscriptionId, string resourceGroupName, string parentType, string parentName, string privateEndpointConnectionName, RequestContext context)
         {
             RawRequestUriBuilder uri = new RawRequestUriBuilder();
             uri.Reset(_endpoint);
@@ -99,8 +103,10 @@ namespace Azure.ResourceManager.EventGrid
             uri.AppendPath(subscriptionId.ToString(), true);
             uri.AppendPath("/resourceGroups/", false);
             uri.AppendPath(resourceGroupName, true);
-            uri.AppendPath("/providers/Microsoft.EventGrid/domains/", false);
-            uri.AppendPath(domainName, true);
+            uri.AppendPath("/providers/microsoft.EventGrid/", false);
+            uri.AppendPath(parentType, true);
+            uri.AppendPath("/", false);
+            uri.AppendPath(parentName, true);
             uri.AppendPath("/privateEndpointConnections/", false);
             uri.AppendPath(privateEndpointConnectionName, true);
             if (_apiVersion != null)
@@ -114,7 +120,7 @@ namespace Azure.ResourceManager.EventGrid
             return message;
         }
 
-        internal HttpMessage CreateGetByResourceRequest(Guid subscriptionId, string resourceGroupName, string domainName, string filter, int? top, RequestContext context)
+        internal HttpMessage CreateGetByResourceRequest(Guid subscriptionId, string resourceGroupName, string parentType, string parentName, string filter, int? top, RequestContext context)
         {
             RawRequestUriBuilder uri = new RawRequestUriBuilder();
             uri.Reset(_endpoint);
@@ -122,8 +128,10 @@ namespace Azure.ResourceManager.EventGrid
             uri.AppendPath(subscriptionId.ToString(), true);
             uri.AppendPath("/resourceGroups/", false);
             uri.AppendPath(resourceGroupName, true);
-            uri.AppendPath("/providers/Microsoft.EventGrid/domains/", false);
-            uri.AppendPath(domainName, true);
+            uri.AppendPath("/providers/Microsoft.EventGrid/", false);
+            uri.AppendPath(parentType, true);
+            uri.AppendPath("/", false);
+            uri.AppendPath(parentName, true);
             uri.AppendPath("/privateEndpointConnections", false);
             if (_apiVersion != null)
             {
@@ -145,7 +153,7 @@ namespace Azure.ResourceManager.EventGrid
             return message;
         }
 
-        internal HttpMessage CreateNextGetByResourceRequest(Uri nextPage, Guid subscriptionId, string resourceGroupName, string domainName, string filter, int? top, RequestContext context)
+        internal HttpMessage CreateNextGetByResourceRequest(Uri nextPage, Guid subscriptionId, string resourceGroupName, string parentType, string parentName, string filter, int? top, RequestContext context)
         {
             RawRequestUriBuilder uri = new RawRequestUriBuilder();
             if (nextPage.IsAbsoluteUri)

@@ -19,11 +19,6 @@ namespace Azure.ResourceManager.EventGrid.Models
     [PersistableModelProxy(typeof(UnknownAdvancedFilter))]
     public abstract partial class AdvancedFilter : IJsonModel<AdvancedFilter>
     {
-        /// <summary> Initializes a new instance of <see cref="AdvancedFilter"/> for deserialization. </summary>
-        internal AdvancedFilter()
-        {
-        }
-
         /// <param name="data"> The data to parse. </param>
         /// <param name="options"> The client options for reading and writing models. </param>
         protected virtual AdvancedFilter PersistableModelCreateCore(BinaryData data, ModelReaderWriterOptions options)

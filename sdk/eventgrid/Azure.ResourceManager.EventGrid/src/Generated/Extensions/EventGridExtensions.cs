@@ -427,42 +427,6 @@ namespace Azure.ResourceManager.EventGrid
         }
 
         /// <summary>
-        /// Gets an object representing a <see cref="DomainNetworkSecurityPerimeterConfigurationResource"/> along with the instance operations that can be performed on it but with no data.
-        /// <item>
-        /// <term> Mocking. </term>
-        /// <description> To mock this method, please mock <see cref="MockableEventGridArmClient.GetDomainNetworkSecurityPerimeterConfigurationResource(ResourceIdentifier)"/> instead. </description>
-        /// </item>
-        /// </summary>
-        /// <param name="client"> The <see cref="ArmClient"/> the method will execute against. </param>
-        /// <param name="id"> The resource ID of the resource to get. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="client"/> is null. </exception>
-        /// <returns> Returns a <see cref="DomainNetworkSecurityPerimeterConfigurationResource"/> object. </returns>
-        public static DomainNetworkSecurityPerimeterConfigurationResource GetDomainNetworkSecurityPerimeterConfigurationResource(this ArmClient client, ResourceIdentifier id)
-        {
-            Argument.AssertNotNull(client, nameof(client));
-
-            return GetMockableEventGridArmClient(client).GetDomainNetworkSecurityPerimeterConfigurationResource(id);
-        }
-
-        /// <summary>
-        /// Gets an object representing a <see cref="TopicNetworkSecurityPerimeterConfigurationResource"/> along with the instance operations that can be performed on it but with no data.
-        /// <item>
-        /// <term> Mocking. </term>
-        /// <description> To mock this method, please mock <see cref="MockableEventGridArmClient.GetTopicNetworkSecurityPerimeterConfigurationResource(ResourceIdentifier)"/> instead. </description>
-        /// </item>
-        /// </summary>
-        /// <param name="client"> The <see cref="ArmClient"/> the method will execute against. </param>
-        /// <param name="id"> The resource ID of the resource to get. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="client"/> is null. </exception>
-        /// <returns> Returns a <see cref="TopicNetworkSecurityPerimeterConfigurationResource"/> object. </returns>
-        public static TopicNetworkSecurityPerimeterConfigurationResource GetTopicNetworkSecurityPerimeterConfigurationResource(this ArmClient client, ResourceIdentifier id)
-        {
-            Argument.AssertNotNull(client, nameof(client));
-
-            return GetMockableEventGridArmClient(client).GetTopicNetworkSecurityPerimeterConfigurationResource(id);
-        }
-
-        /// <summary>
         /// Gets an object representing a <see cref="EventGridNamespacePermissionBindingResource"/> along with the instance operations that can be performed on it but with no data.
         /// <item>
         /// <term> Mocking. </term>
@@ -478,114 +442,6 @@ namespace Azure.ResourceManager.EventGrid
             Argument.AssertNotNull(client, nameof(client));
 
             return GetMockableEventGridArmClient(client).GetEventGridNamespacePermissionBindingResource(id);
-        }
-
-        /// <summary>
-        /// Gets an object representing a <see cref="EventGridPrivateEndpointConnectionResource"/> along with the instance operations that can be performed on it but with no data.
-        /// <item>
-        /// <term> Mocking. </term>
-        /// <description> To mock this method, please mock <see cref="MockableEventGridArmClient.GetEventGridPrivateEndpointConnectionResource(ResourceIdentifier)"/> instead. </description>
-        /// </item>
-        /// </summary>
-        /// <param name="client"> The <see cref="ArmClient"/> the method will execute against. </param>
-        /// <param name="id"> The resource ID of the resource to get. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="client"/> is null. </exception>
-        /// <returns> Returns a <see cref="EventGridPrivateEndpointConnectionResource"/> object. </returns>
-        public static EventGridPrivateEndpointConnectionResource GetEventGridPrivateEndpointConnectionResource(this ArmClient client, ResourceIdentifier id)
-        {
-            Argument.AssertNotNull(client, nameof(client));
-
-            return GetMockableEventGridArmClient(client).GetEventGridPrivateEndpointConnectionResource(id);
-        }
-
-        /// <summary>
-        /// Gets an object representing a <see cref="EventGridTopicPrivateEndpointConnectionResource"/> along with the instance operations that can be performed on it but with no data.
-        /// <item>
-        /// <term> Mocking. </term>
-        /// <description> To mock this method, please mock <see cref="MockableEventGridArmClient.GetEventGridTopicPrivateEndpointConnectionResource(ResourceIdentifier)"/> instead. </description>
-        /// </item>
-        /// </summary>
-        /// <param name="client"> The <see cref="ArmClient"/> the method will execute against. </param>
-        /// <param name="id"> The resource ID of the resource to get. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="client"/> is null. </exception>
-        /// <returns> Returns a <see cref="EventGridTopicPrivateEndpointConnectionResource"/> object. </returns>
-        public static EventGridTopicPrivateEndpointConnectionResource GetEventGridTopicPrivateEndpointConnectionResource(this ArmClient client, ResourceIdentifier id)
-        {
-            Argument.AssertNotNull(client, nameof(client));
-
-            return GetMockableEventGridArmClient(client).GetEventGridTopicPrivateEndpointConnectionResource(id);
-        }
-
-        /// <summary>
-        /// Gets an object representing a <see cref="EventGridPartnerNamespacePrivateEndpointConnectionResource"/> along with the instance operations that can be performed on it but with no data.
-        /// <item>
-        /// <term> Mocking. </term>
-        /// <description> To mock this method, please mock <see cref="MockableEventGridArmClient.GetEventGridPartnerNamespacePrivateEndpointConnectionResource(ResourceIdentifier)"/> instead. </description>
-        /// </item>
-        /// </summary>
-        /// <param name="client"> The <see cref="ArmClient"/> the method will execute against. </param>
-        /// <param name="id"> The resource ID of the resource to get. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="client"/> is null. </exception>
-        /// <returns> Returns a <see cref="EventGridPartnerNamespacePrivateEndpointConnectionResource"/> object. </returns>
-        public static EventGridPartnerNamespacePrivateEndpointConnectionResource GetEventGridPartnerNamespacePrivateEndpointConnectionResource(this ArmClient client, ResourceIdentifier id)
-        {
-            Argument.AssertNotNull(client, nameof(client));
-
-            return GetMockableEventGridArmClient(client).GetEventGridPartnerNamespacePrivateEndpointConnectionResource(id);
-        }
-
-        /// <summary>
-        /// Gets an object representing a <see cref="EventGridDomainPrivateLinkResource"/> along with the instance operations that can be performed on it but with no data.
-        /// <item>
-        /// <term> Mocking. </term>
-        /// <description> To mock this method, please mock <see cref="MockableEventGridArmClient.GetEventGridDomainPrivateLinkResource(ResourceIdentifier)"/> instead. </description>
-        /// </item>
-        /// </summary>
-        /// <param name="client"> The <see cref="ArmClient"/> the method will execute against. </param>
-        /// <param name="id"> The resource ID of the resource to get. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="client"/> is null. </exception>
-        /// <returns> Returns a <see cref="EventGridDomainPrivateLinkResource"/> object. </returns>
-        public static EventGridDomainPrivateLinkResource GetEventGridDomainPrivateLinkResource(this ArmClient client, ResourceIdentifier id)
-        {
-            Argument.AssertNotNull(client, nameof(client));
-
-            return GetMockableEventGridArmClient(client).GetEventGridDomainPrivateLinkResource(id);
-        }
-
-        /// <summary>
-        /// Gets an object representing a <see cref="EventGridTopicPrivateLinkResource"/> along with the instance operations that can be performed on it but with no data.
-        /// <item>
-        /// <term> Mocking. </term>
-        /// <description> To mock this method, please mock <see cref="MockableEventGridArmClient.GetEventGridTopicPrivateLinkResource(ResourceIdentifier)"/> instead. </description>
-        /// </item>
-        /// </summary>
-        /// <param name="client"> The <see cref="ArmClient"/> the method will execute against. </param>
-        /// <param name="id"> The resource ID of the resource to get. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="client"/> is null. </exception>
-        /// <returns> Returns a <see cref="EventGridTopicPrivateLinkResource"/> object. </returns>
-        public static EventGridTopicPrivateLinkResource GetEventGridTopicPrivateLinkResource(this ArmClient client, ResourceIdentifier id)
-        {
-            Argument.AssertNotNull(client, nameof(client));
-
-            return GetMockableEventGridArmClient(client).GetEventGridTopicPrivateLinkResource(id);
-        }
-
-        /// <summary>
-        /// Gets an object representing a <see cref="PartnerNamespacePrivateLinkResource"/> along with the instance operations that can be performed on it but with no data.
-        /// <item>
-        /// <term> Mocking. </term>
-        /// <description> To mock this method, please mock <see cref="MockableEventGridArmClient.GetPartnerNamespacePrivateLinkResource(ResourceIdentifier)"/> instead. </description>
-        /// </item>
-        /// </summary>
-        /// <param name="client"> The <see cref="ArmClient"/> the method will execute against. </param>
-        /// <param name="id"> The resource ID of the resource to get. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="client"/> is null. </exception>
-        /// <returns> Returns a <see cref="PartnerNamespacePrivateLinkResource"/> object. </returns>
-        public static PartnerNamespacePrivateLinkResource GetPartnerNamespacePrivateLinkResource(this ArmClient client, ResourceIdentifier id)
-        {
-            Argument.AssertNotNull(client, nameof(client));
-
-            return GetMockableEventGridArmClient(client).GetPartnerNamespacePrivateLinkResource(id);
         }
 
         /// <summary>
@@ -1341,7 +1197,7 @@ namespace Azure.ResourceManager.EventGrid
         /// List all global event subscriptions under a resource group for a specific topic type.
         /// <item>
         /// <term> Mocking. </term>
-        /// <description> To mock this method, please mock <see cref="MockableEventGridResourceGroupResource.GetGlobalEventSubscriptionsDataByResourceGroupForTopicTypeAsync(string, string, int?, CancellationToken)"/> instead. </description>
+        /// <description> To mock this method, please mock <see cref="MockableEventGridResourceGroupResource.GetGlobalByResourceGroupForTopicTypeAsync(string, string, int?, CancellationToken)"/> instead. </description>
         /// </item>
         /// </summary>
         /// <param name="resourceGroupResource"> The <see cref="ResourceGroupResource"/> the method will execute against. </param>
@@ -1351,18 +1207,18 @@ namespace Azure.ResourceManager.EventGrid
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupResource"/> is null. </exception>
         /// <returns> A collection of <see cref="EventGridSubscriptionData"/> that may take multiple service requests to iterate over. </returns>
-        public static AsyncPageable<EventGridSubscriptionData> GetGlobalEventSubscriptionsDataByResourceGroupForTopicTypeAsync(this ResourceGroupResource resourceGroupResource, string topicTypeName, string filter = default, int? top = default, CancellationToken cancellationToken = default)
+        public static AsyncPageable<EventGridSubscriptionData> GetGlobalByResourceGroupForTopicTypeAsync(this ResourceGroupResource resourceGroupResource, string topicTypeName, string filter = default, int? top = default, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNull(resourceGroupResource, nameof(resourceGroupResource));
 
-            return GetMockableEventGridResourceGroupResource(resourceGroupResource).GetGlobalEventSubscriptionsDataByResourceGroupForTopicTypeAsync(topicTypeName, filter, top, cancellationToken);
+            return GetMockableEventGridResourceGroupResource(resourceGroupResource).GetGlobalByResourceGroupForTopicTypeAsync(topicTypeName, filter, top, cancellationToken);
         }
 
         /// <summary>
         /// List all global event subscriptions under a resource group for a specific topic type.
         /// <item>
         /// <term> Mocking. </term>
-        /// <description> To mock this method, please mock <see cref="MockableEventGridResourceGroupResource.GetGlobalEventSubscriptionsDataByResourceGroupForTopicType(string, string, int?, CancellationToken)"/> instead. </description>
+        /// <description> To mock this method, please mock <see cref="MockableEventGridResourceGroupResource.GetGlobalByResourceGroupForTopicType(string, string, int?, CancellationToken)"/> instead. </description>
         /// </item>
         /// </summary>
         /// <param name="resourceGroupResource"> The <see cref="ResourceGroupResource"/> the method will execute against. </param>
@@ -1372,97 +1228,223 @@ namespace Azure.ResourceManager.EventGrid
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupResource"/> is null. </exception>
         /// <returns> A collection of <see cref="EventGridSubscriptionData"/> that may take multiple service requests to iterate over. </returns>
-        public static Pageable<EventGridSubscriptionData> GetGlobalEventSubscriptionsDataByResourceGroupForTopicType(this ResourceGroupResource resourceGroupResource, string topicTypeName, string filter = default, int? top = default, CancellationToken cancellationToken = default)
+        public static Pageable<EventGridSubscriptionData> GetGlobalByResourceGroupForTopicType(this ResourceGroupResource resourceGroupResource, string topicTypeName, string filter = default, int? top = default, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNull(resourceGroupResource, nameof(resourceGroupResource));
 
-            return GetMockableEventGridResourceGroupResource(resourceGroupResource).GetGlobalEventSubscriptionsDataByResourceGroupForTopicType(topicTypeName, filter, top, cancellationToken);
+            return GetMockableEventGridResourceGroupResource(resourceGroupResource).GetGlobalByResourceGroupForTopicType(topicTypeName, filter, top, cancellationToken);
         }
 
         /// <summary>
         /// List all event subscriptions from the given location under a specific Azure subscription and resource group.
         /// <item>
         /// <term> Mocking. </term>
-        /// <description> To mock this method, please mock <see cref="MockableEventGridResourceGroupResource.GetRegionalEventSubscriptionsDataByResourceGroupAsync(string, string, int?, CancellationToken)"/> instead. </description>
+        /// <description> To mock this method, please mock <see cref="MockableEventGridResourceGroupResource.GetRegionalByResourceGroupAsync(AzureLocation, string, int?, CancellationToken)"/> instead. </description>
         /// </item>
         /// </summary>
         /// <param name="resourceGroupResource"> The <see cref="ResourceGroupResource"/> the method will execute against. </param>
-        /// <param name="location"> The location name. </param>
+        /// <param name="location"> The name of the Azure region. </param>
         /// <param name="filter"> The query used to filter the search results using OData syntax. Filtering is permitted on the 'name' property only and with limited number of OData operations. These operations are: the 'contains' function as well as the following logical operations: not, and, or, eq (for equal), and ne (for not equal). No arithmetic operations are supported. The following is a valid filter example: $filter=contains(namE, 'PATTERN') and name ne 'PATTERN-1'. The following is not a valid filter example: $filter=location eq 'westus'. </param>
         /// <param name="top"> The number of results to return per page for the list operation. Valid range for top parameter is 1 to 100. If not specified, the default number of results to be returned is 20 items per page. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupResource"/> is null. </exception>
         /// <returns> A collection of <see cref="EventGridSubscriptionData"/> that may take multiple service requests to iterate over. </returns>
-        public static AsyncPageable<EventGridSubscriptionData> GetRegionalEventSubscriptionsDataByResourceGroupAsync(this ResourceGroupResource resourceGroupResource, string location, string filter = default, int? top = default, CancellationToken cancellationToken = default)
+        public static AsyncPageable<EventGridSubscriptionData> GetRegionalByResourceGroupAsync(this ResourceGroupResource resourceGroupResource, AzureLocation location, string filter = default, int? top = default, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNull(resourceGroupResource, nameof(resourceGroupResource));
 
-            return GetMockableEventGridResourceGroupResource(resourceGroupResource).GetRegionalEventSubscriptionsDataByResourceGroupAsync(location, filter, top, cancellationToken);
+            return GetMockableEventGridResourceGroupResource(resourceGroupResource).GetRegionalByResourceGroupAsync(location, filter, top, cancellationToken);
         }
 
         /// <summary>
         /// List all event subscriptions from the given location under a specific Azure subscription and resource group.
         /// <item>
         /// <term> Mocking. </term>
-        /// <description> To mock this method, please mock <see cref="MockableEventGridResourceGroupResource.GetRegionalEventSubscriptionsDataByResourceGroup(string, string, int?, CancellationToken)"/> instead. </description>
+        /// <description> To mock this method, please mock <see cref="MockableEventGridResourceGroupResource.GetRegionalByResourceGroup(AzureLocation, string, int?, CancellationToken)"/> instead. </description>
         /// </item>
         /// </summary>
         /// <param name="resourceGroupResource"> The <see cref="ResourceGroupResource"/> the method will execute against. </param>
-        /// <param name="location"> The location name. </param>
+        /// <param name="location"> The name of the Azure region. </param>
         /// <param name="filter"> The query used to filter the search results using OData syntax. Filtering is permitted on the 'name' property only and with limited number of OData operations. These operations are: the 'contains' function as well as the following logical operations: not, and, or, eq (for equal), and ne (for not equal). No arithmetic operations are supported. The following is a valid filter example: $filter=contains(namE, 'PATTERN') and name ne 'PATTERN-1'. The following is not a valid filter example: $filter=location eq 'westus'. </param>
         /// <param name="top"> The number of results to return per page for the list operation. Valid range for top parameter is 1 to 100. If not specified, the default number of results to be returned is 20 items per page. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupResource"/> is null. </exception>
         /// <returns> A collection of <see cref="EventGridSubscriptionData"/> that may take multiple service requests to iterate over. </returns>
-        public static Pageable<EventGridSubscriptionData> GetRegionalEventSubscriptionsDataByResourceGroup(this ResourceGroupResource resourceGroupResource, string location, string filter = default, int? top = default, CancellationToken cancellationToken = default)
+        public static Pageable<EventGridSubscriptionData> GetRegionalByResourceGroup(this ResourceGroupResource resourceGroupResource, AzureLocation location, string filter = default, int? top = default, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNull(resourceGroupResource, nameof(resourceGroupResource));
 
-            return GetMockableEventGridResourceGroupResource(resourceGroupResource).GetRegionalEventSubscriptionsDataByResourceGroup(location, filter, top, cancellationToken);
+            return GetMockableEventGridResourceGroupResource(resourceGroupResource).GetRegionalByResourceGroup(location, filter, top, cancellationToken);
         }
 
         /// <summary>
         /// List all event subscriptions from the given location under a specific Azure subscription and resource group and topic type.
         /// <item>
         /// <term> Mocking. </term>
-        /// <description> To mock this method, please mock <see cref="MockableEventGridResourceGroupResource.GetRegionalEventSubscriptionsDataByResourceGroupForTopicTypeAsync(string, string, string, int?, CancellationToken)"/> instead. </description>
+        /// <description> To mock this method, please mock <see cref="MockableEventGridResourceGroupResource.GetRegionalByResourceGroupForTopicTypeAsync(AzureLocation, string, string, int?, CancellationToken)"/> instead. </description>
         /// </item>
         /// </summary>
         /// <param name="resourceGroupResource"> The <see cref="ResourceGroupResource"/> the method will execute against. </param>
-        /// <param name="location"> The location name. </param>
+        /// <param name="location"> The name of the Azure region. </param>
         /// <param name="topicTypeName"> Name of the topic type. </param>
         /// <param name="filter"> The query used to filter the search results using OData syntax. Filtering is permitted on the 'name' property only and with limited number of OData operations. These operations are: the 'contains' function as well as the following logical operations: not, and, or, eq (for equal), and ne (for not equal). No arithmetic operations are supported. The following is a valid filter example: $filter=contains(namE, 'PATTERN') and name ne 'PATTERN-1'. The following is not a valid filter example: $filter=location eq 'westus'. </param>
         /// <param name="top"> The number of results to return per page for the list operation. Valid range for top parameter is 1 to 100. If not specified, the default number of results to be returned is 20 items per page. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupResource"/> is null. </exception>
         /// <returns> A collection of <see cref="EventGridSubscriptionData"/> that may take multiple service requests to iterate over. </returns>
-        public static AsyncPageable<EventGridSubscriptionData> GetRegionalEventSubscriptionsDataByResourceGroupForTopicTypeAsync(this ResourceGroupResource resourceGroupResource, string location, string topicTypeName, string filter = default, int? top = default, CancellationToken cancellationToken = default)
+        public static AsyncPageable<EventGridSubscriptionData> GetRegionalByResourceGroupForTopicTypeAsync(this ResourceGroupResource resourceGroupResource, AzureLocation location, string topicTypeName, string filter = default, int? top = default, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNull(resourceGroupResource, nameof(resourceGroupResource));
 
-            return GetMockableEventGridResourceGroupResource(resourceGroupResource).GetRegionalEventSubscriptionsDataByResourceGroupForTopicTypeAsync(location, topicTypeName, filter, top, cancellationToken);
+            return GetMockableEventGridResourceGroupResource(resourceGroupResource).GetRegionalByResourceGroupForTopicTypeAsync(location, topicTypeName, filter, top, cancellationToken);
         }
 
         /// <summary>
         /// List all event subscriptions from the given location under a specific Azure subscription and resource group and topic type.
         /// <item>
         /// <term> Mocking. </term>
-        /// <description> To mock this method, please mock <see cref="MockableEventGridResourceGroupResource.GetRegionalEventSubscriptionsDataByResourceGroupForTopicType(string, string, string, int?, CancellationToken)"/> instead. </description>
+        /// <description> To mock this method, please mock <see cref="MockableEventGridResourceGroupResource.GetRegionalByResourceGroupForTopicType(AzureLocation, string, string, int?, CancellationToken)"/> instead. </description>
         /// </item>
         /// </summary>
         /// <param name="resourceGroupResource"> The <see cref="ResourceGroupResource"/> the method will execute against. </param>
-        /// <param name="location"> The location name. </param>
+        /// <param name="location"> The name of the Azure region. </param>
         /// <param name="topicTypeName"> Name of the topic type. </param>
         /// <param name="filter"> The query used to filter the search results using OData syntax. Filtering is permitted on the 'name' property only and with limited number of OData operations. These operations are: the 'contains' function as well as the following logical operations: not, and, or, eq (for equal), and ne (for not equal). No arithmetic operations are supported. The following is a valid filter example: $filter=contains(namE, 'PATTERN') and name ne 'PATTERN-1'. The following is not a valid filter example: $filter=location eq 'westus'. </param>
         /// <param name="top"> The number of results to return per page for the list operation. Valid range for top parameter is 1 to 100. If not specified, the default number of results to be returned is 20 items per page. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupResource"/> is null. </exception>
         /// <returns> A collection of <see cref="EventGridSubscriptionData"/> that may take multiple service requests to iterate over. </returns>
-        public static Pageable<EventGridSubscriptionData> GetRegionalEventSubscriptionsDataByResourceGroupForTopicType(this ResourceGroupResource resourceGroupResource, string location, string topicTypeName, string filter = default, int? top = default, CancellationToken cancellationToken = default)
+        public static Pageable<EventGridSubscriptionData> GetRegionalByResourceGroupForTopicType(this ResourceGroupResource resourceGroupResource, AzureLocation location, string topicTypeName, string filter = default, int? top = default, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNull(resourceGroupResource, nameof(resourceGroupResource));
 
-            return GetMockableEventGridResourceGroupResource(resourceGroupResource).GetRegionalEventSubscriptionsDataByResourceGroupForTopicType(location, topicTypeName, filter, top, cancellationToken);
+            return GetMockableEventGridResourceGroupResource(resourceGroupResource).GetRegionalByResourceGroupForTopicType(location, topicTypeName, filter, top, cancellationToken);
+        }
+
+        /// <summary>
+        /// Get a specific private endpoint connection under a topic, domain, or partner namespace or namespace.
+        /// <item>
+        /// <term> Mocking. </term>
+        /// <description> To mock this method, please mock <see cref="MockableEventGridResourceGroupResource.GetAsync(PrivateEndpointConnectionsParentType, string, string, CancellationToken)"/> instead. </description>
+        /// </item>
+        /// </summary>
+        /// <param name="resourceGroupResource"> The <see cref="ResourceGroupResource"/> the method will execute against. </param>
+        /// <param name="parentType"> The type of the parent resource. This can be either \\'topics\\', \\'domains\\', or \\'partnerNamespaces\\' or \\'namespaces\\'. </param>
+        /// <param name="parentName"> The name of the parent resource (namely, either, the topic name, domain name, or partner namespace name or namespace name). </param>
+        /// <param name="privateEndpointConnectionName"> The type of the parent resource. This can be either \'topics\', \'domains\', or \'partnerNamespaces\' or \'namespaces\'. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupResource"/> is null. </exception>
+        public static async Task<Response<EventGridPrivateEndpointConnection>> GetAsync(this ResourceGroupResource resourceGroupResource, PrivateEndpointConnectionsParentType parentType, string parentName, string privateEndpointConnectionName, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNull(resourceGroupResource, nameof(resourceGroupResource));
+
+            return await GetMockableEventGridResourceGroupResource(resourceGroupResource).GetAsync(parentType, parentName, privateEndpointConnectionName, cancellationToken).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// Get a specific private endpoint connection under a topic, domain, or partner namespace or namespace.
+        /// <item>
+        /// <term> Mocking. </term>
+        /// <description> To mock this method, please mock <see cref="MockableEventGridResourceGroupResource.Get(PrivateEndpointConnectionsParentType, string, string, CancellationToken)"/> instead. </description>
+        /// </item>
+        /// </summary>
+        /// <param name="resourceGroupResource"> The <see cref="ResourceGroupResource"/> the method will execute against. </param>
+        /// <param name="parentType"> The type of the parent resource. This can be either \\'topics\\', \\'domains\\', or \\'partnerNamespaces\\' or \\'namespaces\\'. </param>
+        /// <param name="parentName"> The name of the parent resource (namely, either, the topic name, domain name, or partner namespace name or namespace name). </param>
+        /// <param name="privateEndpointConnectionName"> The type of the parent resource. This can be either \'topics\', \'domains\', or \'partnerNamespaces\' or \'namespaces\'. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupResource"/> is null. </exception>
+        public static Response<EventGridPrivateEndpointConnection> Get(this ResourceGroupResource resourceGroupResource, PrivateEndpointConnectionsParentType parentType, string parentName, string privateEndpointConnectionName, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNull(resourceGroupResource, nameof(resourceGroupResource));
+
+            return GetMockableEventGridResourceGroupResource(resourceGroupResource).Get(parentType, parentName, privateEndpointConnectionName, cancellationToken);
+        }
+
+        /// <summary>
+        /// Update a specific private endpoint connection under a topic, domain or partner namespace.
+        /// <item>
+        /// <term> Mocking. </term>
+        /// <description> To mock this method, please mock <see cref="MockableEventGridResourceGroupResource.UpdateAsync(WaitUntil, PrivateEndpointConnectionsParentType, string, string, EventGridPrivateEndpointConnection, CancellationToken)"/> instead. </description>
+        /// </item>
+        /// </summary>
+        /// <param name="resourceGroupResource"> The <see cref="ResourceGroupResource"/> the method will execute against. </param>
+        /// <param name="waitUntil"> <see cref="WaitUntil.Completed"/> if the method should wait to return until the long-running operation has completed on the service; <see cref="WaitUntil.Started"/> if it should return after starting the operation. For more information on long-running operations, please see <see href="https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/core/Azure.Core/samples/LongRunningOperations.md"> Azure.Core Long-Running Operation samples</see>. </param>
+        /// <param name="parentType"> The type of the parent resource. This can be either \\'topics\\', \\'domains\\', or \\'partnerNamespaces\\' or \\'namespaces\\'. </param>
+        /// <param name="parentName"> The name of the parent resource (namely, either, the topic name, domain name, or partner namespace name or namespace name). </param>
+        /// <param name="privateEndpointConnectionName"> The type of the parent resource. This can be either \'topics\', \'domains\', or \'partnerNamespaces\' or \'namespaces\'. </param>
+        /// <param name="privateEndpointConnection"> The private endpoint connection object to update. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupResource"/> is null. </exception>
+        public static async Task<ArmOperation<EventGridPrivateEndpointConnection>> UpdateAsync(this ResourceGroupResource resourceGroupResource, WaitUntil waitUntil, PrivateEndpointConnectionsParentType parentType, string parentName, string privateEndpointConnectionName, EventGridPrivateEndpointConnection privateEndpointConnection, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNull(resourceGroupResource, nameof(resourceGroupResource));
+
+            return await GetMockableEventGridResourceGroupResource(resourceGroupResource).UpdateAsync(waitUntil, parentType, parentName, privateEndpointConnectionName, privateEndpointConnection, cancellationToken).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// Update a specific private endpoint connection under a topic, domain or partner namespace.
+        /// <item>
+        /// <term> Mocking. </term>
+        /// <description> To mock this method, please mock <see cref="MockableEventGridResourceGroupResource.Update(WaitUntil, PrivateEndpointConnectionsParentType, string, string, EventGridPrivateEndpointConnection, CancellationToken)"/> instead. </description>
+        /// </item>
+        /// </summary>
+        /// <param name="resourceGroupResource"> The <see cref="ResourceGroupResource"/> the method will execute against. </param>
+        /// <param name="waitUntil"> <see cref="WaitUntil.Completed"/> if the method should wait to return until the long-running operation has completed on the service; <see cref="WaitUntil.Started"/> if it should return after starting the operation. For more information on long-running operations, please see <see href="https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/core/Azure.Core/samples/LongRunningOperations.md"> Azure.Core Long-Running Operation samples</see>. </param>
+        /// <param name="parentType"> The type of the parent resource. This can be either \\'topics\\', \\'domains\\', or \\'partnerNamespaces\\' or \\'namespaces\\'. </param>
+        /// <param name="parentName"> The name of the parent resource (namely, either, the topic name, domain name, or partner namespace name or namespace name). </param>
+        /// <param name="privateEndpointConnectionName"> The type of the parent resource. This can be either \'topics\', \'domains\', or \'partnerNamespaces\' or \'namespaces\'. </param>
+        /// <param name="privateEndpointConnection"> The private endpoint connection object to update. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupResource"/> is null. </exception>
+        public static ArmOperation<EventGridPrivateEndpointConnection> Update(this ResourceGroupResource resourceGroupResource, WaitUntil waitUntil, PrivateEndpointConnectionsParentType parentType, string parentName, string privateEndpointConnectionName, EventGridPrivateEndpointConnection privateEndpointConnection, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNull(resourceGroupResource, nameof(resourceGroupResource));
+
+            return GetMockableEventGridResourceGroupResource(resourceGroupResource).Update(waitUntil, parentType, parentName, privateEndpointConnectionName, privateEndpointConnection, cancellationToken);
+        }
+
+        /// <summary>
+        /// Delete a specific private endpoint connection under a topic, domain, or partner namespace or namespace.
+        /// <item>
+        /// <term> Mocking. </term>
+        /// <description> To mock this method, please mock <see cref="MockableEventGridResourceGroupResource.DeleteAsync(WaitUntil, PrivateEndpointConnectionsParentType, string, string, CancellationToken)"/> instead. </description>
+        /// </item>
+        /// </summary>
+        /// <param name="resourceGroupResource"> The <see cref="ResourceGroupResource"/> the method will execute against. </param>
+        /// <param name="waitUntil"> <see cref="WaitUntil.Completed"/> if the method should wait to return until the long-running operation has completed on the service; <see cref="WaitUntil.Started"/> if it should return after starting the operation. For more information on long-running operations, please see <see href="https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/core/Azure.Core/samples/LongRunningOperations.md"> Azure.Core Long-Running Operation samples</see>. </param>
+        /// <param name="parentType"> The type of the parent resource. This can be either \\'topics\\', \\'domains\\', or \\'partnerNamespaces\\' or \\'namespaces\\'. </param>
+        /// <param name="parentName"> The name of the parent resource (namely, either, the topic name, domain name, or partner namespace name or namespace name). </param>
+        /// <param name="privateEndpointConnectionName"> The type of the parent resource. This can be either \'topics\', \'domains\', or \'partnerNamespaces\' or \'namespaces\'. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupResource"/> is null. </exception>
+        public static async Task<ArmOperation> DeleteAsync(this ResourceGroupResource resourceGroupResource, WaitUntil waitUntil, PrivateEndpointConnectionsParentType parentType, string parentName, string privateEndpointConnectionName, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNull(resourceGroupResource, nameof(resourceGroupResource));
+
+            return await GetMockableEventGridResourceGroupResource(resourceGroupResource).DeleteAsync(waitUntil, parentType, parentName, privateEndpointConnectionName, cancellationToken).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// Delete a specific private endpoint connection under a topic, domain, or partner namespace or namespace.
+        /// <item>
+        /// <term> Mocking. </term>
+        /// <description> To mock this method, please mock <see cref="MockableEventGridResourceGroupResource.Delete(WaitUntil, PrivateEndpointConnectionsParentType, string, string, CancellationToken)"/> instead. </description>
+        /// </item>
+        /// </summary>
+        /// <param name="resourceGroupResource"> The <see cref="ResourceGroupResource"/> the method will execute against. </param>
+        /// <param name="waitUntil"> <see cref="WaitUntil.Completed"/> if the method should wait to return until the long-running operation has completed on the service; <see cref="WaitUntil.Started"/> if it should return after starting the operation. For more information on long-running operations, please see <see href="https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/core/Azure.Core/samples/LongRunningOperations.md"> Azure.Core Long-Running Operation samples</see>. </param>
+        /// <param name="parentType"> The type of the parent resource. This can be either \\'topics\\', \\'domains\\', or \\'partnerNamespaces\\' or \\'namespaces\\'. </param>
+        /// <param name="parentName"> The name of the parent resource (namely, either, the topic name, domain name, or partner namespace name or namespace name). </param>
+        /// <param name="privateEndpointConnectionName"> The type of the parent resource. This can be either \'topics\', \'domains\', or \'partnerNamespaces\' or \'namespaces\'. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupResource"/> is null. </exception>
+        public static ArmOperation Delete(this ResourceGroupResource resourceGroupResource, WaitUntil waitUntil, PrivateEndpointConnectionsParentType parentType, string parentName, string privateEndpointConnectionName, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNull(resourceGroupResource, nameof(resourceGroupResource));
+
+            return GetMockableEventGridResourceGroupResource(resourceGroupResource).Delete(waitUntil, parentType, parentName, privateEndpointConnectionName, cancellationToken);
         }
 
         /// <summary>
@@ -1505,6 +1487,260 @@ namespace Azure.ResourceManager.EventGrid
             Argument.AssertNotNull(resourceGroupResource, nameof(resourceGroupResource));
 
             return GetMockableEventGridResourceGroupResource(resourceGroupResource).GetEventTypes(providerNamespace, resourceTypeName, resourceName, cancellationToken);
+        }
+
+        /// <summary>
+        /// Get a specific network security perimeter configuration with a topic or domain.
+        /// <item>
+        /// <term> Mocking. </term>
+        /// <description> To mock this method, please mock <see cref="MockableEventGridResourceGroupResource.GetAsync(NetworkSecurityPerimeterResourceType, string, string, string, CancellationToken)"/> instead. </description>
+        /// </item>
+        /// </summary>
+        /// <param name="resourceGroupResource"> The <see cref="ResourceGroupResource"/> the method will execute against. </param>
+        /// <param name="resourceType"> The type of the resource. This can be either \\'topics\\', or \\'domains\\'. </param>
+        /// <param name="resourceName"> The name of the resource group within the user's subscription. </param>
+        /// <param name="perimeterGuid"> Unique identifier for perimeter. </param>
+        /// <param name="associationName"> Association name to association network security perimeter resource to profile. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupResource"/> is null. </exception>
+        public static async Task<Response<NetworkSecurityPerimeterConfiguration>> GetAsync(this ResourceGroupResource resourceGroupResource, NetworkSecurityPerimeterResourceType resourceType, string resourceName, string perimeterGuid, string associationName, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNull(resourceGroupResource, nameof(resourceGroupResource));
+
+            return await GetMockableEventGridResourceGroupResource(resourceGroupResource).GetAsync(resourceType, resourceName, perimeterGuid, associationName, cancellationToken).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// Get a specific network security perimeter configuration with a topic or domain.
+        /// <item>
+        /// <term> Mocking. </term>
+        /// <description> To mock this method, please mock <see cref="MockableEventGridResourceGroupResource.Get(NetworkSecurityPerimeterResourceType, string, string, string, CancellationToken)"/> instead. </description>
+        /// </item>
+        /// </summary>
+        /// <param name="resourceGroupResource"> The <see cref="ResourceGroupResource"/> the method will execute against. </param>
+        /// <param name="resourceType"> The type of the resource. This can be either \\'topics\\', or \\'domains\\'. </param>
+        /// <param name="resourceName"> The name of the resource group within the user's subscription. </param>
+        /// <param name="perimeterGuid"> Unique identifier for perimeter. </param>
+        /// <param name="associationName"> Association name to association network security perimeter resource to profile. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupResource"/> is null. </exception>
+        public static Response<NetworkSecurityPerimeterConfiguration> Get(this ResourceGroupResource resourceGroupResource, NetworkSecurityPerimeterResourceType resourceType, string resourceName, string perimeterGuid, string associationName, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNull(resourceGroupResource, nameof(resourceGroupResource));
+
+            return GetMockableEventGridResourceGroupResource(resourceGroupResource).Get(resourceType, resourceName, perimeterGuid, associationName, cancellationToken);
+        }
+
+        /// <summary>
+        /// Get all network security perimeter configurations associated with a topic or domain.
+        /// <item>
+        /// <term> Mocking. </term>
+        /// <description> To mock this method, please mock <see cref="MockableEventGridResourceGroupResource.GetAllAsync(NetworkSecurityPerimeterResourceType, string, CancellationToken)"/> instead. </description>
+        /// </item>
+        /// </summary>
+        /// <param name="resourceGroupResource"> The <see cref="ResourceGroupResource"/> the method will execute against. </param>
+        /// <param name="resourceType"> The type of the resource. This can be either \\'topics\\', or \\'domains\\'. </param>
+        /// <param name="resourceName"> The name of the resource group within the user's subscription. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupResource"/> is null. </exception>
+        /// <returns> A collection of <see cref="NetworkSecurityPerimeterConfiguration"/> that may take multiple service requests to iterate over. </returns>
+        public static AsyncPageable<NetworkSecurityPerimeterConfiguration> GetAllAsync(this ResourceGroupResource resourceGroupResource, NetworkSecurityPerimeterResourceType resourceType, string resourceName, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNull(resourceGroupResource, nameof(resourceGroupResource));
+
+            return GetMockableEventGridResourceGroupResource(resourceGroupResource).GetAllAsync(resourceType, resourceName, cancellationToken);
+        }
+
+        /// <summary>
+        /// Get all network security perimeter configurations associated with a topic or domain.
+        /// <item>
+        /// <term> Mocking. </term>
+        /// <description> To mock this method, please mock <see cref="MockableEventGridResourceGroupResource.GetAll(NetworkSecurityPerimeterResourceType, string, CancellationToken)"/> instead. </description>
+        /// </item>
+        /// </summary>
+        /// <param name="resourceGroupResource"> The <see cref="ResourceGroupResource"/> the method will execute against. </param>
+        /// <param name="resourceType"> The type of the resource. This can be either \\'topics\\', or \\'domains\\'. </param>
+        /// <param name="resourceName"> The name of the resource group within the user's subscription. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupResource"/> is null. </exception>
+        /// <returns> A collection of <see cref="NetworkSecurityPerimeterConfiguration"/> that may take multiple service requests to iterate over. </returns>
+        public static Pageable<NetworkSecurityPerimeterConfiguration> GetAll(this ResourceGroupResource resourceGroupResource, NetworkSecurityPerimeterResourceType resourceType, string resourceName, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNull(resourceGroupResource, nameof(resourceGroupResource));
+
+            return GetMockableEventGridResourceGroupResource(resourceGroupResource).GetAll(resourceType, resourceName, cancellationToken);
+        }
+
+        /// <summary>
+        /// Reconcile a specific network security perimeter configuration for a given network security perimeter association with a topic or domain.
+        /// <item>
+        /// <term> Mocking. </term>
+        /// <description> To mock this method, please mock <see cref="MockableEventGridResourceGroupResource.ReconcileAsync(WaitUntil, NetworkSecurityPerimeterResourceType, string, string, string, CancellationToken)"/> instead. </description>
+        /// </item>
+        /// </summary>
+        /// <param name="resourceGroupResource"> The <see cref="ResourceGroupResource"/> the method will execute against. </param>
+        /// <param name="waitUntil"> <see cref="WaitUntil.Completed"/> if the method should wait to return until the long-running operation has completed on the service; <see cref="WaitUntil.Started"/> if it should return after starting the operation. For more information on long-running operations, please see <see href="https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/core/Azure.Core/samples/LongRunningOperations.md"> Azure.Core Long-Running Operation samples</see>. </param>
+        /// <param name="resourceType"> The type of the resource. This can be either \\'topics\\', or \\'domains\\'. </param>
+        /// <param name="resourceName"> The name of the resource group within the user's subscription. </param>
+        /// <param name="perimeterGuid"> Unique identifier for perimeter. </param>
+        /// <param name="associationName"> Association name to association network security perimeter resource to profile. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupResource"/> is null. </exception>
+        public static async Task<ArmOperation<NetworkSecurityPerimeterConfiguration>> ReconcileAsync(this ResourceGroupResource resourceGroupResource, WaitUntil waitUntil, NetworkSecurityPerimeterResourceType resourceType, string resourceName, string perimeterGuid, string associationName, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNull(resourceGroupResource, nameof(resourceGroupResource));
+
+            return await GetMockableEventGridResourceGroupResource(resourceGroupResource).ReconcileAsync(waitUntil, resourceType, resourceName, perimeterGuid, associationName, cancellationToken).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// Reconcile a specific network security perimeter configuration for a given network security perimeter association with a topic or domain.
+        /// <item>
+        /// <term> Mocking. </term>
+        /// <description> To mock this method, please mock <see cref="MockableEventGridResourceGroupResource.Reconcile(WaitUntil, NetworkSecurityPerimeterResourceType, string, string, string, CancellationToken)"/> instead. </description>
+        /// </item>
+        /// </summary>
+        /// <param name="resourceGroupResource"> The <see cref="ResourceGroupResource"/> the method will execute against. </param>
+        /// <param name="waitUntil"> <see cref="WaitUntil.Completed"/> if the method should wait to return until the long-running operation has completed on the service; <see cref="WaitUntil.Started"/> if it should return after starting the operation. For more information on long-running operations, please see <see href="https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/core/Azure.Core/samples/LongRunningOperations.md"> Azure.Core Long-Running Operation samples</see>. </param>
+        /// <param name="resourceType"> The type of the resource. This can be either \\'topics\\', or \\'domains\\'. </param>
+        /// <param name="resourceName"> The name of the resource group within the user's subscription. </param>
+        /// <param name="perimeterGuid"> Unique identifier for perimeter. </param>
+        /// <param name="associationName"> Association name to association network security perimeter resource to profile. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupResource"/> is null. </exception>
+        public static ArmOperation<NetworkSecurityPerimeterConfiguration> Reconcile(this ResourceGroupResource resourceGroupResource, WaitUntil waitUntil, NetworkSecurityPerimeterResourceType resourceType, string resourceName, string perimeterGuid, string associationName, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNull(resourceGroupResource, nameof(resourceGroupResource));
+
+            return GetMockableEventGridResourceGroupResource(resourceGroupResource).Reconcile(waitUntil, resourceType, resourceName, perimeterGuid, associationName, cancellationToken);
+        }
+
+        /// <summary>
+        /// Get all private endpoint connections under a topic, domain, or partner namespace or namespace.
+        /// <item>
+        /// <term> Mocking. </term>
+        /// <description> To mock this method, please mock <see cref="MockableEventGridResourceGroupResource.GetByResourceAsync(PrivateEndpointConnectionsParentType, string, string, int?, CancellationToken)"/> instead. </description>
+        /// </item>
+        /// </summary>
+        /// <param name="resourceGroupResource"> The <see cref="ResourceGroupResource"/> the method will execute against. </param>
+        /// <param name="parentType"> The type of the parent resource. This can be either \\'topics\\', \\'domains\\', or \\'partnerNamespaces\\' or \\'namespaces\\'. </param>
+        /// <param name="parentName"> The name of the parent resource (namely, either, the topic name, domain name, or partner namespace name or namespace name). </param>
+        /// <param name="filter"> The query used to filter the search results using OData syntax. Filtering is permitted on the 'name' property only and with limited number of OData operations. These operations are: the 'contains' function as well as the following logical operations: not, and, or, eq (for equal), and ne (for not equal). No arithmetic operations are supported. The following is a valid filter example: $filter=contains(namE, 'PATTERN') and name ne 'PATTERN-1'. The following is not a valid filter example: $filter=location eq 'westus'. </param>
+        /// <param name="top"> The number of results to return per page for the list operation. Valid range for top parameter is 1 to 100. If not specified, the default number of results to be returned is 20 items per page. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupResource"/> is null. </exception>
+        /// <returns> A collection of <see cref="EventGridPrivateEndpointConnection"/> that may take multiple service requests to iterate over. </returns>
+        public static AsyncPageable<EventGridPrivateEndpointConnection> GetByResourceAsync(this ResourceGroupResource resourceGroupResource, PrivateEndpointConnectionsParentType parentType, string parentName, string filter = default, int? top = default, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNull(resourceGroupResource, nameof(resourceGroupResource));
+
+            return GetMockableEventGridResourceGroupResource(resourceGroupResource).GetByResourceAsync(parentType, parentName, filter, top, cancellationToken);
+        }
+
+        /// <summary>
+        /// Get all private endpoint connections under a topic, domain, or partner namespace or namespace.
+        /// <item>
+        /// <term> Mocking. </term>
+        /// <description> To mock this method, please mock <see cref="MockableEventGridResourceGroupResource.GetByResource(PrivateEndpointConnectionsParentType, string, string, int?, CancellationToken)"/> instead. </description>
+        /// </item>
+        /// </summary>
+        /// <param name="resourceGroupResource"> The <see cref="ResourceGroupResource"/> the method will execute against. </param>
+        /// <param name="parentType"> The type of the parent resource. This can be either \\'topics\\', \\'domains\\', or \\'partnerNamespaces\\' or \\'namespaces\\'. </param>
+        /// <param name="parentName"> The name of the parent resource (namely, either, the topic name, domain name, or partner namespace name or namespace name). </param>
+        /// <param name="filter"> The query used to filter the search results using OData syntax. Filtering is permitted on the 'name' property only and with limited number of OData operations. These operations are: the 'contains' function as well as the following logical operations: not, and, or, eq (for equal), and ne (for not equal). No arithmetic operations are supported. The following is a valid filter example: $filter=contains(namE, 'PATTERN') and name ne 'PATTERN-1'. The following is not a valid filter example: $filter=location eq 'westus'. </param>
+        /// <param name="top"> The number of results to return per page for the list operation. Valid range for top parameter is 1 to 100. If not specified, the default number of results to be returned is 20 items per page. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupResource"/> is null. </exception>
+        /// <returns> A collection of <see cref="EventGridPrivateEndpointConnection"/> that may take multiple service requests to iterate over. </returns>
+        public static Pageable<EventGridPrivateEndpointConnection> GetByResource(this ResourceGroupResource resourceGroupResource, PrivateEndpointConnectionsParentType parentType, string parentName, string filter = default, int? top = default, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNull(resourceGroupResource, nameof(resourceGroupResource));
+
+            return GetMockableEventGridResourceGroupResource(resourceGroupResource).GetByResource(parentType, parentName, filter, top, cancellationToken);
+        }
+
+        /// <summary>
+        /// Get properties of a private link resource.
+        /// <item>
+        /// <term> Mocking. </term>
+        /// <description> To mock this method, please mock <see cref="MockableEventGridResourceGroupResource.GetAsync(string, string, string, CancellationToken)"/> instead. </description>
+        /// </item>
+        /// </summary>
+        /// <param name="resourceGroupResource"> The <see cref="ResourceGroupResource"/> the method will execute against. </param>
+        /// <param name="parentType"> The type of the parent resource. This can be either \\'topics\\', \\'domains\\', or \\'partnerNamespaces\\' or \\'namespaces\\'. </param>
+        /// <param name="parentName"> The name of the parent resource (namely, either, the topic name, domain name, or partner namespace name or namespace name). </param>
+        /// <param name="privateLinkResourceName"> The name of private link resource will be either topic, domain, partnerNamespace or namespace. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupResource"/> is null. </exception>
+        public static async Task<Response<EventGridPrivateLinkResource>> GetAsync(this ResourceGroupResource resourceGroupResource, string parentType, string parentName, string privateLinkResourceName, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNull(resourceGroupResource, nameof(resourceGroupResource));
+
+            return await GetMockableEventGridResourceGroupResource(resourceGroupResource).GetAsync(parentType, parentName, privateLinkResourceName, cancellationToken).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// Get properties of a private link resource.
+        /// <item>
+        /// <term> Mocking. </term>
+        /// <description> To mock this method, please mock <see cref="MockableEventGridResourceGroupResource.Get(string, string, string, CancellationToken)"/> instead. </description>
+        /// </item>
+        /// </summary>
+        /// <param name="resourceGroupResource"> The <see cref="ResourceGroupResource"/> the method will execute against. </param>
+        /// <param name="parentType"> The type of the parent resource. This can be either \\'topics\\', \\'domains\\', or \\'partnerNamespaces\\' or \\'namespaces\\'. </param>
+        /// <param name="parentName"> The name of the parent resource (namely, either, the topic name, domain name, or partner namespace name or namespace name). </param>
+        /// <param name="privateLinkResourceName"> The name of private link resource will be either topic, domain, partnerNamespace or namespace. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupResource"/> is null. </exception>
+        public static Response<EventGridPrivateLinkResource> Get(this ResourceGroupResource resourceGroupResource, string parentType, string parentName, string privateLinkResourceName, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNull(resourceGroupResource, nameof(resourceGroupResource));
+
+            return GetMockableEventGridResourceGroupResource(resourceGroupResource).Get(parentType, parentName, privateLinkResourceName, cancellationToken);
+        }
+
+        /// <summary>
+        /// List all the private link resources under a topic, domain, or partner namespace or namespace.
+        /// <item>
+        /// <term> Mocking. </term>
+        /// <description> To mock this method, please mock <see cref="MockableEventGridResourceGroupResource.GetByResourceAsync(string, string, string, int?, CancellationToken)"/> instead. </description>
+        /// </item>
+        /// </summary>
+        /// <param name="resourceGroupResource"> The <see cref="ResourceGroupResource"/> the method will execute against. </param>
+        /// <param name="parentType"> The type of the parent resource. This can be either \\'topics\\', \\'domains\\', or \\'partnerNamespaces\\' or \\'namespaces\\'. </param>
+        /// <param name="parentName"> The name of the parent resource (namely, either, the topic name, domain name, or partner namespace name or namespace name). </param>
+        /// <param name="filter"> The query used to filter the search results using OData syntax. Filtering is permitted on the 'name' property only and with limited number of OData operations. These operations are: the 'contains' function as well as the following logical operations: not, and, or, eq (for equal), and ne (for not equal). No arithmetic operations are supported. The following is a valid filter example: $filter=contains(namE, 'PATTERN') and name ne 'PATTERN-1'. The following is not a valid filter example: $filter=location eq 'westus'. </param>
+        /// <param name="top"> The number of results to return per page for the list operation. Valid range for top parameter is 1 to 100. If not specified, the default number of results to be returned is 20 items per page. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupResource"/> is null. </exception>
+        /// <returns> A collection of <see cref="EventGridPrivateLinkResource"/> that may take multiple service requests to iterate over. </returns>
+        public static AsyncPageable<EventGridPrivateLinkResource> GetByResourceAsync(this ResourceGroupResource resourceGroupResource, string parentType, string parentName, string filter = default, int? top = default, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNull(resourceGroupResource, nameof(resourceGroupResource));
+
+            return GetMockableEventGridResourceGroupResource(resourceGroupResource).GetByResourceAsync(parentType, parentName, filter, top, cancellationToken);
+        }
+
+        /// <summary>
+        /// List all the private link resources under a topic, domain, or partner namespace or namespace.
+        /// <item>
+        /// <term> Mocking. </term>
+        /// <description> To mock this method, please mock <see cref="MockableEventGridResourceGroupResource.GetByResource(string, string, string, int?, CancellationToken)"/> instead. </description>
+        /// </item>
+        /// </summary>
+        /// <param name="resourceGroupResource"> The <see cref="ResourceGroupResource"/> the method will execute against. </param>
+        /// <param name="parentType"> The type of the parent resource. This can be either \\'topics\\', \\'domains\\', or \\'partnerNamespaces\\' or \\'namespaces\\'. </param>
+        /// <param name="parentName"> The name of the parent resource (namely, either, the topic name, domain name, or partner namespace name or namespace name). </param>
+        /// <param name="filter"> The query used to filter the search results using OData syntax. Filtering is permitted on the 'name' property only and with limited number of OData operations. These operations are: the 'contains' function as well as the following logical operations: not, and, or, eq (for equal), and ne (for not equal). No arithmetic operations are supported. The following is a valid filter example: $filter=contains(namE, 'PATTERN') and name ne 'PATTERN-1'. The following is not a valid filter example: $filter=location eq 'westus'. </param>
+        /// <param name="top"> The number of results to return per page for the list operation. Valid range for top parameter is 1 to 100. If not specified, the default number of results to be returned is 20 items per page. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupResource"/> is null. </exception>
+        /// <returns> A collection of <see cref="EventGridPrivateLinkResource"/> that may take multiple service requests to iterate over. </returns>
+        public static Pageable<EventGridPrivateLinkResource> GetByResource(this ResourceGroupResource resourceGroupResource, string parentType, string parentName, string filter = default, int? top = default, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNull(resourceGroupResource, nameof(resourceGroupResource));
+
+            return GetMockableEventGridResourceGroupResource(resourceGroupResource).GetByResource(parentType, parentName, filter, top, cancellationToken);
         }
 
         /// <summary>
@@ -1953,17 +2189,17 @@ namespace Azure.ResourceManager.EventGrid
         /// List all event subscriptions from the given location under a specific Azure subscription.
         /// <item>
         /// <term> Mocking. </term>
-        /// <description> To mock this method, please mock <see cref="MockableEventGridSubscriptionResource.GetRegionalEventSubscriptionsDataAsync(string, string, int?, CancellationToken)"/> instead. </description>
+        /// <description> To mock this method, please mock <see cref="MockableEventGridSubscriptionResource.GetRegionalEventSubscriptionsDataAsync(AzureLocation, string, int?, CancellationToken)"/> instead. </description>
         /// </item>
         /// </summary>
         /// <param name="subscriptionResource"> The <see cref="SubscriptionResource"/> the method will execute against. </param>
-        /// <param name="location"> The location name. </param>
+        /// <param name="location"> The name of the Azure region. </param>
         /// <param name="filter"> The query used to filter the search results using OData syntax. Filtering is permitted on the 'name' property only and with limited number of OData operations. These operations are: the 'contains' function as well as the following logical operations: not, and, or, eq (for equal), and ne (for not equal). No arithmetic operations are supported. The following is a valid filter example: $filter=contains(namE, 'PATTERN') and name ne 'PATTERN-1'. The following is not a valid filter example: $filter=location eq 'westus'. </param>
         /// <param name="top"> The number of results to return per page for the list operation. Valid range for top parameter is 1 to 100. If not specified, the default number of results to be returned is 20 items per page. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="subscriptionResource"/> is null. </exception>
         /// <returns> A collection of <see cref="EventGridSubscriptionData"/> that may take multiple service requests to iterate over. </returns>
-        public static AsyncPageable<EventGridSubscriptionData> GetRegionalEventSubscriptionsDataAsync(this SubscriptionResource subscriptionResource, string location, string filter = default, int? top = default, CancellationToken cancellationToken = default)
+        public static AsyncPageable<EventGridSubscriptionData> GetRegionalEventSubscriptionsDataAsync(this SubscriptionResource subscriptionResource, AzureLocation location, string filter = default, int? top = default, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNull(subscriptionResource, nameof(subscriptionResource));
 
@@ -1974,17 +2210,17 @@ namespace Azure.ResourceManager.EventGrid
         /// List all event subscriptions from the given location under a specific Azure subscription.
         /// <item>
         /// <term> Mocking. </term>
-        /// <description> To mock this method, please mock <see cref="MockableEventGridSubscriptionResource.GetRegionalEventSubscriptionsData(string, string, int?, CancellationToken)"/> instead. </description>
+        /// <description> To mock this method, please mock <see cref="MockableEventGridSubscriptionResource.GetRegionalEventSubscriptionsData(AzureLocation, string, int?, CancellationToken)"/> instead. </description>
         /// </item>
         /// </summary>
         /// <param name="subscriptionResource"> The <see cref="SubscriptionResource"/> the method will execute against. </param>
-        /// <param name="location"> The location name. </param>
+        /// <param name="location"> The name of the Azure region. </param>
         /// <param name="filter"> The query used to filter the search results using OData syntax. Filtering is permitted on the 'name' property only and with limited number of OData operations. These operations are: the 'contains' function as well as the following logical operations: not, and, or, eq (for equal), and ne (for not equal). No arithmetic operations are supported. The following is a valid filter example: $filter=contains(namE, 'PATTERN') and name ne 'PATTERN-1'. The following is not a valid filter example: $filter=location eq 'westus'. </param>
         /// <param name="top"> The number of results to return per page for the list operation. Valid range for top parameter is 1 to 100. If not specified, the default number of results to be returned is 20 items per page. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="subscriptionResource"/> is null. </exception>
         /// <returns> A collection of <see cref="EventGridSubscriptionData"/> that may take multiple service requests to iterate over. </returns>
-        public static Pageable<EventGridSubscriptionData> GetRegionalEventSubscriptionsData(this SubscriptionResource subscriptionResource, string location, string filter = default, int? top = default, CancellationToken cancellationToken = default)
+        public static Pageable<EventGridSubscriptionData> GetRegionalEventSubscriptionsData(this SubscriptionResource subscriptionResource, AzureLocation location, string filter = default, int? top = default, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNull(subscriptionResource, nameof(subscriptionResource));
 
@@ -1995,18 +2231,18 @@ namespace Azure.ResourceManager.EventGrid
         /// List all event subscriptions from the given location under a specific Azure subscription and topic type.
         /// <item>
         /// <term> Mocking. </term>
-        /// <description> To mock this method, please mock <see cref="MockableEventGridSubscriptionResource.GetRegionalEventSubscriptionsDataForTopicTypeAsync(string, string, string, int?, CancellationToken)"/> instead. </description>
+        /// <description> To mock this method, please mock <see cref="MockableEventGridSubscriptionResource.GetRegionalEventSubscriptionsDataForTopicTypeAsync(AzureLocation, string, string, int?, CancellationToken)"/> instead. </description>
         /// </item>
         /// </summary>
         /// <param name="subscriptionResource"> The <see cref="SubscriptionResource"/> the method will execute against. </param>
-        /// <param name="location"> The location name. </param>
+        /// <param name="location"> The name of the Azure region. </param>
         /// <param name="topicTypeName"> Name of the topic type. </param>
         /// <param name="filter"> The query used to filter the search results using OData syntax. Filtering is permitted on the 'name' property only and with limited number of OData operations. These operations are: the 'contains' function as well as the following logical operations: not, and, or, eq (for equal), and ne (for not equal). No arithmetic operations are supported. The following is a valid filter example: $filter=contains(namE, 'PATTERN') and name ne 'PATTERN-1'. The following is not a valid filter example: $filter=location eq 'westus'. </param>
         /// <param name="top"> The number of results to return per page for the list operation. Valid range for top parameter is 1 to 100. If not specified, the default number of results to be returned is 20 items per page. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="subscriptionResource"/> is null. </exception>
         /// <returns> A collection of <see cref="EventGridSubscriptionData"/> that may take multiple service requests to iterate over. </returns>
-        public static AsyncPageable<EventGridSubscriptionData> GetRegionalEventSubscriptionsDataForTopicTypeAsync(this SubscriptionResource subscriptionResource, string location, string topicTypeName, string filter = default, int? top = default, CancellationToken cancellationToken = default)
+        public static AsyncPageable<EventGridSubscriptionData> GetRegionalEventSubscriptionsDataForTopicTypeAsync(this SubscriptionResource subscriptionResource, AzureLocation location, string topicTypeName, string filter = default, int? top = default, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNull(subscriptionResource, nameof(subscriptionResource));
 
@@ -2017,18 +2253,18 @@ namespace Azure.ResourceManager.EventGrid
         /// List all event subscriptions from the given location under a specific Azure subscription and topic type.
         /// <item>
         /// <term> Mocking. </term>
-        /// <description> To mock this method, please mock <see cref="MockableEventGridSubscriptionResource.GetRegionalEventSubscriptionsDataForTopicType(string, string, string, int?, CancellationToken)"/> instead. </description>
+        /// <description> To mock this method, please mock <see cref="MockableEventGridSubscriptionResource.GetRegionalEventSubscriptionsDataForTopicType(AzureLocation, string, string, int?, CancellationToken)"/> instead. </description>
         /// </item>
         /// </summary>
         /// <param name="subscriptionResource"> The <see cref="SubscriptionResource"/> the method will execute against. </param>
-        /// <param name="location"> The location name. </param>
+        /// <param name="location"> The name of the Azure region. </param>
         /// <param name="topicTypeName"> Name of the topic type. </param>
         /// <param name="filter"> The query used to filter the search results using OData syntax. Filtering is permitted on the 'name' property only and with limited number of OData operations. These operations are: the 'contains' function as well as the following logical operations: not, and, or, eq (for equal), and ne (for not equal). No arithmetic operations are supported. The following is a valid filter example: $filter=contains(namE, 'PATTERN') and name ne 'PATTERN-1'. The following is not a valid filter example: $filter=location eq 'westus'. </param>
         /// <param name="top"> The number of results to return per page for the list operation. Valid range for top parameter is 1 to 100. If not specified, the default number of results to be returned is 20 items per page. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="subscriptionResource"/> is null. </exception>
         /// <returns> A collection of <see cref="EventGridSubscriptionData"/> that may take multiple service requests to iterate over. </returns>
-        public static Pageable<EventGridSubscriptionData> GetRegionalEventSubscriptionsDataForTopicType(this SubscriptionResource subscriptionResource, string location, string topicTypeName, string filter = default, int? top = default, CancellationToken cancellationToken = default)
+        public static Pageable<EventGridSubscriptionData> GetRegionalEventSubscriptionsDataForTopicType(this SubscriptionResource subscriptionResource, AzureLocation location, string topicTypeName, string filter = default, int? top = default, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNull(subscriptionResource, nameof(subscriptionResource));
 

@@ -107,7 +107,7 @@ namespace Azure.ResourceManager.EventGrid.Models
                 return null;
             }
             string name = default;
-            DeliveryAttributeMappingType @type = default;
+            DeliveryAttributeMappingType mappingType = default;
             IDictionary<string, BinaryData> additionalBinaryDataProperties = new ChangeTrackingDictionary<string, BinaryData>();
             foreach (var prop in element.EnumerateObject())
             {
@@ -118,7 +118,7 @@ namespace Azure.ResourceManager.EventGrid.Models
                 }
                 if (prop.NameEquals("type"u8))
                 {
-                    @type = new DeliveryAttributeMappingType(prop.Value.GetString());
+                    mappingType = new DeliveryAttributeMappingType(prop.Value.GetString());
                     continue;
                 }
                 if (options.Format != "W")
@@ -126,7 +126,7 @@ namespace Azure.ResourceManager.EventGrid.Models
                     additionalBinaryDataProperties.Add(prop.Name, BinaryData.FromString(prop.Value.GetRawText()));
                 }
             }
-            return new UnknownDeliveryAttributeMapping(name, @type, additionalBinaryDataProperties);
+            return new UnknownDeliveryAttributeMapping(name, mappingType, additionalBinaryDataProperties);
         }
     }
 }

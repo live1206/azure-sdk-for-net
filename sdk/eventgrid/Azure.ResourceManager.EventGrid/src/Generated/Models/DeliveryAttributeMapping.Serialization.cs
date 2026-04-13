@@ -19,11 +19,6 @@ namespace Azure.ResourceManager.EventGrid.Models
     [PersistableModelProxy(typeof(UnknownDeliveryAttributeMapping))]
     public abstract partial class DeliveryAttributeMapping : IJsonModel<DeliveryAttributeMapping>
     {
-        /// <summary> Initializes a new instance of <see cref="DeliveryAttributeMapping"/> for deserialization. </summary>
-        internal DeliveryAttributeMapping()
-        {
-        }
-
         /// <param name="data"> The data to parse. </param>
         /// <param name="options"> The client options for reading and writing models. </param>
         protected virtual DeliveryAttributeMapping PersistableModelCreateCore(BinaryData data, ModelReaderWriterOptions options)
@@ -88,7 +83,7 @@ namespace Azure.ResourceManager.EventGrid.Models
                 writer.WriteStringValue(Name);
             }
             writer.WritePropertyName("type"u8);
-            writer.WriteStringValue(Type.ToString());
+            writer.WriteStringValue(MappingType.ToString());
             if (options.Format != "W" && _additionalBinaryDataProperties != null)
             {
                 foreach (var item in _additionalBinaryDataProperties)

@@ -20,7 +20,7 @@ namespace Azure.ResourceManager.EventGrid
         private protected readonly IDictionary<string, BinaryData> _additionalBinaryDataProperties;
 
         /// <summary> Initializes a new instance of <see cref="VerifiedPartnerData"/>. </summary>
-        internal VerifiedPartnerData()
+        public VerifiedPartnerData()
         {
         }
 
@@ -39,7 +39,7 @@ namespace Azure.ResourceManager.EventGrid
 
         /// <summary> Properties of the verified partner. </summary>
         [WirePath("properties")]
-        internal VerifiedPartnerProperties Properties { get; }
+        internal VerifiedPartnerProperties Properties { get; set; }
 
         /// <summary> ImmutableId of the corresponding partner registration. </summary>
         [WirePath("properties.partnerRegistrationImmutableId")]
@@ -47,7 +47,15 @@ namespace Azure.ResourceManager.EventGrid
         {
             get
             {
-                return Properties.PartnerRegistrationImmutableId;
+                return Properties is null ? default : Properties.PartnerRegistrationImmutableId;
+            }
+            set
+            {
+                if (Properties is null)
+                {
+                    Properties = new VerifiedPartnerProperties();
+                }
+                Properties.PartnerRegistrationImmutableId = value.Value;
             }
         }
 
@@ -57,7 +65,15 @@ namespace Azure.ResourceManager.EventGrid
         {
             get
             {
-                return Properties.OrganizationName;
+                return Properties is null ? default : Properties.OrganizationName;
+            }
+            set
+            {
+                if (Properties is null)
+                {
+                    Properties = new VerifiedPartnerProperties();
+                }
+                Properties.OrganizationName = value;
             }
         }
 
@@ -67,7 +83,15 @@ namespace Azure.ResourceManager.EventGrid
         {
             get
             {
-                return Properties.PartnerDisplayName;
+                return Properties is null ? default : Properties.PartnerDisplayName;
+            }
+            set
+            {
+                if (Properties is null)
+                {
+                    Properties = new VerifiedPartnerProperties();
+                }
+                Properties.PartnerDisplayName = value;
             }
         }
 
@@ -77,7 +101,15 @@ namespace Azure.ResourceManager.EventGrid
         {
             get
             {
-                return Properties.PartnerTopicDetails;
+                return Properties is null ? default : Properties.PartnerTopicDetails;
+            }
+            set
+            {
+                if (Properties is null)
+                {
+                    Properties = new VerifiedPartnerProperties();
+                }
+                Properties.PartnerTopicDetails = value;
             }
         }
 
@@ -87,7 +119,15 @@ namespace Azure.ResourceManager.EventGrid
         {
             get
             {
-                return Properties.PartnerDestinationDetails;
+                return Properties is null ? default : Properties.PartnerDestinationDetails;
+            }
+            set
+            {
+                if (Properties is null)
+                {
+                    Properties = new VerifiedPartnerProperties();
+                }
+                Properties.PartnerDestinationDetails = value;
             }
         }
 
@@ -97,7 +137,15 @@ namespace Azure.ResourceManager.EventGrid
         {
             get
             {
-                return Properties.ProvisioningState;
+                return Properties is null ? default : Properties.ProvisioningState;
+            }
+            set
+            {
+                if (Properties is null)
+                {
+                    Properties = new VerifiedPartnerProperties();
+                }
+                Properties.ProvisioningState = value.Value;
             }
         }
     }

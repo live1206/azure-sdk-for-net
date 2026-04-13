@@ -228,24 +228,6 @@ namespace Azure.ResourceManager.EventGrid.Mocking
             return new PartnerTopicResource(Client, id);
         }
 
-        /// <summary> Gets an object representing a <see cref="DomainNetworkSecurityPerimeterConfigurationResource"/> along with the instance operations that can be performed on it but with no data. </summary>
-        /// <param name="id"> The resource ID of the resource to get. </param>
-        /// <returns> Returns a <see cref="DomainNetworkSecurityPerimeterConfigurationResource"/> object. </returns>
-        public virtual DomainNetworkSecurityPerimeterConfigurationResource GetDomainNetworkSecurityPerimeterConfigurationResource(ResourceIdentifier id)
-        {
-            DomainNetworkSecurityPerimeterConfigurationResource.ValidateResourceId(id);
-            return new DomainNetworkSecurityPerimeterConfigurationResource(Client, id);
-        }
-
-        /// <summary> Gets an object representing a <see cref="TopicNetworkSecurityPerimeterConfigurationResource"/> along with the instance operations that can be performed on it but with no data. </summary>
-        /// <param name="id"> The resource ID of the resource to get. </param>
-        /// <returns> Returns a <see cref="TopicNetworkSecurityPerimeterConfigurationResource"/> object. </returns>
-        public virtual TopicNetworkSecurityPerimeterConfigurationResource GetTopicNetworkSecurityPerimeterConfigurationResource(ResourceIdentifier id)
-        {
-            TopicNetworkSecurityPerimeterConfigurationResource.ValidateResourceId(id);
-            return new TopicNetworkSecurityPerimeterConfigurationResource(Client, id);
-        }
-
         /// <summary> Gets an object representing a <see cref="EventGridNamespacePermissionBindingResource"/> along with the instance operations that can be performed on it but with no data. </summary>
         /// <param name="id"> The resource ID of the resource to get. </param>
         /// <returns> Returns a <see cref="EventGridNamespacePermissionBindingResource"/> object. </returns>
@@ -253,60 +235,6 @@ namespace Azure.ResourceManager.EventGrid.Mocking
         {
             EventGridNamespacePermissionBindingResource.ValidateResourceId(id);
             return new EventGridNamespacePermissionBindingResource(Client, id);
-        }
-
-        /// <summary> Gets an object representing a <see cref="EventGridPrivateEndpointConnectionResource"/> along with the instance operations that can be performed on it but with no data. </summary>
-        /// <param name="id"> The resource ID of the resource to get. </param>
-        /// <returns> Returns a <see cref="EventGridPrivateEndpointConnectionResource"/> object. </returns>
-        public virtual EventGridPrivateEndpointConnectionResource GetEventGridPrivateEndpointConnectionResource(ResourceIdentifier id)
-        {
-            EventGridPrivateEndpointConnectionResource.ValidateResourceId(id);
-            return new EventGridPrivateEndpointConnectionResource(Client, id);
-        }
-
-        /// <summary> Gets an object representing a <see cref="EventGridTopicPrivateEndpointConnectionResource"/> along with the instance operations that can be performed on it but with no data. </summary>
-        /// <param name="id"> The resource ID of the resource to get. </param>
-        /// <returns> Returns a <see cref="EventGridTopicPrivateEndpointConnectionResource"/> object. </returns>
-        public virtual EventGridTopicPrivateEndpointConnectionResource GetEventGridTopicPrivateEndpointConnectionResource(ResourceIdentifier id)
-        {
-            EventGridTopicPrivateEndpointConnectionResource.ValidateResourceId(id);
-            return new EventGridTopicPrivateEndpointConnectionResource(Client, id);
-        }
-
-        /// <summary> Gets an object representing a <see cref="EventGridPartnerNamespacePrivateEndpointConnectionResource"/> along with the instance operations that can be performed on it but with no data. </summary>
-        /// <param name="id"> The resource ID of the resource to get. </param>
-        /// <returns> Returns a <see cref="EventGridPartnerNamespacePrivateEndpointConnectionResource"/> object. </returns>
-        public virtual EventGridPartnerNamespacePrivateEndpointConnectionResource GetEventGridPartnerNamespacePrivateEndpointConnectionResource(ResourceIdentifier id)
-        {
-            EventGridPartnerNamespacePrivateEndpointConnectionResource.ValidateResourceId(id);
-            return new EventGridPartnerNamespacePrivateEndpointConnectionResource(Client, id);
-        }
-
-        /// <summary> Gets an object representing a <see cref="EventGridDomainPrivateLinkResource"/> along with the instance operations that can be performed on it but with no data. </summary>
-        /// <param name="id"> The resource ID of the resource to get. </param>
-        /// <returns> Returns a <see cref="EventGridDomainPrivateLinkResource"/> object. </returns>
-        public virtual EventGridDomainPrivateLinkResource GetEventGridDomainPrivateLinkResource(ResourceIdentifier id)
-        {
-            EventGridDomainPrivateLinkResource.ValidateResourceId(id);
-            return new EventGridDomainPrivateLinkResource(Client, id);
-        }
-
-        /// <summary> Gets an object representing a <see cref="EventGridTopicPrivateLinkResource"/> along with the instance operations that can be performed on it but with no data. </summary>
-        /// <param name="id"> The resource ID of the resource to get. </param>
-        /// <returns> Returns a <see cref="EventGridTopicPrivateLinkResource"/> object. </returns>
-        public virtual EventGridTopicPrivateLinkResource GetEventGridTopicPrivateLinkResource(ResourceIdentifier id)
-        {
-            EventGridTopicPrivateLinkResource.ValidateResourceId(id);
-            return new EventGridTopicPrivateLinkResource(Client, id);
-        }
-
-        /// <summary> Gets an object representing a <see cref="PartnerNamespacePrivateLinkResource"/> along with the instance operations that can be performed on it but with no data. </summary>
-        /// <param name="id"> The resource ID of the resource to get. </param>
-        /// <returns> Returns a <see cref="PartnerNamespacePrivateLinkResource"/> object. </returns>
-        public virtual PartnerNamespacePrivateLinkResource GetPartnerNamespacePrivateLinkResource(ResourceIdentifier id)
-        {
-            PartnerNamespacePrivateLinkResource.ValidateResourceId(id);
-            return new PartnerNamespacePrivateLinkResource(Client, id);
         }
 
         /// <summary> Gets an object representing a <see cref="SystemTopicResource"/> along with the instance operations that can be performed on it but with no data. </summary>

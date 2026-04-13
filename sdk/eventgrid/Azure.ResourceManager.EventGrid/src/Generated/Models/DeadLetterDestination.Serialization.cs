@@ -19,11 +19,6 @@ namespace Azure.ResourceManager.EventGrid.Models
     [PersistableModelProxy(typeof(UnknownDeadLetterDestination))]
     public abstract partial class DeadLetterDestination : IJsonModel<DeadLetterDestination>
     {
-        /// <summary> Initializes a new instance of <see cref="DeadLetterDestination"/> for deserialization. </summary>
-        internal DeadLetterDestination()
-        {
-        }
-
         /// <param name="data"> The data to parse. </param>
         /// <param name="options"> The client options for reading and writing models. </param>
         protected virtual DeadLetterDestination PersistableModelCreateCore(BinaryData data, ModelReaderWriterOptions options)

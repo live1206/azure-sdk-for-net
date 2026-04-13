@@ -47,6 +47,78 @@ namespace Azure.ResourceManager.EventGrid.Models
                     null));
         }
 
+        /// <param name="id"> Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}. </param>
+        /// <param name="name"> The name of the resource. </param>
+        /// <param name="resourceType"> The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts". </param>
+        /// <param name="systemData"> Azure Resource Manager metadata containing createdBy and modifiedBy information. </param>
+        /// <param name="tags"> Resource tags. </param>
+        /// <param name="location"> The geo-location where the resource lives. </param>
+        /// <param name="privateEndpointConnections"> List of private endpoint connections. </param>
+        /// <param name="provisioningState"> Provisioning state of the namespace resource. </param>
+        /// <param name="topicsConfiguration"> Topics configuration information for the namespace resource. </param>
+        /// <param name="topicSpacesConfiguration"> Topic spaces configuration information for the namespace resource. </param>
+        /// <param name="isZoneRedundant">
+        /// This is an optional property and it allows the user to specify if the namespace resource supports zone-redundancy capability or not. If this
+        /// property is not specified explicitly by the user, its default value depends on the following conditions:
+        /// a. For Availability Zones enabled regions - The default property value would be true.
+        /// b. For non-Availability Zones enabled regions - The default property value would be false.
+        /// Once specified, this property cannot be updated.
+        /// </param>
+        /// <param name="publicNetworkAccess">
+        /// This determines if traffic is allowed over public network. By default it is enabled.
+        /// You can further restrict to specific IPs by configuring &lt;seealso cref="P:Microsoft.Azure.Events.ResourceProvider.Common.Contracts.PubSub.NamespaceProperties.InboundIpRules" /&gt;
+        /// </param>
+        /// <param name="inboundIPRules"> This can be used to restrict traffic from specific IPs instead of all IPs. Note: These are considered only if PublicNetworkAccess is enabled. </param>
+        /// <param name="minimumTlsVersionAllowed"> Minimum TLS version of the publisher allowed to publish to this namespace. Only TLS version 1.2 is supported. </param>
+        /// <param name="sku"> Represents available Sku pricing tiers. </param>
+        /// <param name="identity"> Identity information for the Namespace resource. </param>
+        /// <returns> A new <see cref="EventGrid.EventGridNamespaceData"/> instance for mocking. </returns>
+        public static EventGridNamespaceData EventGridNamespaceData(ResourceIdentifier id = default, string name = default, ResourceType resourceType = default, SystemData systemData = default, IDictionary<string, string> tags = default, AzureLocation location = default, IEnumerable<EventGridPrivateEndpointConnection> privateEndpointConnections = default, NamespaceProvisioningState? provisioningState = default, TopicsConfiguration topicsConfiguration = default, TopicSpacesConfiguration topicSpacesConfiguration = default, bool? isZoneRedundant = default, EventGridPublicNetworkAccess? publicNetworkAccess = default, IEnumerable<EventGridInboundIPRule> inboundIPRules = default, TlsVersion? minimumTlsVersionAllowed = default, NamespaceSku sku = default, ManagedServiceIdentity identity = default)
+        {
+            tags ??= new ChangeTrackingDictionary<string, string>();
+
+            return new EventGridNamespaceData(
+                id,
+                name,
+                resourceType,
+                systemData,
+                additionalBinaryDataProperties: null,
+                tags,
+                location,
+                privateEndpointConnections is null && provisioningState is null && topicsConfiguration is null && topicSpacesConfiguration is null && isZoneRedundant is null && publicNetworkAccess is null && inboundIPRules is null && minimumTlsVersionAllowed is null ? default : new NamespaceProperties(
+                    (privateEndpointConnections ?? new ChangeTrackingList<EventGridPrivateEndpointConnection>()).ToList(),
+                    provisioningState,
+                    topicsConfiguration,
+                    topicSpacesConfiguration,
+                    isZoneRedundant,
+                    publicNetworkAccess,
+                    (inboundIPRules ?? new ChangeTrackingList<EventGridInboundIPRule>()).ToList(),
+                    minimumTlsVersionAllowed,
+                    null),
+                sku,
+                identity);
+        }
+
+        /// <param name="id"> Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}. </param>
+        /// <param name="name"> The name of the resource. </param>
+        /// <param name="resourceType"> The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts". </param>
+        /// <param name="systemData"> Azure Resource Manager metadata containing createdBy and modifiedBy information. </param>
+        /// <param name="groupIds"> GroupIds from the private link service resource. </param>
+        /// <param name="connectionState"> Details about the state of the connection. </param>
+        /// <param name="provisioningState"> Provisioning state of the Private Endpoint Connection. </param>
+        /// <param name="privateEndpointId"> The ARM identifier for Private Endpoint. </param>
+        /// <returns> A new <see cref="Models.EventGridPrivateEndpointConnection"/> instance for mocking. </returns>
+        public static EventGridPrivateEndpointConnection EventGridPrivateEndpointConnection(ResourceIdentifier id = default, string name = default, ResourceType resourceType = default, SystemData systemData = default, IEnumerable<string> groupIds = default, EventGridPrivateEndpointConnectionState connectionState = default, EventGridResourceProvisioningState? provisioningState = default, ResourceIdentifier privateEndpointId = default)
+        {
+            return new EventGridPrivateEndpointConnection(
+                id,
+                name,
+                resourceType,
+                systemData,
+                additionalBinaryDataProperties: null,
+                groupIds is null && connectionState is null && provisioningState is null && privateEndpointId is null ? default : new PrivateEndpointConnectionProperties(new PrivateEndpoint(privateEndpointId, null), (groupIds ?? new ChangeTrackingList<string>()).ToList(), connectionState, provisioningState, null));
+        }
+
         /// <summary> Properties of the Topics Configuration. </summary>
         /// <param name="hostname"> The hostname for the topics configuration. This is a read-only property. </param>
         /// <param name="customDomains"> List of custom domain configurations for the namespace. </param>
@@ -355,7 +427,7 @@ namespace Azure.ResourceManager.EventGrid.Models
         /// or use the channel name in the header when matching to the partner topic. If none is specified, source attribute routing will be used to match the partner topic.
         /// </param>
         /// <returns> A new <see cref="EventGrid.PartnerNamespaceData"/> instance for mocking. </returns>
-        public static PartnerNamespaceData PartnerNamespaceData(ResourceIdentifier id = default, string name = default, ResourceType resourceType = default, SystemData systemData = default, IDictionary<string, string> tags = default, AzureLocation location = default, IEnumerable<EventGridPrivateEndpointConnectionData> privateEndpointConnections = default, PartnerNamespaceProvisioningState? provisioningState = default, ResourceIdentifier partnerRegistrationFullyQualifiedId = default, TlsVersion? minimumTlsVersionAllowed = default, Uri endpoint = default, EventGridPublicNetworkAccess? publicNetworkAccess = default, IEnumerable<EventGridInboundIPRule> inboundIPRules = default, bool? isLocalAuthDisabled = default, PartnerTopicRoutingMode? partnerTopicRoutingMode = default)
+        public static PartnerNamespaceData PartnerNamespaceData(ResourceIdentifier id = default, string name = default, ResourceType resourceType = default, SystemData systemData = default, IDictionary<string, string> tags = default, AzureLocation location = default, IEnumerable<EventGridPrivateEndpointConnection> privateEndpointConnections = default, PartnerNamespaceProvisioningState? provisioningState = default, ResourceIdentifier partnerRegistrationFullyQualifiedId = default, TlsVersion? minimumTlsVersionAllowed = default, Uri endpoint = default, EventGridPublicNetworkAccess? publicNetworkAccess = default, IEnumerable<EventGridInboundIPRule> inboundIPRules = default, bool? isLocalAuthDisabled = default, PartnerTopicRoutingMode? partnerTopicRoutingMode = default)
         {
             tags ??= new ChangeTrackingDictionary<string, string>();
 
@@ -368,7 +440,7 @@ namespace Azure.ResourceManager.EventGrid.Models
                 tags,
                 location,
                 privateEndpointConnections is null && provisioningState is null && partnerRegistrationFullyQualifiedId is null && minimumTlsVersionAllowed is null && endpoint is null && publicNetworkAccess is null && inboundIPRules is null && isLocalAuthDisabled is null && partnerTopicRoutingMode is null ? default : new PartnerNamespaceProperties(
-                    (privateEndpointConnections ?? new ChangeTrackingList<EventGridPrivateEndpointConnectionData>()).ToList(),
+                    (privateEndpointConnections ?? new ChangeTrackingList<EventGridPrivateEndpointConnection>()).ToList(),
                     provisioningState,
                     partnerRegistrationFullyQualifiedId,
                     minimumTlsVersionAllowed,
@@ -524,7 +596,7 @@ namespace Azure.ResourceManager.EventGrid.Models
         /// <param name="skuName"> The Sku name of the resource. The possible values are: Basic or Premium. </param>
         /// <param name="identity"> Identity information for the Event Grid Domain resource. </param>
         /// <returns> A new <see cref="EventGrid.EventGridDomainData"/> instance for mocking. </returns>
-        public static EventGridDomainData EventGridDomainData(ResourceIdentifier id = default, string name = default, ResourceType resourceType = default, SystemData systemData = default, IDictionary<string, string> tags = default, AzureLocation location = default, IEnumerable<EventGridPrivateEndpointConnectionData> privateEndpointConnections = default, EventGridDomainProvisioningState? provisioningState = default, TlsVersion? minimumTlsVersionAllowed = default, Uri endpoint = default, EventGridInputSchema? inputSchema = default, PartnerTopicEventTypeInfo eventTypeInfo = default, EventGridInputSchemaMapping inputSchemaMapping = default, string metricResourceId = default, EventGridPublicNetworkAccess? publicNetworkAccess = default, IEnumerable<EventGridInboundIPRule> inboundIPRules = default, bool? isLocalAuthDisabled = default, bool? autoCreateTopicWithFirstSubscription = default, bool? autoDeleteTopicWithLastSubscription = default, DataResidencyBoundary? dataResidencyBoundary = default, EventGridSku? skuName = default, ManagedServiceIdentity identity = default)
+        public static EventGridDomainData EventGridDomainData(ResourceIdentifier id = default, string name = default, ResourceType resourceType = default, SystemData systemData = default, IDictionary<string, string> tags = default, AzureLocation location = default, IEnumerable<EventGridPrivateEndpointConnection> privateEndpointConnections = default, EventGridDomainProvisioningState? provisioningState = default, TlsVersion? minimumTlsVersionAllowed = default, Uri endpoint = default, EventGridInputSchema? inputSchema = default, PartnerTopicEventTypeInfo eventTypeInfo = default, EventGridInputSchemaMapping inputSchemaMapping = default, string metricResourceId = default, EventGridPublicNetworkAccess? publicNetworkAccess = default, IEnumerable<EventGridInboundIPRule> inboundIPRules = default, bool? isLocalAuthDisabled = default, bool? autoCreateTopicWithFirstSubscription = default, bool? autoDeleteTopicWithLastSubscription = default, DataResidencyBoundary? dataResidencyBoundary = default, EventGridSku? skuName = default, ManagedServiceIdentity identity = default)
         {
             tags ??= new ChangeTrackingDictionary<string, string>();
 
@@ -537,7 +609,7 @@ namespace Azure.ResourceManager.EventGrid.Models
                 tags,
                 location,
                 privateEndpointConnections is null && provisioningState is null && minimumTlsVersionAllowed is null && endpoint is null && inputSchema is null && eventTypeInfo is null && inputSchemaMapping is null && metricResourceId is null && publicNetworkAccess is null && inboundIPRules is null && isLocalAuthDisabled is null && autoCreateTopicWithFirstSubscription is null && autoDeleteTopicWithLastSubscription is null && dataResidencyBoundary is null ? default : new DomainProperties(
-                    (privateEndpointConnections ?? new ChangeTrackingList<EventGridPrivateEndpointConnectionData>()).ToList(),
+                    (privateEndpointConnections ?? new ChangeTrackingList<EventGridPrivateEndpointConnection>()).ToList(),
                     provisioningState,
                     minimumTlsVersionAllowed,
                     endpoint,
@@ -933,30 +1005,6 @@ namespace Azure.ResourceManager.EventGrid.Models
             return new TopicRegenerateKeyContent(keyName, additionalBinaryDataProperties: null);
         }
 
-        /// <param name="id"> Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}. </param>
-        /// <param name="name"> The name of the resource. </param>
-        /// <param name="resourceType"> The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts". </param>
-        /// <param name="systemData"> Azure Resource Manager metadata containing createdBy and modifiedBy information. </param>
-        /// <param name="partnerAuthorization"> The details of authorized partners. </param>
-        /// <param name="provisioningState"> Provisioning state of the partner configuration. </param>
-        /// <param name="tags"> Resource tags. </param>
-        /// <param name="location"> The geo-location where the resource lives. </param>
-        /// <returns> A new <see cref="EventGrid.PartnerConfigurationData"/> instance for mocking. </returns>
-        public static PartnerConfigurationData PartnerConfigurationData(ResourceIdentifier id = default, string name = default, ResourceType resourceType = default, SystemData systemData = default, PartnerAuthorization partnerAuthorization = default, PartnerConfigurationProvisioningState? provisioningState = default, IDictionary<string, string> tags = default, string location = default)
-        {
-            tags ??= new ChangeTrackingDictionary<string, string>();
-
-            return new PartnerConfigurationData(
-                id,
-                name,
-                resourceType,
-                systemData,
-                additionalBinaryDataProperties: null,
-                partnerAuthorization is null && provisioningState is null ? default : new PartnerConfigurationProperties(partnerAuthorization, provisioningState, null),
-                tags,
-                location);
-        }
-
         /// <summary> The partner authorization details. </summary>
         /// <param name="defaultMaximumExpirationTimeInDays">
         /// Time used to validate the authorization expiration time for each authorized partner. If DefaultMaximumExpirationTimeInDays is
@@ -1088,10 +1136,10 @@ namespace Azure.ResourceManager.EventGrid.Models
         /// <param name="networkSecurityPerimeter"> Perimeter info for nsp association. </param>
         /// <param name="resourceAssociation"> Nsp association name and access mode of association. </param>
         /// <param name="profile"> Nsp profile configuration, access rules and diagnostic settings. </param>
-        /// <returns> A new <see cref="EventGrid.DomainNetworkSecurityPerimeterConfigurationData"/> instance for mocking. </returns>
-        public static DomainNetworkSecurityPerimeterConfigurationData DomainNetworkSecurityPerimeterConfigurationData(ResourceIdentifier id = default, string name = default, ResourceType resourceType = default, SystemData systemData = default, NetworkSecurityPerimeterConfigProvisioningState? provisioningState = default, IEnumerable<NetworkSecurityPerimeterConfigurationIssues> provisioningIssues = default, NetworkSecurityPerimeterInfo networkSecurityPerimeter = default, ResourceAssociation resourceAssociation = default, NetworkSecurityPerimeterConfigurationProfile profile = default)
+        /// <returns> A new <see cref="Models.NetworkSecurityPerimeterConfiguration"/> instance for mocking. </returns>
+        public static NetworkSecurityPerimeterConfiguration NetworkSecurityPerimeterConfiguration(ResourceIdentifier id = default, string name = default, ResourceType resourceType = default, SystemData systemData = default, NetworkSecurityPerimeterConfigProvisioningState? provisioningState = default, IEnumerable<NetworkSecurityPerimeterConfigurationIssues> provisioningIssues = default, NetworkSecurityPerimeterInfo networkSecurityPerimeter = default, ResourceAssociation resourceAssociation = default, NetworkSecurityPerimeterConfigurationProfile profile = default)
         {
-            return new DomainNetworkSecurityPerimeterConfigurationData(
+            return new NetworkSecurityPerimeterConfiguration(
                 id,
                 name,
                 resourceType,
@@ -1131,60 +1179,6 @@ namespace Azure.ResourceManager.EventGrid.Models
         /// <param name="name"> The name of the resource. </param>
         /// <param name="resourceType"> The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts". </param>
         /// <param name="systemData"> Azure Resource Manager metadata containing createdBy and modifiedBy information. </param>
-        /// <param name="provisioningState"> Provisioning state to reflect configuration state and indicate status of nsp profile configuration retrieval. </param>
-        /// <param name="provisioningIssues"> Provisioning issues to reflect status when attempting to retrieve nsp profile configuration. </param>
-        /// <param name="networkSecurityPerimeter"> Perimeter info for nsp association. </param>
-        /// <param name="resourceAssociation"> Nsp association name and access mode of association. </param>
-        /// <param name="profile"> Nsp profile configuration, access rules and diagnostic settings. </param>
-        /// <returns> A new <see cref="Models.NetworkSecurityPerimeterConfiguration"/> instance for mocking. </returns>
-        public static NetworkSecurityPerimeterConfiguration NetworkSecurityPerimeterConfiguration(ResourceIdentifier id = default, string name = default, ResourceType resourceType = default, SystemData systemData = default, NetworkSecurityPerimeterConfigProvisioningState? provisioningState = default, IEnumerable<NetworkSecurityPerimeterConfigurationIssues> provisioningIssues = default, NetworkSecurityPerimeterInfo networkSecurityPerimeter = default, ResourceAssociation resourceAssociation = default, NetworkSecurityPerimeterConfigurationProfile profile = default)
-        {
-            return new NetworkSecurityPerimeterConfiguration(
-                id,
-                name,
-                resourceType,
-                systemData,
-                additionalBinaryDataProperties: null,
-                provisioningState is null && provisioningIssues is null && networkSecurityPerimeter is null && resourceAssociation is null && profile is null ? default : new NetworkSecurityPerimeterConfigurationProperties(
-                    provisioningState,
-                    (provisioningIssues ?? new ChangeTrackingList<NetworkSecurityPerimeterConfigurationIssues>()).ToList(),
-                    networkSecurityPerimeter,
-                    resourceAssociation,
-                    profile,
-                    null));
-        }
-
-        /// <param name="id"> Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}. </param>
-        /// <param name="name"> The name of the resource. </param>
-        /// <param name="resourceType"> The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts". </param>
-        /// <param name="systemData"> Azure Resource Manager metadata containing createdBy and modifiedBy information. </param>
-        /// <param name="provisioningState"> Provisioning state to reflect configuration state and indicate status of nsp profile configuration retrieval. </param>
-        /// <param name="provisioningIssues"> Provisioning issues to reflect status when attempting to retrieve nsp profile configuration. </param>
-        /// <param name="networkSecurityPerimeter"> Perimeter info for nsp association. </param>
-        /// <param name="resourceAssociation"> Nsp association name and access mode of association. </param>
-        /// <param name="profile"> Nsp profile configuration, access rules and diagnostic settings. </param>
-        /// <returns> A new <see cref="EventGrid.TopicNetworkSecurityPerimeterConfigurationData"/> instance for mocking. </returns>
-        public static TopicNetworkSecurityPerimeterConfigurationData TopicNetworkSecurityPerimeterConfigurationData(ResourceIdentifier id = default, string name = default, ResourceType resourceType = default, SystemData systemData = default, NetworkSecurityPerimeterConfigProvisioningState? provisioningState = default, IEnumerable<NetworkSecurityPerimeterConfigurationIssues> provisioningIssues = default, NetworkSecurityPerimeterInfo networkSecurityPerimeter = default, ResourceAssociation resourceAssociation = default, NetworkSecurityPerimeterConfigurationProfile profile = default)
-        {
-            return new TopicNetworkSecurityPerimeterConfigurationData(
-                id,
-                name,
-                resourceType,
-                systemData,
-                additionalBinaryDataProperties: null,
-                provisioningState is null && provisioningIssues is null && networkSecurityPerimeter is null && resourceAssociation is null && profile is null ? default : new NetworkSecurityPerimeterConfigurationProperties(
-                    provisioningState,
-                    (provisioningIssues ?? new ChangeTrackingList<NetworkSecurityPerimeterConfigurationIssues>()).ToList(),
-                    networkSecurityPerimeter,
-                    resourceAssociation,
-                    profile,
-                    null));
-        }
-
-        /// <param name="id"> Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}. </param>
-        /// <param name="name"> The name of the resource. </param>
-        /// <param name="resourceType"> The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts". </param>
-        /// <param name="systemData"> Azure Resource Manager metadata containing createdBy and modifiedBy information. </param>
         /// <param name="description"> Description for the Permission Binding resource. </param>
         /// <param name="topicSpaceName">
         /// The name of the Topic Space resource that the permission is bound to.
@@ -1214,104 +1208,17 @@ namespace Azure.ResourceManager.EventGrid.Models
                     null));
         }
 
-        /// <param name="id"> Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}. </param>
-        /// <param name="name"> The name of the resource. </param>
-        /// <param name="resourceType"> The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts". </param>
-        /// <param name="systemData"> Azure Resource Manager metadata containing createdBy and modifiedBy information. </param>
-        /// <param name="groupIds"> GroupIds from the private link service resource. </param>
-        /// <param name="connectionState"> Details about the state of the connection. </param>
-        /// <param name="provisioningState"> Provisioning state of the Private Endpoint Connection. </param>
-        /// <param name="privateEndpointId"> The ARM identifier for Private Endpoint. </param>
-        /// <returns> A new <see cref="EventGrid.EventGridTopicPrivateEndpointConnectionData"/> instance for mocking. </returns>
-        public static EventGridTopicPrivateEndpointConnectionData EventGridTopicPrivateEndpointConnectionData(ResourceIdentifier id = default, string name = default, ResourceType resourceType = default, SystemData systemData = default, IEnumerable<string> groupIds = default, EventGridPrivateEndpointConnectionState connectionState = default, EventGridResourceProvisioningState? provisioningState = default, ResourceIdentifier privateEndpointId = default)
-        {
-            return new EventGridTopicPrivateEndpointConnectionData(
-                id,
-                name,
-                resourceType,
-                systemData,
-                additionalBinaryDataProperties: null,
-                groupIds is null && connectionState is null && provisioningState is null && privateEndpointId is null ? default : new PrivateEndpointConnectionProperties(new PrivateEndpoint(privateEndpointId, null), (groupIds ?? new ChangeTrackingList<string>()).ToList(), connectionState, provisioningState, null));
-        }
-
-        /// <param name="id"> Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}. </param>
-        /// <param name="name"> The name of the resource. </param>
-        /// <param name="resourceType"> The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts". </param>
-        /// <param name="systemData"> Azure Resource Manager metadata containing createdBy and modifiedBy information. </param>
-        /// <param name="groupIds"> GroupIds from the private link service resource. </param>
-        /// <param name="connectionState"> Details about the state of the connection. </param>
-        /// <param name="provisioningState"> Provisioning state of the Private Endpoint Connection. </param>
-        /// <param name="privateEndpointId"> The ARM identifier for Private Endpoint. </param>
-        /// <returns> A new <see cref="EventGrid.EventGridPartnerNamespacePrivateEndpointConnectionData"/> instance for mocking. </returns>
-        public static EventGridPartnerNamespacePrivateEndpointConnectionData EventGridPartnerNamespacePrivateEndpointConnectionData(ResourceIdentifier id = default, string name = default, ResourceType resourceType = default, SystemData systemData = default, IEnumerable<string> groupIds = default, EventGridPrivateEndpointConnectionState connectionState = default, EventGridResourceProvisioningState? provisioningState = default, ResourceIdentifier privateEndpointId = default)
-        {
-            return new EventGridPartnerNamespacePrivateEndpointConnectionData(
-                id,
-                name,
-                resourceType,
-                systemData,
-                additionalBinaryDataProperties: null,
-                groupIds is null && connectionState is null && provisioningState is null && privateEndpointId is null ? default : new PrivateEndpointConnectionProperties(new PrivateEndpoint(privateEndpointId, null), (groupIds ?? new ChangeTrackingList<string>()).ToList(), connectionState, provisioningState, null));
-        }
-
-        /// <param name="id"> Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}. </param>
-        /// <param name="name"> The name of the resource. </param>
-        /// <param name="resourceType"> The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts". </param>
-        /// <param name="systemData"> Azure Resource Manager metadata containing createdBy and modifiedBy information. </param>
         /// <param name="groupId"> Gets the GroupId. </param>
         /// <param name="displayName"> Gets the DisplayName. </param>
         /// <param name="requiredMembers"> Gets the RequiredMembers. </param>
         /// <param name="requiredZoneNames"> Gets the RequiredZoneNames. </param>
-        /// <returns> A new <see cref="EventGrid.EventGridDomainPrivateLinkResourceData"/> instance for mocking. </returns>
-        public static EventGridDomainPrivateLinkResourceData EventGridDomainPrivateLinkResourceData(ResourceIdentifier id = default, string name = default, ResourceType resourceType = default, SystemData systemData = default, string groupId = default, string displayName = default, IEnumerable<string> requiredMembers = default, IEnumerable<string> requiredZoneNames = default)
-        {
-            return new EventGridDomainPrivateLinkResourceData(
-                id,
-                name,
-                resourceType,
-                systemData,
-                additionalBinaryDataProperties: null,
-                groupId is null && displayName is null && requiredMembers is null && requiredZoneNames is null ? default : new EventGridPrivateLinkResourceProperties(groupId, displayName, (requiredMembers ?? new ChangeTrackingList<string>()).ToList(), (requiredZoneNames ?? new ChangeTrackingList<string>()).ToList(), null));
-        }
-
         /// <param name="id"> Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}. </param>
-        /// <param name="name"> The name of the resource. </param>
-        /// <param name="resourceType"> The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts". </param>
-        /// <param name="systemData"> Azure Resource Manager metadata containing createdBy and modifiedBy information. </param>
-        /// <param name="groupId"> Gets the GroupId. </param>
-        /// <param name="displayName"> Gets the DisplayName. </param>
-        /// <param name="requiredMembers"> Gets the RequiredMembers. </param>
-        /// <param name="requiredZoneNames"> Gets the RequiredZoneNames. </param>
-        /// <returns> A new <see cref="EventGrid.EventGridTopicPrivateLinkResourceData"/> instance for mocking. </returns>
-        public static EventGridTopicPrivateLinkResourceData EventGridTopicPrivateLinkResourceData(ResourceIdentifier id = default, string name = default, ResourceType resourceType = default, SystemData systemData = default, string groupId = default, string displayName = default, IEnumerable<string> requiredMembers = default, IEnumerable<string> requiredZoneNames = default)
+        /// <param name="name"> The name of private link resource will be either topic, domain, partnerNamespace or namespace. </param>
+        /// <param name="type"> The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts". </param>
+        /// <returns> A new <see cref="Models.EventGridPrivateLinkResource"/> instance for mocking. </returns>
+        public static EventGridPrivateLinkResource EventGridPrivateLinkResource(string groupId = default, string displayName = default, IEnumerable<string> requiredMembers = default, IEnumerable<string> requiredZoneNames = default, ResourceIdentifier id = default, string name = default, ResourceType? @type = default)
         {
-            return new EventGridTopicPrivateLinkResourceData(
-                id,
-                name,
-                resourceType,
-                systemData,
-                additionalBinaryDataProperties: null,
-                groupId is null && displayName is null && requiredMembers is null && requiredZoneNames is null ? default : new EventGridPrivateLinkResourceProperties(groupId, displayName, (requiredMembers ?? new ChangeTrackingList<string>()).ToList(), (requiredZoneNames ?? new ChangeTrackingList<string>()).ToList(), null));
-        }
-
-        /// <param name="id"> Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}. </param>
-        /// <param name="name"> The name of the resource. </param>
-        /// <param name="resourceType"> The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts". </param>
-        /// <param name="systemData"> Azure Resource Manager metadata containing createdBy and modifiedBy information. </param>
-        /// <param name="groupId"> Gets the GroupId. </param>
-        /// <param name="displayName"> Gets the DisplayName. </param>
-        /// <param name="requiredMembers"> Gets the RequiredMembers. </param>
-        /// <param name="requiredZoneNames"> Gets the RequiredZoneNames. </param>
-        /// <returns> A new <see cref="EventGrid.PartnerNamespacePrivateLinkResourceData"/> instance for mocking. </returns>
-        public static PartnerNamespacePrivateLinkResourceData PartnerNamespacePrivateLinkResourceData(ResourceIdentifier id = default, string name = default, ResourceType resourceType = default, SystemData systemData = default, string groupId = default, string displayName = default, IEnumerable<string> requiredMembers = default, IEnumerable<string> requiredZoneNames = default)
-        {
-            return new PartnerNamespacePrivateLinkResourceData(
-                id,
-                name,
-                resourceType,
-                systemData,
-                additionalBinaryDataProperties: null,
-                groupId is null && displayName is null && requiredMembers is null && requiredZoneNames is null ? default : new EventGridPrivateLinkResourceProperties(groupId, displayName, (requiredMembers ?? new ChangeTrackingList<string>()).ToList(), (requiredZoneNames ?? new ChangeTrackingList<string>()).ToList(), null));
+            return new EventGridPrivateLinkResource(groupId is null && displayName is null && requiredMembers is null && requiredZoneNames is null ? default : new EventGridPrivateLinkResourceProperties(groupId, displayName, (requiredMembers ?? new ChangeTrackingList<string>()).ToList(), (requiredZoneNames ?? new ChangeTrackingList<string>()).ToList(), null), id, name, @type, additionalBinaryDataProperties: null);
         }
 
         /// <param name="id"> Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}. </param>
@@ -1429,7 +1336,7 @@ namespace Azure.ResourceManager.EventGrid.Models
         /// <param name="kind"> Kind of the resource. </param>
         /// <param name="extendedLocation"> Extended location of the resource. </param>
         /// <returns> A new <see cref="EventGrid.EventGridTopicData"/> instance for mocking. </returns>
-        public static EventGridTopicData EventGridTopicData(ResourceIdentifier id = default, string name = default, ResourceType resourceType = default, SystemData systemData = default, IDictionary<string, string> tags = default, AzureLocation location = default, IEnumerable<EventGridPrivateEndpointConnectionData> privateEndpointConnections = default, EventGridTopicProvisioningState? provisioningState = default, Uri endpoint = default, PartnerTopicEventTypeInfo eventTypeInfo = default, TlsVersion? minimumTlsVersionAllowed = default, EventGridInputSchema? inputSchema = default, EventGridInputSchemaMapping inputSchemaMapping = default, string metricResourceId = default, EventGridPublicNetworkAccess? publicNetworkAccess = default, IEnumerable<EventGridInboundIPRule> inboundIPRules = default, bool? isLocalAuthDisabled = default, DataResidencyBoundary? dataResidencyBoundary = default, IEnumerable<CustomerManagedKeyEncryption> customerManagedKeyEncryption = default, ConfidentialComputeMode? platformCapabilitiesConfidentialComputeMode = default, EventGridSku? skuName = default, ManagedServiceIdentity identity = default, ResourceKind? kind = default, ExtendedLocation extendedLocation = default)
+        public static EventGridTopicData EventGridTopicData(ResourceIdentifier id = default, string name = default, ResourceType resourceType = default, SystemData systemData = default, IDictionary<string, string> tags = default, AzureLocation location = default, IEnumerable<EventGridPrivateEndpointConnection> privateEndpointConnections = default, EventGridTopicProvisioningState? provisioningState = default, Uri endpoint = default, PartnerTopicEventTypeInfo eventTypeInfo = default, TlsVersion? minimumTlsVersionAllowed = default, EventGridInputSchema? inputSchema = default, EventGridInputSchemaMapping inputSchemaMapping = default, string metricResourceId = default, EventGridPublicNetworkAccess? publicNetworkAccess = default, IEnumerable<EventGridInboundIPRule> inboundIPRules = default, bool? isLocalAuthDisabled = default, DataResidencyBoundary? dataResidencyBoundary = default, IEnumerable<CustomerManagedKeyEncryption> customerManagedKeyEncryption = default, ConfidentialComputeMode? platformCapabilitiesConfidentialComputeMode = default, EventGridSku? skuName = default, ManagedServiceIdentity identity = default, ResourceKind? kind = default, ExtendedLocation extendedLocation = default)
         {
             tags ??= new ChangeTrackingDictionary<string, string>();
 
@@ -1442,7 +1349,7 @@ namespace Azure.ResourceManager.EventGrid.Models
                 tags,
                 location,
                 privateEndpointConnections is null && provisioningState is null && endpoint is null && eventTypeInfo is null && minimumTlsVersionAllowed is null && inputSchema is null && inputSchemaMapping is null && metricResourceId is null && publicNetworkAccess is null && inboundIPRules is null && isLocalAuthDisabled is null && dataResidencyBoundary is null && customerManagedKeyEncryption is null && platformCapabilitiesConfidentialComputeMode is null ? default : new TopicProperties(
-                    (privateEndpointConnections ?? new ChangeTrackingList<EventGridPrivateEndpointConnectionData>()).ToList(),
+                    (privateEndpointConnections ?? new ChangeTrackingList<EventGridPrivateEndpointConnection>()).ToList(),
                     provisioningState,
                     endpoint,
                     eventTypeInfo,
@@ -1821,84 +1728,6 @@ namespace Azure.ResourceManager.EventGrid.Models
             return PartnerNamespaceChannelData(id, name, resourceType, systemData, channelType, partnerTopicInfo, partnerDestinationInfo: default, messageForActivation, provisioningState, readinessState, expireOnIfNotActivated);
         }
 
-        /// <summary> Initializes a new instance of <see cref="EventGrid.EventGridDomainData"/>. </summary>
-        /// <param name="id"> The id. </param>
-        /// <param name="name"> The name. </param>
-        /// <param name="resourceType"> The resourceType. </param>
-        /// <param name="systemData"> The systemData. </param>
-        /// <param name="tags"> The tags. </param>
-        /// <param name="location"> The location. </param>
-        /// <param name="identity"> Identity information for the Event Grid Domain resource. </param>
-        /// <param name="privateEndpointConnections"> List of private endpoint connections. </param>
-        /// <param name="provisioningState"> Provisioning state of the Event Grid Domain Resource. </param>
-        /// <param name="minimumTlsVersionAllowed"> Minimum TLS version of the publisher allowed to publish to this domain. </param>
-        /// <param name="endpoint"> Endpoint for the Event Grid Domain Resource which is used for publishing the events. </param>
-        /// <param name="inputSchema"> This determines the format that Event Grid should expect for incoming events published to the Event Grid Domain Resource. </param>
-        /// <param name="eventTypeInfo">
-        /// Event Type Information for the domain. This information is provided by the publisher and can be used by the
-        ///             subscriber to view different types of events that are published.
-        /// </param>
-        /// <param name="inputSchemaMapping">
-        /// Information about the InputSchemaMapping which specified the info about mapping event payload.
-        ///             Please note  is the base class. According to the scenario, a derived class of the base class might need to be assigned here, or this property needs to be casted to one of the possible derived classes.
-        ///             The available derived classes include .
-        /// </param>
-        /// <param name="metricResourceId"> Metric resource id for the Event Grid Domain Resource. </param>
-        /// <param name="publicNetworkAccess">
-        /// This determines if traffic is allowed over public network. By default it is enabled.
-        ///             You can further restrict to specific IPs by configuring &lt;seealso cref="P:Microsoft.Azure.Events.ResourceProvider.Common.Contracts.DomainProperties.InboundIpRules" /&gt;
-        /// </param>
-        /// <param name="inboundIPRules"> This can be used to restrict traffic from specific IPs instead of all IPs. Note: These are considered only if PublicNetworkAccess is enabled. </param>
-        /// <param name="isLocalAuthDisabled"> This boolean is used to enable or disable local auth. Default value is false. When the property is set to true, only AAD token will be used to authenticate if user is allowed to publish to the domain. </param>
-        /// <param name="autoCreateTopicWithFirstSubscription">
-        /// This Boolean is used to specify the creation mechanism for 'all' the Event Grid Domain Topics associated with this Event Grid Domain resource.
-        ///             In this context, creation of domain topic can be auto-managed (when true) or self-managed (when false). The default value for this property is true.
-        ///             When this property is null or set to true, Event Grid is responsible of automatically creating the domain topic when the first event subscription is
-        ///             created at the scope of the domain topic. If this property is set to false, then creating the first event subscription will require creating a domain topic
-        ///             by the user. The self-management mode can be used if the user wants full control of when the domain topic is created, while auto-managed mode provides the
-        ///             flexibility to perform less operations and manage fewer resources by the user. Also, note that in auto-managed creation mode, user is allowed to create the
-        ///             domain topic on demand if needed.
-        /// </param>
-        /// <param name="autoDeleteTopicWithLastSubscription">
-        /// This Boolean is used to specify the deletion mechanism for 'all' the Event Grid Domain Topics associated with this Event Grid Domain resource.
-        ///             In this context, deletion of domain topic can be auto-managed (when true) or self-managed (when false). The default value for this property is true.
-        ///             When this property is set to true, Event Grid is responsible of automatically deleting the domain topic when the last event subscription at the scope
-        ///             of the domain topic is deleted. If this property is set to false, then the user needs to manually delete the domain topic when it is no longer needed
-        ///             (e.g., when last event subscription is deleted and the resource needs to be cleaned up). The self-management mode can be used if the user wants full
-        ///             control of when the domain topic needs to be deleted, while auto-managed mode provides the flexibility to perform less operations and manage fewer
-        ///             resources by the user.
-        /// </param>
-        /// <param name="dataResidencyBoundary"> Data Residency Boundary of the resource. </param>
-        /// <returns> A new <see cref="EventGrid.EventGridDomainData"/> instance for mocking. </returns>
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        public static EventGridDomainData EventGridDomainData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, IDictionary<string, string> tags, AzureLocation location, ManagedServiceIdentity identity, IEnumerable<EventGridPrivateEndpointConnectionData> privateEndpointConnections, EventGridDomainProvisioningState? provisioningState, TlsVersion? minimumTlsVersionAllowed, Uri endpoint, EventGridInputSchema? inputSchema, PartnerTopicEventTypeInfo eventTypeInfo, EventGridInputSchemaMapping inputSchemaMapping, string metricResourceId, EventGridPublicNetworkAccess? publicNetworkAccess, IEnumerable<EventGridInboundIPRule> inboundIPRules, bool? isLocalAuthDisabled, bool? autoCreateTopicWithFirstSubscription, bool? autoDeleteTopicWithLastSubscription, DataResidencyBoundary? dataResidencyBoundary)
-        {
-            return EventGridDomainData(id, name, resourceType, systemData, tags, location, privateEndpointConnections, provisioningState, minimumTlsVersionAllowed, endpoint, inputSchema, eventTypeInfo, inputSchemaMapping, metricResourceId, publicNetworkAccess, inboundIPRules, isLocalAuthDisabled, autoCreateTopicWithFirstSubscription, autoDeleteTopicWithLastSubscription, dataResidencyBoundary, skuName: default, identity);
-        }
-
-        /// <summary> Initializes a new instance of <see cref="EventGrid.EventGridPrivateEndpointConnectionData"/>. </summary>
-        /// <param name="id"> The id. </param>
-        /// <param name="name"> The name. </param>
-        /// <param name="resourceType"> The resourceType. </param>
-        /// <param name="systemData"> The systemData. </param>
-        /// <param name="privateEndpointId"> The Private Endpoint resource for this Connection. </param>
-        /// <param name="groupIds"> GroupIds from the private link service resource. </param>
-        /// <param name="connectionState"> Details about the state of the connection. </param>
-        /// <param name="provisioningState"> Provisioning state of the Private Endpoint Connection. </param>
-        /// <returns> A new <see cref="EventGrid.EventGridPrivateEndpointConnectionData"/> instance for mocking. </returns>
-        public static EventGridPrivateEndpointConnectionData EventGridPrivateEndpointConnectionData(ResourceIdentifier id = default, string name = default, ResourceType resourceType = default, SystemData systemData = default, ResourceIdentifier privateEndpointId = default, IEnumerable<string> groupIds = default, EventGridPrivateEndpointConnectionState connectionState = default, EventGridResourceProvisioningState? provisioningState = default)
-        {
-            groupIds ??= new ChangeTrackingList<string>();
-
-            return new EventGridPrivateEndpointConnectionData(
-                id,
-                name,
-                resourceType,
-                systemData,
-                additionalBinaryDataProperties: null,
-                default);
-        }
-
         /// <summary> Initializes a new instance of <see cref="EventGrid.NamespaceTopicEventSubscriptionData"/>. </summary>
         /// <param name="id"> The id. </param>
         /// <param name="name"> The name. </param>
@@ -1914,52 +1743,6 @@ namespace Azure.ResourceManager.EventGrid.Models
         public static NamespaceTopicEventSubscriptionData NamespaceTopicEventSubscriptionData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, SubscriptionProvisioningState? provisioningState, DeliveryConfiguration deliveryConfiguration, DeliverySchema? eventDeliverySchema, FiltersConfiguration filtersConfiguration, DateTimeOffset? expireOn)
         {
             return NamespaceTopicEventSubscriptionData(id, name, resourceType, systemData, provisioningState, deliveryConfiguration, eventDeliverySchema, filtersConfiguration, expireOn, tags: default);
-        }
-
-        /// <summary> Initializes a new instance of <see cref="EventGrid.EventGridNamespaceData"/>. </summary>
-        /// <param name="id"> The id. </param>
-        /// <param name="name"> The name. </param>
-        /// <param name="resourceType"> The resourceType. </param>
-        /// <param name="systemData"> The systemData. </param>
-        /// <param name="tags"> The tags. </param>
-        /// <param name="location"> The location. </param>
-        /// <param name="sku"> Represents available Sku pricing tiers. </param>
-        /// <param name="identity"> Identity information for the Namespace resource. </param>
-        /// <param name="privateEndpointConnections"> List of private endpoint connections. </param>
-        /// <param name="provisioningState"> Provisioning state of the namespace resource. </param>
-        /// <param name="topicsConfiguration"> Topics configuration information for the namespace resource. </param>
-        /// <param name="topicSpacesConfiguration"> Topic spaces configuration information for the namespace resource. </param>
-        /// <param name="isZoneRedundant">
-        /// This is an optional property and it allows the user to specify if the namespace resource supports zone-redundancy capability or not. If this
-        ///             property is not specified explicitly by the user, its default value depends on the following conditions:
-        ///                 a. For Availability Zones enabled regions - The default property value would be true.
-        ///                 b. For non-Availability Zones enabled regions - The default property value would be false.
-        ///             Once specified, this property cannot be updated.
-        /// </param>
-        /// <param name="publicNetworkAccess">
-        /// This determines if traffic is allowed over public network. By default it is enabled.
-        ///             You can further restrict to specific IPs by configuring &lt;seealso cref="P:Microsoft.Azure.Events.ResourceProvider.Common.Contracts.PubSub.NamespaceProperties.InboundIpRules" /&gt;
-        /// </param>
-        /// <param name="inboundIPRules"> This can be used to restrict traffic from specific IPs instead of all IPs. Note: These are considered only if PublicNetworkAccess is enabled. </param>
-        /// <param name="minimumTlsVersionAllowed"> Minimum TLS version of the publisher allowed to publish to this namespace. Only TLS version 1.2 is supported. </param>
-        /// <returns> A new <see cref="EventGrid.EventGridNamespaceData"/> instance for mocking. </returns>
-        public static EventGridNamespaceData EventGridNamespaceData(ResourceIdentifier id = default, string name = default, ResourceType resourceType = default, SystemData systemData = default, IDictionary<string, string> tags = default, AzureLocation location = default, NamespaceSku sku = default, ManagedServiceIdentity identity = default, IEnumerable<EventGridPrivateEndpointConnectionData> privateEndpointConnections = default, NamespaceProvisioningState? provisioningState = default, TopicsConfiguration topicsConfiguration = default, TopicSpacesConfiguration topicSpacesConfiguration = default, bool? isZoneRedundant = default, EventGridPublicNetworkAccess? publicNetworkAccess = default, IEnumerable<EventGridInboundIPRule> inboundIPRules = default, TlsVersion? minimumTlsVersionAllowed = default)
-        {
-            tags ??= new ChangeTrackingDictionary<string, string>();
-            privateEndpointConnections ??= new ChangeTrackingList<EventGridPrivateEndpointConnectionData>();
-            inboundIPRules ??= new ChangeTrackingList<EventGridInboundIPRule>();
-
-            return new EventGridNamespaceData(
-                id,
-                name,
-                resourceType,
-                systemData,
-                additionalBinaryDataProperties: null,
-                tags,
-                location,
-                default,
-                sku,
-                identity);
         }
 
         /// <summary> Initializes a new instance of <see cref="Models.TopicSpacesConfiguration"/>. </summary>
@@ -1988,43 +1771,6 @@ namespace Azure.ResourceManager.EventGrid.Models
             return TopicSpacesConfiguration(state, routeTopicResourceId, hostname, routingEnrichments, clientAuthentication: default, maximumSessionExpiryInHours, maximumClientSessionsPerAuthenticationName, routingIdentityInfo, customDomains);
         }
 
-        /// <summary> Initializes a new instance of <see cref="EventGrid.EventGridTopicData"/>. </summary>
-        /// <param name="id"> The id. </param>
-        /// <param name="name"> The name. </param>
-        /// <param name="resourceType"> The resourceType. </param>
-        /// <param name="systemData"> The systemData. </param>
-        /// <param name="tags"> The tags. </param>
-        /// <param name="location"> The location. </param>
-        /// <param name="identity"> Identity information for the resource. </param>
-        /// <param name="privateEndpointConnections"> List of private endpoint connections. </param>
-        /// <param name="provisioningState"> Provisioning state of the topic. </param>
-        /// <param name="endpoint"> Endpoint for the topic. </param>
-        /// <param name="eventTypeInfo">
-        /// Event Type Information for the user topic. This information is provided by the publisher and can be used by the
-        ///             subscriber to view different types of events that are published.
-        /// </param>
-        /// <param name="minimumTlsVersionAllowed"> Minimum TLS version of the publisher allowed to publish to this topic. </param>
-        /// <param name="inputSchema"> This determines the format that Event Grid should expect for incoming events published to the topic. </param>
-        /// <param name="inputSchemaMapping">
-        /// This enables publishing using custom event schemas. An InputSchemaMapping can be specified to map various properties of a source schema to various required properties of the EventGridEvent schema.
-        ///             Please note  is the base class. According to the scenario, a derived class of the base class might need to be assigned here, or this property needs to be casted to one of the possible derived classes.
-        ///             The available derived classes include .
-        /// </param>
-        /// <param name="metricResourceId"> Metric resource id for the topic. </param>
-        /// <param name="publicNetworkAccess">
-        /// This determines if traffic is allowed over public network. By default it is enabled.
-        ///             You can further restrict to specific IPs by configuring &lt;seealso cref="P:Microsoft.Azure.Events.ResourceProvider.Common.Contracts.TopicProperties.InboundIpRules" /&gt;
-        /// </param>
-        /// <param name="inboundIPRules"> This can be used to restrict traffic from specific IPs instead of all IPs. Note: These are considered only if PublicNetworkAccess is enabled. </param>
-        /// <param name="isLocalAuthDisabled"> This boolean is used to enable or disable local auth. Default value is false. When the property is set to true, only AAD token will be used to authenticate if user is allowed to publish to the topic. </param>
-        /// <param name="dataResidencyBoundary"> Data Residency Boundary of the resource. </param>
-        /// <returns> A new <see cref="EventGrid.EventGridTopicData"/> instance for mocking. </returns>
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        public static EventGridTopicData EventGridTopicData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, IDictionary<string, string> tags, AzureLocation location, ManagedServiceIdentity identity, IEnumerable<EventGridPrivateEndpointConnectionData> privateEndpointConnections, EventGridTopicProvisioningState? provisioningState, Uri endpoint, PartnerTopicEventTypeInfo eventTypeInfo, TlsVersion? minimumTlsVersionAllowed, EventGridInputSchema? inputSchema, EventGridInputSchemaMapping inputSchemaMapping, string metricResourceId, EventGridPublicNetworkAccess? publicNetworkAccess, IEnumerable<EventGridInboundIPRule> inboundIPRules, bool? isLocalAuthDisabled, DataResidencyBoundary? dataResidencyBoundary)
-        {
-            return EventGridTopicData(id, name, resourceType, systemData, tags, location, privateEndpointConnections, provisioningState, endpoint, eventTypeInfo, minimumTlsVersionAllowed, inputSchema, inputSchemaMapping, metricResourceId, publicNetworkAccess, inboundIPRules, isLocalAuthDisabled, dataResidencyBoundary, customerManagedKeyEncryption: default, platformCapabilitiesConfidentialComputeMode: default, skuName: default, identity, kind: default, extendedLocation: default);
-        }
-
         /// <summary> Initializes a new instance of <see cref="EventGrid.PartnerConfigurationData"/>. </summary>
         /// <param name="id"> The id. </param>
         /// <param name="name"> The name. </param>
@@ -2035,8 +1781,7 @@ namespace Azure.ResourceManager.EventGrid.Models
         /// <param name="partnerAuthorization"> The details of authorized partners. </param>
         /// <param name="provisioningState"> Provisioning state of the partner configuration. </param>
         /// <returns> A new <see cref="EventGrid.PartnerConfigurationData"/> instance for mocking. </returns>
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        public static PartnerConfigurationData PartnerConfigurationData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, IDictionary<string, string> tags, AzureLocation location, PartnerAuthorization partnerAuthorization, PartnerConfigurationProvisioningState? provisioningState)
+        public static PartnerConfigurationData PartnerConfigurationData(ResourceIdentifier id = default, string name = default, ResourceType resourceType = default, SystemData systemData = default, IDictionary<string, string> tags = default, AzureLocation location = default, PartnerAuthorization partnerAuthorization = default, PartnerConfigurationProvisioningState? provisioningState = default)
         {
             tags ??= new ChangeTrackingDictionary<string, string>();
 
@@ -2046,9 +1791,9 @@ namespace Azure.ResourceManager.EventGrid.Models
                 resourceType,
                 systemData,
                 additionalBinaryDataProperties: null,
+                location,
                 default,
-                tags,
-                location);
+                tags);
         }
 
         /// <summary> Initializes a new instance of <see cref="EventGrid.PartnerTopicData"/>. </summary>

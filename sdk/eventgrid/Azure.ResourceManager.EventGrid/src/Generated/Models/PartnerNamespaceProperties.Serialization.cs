@@ -79,7 +79,7 @@ namespace Azure.ResourceManager.EventGrid.Models
             {
                 writer.WritePropertyName("privateEndpointConnections"u8);
                 writer.WriteStartArray();
-                foreach (EventGridPrivateEndpointConnectionData item in PrivateEndpointConnections)
+                foreach (EventGridPrivateEndpointConnection item in PrivateEndpointConnections)
                 {
                     writer.WriteObjectValue(item, options);
                 }
@@ -172,7 +172,7 @@ namespace Azure.ResourceManager.EventGrid.Models
             {
                 return null;
             }
-            IReadOnlyList<EventGridPrivateEndpointConnectionData> privateEndpointConnections = default;
+            IReadOnlyList<EventGridPrivateEndpointConnection> privateEndpointConnections = default;
             PartnerNamespaceProvisioningState? provisioningState = default;
             ResourceIdentifier partnerRegistrationFullyQualifiedId = default;
             TlsVersion? minimumTlsVersionAllowed = default;
@@ -190,10 +190,10 @@ namespace Azure.ResourceManager.EventGrid.Models
                     {
                         continue;
                     }
-                    List<EventGridPrivateEndpointConnectionData> array = new List<EventGridPrivateEndpointConnectionData>();
+                    List<EventGridPrivateEndpointConnection> array = new List<EventGridPrivateEndpointConnection>();
                     foreach (var item in prop.Value.EnumerateArray())
                     {
-                        array.Add(EventGridPrivateEndpointConnectionData.DeserializeEventGridPrivateEndpointConnectionData(item, options));
+                        array.Add(EventGridPrivateEndpointConnection.DeserializeEventGridPrivateEndpointConnection(item, options));
                     }
                     privateEndpointConnections = array;
                     continue;
@@ -281,7 +281,7 @@ namespace Azure.ResourceManager.EventGrid.Models
                 }
             }
             return new PartnerNamespaceProperties(
-                privateEndpointConnections ?? new ChangeTrackingList<EventGridPrivateEndpointConnectionData>(),
+                privateEndpointConnections ?? new ChangeTrackingList<EventGridPrivateEndpointConnection>(),
                 provisioningState,
                 partnerRegistrationFullyQualifiedId,
                 minimumTlsVersionAllowed,
