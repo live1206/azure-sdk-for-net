@@ -10,8 +10,6 @@ using Azure.Core;
 
 namespace Azure.ResourceManager.EventGrid.Mocking
 {
-    [CodeGenSuppress("GetEventTypesAsync", typeof(string), typeof(string), typeof(string), typeof(CancellationToken))]
-    [CodeGenSuppress("GetEventTypes", typeof(string), typeof(string), typeof(string), typeof(CancellationToken))]
     public partial class MockableEventGridResourceGroupResource : ArmResource
     {
         /// <summary>
