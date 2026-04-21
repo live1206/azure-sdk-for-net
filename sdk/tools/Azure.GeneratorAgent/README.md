@@ -82,7 +82,7 @@ The agent uses a three-layer architecture:
 
 - **MCP Server** — Exposes deterministic fix tools over the [Model Context Protocol](https://modelcontextprotocol.io/) via stdio transport. Tools are auto-discovered from the assembly at startup.
 - **MCP Tools** — 19 individual tool classes covering project discovery, regex replacements (field renames, type patterns), adding/removing using directives, nullable annotation fixes, `[CodeGenSuppress]` attribute insertion, build output parsing, error classification, code generation, generated code snapshots, test execution, commit iteration, and finalization. Each tool supports both MCP (JSON) and in-process invocation.
-- **Skill-Driven Workflow** — The skill doc ([`sdk-migration`](https://github.com/Azure/azure-sdk-for-net/blob/main/.github/skills/sdk-migration/SKILL.md)) IS the orchestrator. The LLM reads it, calls MCP tools directly, and reasons about what to do next. No compiled C# orchestrator — the skill drives the build→classify→fix→rebuild loop.
+- **Skill-Driven Workflow** — The migration skill docs ([`dpg-migration`](https://github.com/Azure/azure-sdk-for-net/blob/main/.github/skills/dpg-migration/SKILL.md) and [`mpg-migration`](https://github.com/Azure/azure-sdk-for-net/blob/main/.github/skills/mpg-migration/SKILL.md)) are the orchestrators. The LLM reads the appropriate skill, calls MCP tools directly, and reasons about what to do next. No compiled C# orchestrator — the skill drives the build→classify→fix→rebuild loop.
 
 ### MCP Tools
 
@@ -105,7 +105,7 @@ The agent uses a three-layer architecture:
 | `verify_generated_unchanged` | Verify that no files in `Generated/` were modified since the last snapshot. Call after the build-fix cycle. Reports violations and optionally reverts them. |
 | `migrate_test_samples` | Move test samples from `Generated/Samples/` to `Samples/` |
 | `finalize_migration` | Run `Export-API.ps1` and `Update-Snippets.ps1` after a successful migration |
-| `run_tests` | Run `dotnet test` with configurable filter (defaults to excluding live tests). Returns structured pass/fail results. |
+| `run_tests` | Run `dotnet test` with configurable filter (defaults to excluding live tests). Returns a structured `TestResult` with `Success`, `ExitCode`, `Passed`, `Failed`, `Skipped`, `Total`, `Failures` (list of failure details), `Error`, and `RawOutput`. |
 | `rename_codegen_type` | Fix mismatched `[CodeGenType]` attributes by matching generated counterparts |
 | `fetch_to_fromlro` | Replace legacy `Fetch(response)` calls with `ResponseModel.FromLroResponse(response)` |
 
@@ -120,13 +120,13 @@ The `DeterministicFixRegistry` contains rules that map error codes and message p
 - **Nullable annotations** — CS8625/CS8600 fixes
 - **Method call replacements** — `FromCancellationToken` → `ToRequestContext`, `Fetch(response)` → `FromLroResponse`, obsolete `.ToRequestContent()` removal
 
-See [`.github/skills/sdk-migration/SKILL.md`](https://github.com/Azure/azure-sdk-for-net/blob/main/.github/skills/sdk-migration/SKILL.md) for the full rule list, tool usage guide, and the skill-driven workflow.
+See [`.github/skills/dpg-migration/SKILL.md`](https://github.com/Azure/azure-sdk-for-net/blob/main/.github/skills/dpg-migration/SKILL.md) for the data-plane workflow and [`.github/skills/mpg-migration/SKILL.md`](https://github.com/Azure/azure-sdk-for-net/blob/main/.github/skills/mpg-migration/SKILL.md) for the management-plane workflow.
 
 ## Examples
 
 ### Use with a migration skill
 
-The tools are designed to be called by the [`sdk-migration`](https://github.com/Azure/azure-sdk-for-net/blob/main/.github/skills/sdk-migration/SKILL.md) skill. The typical workflow is:
+The tools are designed to be called by the dedicated migration skills. Use [`dpg-migration`](https://github.com/Azure/azure-sdk-for-net/blob/main/.github/skills/dpg-migration/SKILL.md) for data-plane libraries and [`mpg-migration`](https://github.com/Azure/azure-sdk-for-net/blob/main/.github/skills/mpg-migration/SKILL.md) for management-plane libraries. The typical workflow is:
 
 1. **Setup** — `pregen_cleanup` → `validate_tsp_config` → `commit_iteration` → `run_code_generation`
 2. **Build-fix loop** — `build_and_classify` → `batch_fix` (for deterministic errors) → LLM reasoning (for non-deterministic errors) → rebuild
@@ -137,20 +137,20 @@ The tools are designed to be called by the [`sdk-migration`](https://github.com/
 To trigger an MCP-assisted migration in Copilot Chat, use a prompt like:
 
 ```
-Use the sdk-migration skill to migrate <repo-root>/sdk/<service>/<library>
+Use the dpg-migration skill to migrate <repo-root>/sdk/<service>/<library>
 The local specs repo is at <specs-root>/specification/<service>/<spec-directory>
 ```
 
 For example:
 
 ```
-Use the sdk-migration skill to migrate C:\git\azure-sdk-for-net\sdk\communication\Azure.Communication.Messages
+Use the dpg-migration skill to migrate C:\git\azure-sdk-for-net\sdk\communication\Azure.Communication.Messages
 The local specs repo is at C:\git\azure-rest-api-specs\specification\communication\Communication.Messages
 ```
 If you wish you use specific commit id for tsp-location.yaml add to the message. For example:
 
 ```
-Use the sdk-migration skill to migrate C:\git\azure-sdk-for-net\sdk\communication\Azure.Communication.Messages
+Use the dpg-migration skill to migrate C:\git\azure-sdk-for-net\sdk\communication\Azure.Communication.Messages
 The local specs repo is at C:\git\azure-rest-api-specs\specification\communication\Communication.Messages with commit id xyz
 ```
 
@@ -180,4 +180,4 @@ This project welcomes contributions and suggestions. Most contributions require 
 
 - Explore the [Azure SDK for .NET repository](https://github.com/Azure/azure-sdk-for-net)
 - Learn about [Azure SDK design guidelines](https://azure.github.io/azure-sdk/)
-- Read the [SDK migration skill](https://github.com/Azure/azure-sdk-for-net/blob/main/.github/skills/sdk-migration/SKILL.md) for the full migration workflow
+- Read the [DPG migration skill](https://github.com/Azure/azure-sdk-for-net/blob/main/.github/skills/dpg-migration/SKILL.md) or the [MPG migration skill](https://github.com/Azure/azure-sdk-for-net/blob/main/.github/skills/mpg-migration/SKILL.md) for the full migration workflow
