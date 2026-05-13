@@ -19,11 +19,6 @@ namespace Azure.ResourceManager.EventGrid.Models
     [PersistableModelProxy(typeof(UnknownPartnerClientAuthentication))]
     public abstract partial class PartnerClientAuthentication : IJsonModel<PartnerClientAuthentication>
     {
-        /// <summary> Initializes a new instance of <see cref="PartnerClientAuthentication"/> for deserialization. </summary>
-        internal PartnerClientAuthentication()
-        {
-        }
-
         /// <param name="data"> The data to parse. </param>
         /// <param name="options"> The client options for reading and writing models. </param>
         protected virtual PartnerClientAuthentication PersistableModelCreateCore(BinaryData data, ModelReaderWriterOptions options)

@@ -2037,7 +2037,7 @@ namespace Azure.ResourceManager.EventGrid.Models
         public AlternativeAuthenticationNameSource(string value) { throw null; }
         public static Azure.ResourceManager.EventGrid.Models.AlternativeAuthenticationNameSource ClientCertificateDns { get { throw null; } }
         public static Azure.ResourceManager.EventGrid.Models.AlternativeAuthenticationNameSource ClientCertificateEmail { get { throw null; } }
-        public static Azure.ResourceManager.EventGrid.Models.AlternativeAuthenticationNameSource ClientCertificateIp { get { throw null; } }
+        public static Azure.ResourceManager.EventGrid.Models.AlternativeAuthenticationNameSource ClientCertificateIP { get { throw null; } }
         public static Azure.ResourceManager.EventGrid.Models.AlternativeAuthenticationNameSource ClientCertificateSubject { get { throw null; } }
         public static Azure.ResourceManager.EventGrid.Models.AlternativeAuthenticationNameSource ClientCertificateUri { get { throw null; } }
         public bool Equals(Azure.ResourceManager.EventGrid.Models.AlternativeAuthenticationNameSource other) { throw null; }
@@ -2150,7 +2150,7 @@ namespace Azure.ResourceManager.EventGrid.Models
     public partial class AzureADPartnerClientAuthentication : Azure.ResourceManager.EventGrid.Models.PartnerClientAuthentication, System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.EventGrid.Models.AzureADPartnerClientAuthentication>, System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.EventGrid.Models.AzureADPartnerClientAuthentication>
     {
         public AzureADPartnerClientAuthentication() { }
-        public string AzureActiveDirectoryApplicationIdOrUri { get { throw null; } set { } }
+        public System.Uri AzureActiveDirectoryApplicationIdOrUri { get { throw null; } set { } }
         public string AzureActiveDirectoryTenantId { get { throw null; } set { } }
         protected override Azure.ResourceManager.EventGrid.Models.PartnerClientAuthentication JsonModelCreateCore(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         protected override void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
@@ -2423,8 +2423,8 @@ namespace Azure.ResourceManager.EventGrid.Models
     }
     public partial class CustomJwtAuthenticationManagedIdentity : System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.EventGrid.Models.CustomJwtAuthenticationManagedIdentity>, System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.EventGrid.Models.CustomJwtAuthenticationManagedIdentity>
     {
-        public CustomJwtAuthenticationManagedIdentity(Azure.ResourceManager.EventGrid.Models.CustomJwtAuthenticationManagedIdentityType type) { }
-        public Azure.ResourceManager.EventGrid.Models.CustomJwtAuthenticationManagedIdentityType Type { get { throw null; } set { } }
+        public CustomJwtAuthenticationManagedIdentity(Azure.ResourceManager.EventGrid.Models.CustomJwtAuthenticationManagedIdentityType identityType) { }
+        public Azure.ResourceManager.EventGrid.Models.CustomJwtAuthenticationManagedIdentityType IdentityType { get { throw null; } set { } }
         public Azure.Core.ResourceIdentifier UserAssignedIdentity { get { throw null; } set { } }
         protected virtual Azure.ResourceManager.EventGrid.Models.CustomJwtAuthenticationManagedIdentity JsonModelCreateCore(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         protected virtual void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
@@ -2471,8 +2471,8 @@ namespace Azure.ResourceManager.EventGrid.Models
     }
     public partial class CustomWebhookAuthenticationManagedIdentity : System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.EventGrid.Models.CustomWebhookAuthenticationManagedIdentity>, System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.EventGrid.Models.CustomWebhookAuthenticationManagedIdentity>
     {
-        public CustomWebhookAuthenticationManagedIdentity(Azure.ResourceManager.EventGrid.Models.CustomWebhookAuthenticationManagedIdentityType type) { }
-        public Azure.ResourceManager.EventGrid.Models.CustomWebhookAuthenticationManagedIdentityType Type { get { throw null; } set { } }
+        public CustomWebhookAuthenticationManagedIdentity(Azure.ResourceManager.EventGrid.Models.CustomWebhookAuthenticationManagedIdentityType identityType) { }
+        public Azure.ResourceManager.EventGrid.Models.CustomWebhookAuthenticationManagedIdentityType IdentityType { get { throw null; } set { } }
         public Azure.Core.ResourceIdentifier UserAssignedIdentity { get { throw null; } set { } }
         protected virtual Azure.ResourceManager.EventGrid.Models.CustomWebhookAuthenticationManagedIdentity JsonModelCreateCore(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         protected virtual void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
@@ -3238,7 +3238,7 @@ namespace Azure.ResourceManager.EventGrid.Models
     public partial class EventSubscriptionIdentity : System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.EventGrid.Models.EventSubscriptionIdentity>, System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.EventGrid.Models.EventSubscriptionIdentity>
     {
         public EventSubscriptionIdentity() { }
-        public string FederatedClientId { get { throw null; } set { } }
+        public System.Guid? FederatedClientId { get { throw null; } set { } }
         public Azure.ResourceManager.EventGrid.Models.EventSubscriptionIdentityType? IdentityType { get { throw null; } set { } }
         public string UserAssignedIdentity { get { throw null; } set { } }
         protected virtual Azure.ResourceManager.EventGrid.Models.EventSubscriptionIdentity JsonModelCreateCore(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -3438,8 +3438,8 @@ namespace Azure.ResourceManager.EventGrid.Models
     }
     public partial class IssuerCertificateInfo : System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.EventGrid.Models.IssuerCertificateInfo>, System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.EventGrid.Models.IssuerCertificateInfo>
     {
-        public IssuerCertificateInfo(string certificateUri) { }
-        public string CertificateUri { get { throw null; } set { } }
+        public IssuerCertificateInfo(System.Uri certificateUri) { }
+        public System.Uri CertificateUri { get { throw null; } set { } }
         public Azure.ResourceManager.EventGrid.Models.CustomJwtAuthenticationManagedIdentity Identity { get { throw null; } set { } }
         protected virtual Azure.ResourceManager.EventGrid.Models.IssuerCertificateInfo JsonModelCreateCore(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         protected virtual void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
@@ -3809,7 +3809,7 @@ namespace Azure.ResourceManager.EventGrid.Models
     {
         public NetworkSecurityPerimeterInfo() { }
         public string Id { get { throw null; } set { } }
-        public string Location { get { throw null; } set { } }
+        public Azure.Core.AzureLocation? Location { get { throw null; } set { } }
         public string PerimeterGuid { get { throw null; } set { } }
         protected virtual Azure.ResourceManager.EventGrid.Models.NetworkSecurityPerimeterInfo JsonModelCreateCore(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         protected virtual void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
@@ -4116,7 +4116,7 @@ namespace Azure.ResourceManager.EventGrid.Models
     }
     public abstract partial class PartnerClientAuthentication : System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.EventGrid.Models.PartnerClientAuthentication>, System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.EventGrid.Models.PartnerClientAuthentication>
     {
-        internal PartnerClientAuthentication() { }
+        protected PartnerClientAuthentication() { }
         protected virtual Azure.ResourceManager.EventGrid.Models.PartnerClientAuthentication JsonModelCreateCore(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         protected virtual void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         protected virtual Azure.ResourceManager.EventGrid.Models.PartnerClientAuthentication PersistableModelCreateCore(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -4182,7 +4182,7 @@ namespace Azure.ResourceManager.EventGrid.Models
     }
     public abstract partial class PartnerDestinationInfo : System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.EventGrid.Models.PartnerDestinationInfo>, System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.EventGrid.Models.PartnerDestinationInfo>
     {
-        internal PartnerDestinationInfo() { }
+        protected PartnerDestinationInfo() { }
         public string AzureSubscriptionId { get { throw null; } set { } }
         public string EndpointServiceContext { get { throw null; } set { } }
         public string Name { get { throw null; } set { } }
@@ -4547,7 +4547,7 @@ namespace Azure.ResourceManager.EventGrid.Models
     }
     public abstract partial class PartnerUpdateDestinationInfo : System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.EventGrid.Models.PartnerUpdateDestinationInfo>, System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.EventGrid.Models.PartnerUpdateDestinationInfo>
     {
-        internal PartnerUpdateDestinationInfo() { }
+        protected PartnerUpdateDestinationInfo() { }
         protected virtual Azure.ResourceManager.EventGrid.Models.PartnerUpdateDestinationInfo JsonModelCreateCore(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         protected virtual void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         protected virtual Azure.ResourceManager.EventGrid.Models.PartnerUpdateDestinationInfo PersistableModelCreateCore(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -5368,8 +5368,8 @@ namespace Azure.ResourceManager.EventGrid.Models
     }
     public partial class WebhookAuthenticationSettings : System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.EventGrid.Models.WebhookAuthenticationSettings>, System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.EventGrid.Models.WebhookAuthenticationSettings>
     {
-        public WebhookAuthenticationSettings(Azure.ResourceManager.EventGrid.Models.CustomWebhookAuthenticationManagedIdentity identity, System.Uri endpointUri, string azureActiveDirectoryApplicationIdOrUri, string azureActiveDirectoryTenantId) { }
-        public string AzureActiveDirectoryApplicationIdOrUri { get { throw null; } set { } }
+        public WebhookAuthenticationSettings(Azure.ResourceManager.EventGrid.Models.CustomWebhookAuthenticationManagedIdentity identity, System.Uri endpointUri, System.Uri azureActiveDirectoryApplicationIdOrUri, string azureActiveDirectoryTenantId) { }
+        public System.Uri AzureActiveDirectoryApplicationIdOrUri { get { throw null; } set { } }
         public string AzureActiveDirectoryTenantId { get { throw null; } set { } }
         public System.Uri EndpointBaseUri { get { throw null; } set { } }
         public System.Uri EndpointUri { get { throw null; } set { } }

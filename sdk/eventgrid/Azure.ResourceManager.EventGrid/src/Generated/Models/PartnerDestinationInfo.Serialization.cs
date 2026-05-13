@@ -19,11 +19,6 @@ namespace Azure.ResourceManager.EventGrid.Models
     [PersistableModelProxy(typeof(UnknownPartnerDestinationInfo))]
     public abstract partial class PartnerDestinationInfo : IJsonModel<PartnerDestinationInfo>
     {
-        /// <summary> Initializes a new instance of <see cref="PartnerDestinationInfo"/> for deserialization. </summary>
-        internal PartnerDestinationInfo()
-        {
-        }
-
         /// <param name="data"> The data to parse. </param>
         /// <param name="options"> The client options for reading and writing models. </param>
         protected virtual PartnerDestinationInfo PersistableModelCreateCore(BinaryData data, ModelReaderWriterOptions options)
