@@ -109,7 +109,7 @@ namespace Azure.ResourceManager.EventGrid
                 {
                     Properties = new TopicTypeProperties();
                 }
-                Properties.ResourceRegionType = value.Value;
+                Properties.ResourceRegionType = value;
             }
         }
 
@@ -127,7 +127,7 @@ namespace Azure.ResourceManager.EventGrid
                 {
                     Properties = new TopicTypeProperties();
                 }
-                Properties.ProvisioningState = value.Value;
+                Properties.ProvisioningState = value;
             }
         }
 
@@ -191,7 +191,7 @@ namespace Azure.ResourceManager.EventGrid
                 {
                     Properties = new TopicTypeProperties();
                 }
-                Properties.AreRegionalAndGlobalSourcesSupported = value.Value;
+                Properties.AreRegionalAndGlobalSourcesSupported = value;
             }
         }
 

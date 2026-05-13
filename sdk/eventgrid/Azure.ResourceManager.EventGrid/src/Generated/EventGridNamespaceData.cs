@@ -58,7 +58,7 @@ namespace Azure.ResourceManager.EventGrid
 
         /// <summary> List of private endpoint connections. </summary>
         [WirePath("properties.privateEndpointConnections")]
-        public IList<EventGridPrivateEndpointConnection> PrivateEndpointConnections
+        public IList<EventGridPrivateEndpointConnectionData> PrivateEndpointConnections
         {
             get
             {
@@ -136,7 +136,7 @@ namespace Azure.ResourceManager.EventGrid
                 {
                     Properties = new NamespaceProperties();
                 }
-                Properties.IsZoneRedundant = value.Value;
+                Properties.IsZoneRedundant = value;
             }
         }
 
@@ -157,7 +157,7 @@ namespace Azure.ResourceManager.EventGrid
                 {
                     Properties = new NamespaceProperties();
                 }
-                Properties.PublicNetworkAccess = value.Value;
+                Properties.PublicNetworkAccess = value;
             }
         }
 
@@ -189,7 +189,7 @@ namespace Azure.ResourceManager.EventGrid
                 {
                     Properties = new NamespaceProperties();
                 }
-                Properties.MinimumTlsVersionAllowed = value.Value;
+                Properties.MinimumTlsVersionAllowed = value;
             }
         }
     }

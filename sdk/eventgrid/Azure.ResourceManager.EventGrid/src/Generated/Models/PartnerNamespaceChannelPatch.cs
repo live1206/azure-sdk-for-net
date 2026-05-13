@@ -52,7 +52,7 @@ namespace Azure.ResourceManager.EventGrid.Models
                 {
                     Properties = new ChannelUpdateParametersProperties();
                 }
-                Properties.ExpireOnIfNotActivated = value.Value;
+                Properties.ExpireOnIfNotActivated = value;
             }
         }
 

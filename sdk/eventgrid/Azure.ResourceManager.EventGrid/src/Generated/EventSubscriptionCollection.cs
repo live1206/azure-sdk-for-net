@@ -76,7 +76,7 @@ namespace Azure.ResourceManager.EventGrid
                 {
                     CancellationToken = cancellationToken
                 };
-                HttpMessage message = _eventSubscriptionsRestClient.CreateCreateOrUpdateRequest(Id, eventSubscriptionName, EventGridSubscriptionData.ToRequestContent(data), context);
+                HttpMessage message = _eventSubscriptionsRestClient.CreateCreateOrUpdateRequest(Id.ToString(), eventSubscriptionName, EventGridSubscriptionData.ToRequestContent(data), context);
                 Response response = await Pipeline.ProcessMessageAsync(message, context).ConfigureAwait(false);
                 EventGridArmOperation<EventSubscriptionResource> operation = new EventGridArmOperation<EventSubscriptionResource>(
                     new EventSubscriptionOperationSource(Client),
@@ -134,7 +134,7 @@ namespace Azure.ResourceManager.EventGrid
                 {
                     CancellationToken = cancellationToken
                 };
-                HttpMessage message = _eventSubscriptionsRestClient.CreateCreateOrUpdateRequest(Id, eventSubscriptionName, EventGridSubscriptionData.ToRequestContent(data), context);
+                HttpMessage message = _eventSubscriptionsRestClient.CreateCreateOrUpdateRequest(Id.ToString(), eventSubscriptionName, EventGridSubscriptionData.ToRequestContent(data), context);
                 Response response = Pipeline.ProcessMessage(message, context);
                 EventGridArmOperation<EventSubscriptionResource> operation = new EventGridArmOperation<EventSubscriptionResource>(
                     new EventSubscriptionOperationSource(Client),
@@ -189,7 +189,7 @@ namespace Azure.ResourceManager.EventGrid
                 {
                     CancellationToken = cancellationToken
                 };
-                HttpMessage message = _eventSubscriptionsRestClient.CreateGetRequest(Id, eventSubscriptionName, context);
+                HttpMessage message = _eventSubscriptionsRestClient.CreateGetRequest(Id.ToString(), eventSubscriptionName, context);
                 Response result = await Pipeline.ProcessMessageAsync(message, context).ConfigureAwait(false);
                 Response<EventGridSubscriptionData> response = Response.FromValue(EventGridSubscriptionData.FromResponse(result), result);
                 if (response.Value == null)
@@ -238,7 +238,7 @@ namespace Azure.ResourceManager.EventGrid
                 {
                     CancellationToken = cancellationToken
                 };
-                HttpMessage message = _eventSubscriptionsRestClient.CreateGetRequest(Id, eventSubscriptionName, context);
+                HttpMessage message = _eventSubscriptionsRestClient.CreateGetRequest(Id.ToString(), eventSubscriptionName, context);
                 Response result = Pipeline.ProcessMessage(message, context);
                 Response<EventGridSubscriptionData> response = Response.FromValue(EventGridSubscriptionData.FromResponse(result), result);
                 if (response.Value == null)
@@ -252,6 +252,110 @@ namespace Azure.ResourceManager.EventGrid
                 scope.Failed(e);
                 throw;
             }
+        }
+
+        /// <summary>
+        /// List all event subscriptions that have been created for a specific resource.
+        /// <list type="bullet">
+        /// <item>
+        /// <term> Request Path. </term>
+        /// <description> /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{providerNamespace}/{resourceTypeName}/{resourceName}/providers/Microsoft.EventGrid/eventSubscriptions. </description>
+        /// </item>
+        /// <item>
+        /// <term> Operation Id. </term>
+        /// <description> EventSubscriptionOperationGroup_ListByResource. </description>
+        /// </item>
+        /// <item>
+        /// <term> Default Api Version. </term>
+        /// <description> 2025-07-15-preview. </description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
+        /// <param name="providerNamespace"> Namespace of the provider of the topic. </param>
+        /// <param name="resourceTypeName"> Name of the resource type. </param>
+        /// <param name="resourceName"> Name of the resource. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
+        /// <param name="filter"> The query used to filter the search results using OData syntax. Filtering is permitted on the 'name' property only and with limited number of OData operations. These operations are: the 'contains' function as well as the following logical operations: not, and, or, eq (for equal), and ne (for not equal). No arithmetic operations are supported. The following is a valid filter example: $filter=contains(namE, 'PATTERN') and name ne 'PATTERN-1'. The following is not a valid filter example: $filter=location eq 'westus'. </param>
+        /// <param name="top"> The number of results to return per page for the list operation. Valid range for top parameter is 1 to 100. If not specified, the default number of results to be returned is 20 items per page. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/>, <paramref name="providerNamespace"/>, <paramref name="resourceTypeName"/> or <paramref name="resourceName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="resourceGroupName"/>, <paramref name="providerNamespace"/>, <paramref name="resourceTypeName"/> or <paramref name="resourceName"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <returns> A collection of <see cref="EventSubscriptionResource"/> that may take multiple service requests to iterate over. </returns>
+        public virtual AsyncPageable<EventSubscriptionResource> GetAllAsync(string resourceGroupName, string providerNamespace, string resourceTypeName, string resourceName, Guid subscriptionId, string filter = default, int? top = default, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
+            Argument.AssertNotNullOrEmpty(providerNamespace, nameof(providerNamespace));
+            Argument.AssertNotNullOrEmpty(resourceTypeName, nameof(resourceTypeName));
+            Argument.AssertNotNullOrEmpty(resourceName, nameof(resourceName));
+
+            RequestContext context = new RequestContext
+            {
+                CancellationToken = cancellationToken
+            };
+            return new AsyncPageableWrapper<EventGridSubscriptionData, EventSubscriptionResource>(new EventSubscriptionsGetByResourceAsyncCollectionResultOfT(
+                _eventSubscriptionsRestClient,
+                subscriptionId,
+                resourceGroupName,
+                providerNamespace,
+                resourceTypeName,
+                resourceName,
+                filter,
+                top,
+                context,
+                "EventSubscriptionCollection.GetAll"), data => new EventSubscriptionResource(Client, data));
+        }
+
+        /// <summary>
+        /// List all event subscriptions that have been created for a specific resource.
+        /// <list type="bullet">
+        /// <item>
+        /// <term> Request Path. </term>
+        /// <description> /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{providerNamespace}/{resourceTypeName}/{resourceName}/providers/Microsoft.EventGrid/eventSubscriptions. </description>
+        /// </item>
+        /// <item>
+        /// <term> Operation Id. </term>
+        /// <description> EventSubscriptionOperationGroup_ListByResource. </description>
+        /// </item>
+        /// <item>
+        /// <term> Default Api Version. </term>
+        /// <description> 2025-07-15-preview. </description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
+        /// <param name="providerNamespace"> Namespace of the provider of the topic. </param>
+        /// <param name="resourceTypeName"> Name of the resource type. </param>
+        /// <param name="resourceName"> Name of the resource. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
+        /// <param name="filter"> The query used to filter the search results using OData syntax. Filtering is permitted on the 'name' property only and with limited number of OData operations. These operations are: the 'contains' function as well as the following logical operations: not, and, or, eq (for equal), and ne (for not equal). No arithmetic operations are supported. The following is a valid filter example: $filter=contains(namE, 'PATTERN') and name ne 'PATTERN-1'. The following is not a valid filter example: $filter=location eq 'westus'. </param>
+        /// <param name="top"> The number of results to return per page for the list operation. Valid range for top parameter is 1 to 100. If not specified, the default number of results to be returned is 20 items per page. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/>, <paramref name="providerNamespace"/>, <paramref name="resourceTypeName"/> or <paramref name="resourceName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="resourceGroupName"/>, <paramref name="providerNamespace"/>, <paramref name="resourceTypeName"/> or <paramref name="resourceName"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <returns> A collection of <see cref="EventSubscriptionResource"/> that may take multiple service requests to iterate over. </returns>
+        public virtual Pageable<EventSubscriptionResource> GetAll(string resourceGroupName, string providerNamespace, string resourceTypeName, string resourceName, Guid subscriptionId, string filter = default, int? top = default, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
+            Argument.AssertNotNullOrEmpty(providerNamespace, nameof(providerNamespace));
+            Argument.AssertNotNullOrEmpty(resourceTypeName, nameof(resourceTypeName));
+            Argument.AssertNotNullOrEmpty(resourceName, nameof(resourceName));
+
+            RequestContext context = new RequestContext
+            {
+                CancellationToken = cancellationToken
+            };
+            return new PageableWrapper<EventGridSubscriptionData, EventSubscriptionResource>(new EventSubscriptionsGetByResourceCollectionResultOfT(
+                _eventSubscriptionsRestClient,
+                subscriptionId,
+                resourceGroupName,
+                providerNamespace,
+                resourceTypeName,
+                resourceName,
+                filter,
+                top,
+                context,
+                "EventSubscriptionCollection.GetAll"), data => new EventSubscriptionResource(Client, data));
         }
 
         /// <summary>
@@ -287,7 +391,7 @@ namespace Azure.ResourceManager.EventGrid
                 {
                     CancellationToken = cancellationToken
                 };
-                HttpMessage message = _eventSubscriptionsRestClient.CreateGetRequest(Id, eventSubscriptionName, context);
+                HttpMessage message = _eventSubscriptionsRestClient.CreateGetRequest(Id.ToString(), eventSubscriptionName, context);
                 await Pipeline.SendAsync(message, context.CancellationToken).ConfigureAwait(false);
                 Response result = message.Response;
                 Response<EventGridSubscriptionData> response = default;
@@ -344,7 +448,7 @@ namespace Azure.ResourceManager.EventGrid
                 {
                     CancellationToken = cancellationToken
                 };
-                HttpMessage message = _eventSubscriptionsRestClient.CreateGetRequest(Id, eventSubscriptionName, context);
+                HttpMessage message = _eventSubscriptionsRestClient.CreateGetRequest(Id.ToString(), eventSubscriptionName, context);
                 Pipeline.Send(message, context.CancellationToken);
                 Response result = message.Response;
                 Response<EventGridSubscriptionData> response = default;
@@ -401,7 +505,7 @@ namespace Azure.ResourceManager.EventGrid
                 {
                     CancellationToken = cancellationToken
                 };
-                HttpMessage message = _eventSubscriptionsRestClient.CreateGetRequest(Id, eventSubscriptionName, context);
+                HttpMessage message = _eventSubscriptionsRestClient.CreateGetRequest(Id.ToString(), eventSubscriptionName, context);
                 await Pipeline.SendAsync(message, context.CancellationToken).ConfigureAwait(false);
                 Response result = message.Response;
                 Response<EventGridSubscriptionData> response = default;
@@ -462,7 +566,7 @@ namespace Azure.ResourceManager.EventGrid
                 {
                     CancellationToken = cancellationToken
                 };
-                HttpMessage message = _eventSubscriptionsRestClient.CreateGetRequest(Id, eventSubscriptionName, context);
+                HttpMessage message = _eventSubscriptionsRestClient.CreateGetRequest(Id.ToString(), eventSubscriptionName, context);
                 Pipeline.Send(message, context.CancellationToken);
                 Response result = message.Response;
                 Response<EventGridSubscriptionData> response = default;

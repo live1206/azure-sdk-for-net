@@ -55,7 +55,7 @@ namespace Azure.ResourceManager.EventGrid.Models
                 {
                     Properties = new NetworkSecurityPerimeterConfigurationIssuesProperties();
                 }
-                Properties.IssueType = value.Value;
+                Properties.IssueType = value;
             }
         }
 
@@ -73,7 +73,7 @@ namespace Azure.ResourceManager.EventGrid.Models
                 {
                     Properties = new NetworkSecurityPerimeterConfigurationIssuesProperties();
                 }
-                Properties.Severity = value.Value;
+                Properties.Severity = value;
             }
         }
 

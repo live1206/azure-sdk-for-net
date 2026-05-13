@@ -109,7 +109,7 @@ namespace Azure.ResourceManager.EventGrid.Models
                 {
                     Properties = new EventTypeProperties();
                 }
-                Properties.IsInDefaultSet = value.Value;
+                Properties.IsInDefaultSet = value;
             }
         }
     }

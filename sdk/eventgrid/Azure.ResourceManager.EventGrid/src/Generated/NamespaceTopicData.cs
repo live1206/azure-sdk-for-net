@@ -65,7 +65,7 @@ namespace Azure.ResourceManager.EventGrid
                 {
                     Properties = new NamespaceTopicProperties();
                 }
-                Properties.PublisherType = value.Value;
+                Properties.PublisherType = value;
             }
         }
 
@@ -83,7 +83,7 @@ namespace Azure.ResourceManager.EventGrid
                 {
                     Properties = new NamespaceTopicProperties();
                 }
-                Properties.InputSchema = value.Value;
+                Properties.InputSchema = value;
             }
         }
 
@@ -104,7 +104,7 @@ namespace Azure.ResourceManager.EventGrid
                 {
                     Properties = new NamespaceTopicProperties();
                 }
-                Properties.EventRetentionInDays = value.Value;
+                Properties.EventRetentionInDays = value;
             }
         }
     }

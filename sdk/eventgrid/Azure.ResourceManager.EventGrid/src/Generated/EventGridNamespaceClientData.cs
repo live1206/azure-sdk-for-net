@@ -109,7 +109,7 @@ namespace Azure.ResourceManager.EventGrid
                 {
                     Properties = new ClientProperties();
                 }
-                Properties.State = value.Value;
+                Properties.State = value;
             }
         }
 

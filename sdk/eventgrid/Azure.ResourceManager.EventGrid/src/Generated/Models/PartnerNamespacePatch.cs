@@ -59,7 +59,7 @@ namespace Azure.ResourceManager.EventGrid.Models
                 {
                     Properties = new PartnerNamespaceUpdateParameterProperties();
                 }
-                Properties.PublicNetworkAccess = value.Value;
+                Properties.PublicNetworkAccess = value;
             }
         }
 
@@ -91,7 +91,7 @@ namespace Azure.ResourceManager.EventGrid.Models
                 {
                     Properties = new PartnerNamespaceUpdateParameterProperties();
                 }
-                Properties.MinimumTlsVersionAllowed = value.Value;
+                Properties.MinimumTlsVersionAllowed = value;
             }
         }
 
@@ -109,7 +109,7 @@ namespace Azure.ResourceManager.EventGrid.Models
                 {
                     Properties = new PartnerNamespaceUpdateParameterProperties();
                 }
-                Properties.IsLocalAuthDisabled = value.Value;
+                Properties.IsLocalAuthDisabled = value;
             }
         }
     }

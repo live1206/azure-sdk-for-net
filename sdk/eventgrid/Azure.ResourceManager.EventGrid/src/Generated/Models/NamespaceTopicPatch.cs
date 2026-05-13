@@ -52,7 +52,7 @@ namespace Azure.ResourceManager.EventGrid.Models
                 {
                     Properties = new NamespaceTopicUpdateParameterProperties();
                 }
-                Properties.EventRetentionInDays = value.Value;
+                Properties.EventRetentionInDays = value;
             }
         }
     }

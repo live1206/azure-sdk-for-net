@@ -149,7 +149,7 @@ namespace Azure.ResourceManager.EventGrid
                 {
                     Properties = new EventSubscriptionProperties();
                 }
-                Properties.ExpireOn = value.Value;
+                Properties.ExpireOn = value;
             }
         }
 
@@ -167,7 +167,7 @@ namespace Azure.ResourceManager.EventGrid
                 {
                     Properties = new EventSubscriptionProperties();
                 }
-                Properties.EventDeliverySchema = value.Value;
+                Properties.EventDeliverySchema = value;
             }
         }
 

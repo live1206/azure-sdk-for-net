@@ -55,7 +55,7 @@ namespace Azure.ResourceManager.EventGrid
                 {
                     Properties = new ChannelProperties();
                 }
-                Properties.ChannelType = value.Value;
+                Properties.ChannelType = value;
             }
         }
 
@@ -127,7 +127,7 @@ namespace Azure.ResourceManager.EventGrid
                 {
                     Properties = new ChannelProperties();
                 }
-                Properties.ProvisioningState = value.Value;
+                Properties.ProvisioningState = value;
             }
         }
 
@@ -145,7 +145,7 @@ namespace Azure.ResourceManager.EventGrid
                 {
                     Properties = new ChannelProperties();
                 }
-                Properties.ReadinessState = value.Value;
+                Properties.ReadinessState = value;
             }
         }
 
@@ -166,7 +166,7 @@ namespace Azure.ResourceManager.EventGrid
                 {
                     Properties = new ChannelProperties();
                 }
-                Properties.ExpireOnIfNotActivated = value.Value;
+                Properties.ExpireOnIfNotActivated = value;
             }
         }
     }

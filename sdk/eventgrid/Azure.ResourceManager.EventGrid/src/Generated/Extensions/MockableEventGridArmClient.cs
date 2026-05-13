@@ -10,14 +10,19 @@ using System.Threading;
 using System.Threading.Tasks;
 using Azure;
 using Azure.Core;
+using Azure.Core.Pipeline;
 using Azure.ResourceManager;
 using Azure.ResourceManager.EventGrid;
+using Azure.ResourceManager.EventGrid.Models;
 
 namespace Azure.ResourceManager.EventGrid.Mocking
 {
     /// <summary> A class to add extension methods to <see cref="ArmClient"/>. </summary>
     public partial class MockableEventGridArmClient : ArmResource
     {
+        private ClientDiagnostics _topicsClientDiagnostics;
+        private Topics _topicsRestClient;
+
         /// <summary> Initializes a new instance of MockableEventGridArmClient for mocking. </summary>
         protected MockableEventGridArmClient()
         {
@@ -29,6 +34,10 @@ namespace Azure.ResourceManager.EventGrid.Mocking
         internal MockableEventGridArmClient(ArmClient client, ResourceIdentifier id) : base(client, id)
         {
         }
+
+        private ClientDiagnostics TopicsClientDiagnostics => _topicsClientDiagnostics ??= new ClientDiagnostics("Azure.ResourceManager.EventGrid.Mocking", ProviderConstants.DefaultProviderNamespace, Diagnostics);
+
+        private Topics TopicsRestClient => _topicsRestClient ??= new Topics(TopicsClientDiagnostics, Pipeline, Endpoint, "2025-07-15-preview");
 
         /// <summary> Gets an object representing a <see cref="CaCertificateResource"/> along with the instance operations that can be performed on it but with no data. </summary>
         /// <param name="id"> The resource ID of the resource to get. </param>
@@ -237,6 +246,15 @@ namespace Azure.ResourceManager.EventGrid.Mocking
             return new EventGridNamespacePermissionBindingResource(Client, id);
         }
 
+        /// <summary> Gets an object representing a <see cref="PrivateLinkResource"/> along with the instance operations that can be performed on it but with no data. </summary>
+        /// <param name="id"> The resource ID of the resource to get. </param>
+        /// <returns> Returns a <see cref="PrivateLinkResource"/> object. </returns>
+        public virtual PrivateLinkResource GetPrivateLinkResource(ResourceIdentifier id)
+        {
+            PrivateLinkResource.ValidateResourceId(id);
+            return new PrivateLinkResource(Client, id);
+        }
+
         /// <summary> Gets an object representing a <see cref="SystemTopicResource"/> along with the instance operations that can be performed on it but with no data. </summary>
         /// <param name="id"> The resource ID of the resource to get. </param>
         /// <returns> Returns a <see cref="SystemTopicResource"/> object. </returns>
@@ -315,6 +333,140 @@ namespace Azure.ResourceManager.EventGrid.Mocking
         {
             TopicTypeResource.ValidateResourceId(id);
             return new TopicTypeResource(Client, id);
+        }
+
+        /// <summary> Gets an object representing a <see cref="TopicNetworkSecurityPerimeterConfigurationResource"/> along with the instance operations that can be performed on it but with no data. </summary>
+        /// <param name="id"> The resource ID of the resource to get. </param>
+        /// <returns> Returns a <see cref="TopicNetworkSecurityPerimeterConfigurationResource"/> object. </returns>
+        public virtual TopicNetworkSecurityPerimeterConfigurationResource GetTopicNetworkSecurityPerimeterConfigurationResource(ResourceIdentifier id)
+        {
+            TopicNetworkSecurityPerimeterConfigurationResource.ValidateResourceId(id);
+            return new TopicNetworkSecurityPerimeterConfigurationResource(Client, id);
+        }
+
+        /// <summary> Gets an object representing a <see cref="DomainNetworkSecurityPerimeterConfigurationResource"/> along with the instance operations that can be performed on it but with no data. </summary>
+        /// <param name="id"> The resource ID of the resource to get. </param>
+        /// <returns> Returns a <see cref="DomainNetworkSecurityPerimeterConfigurationResource"/> object. </returns>
+        public virtual DomainNetworkSecurityPerimeterConfigurationResource GetDomainNetworkSecurityPerimeterConfigurationResource(ResourceIdentifier id)
+        {
+            DomainNetworkSecurityPerimeterConfigurationResource.ValidateResourceId(id);
+            return new DomainNetworkSecurityPerimeterConfigurationResource(Client, id);
+        }
+
+        /// <summary> Gets an object representing a <see cref="EventGridTopicPrivateEndpointConnectionResource"/> along with the instance operations that can be performed on it but with no data. </summary>
+        /// <param name="id"> The resource ID of the resource to get. </param>
+        /// <returns> Returns a <see cref="EventGridTopicPrivateEndpointConnectionResource"/> object. </returns>
+        public virtual EventGridTopicPrivateEndpointConnectionResource GetEventGridTopicPrivateEndpointConnectionResource(ResourceIdentifier id)
+        {
+            EventGridTopicPrivateEndpointConnectionResource.ValidateResourceId(id);
+            return new EventGridTopicPrivateEndpointConnectionResource(Client, id);
+        }
+
+        /// <summary> Gets an object representing a <see cref="EventGridDomainPrivateEndpointConnectionResource"/> along with the instance operations that can be performed on it but with no data. </summary>
+        /// <param name="id"> The resource ID of the resource to get. </param>
+        /// <returns> Returns a <see cref="EventGridDomainPrivateEndpointConnectionResource"/> object. </returns>
+        public virtual EventGridDomainPrivateEndpointConnectionResource GetEventGridDomainPrivateEndpointConnectionResource(ResourceIdentifier id)
+        {
+            EventGridDomainPrivateEndpointConnectionResource.ValidateResourceId(id);
+            return new EventGridDomainPrivateEndpointConnectionResource(Client, id);
+        }
+
+        /// <summary> Gets an object representing a <see cref="EventGridPartnerNamespacePrivateEndpointConnectionResource"/> along with the instance operations that can be performed on it but with no data. </summary>
+        /// <param name="id"> The resource ID of the resource to get. </param>
+        /// <returns> Returns a <see cref="EventGridPartnerNamespacePrivateEndpointConnectionResource"/> object. </returns>
+        public virtual EventGridPartnerNamespacePrivateEndpointConnectionResource GetEventGridPartnerNamespacePrivateEndpointConnectionResource(ResourceIdentifier id)
+        {
+            EventGridPartnerNamespacePrivateEndpointConnectionResource.ValidateResourceId(id);
+            return new EventGridPartnerNamespacePrivateEndpointConnectionResource(Client, id);
+        }
+
+        /// <summary> Gets an object representing a <see cref="NamespaceEventGridPrivateEndpointConnectionResource"/> along with the instance operations that can be performed on it but with no data. </summary>
+        /// <param name="id"> The resource ID of the resource to get. </param>
+        /// <returns> Returns a <see cref="NamespaceEventGridPrivateEndpointConnectionResource"/> object. </returns>
+        public virtual NamespaceEventGridPrivateEndpointConnectionResource GetNamespaceEventGridPrivateEndpointConnectionResource(ResourceIdentifier id)
+        {
+            NamespaceEventGridPrivateEndpointConnectionResource.ValidateResourceId(id);
+            return new NamespaceEventGridPrivateEndpointConnectionResource(Client, id);
+        }
+
+        /// <summary>
+        /// List event types for a topic.
+        /// <list type="bullet">
+        /// <item>
+        /// <term> Request Path. </term>
+        /// <description> /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{providerNamespace}/{resourceTypeName}/{resourceName}/providers/microsoft.EventGrid/eventTypes. </description>
+        /// </item>
+        /// <item>
+        /// <term> Operation Id. </term>
+        /// <description> TopicsOperationGroup_ListEventTypes. </description>
+        /// </item>
+        /// <item>
+        /// <term> Default Api Version. </term>
+        /// <description> 2025-07-15-preview. </description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="scope"> The scope that the resource will apply against. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="scope"/> is null. </exception>
+        /// <returns> A collection of <see cref="EventTypeUnderTopic"/> that may take multiple service requests to iterate over. </returns>
+        public virtual AsyncPageable<EventTypeUnderTopic> GetEventTypesAsync(ResourceIdentifier scope, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNull(scope, nameof(scope));
+
+            RequestContext context = new RequestContext
+            {
+                CancellationToken = cancellationToken
+            };
+            return new TopicsGetEventTypesAsyncCollectionResultOfT(
+                TopicsRestClient,
+                Guid.Parse(scope.SubscriptionId),
+                scope.ResourceGroupName,
+                scope.ResourceType.Namespace,
+                scope.ResourceType.Type,
+                scope.Name,
+                context,
+                "MockableEventGridArmClient.GetEventTypes");
+        }
+
+        /// <summary>
+        /// List event types for a topic.
+        /// <list type="bullet">
+        /// <item>
+        /// <term> Request Path. </term>
+        /// <description> /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{providerNamespace}/{resourceTypeName}/{resourceName}/providers/microsoft.EventGrid/eventTypes. </description>
+        /// </item>
+        /// <item>
+        /// <term> Operation Id. </term>
+        /// <description> TopicsOperationGroup_ListEventTypes. </description>
+        /// </item>
+        /// <item>
+        /// <term> Default Api Version. </term>
+        /// <description> 2025-07-15-preview. </description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="scope"> The scope that the resource will apply against. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="scope"/> is null. </exception>
+        /// <returns> A collection of <see cref="EventTypeUnderTopic"/> that may take multiple service requests to iterate over. </returns>
+        public virtual Pageable<EventTypeUnderTopic> GetEventTypes(ResourceIdentifier scope, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNull(scope, nameof(scope));
+
+            RequestContext context = new RequestContext
+            {
+                CancellationToken = cancellationToken
+            };
+            return new TopicsGetEventTypesCollectionResultOfT(
+                TopicsRestClient,
+                Guid.Parse(scope.SubscriptionId),
+                scope.ResourceGroupName,
+                scope.ResourceType.Namespace,
+                scope.ResourceType.Type,
+                scope.Name,
+                context,
+                "MockableEventGridArmClient.GetEventTypes");
         }
     }
 }

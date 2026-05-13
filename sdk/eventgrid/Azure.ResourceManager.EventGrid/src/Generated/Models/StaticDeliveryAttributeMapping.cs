@@ -65,7 +65,7 @@ namespace Azure.ResourceManager.EventGrid.Models
                 {
                     Properties = new StaticDeliveryAttributeMappingProperties();
                 }
-                Properties.IsSecret = value.Value;
+                Properties.IsSecret = value;
             }
         }
     }

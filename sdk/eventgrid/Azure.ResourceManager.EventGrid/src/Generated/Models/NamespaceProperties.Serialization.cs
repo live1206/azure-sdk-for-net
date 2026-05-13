@@ -78,7 +78,7 @@ namespace Azure.ResourceManager.EventGrid.Models
             {
                 writer.WritePropertyName("privateEndpointConnections"u8);
                 writer.WriteStartArray();
-                foreach (EventGridPrivateEndpointConnection item in PrivateEndpointConnections)
+                foreach (EventGridPrivateEndpointConnectionData item in PrivateEndpointConnections)
                 {
                     writer.WriteObjectValue(item, options);
                 }
@@ -166,7 +166,7 @@ namespace Azure.ResourceManager.EventGrid.Models
             {
                 return null;
             }
-            IList<EventGridPrivateEndpointConnection> privateEndpointConnections = default;
+            IList<EventGridPrivateEndpointConnectionData> privateEndpointConnections = default;
             NamespaceProvisioningState? provisioningState = default;
             TopicsConfiguration topicsConfiguration = default;
             TopicSpacesConfiguration topicSpacesConfiguration = default;
@@ -183,10 +183,10 @@ namespace Azure.ResourceManager.EventGrid.Models
                     {
                         continue;
                     }
-                    List<EventGridPrivateEndpointConnection> array = new List<EventGridPrivateEndpointConnection>();
+                    List<EventGridPrivateEndpointConnectionData> array = new List<EventGridPrivateEndpointConnectionData>();
                     foreach (var item in prop.Value.EnumerateArray())
                     {
-                        array.Add(EventGridPrivateEndpointConnection.DeserializeEventGridPrivateEndpointConnection(item, options));
+                        array.Add(EventGridPrivateEndpointConnectionData.DeserializeEventGridPrivateEndpointConnectionData(item, options));
                     }
                     privateEndpointConnections = array;
                     continue;
@@ -265,7 +265,7 @@ namespace Azure.ResourceManager.EventGrid.Models
                 }
             }
             return new NamespaceProperties(
-                privateEndpointConnections ?? new ChangeTrackingList<EventGridPrivateEndpointConnection>(),
+                privateEndpointConnections ?? new ChangeTrackingList<EventGridPrivateEndpointConnectionData>(),
                 provisioningState,
                 topicsConfiguration,
                 topicSpacesConfiguration,

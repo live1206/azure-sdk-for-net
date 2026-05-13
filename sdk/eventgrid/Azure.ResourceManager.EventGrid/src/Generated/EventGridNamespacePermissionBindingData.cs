@@ -94,7 +94,7 @@ namespace Azure.ResourceManager.EventGrid
                 {
                     Properties = new PermissionBindingProperties();
                 }
-                Properties.Permission = value.Value;
+                Properties.Permission = value;
             }
         }
 

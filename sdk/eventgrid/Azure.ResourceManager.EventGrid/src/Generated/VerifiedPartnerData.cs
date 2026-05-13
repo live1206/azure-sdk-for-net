@@ -55,7 +55,7 @@ namespace Azure.ResourceManager.EventGrid
                 {
                     Properties = new VerifiedPartnerProperties();
                 }
-                Properties.PartnerRegistrationImmutableId = value.Value;
+                Properties.PartnerRegistrationImmutableId = value;
             }
         }
 
@@ -145,7 +145,7 @@ namespace Azure.ResourceManager.EventGrid
                 {
                     Properties = new VerifiedPartnerProperties();
                 }
-                Properties.ProvisioningState = value.Value;
+                Properties.ProvisioningState = value;
             }
         }
     }

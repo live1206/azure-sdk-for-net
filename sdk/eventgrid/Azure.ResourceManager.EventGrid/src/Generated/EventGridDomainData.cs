@@ -58,7 +58,7 @@ namespace Azure.ResourceManager.EventGrid
 
         /// <summary> List of private endpoint connections. </summary>
         [WirePath("properties.privateEndpointConnections")]
-        public IReadOnlyList<EventGridPrivateEndpointConnection> PrivateEndpointConnections
+        public IReadOnlyList<EventGridPrivateEndpointConnectionData> PrivateEndpointConnections
         {
             get
             {
@@ -94,7 +94,7 @@ namespace Azure.ResourceManager.EventGrid
                 {
                     Properties = new DomainProperties();
                 }
-                Properties.MinimumTlsVersionAllowed = value.Value;
+                Properties.MinimumTlsVersionAllowed = value;
             }
         }
 
@@ -122,7 +122,7 @@ namespace Azure.ResourceManager.EventGrid
                 {
                     Properties = new DomainProperties();
                 }
-                Properties.InputSchema = value.Value;
+                Properties.InputSchema = value;
             }
         }
 
@@ -192,7 +192,7 @@ namespace Azure.ResourceManager.EventGrid
                 {
                     Properties = new DomainProperties();
                 }
-                Properties.PublicNetworkAccess = value.Value;
+                Properties.PublicNetworkAccess = value;
             }
         }
 
@@ -224,7 +224,7 @@ namespace Azure.ResourceManager.EventGrid
                 {
                     Properties = new DomainProperties();
                 }
-                Properties.IsLocalAuthDisabled = value.Value;
+                Properties.IsLocalAuthDisabled = value;
             }
         }
 
@@ -250,7 +250,7 @@ namespace Azure.ResourceManager.EventGrid
                 {
                     Properties = new DomainProperties();
                 }
-                Properties.AutoCreateTopicWithFirstSubscription = value.Value;
+                Properties.AutoCreateTopicWithFirstSubscription = value;
             }
         }
 
@@ -276,7 +276,7 @@ namespace Azure.ResourceManager.EventGrid
                 {
                     Properties = new DomainProperties();
                 }
-                Properties.AutoDeleteTopicWithLastSubscription = value.Value;
+                Properties.AutoDeleteTopicWithLastSubscription = value;
             }
         }
 
@@ -294,7 +294,7 @@ namespace Azure.ResourceManager.EventGrid
                 {
                     Properties = new DomainProperties();
                 }
-                Properties.DataResidencyBoundary = value.Value;
+                Properties.DataResidencyBoundary = value;
             }
         }
 

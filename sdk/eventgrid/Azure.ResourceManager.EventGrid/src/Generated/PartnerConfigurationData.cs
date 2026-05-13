@@ -76,7 +76,7 @@ namespace Azure.ResourceManager.EventGrid
                 {
                     Properties = new PartnerConfigurationProperties();
                 }
-                Properties.ProvisioningState = value.Value;
+                Properties.ProvisioningState = value;
             }
         }
     }

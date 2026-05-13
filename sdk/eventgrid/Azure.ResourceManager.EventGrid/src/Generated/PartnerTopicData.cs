@@ -64,7 +64,7 @@ namespace Azure.ResourceManager.EventGrid
                 {
                     Properties = new PartnerTopicProperties();
                 }
-                Properties.PartnerRegistrationImmutableId = value.Value;
+                Properties.PartnerRegistrationImmutableId = value;
             }
         }
 
@@ -121,7 +121,7 @@ namespace Azure.ResourceManager.EventGrid
                 {
                     Properties = new PartnerTopicProperties();
                 }
-                Properties.ExpireOnIfNotActivated = value.Value;
+                Properties.ExpireOnIfNotActivated = value;
             }
         }
 
@@ -149,7 +149,7 @@ namespace Azure.ResourceManager.EventGrid
                 {
                     Properties = new PartnerTopicProperties();
                 }
-                Properties.ActivationState = value.Value;
+                Properties.ActivationState = value;
             }
         }
 

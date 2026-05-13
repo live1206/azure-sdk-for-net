@@ -65,7 +65,7 @@ namespace Azure.ResourceManager.EventGrid.Models
                 {
                     Properties = new AzureFunctionEventSubscriptionDestinationProperties();
                 }
-                Properties.MaxEventsPerBatch = value.Value;
+                Properties.MaxEventsPerBatch = value;
             }
         }
 
@@ -83,7 +83,7 @@ namespace Azure.ResourceManager.EventGrid.Models
                 {
                     Properties = new AzureFunctionEventSubscriptionDestinationProperties();
                 }
-                Properties.PreferredBatchSizeInKilobytes = value.Value;
+                Properties.PreferredBatchSizeInKilobytes = value;
             }
         }
 

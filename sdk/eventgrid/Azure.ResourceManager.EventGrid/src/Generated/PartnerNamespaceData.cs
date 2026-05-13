@@ -46,7 +46,7 @@ namespace Azure.ResourceManager.EventGrid
 
         /// <summary> List of private endpoint connections. </summary>
         [WirePath("properties.privateEndpointConnections")]
-        public IReadOnlyList<EventGridPrivateEndpointConnection> PrivateEndpointConnections
+        public IReadOnlyList<EventGridPrivateEndpointConnectionData> PrivateEndpointConnections
         {
             get
             {
@@ -103,7 +103,7 @@ namespace Azure.ResourceManager.EventGrid
                 {
                     Properties = new PartnerNamespaceProperties();
                 }
-                Properties.MinimumTlsVersionAllowed = value.Value;
+                Properties.MinimumTlsVersionAllowed = value;
             }
         }
 
@@ -134,7 +134,7 @@ namespace Azure.ResourceManager.EventGrid
                 {
                     Properties = new PartnerNamespaceProperties();
                 }
-                Properties.PublicNetworkAccess = value.Value;
+                Properties.PublicNetworkAccess = value;
             }
         }
 
@@ -166,7 +166,7 @@ namespace Azure.ResourceManager.EventGrid
                 {
                     Properties = new PartnerNamespaceProperties();
                 }
-                Properties.IsLocalAuthDisabled = value.Value;
+                Properties.IsLocalAuthDisabled = value;
             }
         }
 
@@ -187,7 +187,7 @@ namespace Azure.ResourceManager.EventGrid
                 {
                     Properties = new PartnerNamespaceProperties();
                 }
-                Properties.PartnerTopicRoutingMode = value.Value;
+                Properties.PartnerTopicRoutingMode = value;
             }
         }
     }

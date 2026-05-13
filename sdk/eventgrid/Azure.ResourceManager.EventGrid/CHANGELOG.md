@@ -5,21 +5,32 @@
 ### Features Added
 
 - Upgraded api-version to `2025-07-15-preview`.
+- Added new `Namespace`-parent Private Endpoint Connection resources (`NamespaceEventGridPrivateEndpointConnectionResource`/`Collection`).
 
 ### Breaking Changes
 
-- The return type of `EventGridDomainResource.Update`/`UpdateAsync` changed from `ArmOperation` to `ArmOperation<EventGridDomainResource>`.
-- The return type of `EventGridTopicResource.Update`/`UpdateAsync` changed from `ArmOperation` to `ArmOperation<EventGridTopicResource>`.
-- The return type of `PartnerNamespaceResource.Update`/`UpdateAsync` changed from `ArmOperation` to `ArmOperation<PartnerNamespaceResource>`.
-- The return type of `PartnerRegistrationResource.Update`/`UpdateAsync` changed from `ArmOperation` to `ArmOperation<PartnerRegistrationResource>`.
-- The return type of `PartnerTopicResource.Update`/`UpdateAsync` changed from `Response<PartnerTopicResource>` to `Response`.
-- `PartnerConfigurationData` no longer inherits from `TrackedResourceData`; it now inherits from `ResourceData`.
+This release migrates the library from AutoRest/Swagger-based generation to TypeSpec-based MPG generation. The following breaking changes affect callers compiled against `1.1.0`:
+
+- Return-type changes on `Update`/`UpdateAsync`:
+  - `EventGridDomainResource.Update`/`UpdateAsync`: `ArmOperation` → `ArmOperation<EventGridDomainResource>`.
+  - `EventGridTopicResource.Update`/`UpdateAsync`: `ArmOperation` → `ArmOperation<EventGridTopicResource>`.
+  - `PartnerNamespaceResource.Update`/`UpdateAsync`: `ArmOperation` → `ArmOperation<PartnerNamespaceResource>`.
+  - `PartnerRegistrationResource.Update`/`UpdateAsync`: `ArmOperation` → `ArmOperation<PartnerRegistrationResource>`.
+  - `PartnerTopicResource.Update`/`UpdateAsync`: `Response<PartnerTopicResource>` → `Response`.
+- Private Endpoint Connection collection signatures take an extra parent identifier (the new TypeSpec models PEC operations with a `PrivateEndpointConnectionsParentType` discriminator). `Get`/`GetAsync`/`Exists`/`ExistsAsync`/`GetIfExists`/`GetIfExistsAsync`/`CreateOrUpdate`/`CreateOrUpdateAsync` on `EventGridDomainPrivateEndpointConnectionCollection`, `EventGridTopicPrivateEndpointConnectionCollection`, and `EventGridPartnerNamespacePrivateEndpointConnectionCollection` now require explicit `parentType`/`parentName` parameters.
+- `EventGrid<Parent>PrivateEndpointConnectionCollection` no longer implements `IEnumerable<EventGrid<Parent>PrivateEndpointConnectionResource>`.
+- `EventGridDomainPrivateLinkResource`/`Collection`, `EventGridTopicPrivateLinkResource`/`Collection`, and `PartnerNamespacePrivateLinkResource`/`Collection` have been consolidated into a single shared `PrivateLinkResource`/`PrivateLinkResourceCollection`. Use the consolidated types regardless of parent kind.
+- `EventGridPrivateLinkResourceData` no longer inherits from `ResourceData`; identity fields (`Id`, `Name`, `ResourceType`) are exposed directly on the model.
+- `EventSubscriptionCollection` no longer implements `IEnumerable<EventSubscriptionResource>` (the `listByParent` operation is not modeled as the canonical paging operation).
+- Resource `AddTag`/`SetTags`/`RemoveTag`/`GetAvailableLocations` convenience helpers are no longer emitted by the new generator on `EventGridDomainResource`, `EventGridTopicResource`, `PartnerNamespaceResource`, and `PartnerRegistrationResource`. Use `Update`/`UpdateAsync` with a `Patch` model carrying the desired tags instead.
+- The legacy "list event subscriptions by topic type" extension methods (`GetGlobalEventSubscriptionsDataForTopicType`/`GetRegionalEventSubscriptionsData`/`GetRegionalEventSubscriptionsDataForTopicType` and their `Async` counterparts on `ResourceGroupResource`) have been removed. Equivalent listings are available through the regular collection enumerators.
 
 ### Bugs Fixed
 
 ### Other Changes
 
 - Migrated from AutoRest to TypeSpec-based code generation.
+- Removed the now-obsolete `Configuration.json` (replaced by `tsp-location.yaml`).
 
 ## 1.2.0-beta.2 (2025-09-03)
 

@@ -14,7 +14,7 @@ using Azure.ResourceManager.EventGrid.Models;
 
 namespace Azure.ResourceManager.EventGrid
 {
-    internal partial class PrivateEndpointConnectionsGetByResourceCollectionResultOfT : Pageable<EventGridPrivateEndpointConnection>
+    internal partial class PrivateEndpointConnectionsGetByResourceCollectionResultOfT : Pageable<EventGridPrivateEndpointConnectionData>
     {
         private readonly PrivateEndpointConnections _client;
         private readonly Guid _subscriptionId;
@@ -53,7 +53,7 @@ namespace Azure.ResourceManager.EventGrid
         /// <param name="continuationToken"> A continuation token indicating where to resume paging. </param>
         /// <param name="pageSizeHint"> The number of items per page. </param>
         /// <returns> The pages of PrivateEndpointConnectionsGetByResourceCollectionResultOfT as an enumerable collection. </returns>
-        public override IEnumerable<Page<EventGridPrivateEndpointConnection>> AsPages(string continuationToken, int? pageSizeHint)
+        public override IEnumerable<Page<EventGridPrivateEndpointConnectionData>> AsPages(string continuationToken, int? pageSizeHint)
         {
             Uri nextPage = continuationToken != null ? new Uri(continuationToken) : null;
             while (true)
@@ -64,7 +64,7 @@ namespace Azure.ResourceManager.EventGrid
                     yield break;
                 }
                 EventGridPrivateEndpointConnectionListResult result = EventGridPrivateEndpointConnectionListResult.FromResponse(response);
-                yield return Page<EventGridPrivateEndpointConnection>.FromValues((IReadOnlyList<EventGridPrivateEndpointConnection>)result.Value, nextPage?.IsAbsoluteUri == true ? nextPage.AbsoluteUri : nextPage?.OriginalString, response);
+                yield return Page<EventGridPrivateEndpointConnectionData>.FromValues((IReadOnlyList<EventGridPrivateEndpointConnectionData>)result.Value, nextPage?.IsAbsoluteUri == true ? nextPage.AbsoluteUri : nextPage?.OriginalString, response);
                 nextPage = result.NextLink;
                 if (nextPage == null)
                 {

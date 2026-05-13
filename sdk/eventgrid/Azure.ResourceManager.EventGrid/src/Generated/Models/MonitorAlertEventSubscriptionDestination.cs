@@ -50,7 +50,7 @@ namespace Azure.ResourceManager.EventGrid.Models
                 {
                     Properties = new MonitorAlertEventSubscriptionDestinationProperties();
                 }
-                Properties.Severity = value.Value;
+                Properties.Severity = value;
             }
         }
 

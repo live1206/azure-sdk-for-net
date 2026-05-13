@@ -139,7 +139,7 @@ namespace Azure.ResourceManager.EventGrid
                 {
                     Properties = new SystemTopicProperties();
                 }
-                Properties.PlatformCapabilitiesConfidentialComputeMode = value.Value;
+                Properties.PlatformCapabilitiesConfidentialComputeMode = value;
             }
         }
     }

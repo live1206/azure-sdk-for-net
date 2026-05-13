@@ -83,7 +83,7 @@ namespace Azure.ResourceManager.EventGrid.Models
                 {
                     Properties = new StorageQueueEventSubscriptionDestinationProperties();
                 }
-                Properties.QueueMessageTimeToLiveInSeconds = value.Value;
+                Properties.QueueMessageTimeToLiveInSeconds = value;
             }
         }
     }

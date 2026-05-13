@@ -89,7 +89,7 @@ namespace Azure.ResourceManager.EventGrid.Models
             }
             writer.WritePropertyName("value"u8);
             writer.WriteStartArray();
-            foreach (EventGridPrivateLinkResource item in Value)
+            foreach (EventGridPrivateLinkResourceData item in Value)
             {
                 writer.WriteObjectValue(item, options);
             }
@@ -141,17 +141,17 @@ namespace Azure.ResourceManager.EventGrid.Models
             {
                 return null;
             }
-            IList<EventGridPrivateLinkResource> value = default;
+            IList<EventGridPrivateLinkResourceData> value = default;
             Uri nextLink = default;
             IDictionary<string, BinaryData> additionalBinaryDataProperties = new ChangeTrackingDictionary<string, BinaryData>();
             foreach (var prop in element.EnumerateObject())
             {
                 if (prop.NameEquals("value"u8))
                 {
-                    List<EventGridPrivateLinkResource> array = new List<EventGridPrivateLinkResource>();
+                    List<EventGridPrivateLinkResourceData> array = new List<EventGridPrivateLinkResourceData>();
                     foreach (var item in prop.Value.EnumerateArray())
                     {
-                        array.Add(EventGridPrivateLinkResource.DeserializeEventGridPrivateLinkResource(item, options));
+                        array.Add(EventGridPrivateLinkResourceData.DeserializeEventGridPrivateLinkResourceData(item, options));
                     }
                     value = array;
                     continue;

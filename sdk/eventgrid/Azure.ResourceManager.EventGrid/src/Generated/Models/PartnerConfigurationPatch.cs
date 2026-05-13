@@ -56,7 +56,7 @@ namespace Azure.ResourceManager.EventGrid.Models
                 {
                     Properties = new PartnerConfigurationUpdateParameterProperties();
                 }
-                Properties.DefaultMaximumExpirationTimeInDays = value.Value;
+                Properties.DefaultMaximumExpirationTimeInDays = value;
             }
         }
     }

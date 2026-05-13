@@ -67,7 +67,7 @@ namespace Azure.ResourceManager.EventGrid.Models
                 {
                     Properties = new NetworkSecurityPerimeterProfileAccessRuleProperties();
                 }
-                Properties.Direction = value.Value;
+                Properties.Direction = value;
             }
         }
 

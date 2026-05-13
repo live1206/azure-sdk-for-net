@@ -74,7 +74,7 @@ namespace Azure.ResourceManager.EventGrid.Models
                 {
                     Properties = new WebHookEventSubscriptionDestinationProperties();
                 }
-                Properties.MaxEventsPerBatch = value.Value;
+                Properties.MaxEventsPerBatch = value;
             }
         }
 
@@ -92,7 +92,7 @@ namespace Azure.ResourceManager.EventGrid.Models
                 {
                     Properties = new WebHookEventSubscriptionDestinationProperties();
                 }
-                Properties.PreferredBatchSizeInKilobytes = value.Value;
+                Properties.PreferredBatchSizeInKilobytes = value;
             }
         }
 
@@ -110,7 +110,7 @@ namespace Azure.ResourceManager.EventGrid.Models
                 {
                     Properties = new WebHookEventSubscriptionDestinationProperties();
                 }
-                Properties.AzureActiveDirectoryTenantId = value.Value;
+                Properties.AzureActiveDirectoryTenantId = value;
             }
         }
 
@@ -160,7 +160,7 @@ namespace Azure.ResourceManager.EventGrid.Models
                 {
                     Properties = new WebHookEventSubscriptionDestinationProperties();
                 }
-                Properties.MinimumTlsVersionAllowed = value.Value;
+                Properties.MinimumTlsVersionAllowed = value;
             }
         }
     }

@@ -90,7 +90,7 @@ namespace Azure.ResourceManager.EventGrid.Models
                 {
                     Properties = new NamespaceUpdateParameterProperties();
                 }
-                Properties.PublicNetworkAccess = value.Value;
+                Properties.PublicNetworkAccess = value;
             }
         }
 

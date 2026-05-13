@@ -71,7 +71,7 @@ namespace Azure.ResourceManager.EventGrid
                 {
                     Properties = new PartnerRegistrationProperties();
                 }
-                Properties.PartnerRegistrationImmutableId = value.Value;
+                Properties.PartnerRegistrationImmutableId = value;
             }
         }
     }

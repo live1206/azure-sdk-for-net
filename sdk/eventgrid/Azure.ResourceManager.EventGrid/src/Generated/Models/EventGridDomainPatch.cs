@@ -72,7 +72,7 @@ namespace Azure.ResourceManager.EventGrid.Models
                 {
                     Properties = new DomainUpdateParameterProperties();
                 }
-                Properties.PublicNetworkAccess = value.Value;
+                Properties.PublicNetworkAccess = value;
             }
         }
 
@@ -104,7 +104,7 @@ namespace Azure.ResourceManager.EventGrid.Models
                 {
                     Properties = new DomainUpdateParameterProperties();
                 }
-                Properties.MinimumTlsVersionAllowed = value.Value;
+                Properties.MinimumTlsVersionAllowed = value;
             }
         }
 
@@ -122,7 +122,7 @@ namespace Azure.ResourceManager.EventGrid.Models
                 {
                     Properties = new DomainUpdateParameterProperties();
                 }
-                Properties.IsLocalAuthDisabled = value.Value;
+                Properties.IsLocalAuthDisabled = value;
             }
         }
 
@@ -148,7 +148,7 @@ namespace Azure.ResourceManager.EventGrid.Models
                 {
                     Properties = new DomainUpdateParameterProperties();
                 }
-                Properties.AutoCreateTopicWithFirstSubscription = value.Value;
+                Properties.AutoCreateTopicWithFirstSubscription = value;
             }
         }
 
@@ -174,7 +174,7 @@ namespace Azure.ResourceManager.EventGrid.Models
                 {
                     Properties = new DomainUpdateParameterProperties();
                 }
-                Properties.AutoDeleteTopicWithLastSubscription = value.Value;
+                Properties.AutoDeleteTopicWithLastSubscription = value;
             }
         }
 
@@ -192,7 +192,7 @@ namespace Azure.ResourceManager.EventGrid.Models
                 {
                     Properties = new DomainUpdateParameterProperties();
                 }
-                Properties.DataResidencyBoundary = value.Value;
+                Properties.DataResidencyBoundary = value;
             }
         }
 

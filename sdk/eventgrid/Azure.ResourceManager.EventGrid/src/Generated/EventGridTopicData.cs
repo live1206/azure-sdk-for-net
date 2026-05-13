@@ -70,7 +70,7 @@ namespace Azure.ResourceManager.EventGrid
 
         /// <summary> List of private endpoint connections. </summary>
         [WirePath("properties.privateEndpointConnections")]
-        public IReadOnlyList<EventGridPrivateEndpointConnection> PrivateEndpointConnections
+        public IReadOnlyList<EventGridPrivateEndpointConnectionData> PrivateEndpointConnections
         {
             get
             {
@@ -137,7 +137,7 @@ namespace Azure.ResourceManager.EventGrid
                 {
                     Properties = new TopicProperties();
                 }
-                Properties.MinimumTlsVersionAllowed = value.Value;
+                Properties.MinimumTlsVersionAllowed = value;
             }
         }
 
@@ -155,7 +155,7 @@ namespace Azure.ResourceManager.EventGrid
                 {
                     Properties = new TopicProperties();
                 }
-                Properties.InputSchema = value.Value;
+                Properties.InputSchema = value;
             }
         }
 
@@ -204,7 +204,7 @@ namespace Azure.ResourceManager.EventGrid
                 {
                     Properties = new TopicProperties();
                 }
-                Properties.PublicNetworkAccess = value.Value;
+                Properties.PublicNetworkAccess = value;
             }
         }
 
@@ -236,7 +236,7 @@ namespace Azure.ResourceManager.EventGrid
                 {
                     Properties = new TopicProperties();
                 }
-                Properties.IsLocalAuthDisabled = value.Value;
+                Properties.IsLocalAuthDisabled = value;
             }
         }
 
@@ -254,7 +254,7 @@ namespace Azure.ResourceManager.EventGrid
                 {
                     Properties = new TopicProperties();
                 }
-                Properties.DataResidencyBoundary = value.Value;
+                Properties.DataResidencyBoundary = value;
             }
         }
 
@@ -291,7 +291,7 @@ namespace Azure.ResourceManager.EventGrid
                 {
                     Properties = new TopicProperties();
                 }
-                Properties.PlatformCapabilitiesConfidentialComputeMode = value.Value;
+                Properties.PlatformCapabilitiesConfidentialComputeMode = value;
             }
         }
 
