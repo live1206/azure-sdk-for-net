@@ -18,7 +18,7 @@ namespace Azure.ResourceManager.EventGrid.Models
     /// which you want to filter.
     /// Please note this is the abstract base class. The derived classes available for instantiation are: <see cref="NumberInFilter"/>, <see cref="NumberNotInFilter"/>, <see cref="NumberLessThanFilter"/>, <see cref="NumberGreaterThanFilter"/>, <see cref="NumberLessThanOrEqualsFilter"/>, <see cref="NumberGreaterThanOrEqualsFilter"/>, <see cref="BoolEqualsFilter"/>, <see cref="StringInFilter"/>, <see cref="StringNotInFilter"/>, <see cref="StringBeginsWithFilter"/>, <see cref="StringEndsWithFilter"/>, <see cref="StringContainsFilter"/>, <see cref="NumberInRangeFilter"/>, <see cref="NumberNotInRangeFilter"/>, <see cref="StringNotBeginsWithFilter"/>, <see cref="StringNotEndsWithFilter"/>, <see cref="StringNotContainsFilter"/>, <see cref="IsNullOrUndefinedFilter"/>, and <see cref="IsNotNullFilter"/>.
     /// </summary>
-    [PersistableModelProxy(typeof(UnknownFilter))]
+    [PersistableModelProxy(typeof(UnknownEventGridFilter))]
     public abstract partial class EventGridFilter : IJsonModel<EventGridFilter>
     {
         /// <param name="data"> The data to parse. </param>
@@ -172,7 +172,7 @@ namespace Azure.ResourceManager.EventGrid.Models
                         return IsNotNullFilter.DeserializeIsNotNullFilter(element, options);
                 }
             }
-            return UnknownFilter.DeserializeUnknownFilter(element, options);
+            return UnknownEventGridFilter.DeserializeUnknownEventGridFilter(element, options);
         }
     }
 }

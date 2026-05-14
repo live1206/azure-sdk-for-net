@@ -1,0 +1,6 @@
+# The Unknown* discriminator fallback types are internal generator implementation details.
+# Their names are captured in public PersistableModelProxyAttribute metadata, but the
+# runtime behavior is unchanged and the review recommendation is to baseline this
+# metadata-only change instead of adding SDK custom code.
+CannotChangeAttribute : Attribute 'System.ClientModel.Primitives.PersistableModelProxyAttribute' on 'Azure.ResourceManager.EventGrid.Models.EventGridFilter' changed from '[PersistableModelProxyAttribute(typeof(UnknownFilter))]' in the contract to '[PersistableModelProxyAttribute(typeof(UnknownEventGridFilter))]' in the implementation.
+CannotChangeAttribute : Attribute 'System.ClientModel.Primitives.PersistableModelProxyAttribute' on 'Azure.ResourceManager.EventGrid.Models.EventGridInputSchemaMapping' changed from '[PersistableModelProxyAttribute(typeof(UnknownInputSchemaMapping))]' in the contract to '[PersistableModelProxyAttribute(typeof(UnknownEventGridInputSchemaMapping))]' in the implementation.

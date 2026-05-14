@@ -16,7 +16,7 @@ namespace Azure.ResourceManager.EventGrid.Models
     /// By default, Event Grid expects events to be in the Event Grid event schema. Specifying an input schema mapping enables publishing to Event Grid using a custom input schema. Currently, the only supported type of InputSchemaMapping is 'JsonInputSchemaMapping'.
     /// Please note this is the abstract base class. The derived classes available for instantiation are: <see cref="EventGridJsonInputSchemaMapping"/>.
     /// </summary>
-    [PersistableModelProxy(typeof(UnknownInputSchemaMapping))]
+    [PersistableModelProxy(typeof(UnknownEventGridInputSchemaMapping))]
     public abstract partial class EventGridInputSchemaMapping : IJsonModel<EventGridInputSchemaMapping>
     {
         /// <param name="data"> The data to parse. </param>
@@ -129,7 +129,7 @@ namespace Azure.ResourceManager.EventGrid.Models
                         return EventGridJsonInputSchemaMapping.DeserializeEventGridJsonInputSchemaMapping(element, options);
                 }
             }
-            return UnknownInputSchemaMapping.DeserializeUnknownInputSchemaMapping(element, options);
+            return UnknownEventGridInputSchemaMapping.DeserializeUnknownEventGridInputSchemaMapping(element, options);
         }
     }
 }
