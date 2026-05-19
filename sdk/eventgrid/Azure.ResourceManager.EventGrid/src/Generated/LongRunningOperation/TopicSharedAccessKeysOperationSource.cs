@@ -28,8 +28,7 @@ namespace Azure.ResourceManager.EventGrid
         TopicSharedAccessKeys IOperationSource<TopicSharedAccessKeys>.CreateResult(Response response, CancellationToken cancellationToken)
         {
             using JsonDocument document = JsonDocument.Parse(response.ContentStream);
-            TopicSharedAccessKeys result = TopicSharedAccessKeys.DeserializeTopicSharedAccessKeys(document.RootElement, ModelSerializationExtensions.WireOptions);
-            return result;
+            return TopicSharedAccessKeys.DeserializeTopicSharedAccessKeys(document.RootElement, ModelSerializationExtensions.WireOptions);
         }
 
         /// <param name="response"> The response from the service. </param>
@@ -38,8 +37,7 @@ namespace Azure.ResourceManager.EventGrid
         async ValueTask<TopicSharedAccessKeys> IOperationSource<TopicSharedAccessKeys>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
             using JsonDocument document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
-            TopicSharedAccessKeys result = TopicSharedAccessKeys.DeserializeTopicSharedAccessKeys(document.RootElement, ModelSerializationExtensions.WireOptions);
-            return result;
+            return TopicSharedAccessKeys.DeserializeTopicSharedAccessKeys(document.RootElement, ModelSerializationExtensions.WireOptions);
         }
     }
 }

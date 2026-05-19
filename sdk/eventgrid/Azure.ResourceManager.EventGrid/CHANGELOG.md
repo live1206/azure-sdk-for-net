@@ -6,6 +6,7 @@
 
 - Upgraded api-version to `2025-07-15-preview`.
 - Added new `Namespace`-parent Private Endpoint Connection resources (`NamespaceEventGridPrivateEndpointConnectionResource`/`Collection`).
+- Added new `Namespace`-parent Private Link Resource (`NamespaceEventGridPrivateLinkResource`/`Collection`).
 
 ### Breaking Changes
 
@@ -19,7 +20,7 @@ This release migrates the library from AutoRest/Swagger-based generation to Type
   - `PartnerTopicResource.Update`/`UpdateAsync`: `Response<PartnerTopicResource>` → `Response`.
 - Private Endpoint Connection collection signatures take an extra parent identifier (the new TypeSpec models PEC operations with a `PrivateEndpointConnectionsParentType` discriminator). `Get`/`GetAsync`/`Exists`/`ExistsAsync`/`GetIfExists`/`GetIfExistsAsync`/`CreateOrUpdate`/`CreateOrUpdateAsync` on `EventGridDomainPrivateEndpointConnectionCollection`, `EventGridTopicPrivateEndpointConnectionCollection`, and `EventGridPartnerNamespacePrivateEndpointConnectionCollection` now require explicit `parentType`/`parentName` parameters.
 - `EventGrid<Parent>PrivateEndpointConnectionCollection` no longer implements `IEnumerable<EventGrid<Parent>PrivateEndpointConnectionResource>`.
-- `EventGridDomainPrivateLinkResource`/`Collection`, `EventGridTopicPrivateLinkResource`/`Collection`, and `PartnerNamespacePrivateLinkResource`/`Collection` have been consolidated into a single shared `PrivateLinkResource`/`PrivateLinkResourceCollection`. Use the consolidated types regardless of parent kind.
+- Private Link Resource collection signatures take an extra parent identifier (same discriminator pattern as PEC). `Get`/`GetAsync`/`Exists`/`ExistsAsync`/`GetIfExists`/`GetIfExistsAsync` on `EventGridDomainPrivateLinkResourceCollection`, `EventGridTopicPrivateLinkResourceCollection`, and `PartnerNamespacePrivateLinkResourceCollection` now require explicit `parentType`/`parentName` parameters.
 - `EventGridPrivateLinkResourceData` no longer inherits from `ResourceData`; identity fields (`Id`, `Name`, `ResourceType`) are exposed directly on the model.
 - `EventSubscriptionCollection` no longer implements `IEnumerable<EventSubscriptionResource>` (the `listByParent` operation is not modeled as the canonical paging operation).
 - Resource `AddTag`/`SetTags`/`RemoveTag`/`GetAvailableLocations` convenience helpers are no longer emitted by the new generator on `EventGridDomainResource`, `EventGridTopicResource`, `PartnerNamespaceResource`, and `PartnerRegistrationResource`. Use `Update`/`UpdateAsync` with a `Patch` model carrying the desired tags instead.
