@@ -4245,10 +4245,10 @@ namespace Azure.ResourceManager.EventGrid.Models
         public string FullyQualifiedArmId { get { throw null; } set { } }
         public System.Collections.Generic.IList<string> FullyQualifiedDomainNames { get { throw null; } }
         public string Name { get { throw null; } set { } }
+        public string NetworkSecurityPerimeterProfileAccessRuleType { get { throw null; } set { } }
         public System.Collections.Generic.IList<Azure.ResourceManager.EventGrid.Models.NetworkSecurityPerimeterInfo> NetworkSecurityPerimeters { get { throw null; } }
         public System.Collections.Generic.IList<string> PhoneNumbers { get { throw null; } }
-        public System.Collections.Generic.IList<Azure.ResourceManager.EventGrid.Models.NetworkSecurityPerimeterSubscription> Subscriptions { get { throw null; } }
-        public string Type { get { throw null; } set { } }
+        public System.Collections.Generic.IList<Azure.ResourceManager.Resources.Models.WritableSubResource> Subscriptions { get { throw null; } }
         protected virtual Azure.ResourceManager.EventGrid.Models.NetworkSecurityPerimeterProfileAccessRule JsonModelCreateCore(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         protected virtual void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         protected virtual Azure.ResourceManager.EventGrid.Models.NetworkSecurityPerimeterProfileAccessRule PersistableModelCreateCore(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -4275,20 +4275,6 @@ namespace Azure.ResourceManager.EventGrid.Models
         public static implicit operator Azure.ResourceManager.EventGrid.Models.NetworkSecurityPerimeterProfileAccessRuleDirection? (string value) { throw null; }
         public static bool operator !=(Azure.ResourceManager.EventGrid.Models.NetworkSecurityPerimeterProfileAccessRuleDirection left, Azure.ResourceManager.EventGrid.Models.NetworkSecurityPerimeterProfileAccessRuleDirection right) { throw null; }
         public override string ToString() { throw null; }
-    }
-    public partial class NetworkSecurityPerimeterSubscription : System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.EventGrid.Models.NetworkSecurityPerimeterSubscription>, System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.EventGrid.Models.NetworkSecurityPerimeterSubscription>
-    {
-        public NetworkSecurityPerimeterSubscription() { }
-        public string Id { get { throw null; } set { } }
-        protected virtual Azure.ResourceManager.EventGrid.Models.NetworkSecurityPerimeterSubscription JsonModelCreateCore(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
-        protected virtual void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
-        protected virtual Azure.ResourceManager.EventGrid.Models.NetworkSecurityPerimeterSubscription PersistableModelCreateCore(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
-        protected virtual System.BinaryData PersistableModelWriteCore(System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
-        Azure.ResourceManager.EventGrid.Models.NetworkSecurityPerimeterSubscription System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.EventGrid.Models.NetworkSecurityPerimeterSubscription>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
-        void System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.EventGrid.Models.NetworkSecurityPerimeterSubscription>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
-        Azure.ResourceManager.EventGrid.Models.NetworkSecurityPerimeterSubscription System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.EventGrid.Models.NetworkSecurityPerimeterSubscription>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
-        string System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.EventGrid.Models.NetworkSecurityPerimeterSubscription>.GetFormatFromOptions(System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
-        System.BinaryData System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.EventGrid.Models.NetworkSecurityPerimeterSubscription>.Write(System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
     }
     public partial class NumberGreaterThanAdvancedFilter : Azure.ResourceManager.EventGrid.Models.AdvancedFilter, System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.EventGrid.Models.NumberGreaterThanAdvancedFilter>, System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.EventGrid.Models.NumberGreaterThanAdvancedFilter>
     {

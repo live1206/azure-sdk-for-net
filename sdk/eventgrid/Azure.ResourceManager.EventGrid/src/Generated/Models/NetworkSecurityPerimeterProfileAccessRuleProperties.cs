@@ -8,6 +8,7 @@
 using System;
 using System.Collections.Generic;
 using Azure.ResourceManager.EventGrid;
+using Azure.ResourceManager.Resources.Models;
 
 namespace Azure.ResourceManager.EventGrid.Models
 {
@@ -21,7 +22,7 @@ namespace Azure.ResourceManager.EventGrid.Models
         public NetworkSecurityPerimeterProfileAccessRuleProperties()
         {
             AddressPrefixes = new ChangeTrackingList<string>();
-            Subscriptions = new ChangeTrackingList<NetworkSecurityPerimeterSubscription>();
+            Subscriptions = new ChangeTrackingList<WritableSubResource>();
             NetworkSecurityPerimeters = new ChangeTrackingList<NetworkSecurityPerimeterInfo>();
             FullyQualifiedDomainNames = new ChangeTrackingList<string>();
             EmailAddresses = new ChangeTrackingList<string>();
@@ -37,7 +38,7 @@ namespace Azure.ResourceManager.EventGrid.Models
         /// <param name="emailAddresses"> List of email addresses. </param>
         /// <param name="phoneNumbers"> List of phone numbers. </param>
         /// <param name="additionalBinaryDataProperties"> Keeps track of any properties unknown to the library. </param>
-        internal NetworkSecurityPerimeterProfileAccessRuleProperties(NetworkSecurityPerimeterProfileAccessRuleDirection? direction, IList<string> addressPrefixes, IList<NetworkSecurityPerimeterSubscription> subscriptions, IList<NetworkSecurityPerimeterInfo> networkSecurityPerimeters, IList<string> fullyQualifiedDomainNames, IList<string> emailAddresses, IList<string> phoneNumbers, IDictionary<string, BinaryData> additionalBinaryDataProperties)
+        internal NetworkSecurityPerimeterProfileAccessRuleProperties(NetworkSecurityPerimeterProfileAccessRuleDirection? direction, IList<string> addressPrefixes, IList<WritableSubResource> subscriptions, IList<NetworkSecurityPerimeterInfo> networkSecurityPerimeters, IList<string> fullyQualifiedDomainNames, IList<string> emailAddresses, IList<string> phoneNumbers, IDictionary<string, BinaryData> additionalBinaryDataProperties)
         {
             Direction = direction;
             AddressPrefixes = addressPrefixes;
@@ -59,7 +60,7 @@ namespace Azure.ResourceManager.EventGrid.Models
 
         /// <summary> List of subscriptions. </summary>
         [WirePath("subscriptions")]
-        public IList<NetworkSecurityPerimeterSubscription> Subscriptions { get; } = new ChangeTrackingList<NetworkSecurityPerimeterSubscription>();
+        public IList<WritableSubResource> Subscriptions { get; } = new ChangeTrackingList<WritableSubResource>();
 
         /// <summary> Network security perimeters. </summary>
         [WirePath("networkSecurityPerimeters")]

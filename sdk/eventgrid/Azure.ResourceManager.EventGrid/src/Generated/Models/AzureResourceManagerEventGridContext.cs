@@ -9,6 +9,7 @@ using System.ClientModel.Primitives;
 using Azure;
 using Azure.ResourceManager.EventGrid.Models;
 using Azure.ResourceManager.Models;
+using Azure.ResourceManager.Resources.Models;
 
 namespace Azure.ResourceManager.EventGrid
 {
@@ -111,7 +112,7 @@ namespace Azure.ResourceManager.EventGrid
     [ModelReaderWriterBuildable(typeof(EventTypeProperties))]
     [ModelReaderWriterBuildable(typeof(EventTypesListResult))]
     [ModelReaderWriterBuildable(typeof(EventTypeUnderTopic))]
-    [ModelReaderWriterBuildable(typeof(ExtendedLocation))]
+    [ModelReaderWriterBuildable(typeof(Models.ExtendedLocation))]
     [ModelReaderWriterBuildable(typeof(ExtensionTopicData))]
     [ModelReaderWriterBuildable(typeof(ExtensionTopicProperties))]
     [ModelReaderWriterBuildable(typeof(ExtensionTopicResource))]
@@ -160,7 +161,6 @@ namespace Azure.ResourceManager.EventGrid
     [ModelReaderWriterBuildable(typeof(NetworkSecurityPerimeterInfo))]
     [ModelReaderWriterBuildable(typeof(NetworkSecurityPerimeterProfileAccessRule))]
     [ModelReaderWriterBuildable(typeof(NetworkSecurityPerimeterProfileAccessRuleProperties))]
-    [ModelReaderWriterBuildable(typeof(NetworkSecurityPerimeterSubscription))]
     [ModelReaderWriterBuildable(typeof(NumberGreaterThanAdvancedFilter))]
     [ModelReaderWriterBuildable(typeof(NumberGreaterThanFilter))]
     [ModelReaderWriterBuildable(typeof(NumberGreaterThanOrEqualsAdvancedFilter))]
@@ -315,6 +315,7 @@ namespace Azure.ResourceManager.EventGrid
     [ModelReaderWriterBuildable(typeof(WebhookPartnerDestinationInfo))]
     [ModelReaderWriterBuildable(typeof(WebhookPartnerDestinationProperties))]
     [ModelReaderWriterBuildable(typeof(WebhookUpdatePartnerDestinationInfo))]
+    [ModelReaderWriterBuildable(typeof(WritableSubResource))]
     public partial class AzureResourceManagerEventGridContext : ModelReaderWriterContext
     {
     }

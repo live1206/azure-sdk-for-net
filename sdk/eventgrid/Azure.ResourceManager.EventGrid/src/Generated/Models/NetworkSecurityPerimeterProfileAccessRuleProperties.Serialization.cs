@@ -8,8 +8,10 @@
 using System;
 using System.ClientModel.Primitives;
 using System.Collections.Generic;
+using System.Text;
 using System.Text.Json;
 using Azure.ResourceManager.EventGrid;
+using Azure.ResourceManager.Resources.Models;
 
 namespace Azure.ResourceManager.EventGrid.Models
 {
@@ -98,9 +100,14 @@ namespace Azure.ResourceManager.EventGrid.Models
             {
                 writer.WritePropertyName("subscriptions"u8);
                 writer.WriteStartArray();
-                foreach (NetworkSecurityPerimeterSubscription item in Subscriptions)
+                foreach (WritableSubResource item in Subscriptions)
                 {
-                    writer.WriteObjectValue(item, options);
+                    if (item == null)
+                    {
+                        writer.WriteNullValue();
+                        continue;
+                    }
+                    ((IJsonModel<WritableSubResource>)item).Write(writer, options);
                 }
                 writer.WriteEndArray();
             }
@@ -203,7 +210,7 @@ namespace Azure.ResourceManager.EventGrid.Models
             }
             NetworkSecurityPerimeterProfileAccessRuleDirection? direction = default;
             IList<string> addressPrefixes = default;
-            IList<NetworkSecurityPerimeterSubscription> subscriptions = default;
+            IList<WritableSubResource> subscriptions = default;
             IList<NetworkSecurityPerimeterInfo> networkSecurityPerimeters = default;
             IList<string> fullyQualifiedDomainNames = default;
             IList<string> emailAddresses = default;
@@ -247,10 +254,17 @@ namespace Azure.ResourceManager.EventGrid.Models
                     {
                         continue;
                     }
-                    List<NetworkSecurityPerimeterSubscription> array = new List<NetworkSecurityPerimeterSubscription>();
+                    List<WritableSubResource> array = new List<WritableSubResource>();
                     foreach (var item in prop.Value.EnumerateArray())
                     {
-                        array.Add(NetworkSecurityPerimeterSubscription.DeserializeNetworkSecurityPerimeterSubscription(item, options));
+                        if (item.ValueKind == JsonValueKind.Null)
+                        {
+                            array.Add(null);
+                        }
+                        else
+                        {
+                            array.Add(ModelReaderWriter.Read<WritableSubResource>(new BinaryData(Encoding.UTF8.GetBytes(item.GetRawText())), ModelSerializationExtensions.WireOptions, AzureResourceManagerEventGridContext.Default));
+                        }
                     }
                     subscriptions = array;
                     continue;
@@ -340,7 +354,7 @@ namespace Azure.ResourceManager.EventGrid.Models
             return new NetworkSecurityPerimeterProfileAccessRuleProperties(
                 direction,
                 addressPrefixes ?? new ChangeTrackingList<string>(),
-                subscriptions ?? new ChangeTrackingList<NetworkSecurityPerimeterSubscription>(),
+                subscriptions ?? new ChangeTrackingList<WritableSubResource>(),
                 networkSecurityPerimeters ?? new ChangeTrackingList<NetworkSecurityPerimeterInfo>(),
                 fullyQualifiedDomainNames ?? new ChangeTrackingList<string>(),
                 emailAddresses ?? new ChangeTrackingList<string>(),

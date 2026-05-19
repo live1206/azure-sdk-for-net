@@ -25,8 +25,11 @@ This release migrates the library from AutoRest/Swagger-based generation to Type
 - `EventSubscriptionCollection` no longer implements `IEnumerable<EventSubscriptionResource>` (the `listByParent` operation is not modeled as the canonical paging operation).
 - Resource `AddTag`/`SetTags`/`RemoveTag`/`GetAvailableLocations` convenience helpers are no longer emitted by the new generator on `EventGridDomainResource`, `EventGridTopicResource`, `PartnerNamespaceResource`, and `PartnerRegistrationResource`. Use `Update`/`UpdateAsync` with a `Patch` model carrying the desired tags instead.
 - The legacy "list event subscriptions by topic type" extension methods (`GetGlobalEventSubscriptionsDataForTopicType`/`GetRegionalEventSubscriptionsData`/`GetRegionalEventSubscriptionsDataForTopicType` and their `Async` counterparts on `ResourceGroupResource`) have been removed. Equivalent listings are available through the regular collection enumerators.
+- The per-parent collection types `DomainNetworkSecurityPerimeterConfigurationCollection` and `TopicNetworkSecurityPerimeterConfigurationCollection` are no longer emitted. The singleton TypeSpec model (`@singleton("{perimeterGuid}.{associationName}")`) combined with `Azure.ResourceManager.Legacy.RoutedOperations` causes the generator to emit per-parent `Resource` types only; callers must reach individual configurations via the `ArmClient.GetDomainNetworkSecurityPerimeterConfigurationResource(...)` / `ArmClient.GetTopicNetworkSecurityPerimeterConfigurationResource(...)` factory extensions.
 
 ### Bugs Fixed
+
+- `NetworkSecurityPerimeterProfileAccessRule.Subscriptions` is now typed as `IList<Azure.ResourceManager.Resources.Models.WritableSubResource>` (matching the `1.1.0` surface) instead of the per-service `NetworkSecurityPerimeterSubscription`. The wire format is unchanged.
 
 ### Other Changes
 
