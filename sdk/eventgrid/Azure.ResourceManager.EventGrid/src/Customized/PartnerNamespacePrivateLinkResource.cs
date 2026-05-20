@@ -5,7 +5,9 @@ using Microsoft.TypeSpec.Generator.Customizations;
 
 namespace Azure.ResourceManager.EventGrid
 {
-    // Note: PartnerNamespace variant does NOT have the "EventGrid" prefix on main.
+    // Workaround for https://github.com/Azure/azure-sdk-for-net/issues/59358
+    // (Mgmt CodeGen dynamic-parent expansion: naming divergence vs legacy AutoRest).
+    // Note: PartnerNamespace PLR variant does NOT have the "EventGrid" prefix on main.
     [CodeGenType("PartnerNamespaceEventGridPrivateLinkResource")]
     public partial class PartnerNamespacePrivateLinkResource
     {

@@ -9,6 +9,11 @@ using Microsoft.TypeSpec.Generator.Customizations;
 
 namespace Azure.ResourceManager.EventGrid
 {
+    // Workaround for https://github.com/Azure/azure-sdk-for-net/issues/59358
+    // (Mgmt CodeGen Symptom #7: generated GetAll passes strongly-typed enum to a
+    // string-typed REST helper, causing CS1503; only manifests on the one PEC Collection
+    // that received a GetAll binding from the dynamic-parent expansion).
+    //
     // Rename the Topic-prefixed PEC collection class to the back-compat name AND work around
     // a generator quirk that only affects the Topic-prefixed collection: the generated
     // GetAll/GetAllAsync pass the strongly-typed _parentType (PrivateEndpointConnectionsParentType)
