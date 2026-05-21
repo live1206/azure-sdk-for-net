@@ -9,7 +9,7 @@ namespace Azure.ResourceManager.Compute.Models
     public partial class vm_size_info
     {
         /// <summary> Gets the vmSize name. </summary>
-        public string vmSizeName { get; }
+        public string VmSizeName { get; }
 
         /// <summary> Gets the Max_Data_Disk_Count. </summary>
         public int Max_Data_Disk_Count { get; }
@@ -17,7 +17,7 @@ namespace Azure.ResourceManager.Compute.Models
         /// <summary> Constructor. </summary>
         public vm_size_info(string vmSizeName, int maxDataDiskCount)
         {
-            this.vmSizeName = vmSizeName;
+            this.VmSizeName = vmSizeName;
             this.Max_Data_Disk_Count = maxDataDiskCount;
         }
     }
