@@ -20,7 +20,7 @@ namespace Azure.ResourceManager.EventGrid
         private protected readonly IDictionary<string, BinaryData> _additionalBinaryDataProperties;
 
         /// <summary> Initializes a new instance of <see cref="NetworkSecurityPerimeterConfigurationData"/>. </summary>
-        public NetworkSecurityPerimeterConfigurationData()
+        internal NetworkSecurityPerimeterConfigurationData()
         {
         }
 
@@ -39,7 +39,7 @@ namespace Azure.ResourceManager.EventGrid
 
         /// <summary> Properties of the network security perimeter configuration. </summary>
         [WirePath("properties")]
-        internal NetworkSecurityPerimeterConfigurationProperties Properties { get; set; }
+        internal NetworkSecurityPerimeterConfigurationProperties Properties { get; }
 
         /// <summary> Provisioning state to reflect configuration state and indicate status of nsp profile configuration retrieval. </summary>
         [WirePath("properties.provisioningState")]
@@ -49,14 +49,6 @@ namespace Azure.ResourceManager.EventGrid
             {
                 return Properties is null ? default : Properties.ProvisioningState;
             }
-            set
-            {
-                if (Properties is null)
-                {
-                    Properties = new NetworkSecurityPerimeterConfigurationProperties();
-                }
-                Properties.ProvisioningState = value;
-            }
         }
 
         /// <summary> Provisioning issues to reflect status when attempting to retrieve nsp profile configuration. </summary>
@@ -65,11 +57,7 @@ namespace Azure.ResourceManager.EventGrid
         {
             get
             {
-                if (Properties is null)
-                {
-                    Properties = new NetworkSecurityPerimeterConfigurationProperties();
-                }
-                return Properties.ProvisioningIssues;
+                return Properties is null ? default : Properties.ProvisioningIssues;
             }
         }
 
@@ -81,14 +69,6 @@ namespace Azure.ResourceManager.EventGrid
             {
                 return Properties is null ? default : Properties.NetworkSecurityPerimeter;
             }
-            set
-            {
-                if (Properties is null)
-                {
-                    Properties = new NetworkSecurityPerimeterConfigurationProperties();
-                }
-                Properties.NetworkSecurityPerimeter = value;
-            }
         }
 
         /// <summary> Nsp association name and access mode of association. </summary>
@@ -99,14 +79,6 @@ namespace Azure.ResourceManager.EventGrid
             {
                 return Properties is null ? default : Properties.ResourceAssociation;
             }
-            set
-            {
-                if (Properties is null)
-                {
-                    Properties = new NetworkSecurityPerimeterConfigurationProperties();
-                }
-                Properties.ResourceAssociation = value;
-            }
         }
 
         /// <summary> Nsp profile configuration, access rules and diagnostic settings. </summary>
@@ -116,14 +88,6 @@ namespace Azure.ResourceManager.EventGrid
             get
             {
                 return Properties is null ? default : Properties.Profile;
-            }
-            set
-            {
-                if (Properties is null)
-                {
-                    Properties = new NetworkSecurityPerimeterConfigurationProperties();
-                }
-                Properties.Profile = value;
             }
         }
     }

@@ -18,7 +18,7 @@ namespace Azure.ResourceManager.EventGrid.Models
         private protected readonly IDictionary<string, BinaryData> _additionalBinaryDataProperties;
 
         /// <summary> Initializes a new instance of <see cref="NetworkSecurityPerimeterConfigurationProperties"/>. </summary>
-        public NetworkSecurityPerimeterConfigurationProperties()
+        internal NetworkSecurityPerimeterConfigurationProperties()
         {
             ProvisioningIssues = new ChangeTrackingList<NetworkSecurityPerimeterConfigurationIssues>();
         }
@@ -42,7 +42,7 @@ namespace Azure.ResourceManager.EventGrid.Models
 
         /// <summary> Provisioning state to reflect configuration state and indicate status of nsp profile configuration retrieval. </summary>
         [WirePath("provisioningState")]
-        public NetworkSecurityPerimeterConfigProvisioningState? ProvisioningState { get; set; }
+        public NetworkSecurityPerimeterConfigProvisioningState? ProvisioningState { get; }
 
         /// <summary> Provisioning issues to reflect status when attempting to retrieve nsp profile configuration. </summary>
         [WirePath("provisioningIssues")]
@@ -50,14 +50,14 @@ namespace Azure.ResourceManager.EventGrid.Models
 
         /// <summary> Perimeter info for nsp association. </summary>
         [WirePath("networkSecurityPerimeter")]
-        public NetworkSecurityPerimeterInfo NetworkSecurityPerimeter { get; set; }
+        public NetworkSecurityPerimeterInfo NetworkSecurityPerimeter { get; }
 
         /// <summary> Nsp association name and access mode of association. </summary>
         [WirePath("resourceAssociation")]
-        public ResourceAssociation ResourceAssociation { get; set; }
+        public ResourceAssociation ResourceAssociation { get; }
 
         /// <summary> Nsp profile configuration, access rules and diagnostic settings. </summary>
         [WirePath("profile")]
-        public NetworkSecurityPerimeterConfigurationProfile Profile { get; set; }
+        public NetworkSecurityPerimeterConfigurationProfile Profile { get; }
     }
 }

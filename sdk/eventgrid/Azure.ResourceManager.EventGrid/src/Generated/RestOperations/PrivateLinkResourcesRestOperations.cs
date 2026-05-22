@@ -67,7 +67,7 @@ namespace Azure.ResourceManager.EventGrid
             return message;
         }
 
-        internal HttpMessage CreateGetByResourceRequest(Guid subscriptionId, string resourceGroupName, string parentType, string parentName, string filter, int? top, RequestContext context)
+        internal HttpMessage CreateGetPrivateLinkResourcesByResourceRequest(Guid subscriptionId, string resourceGroupName, string parentType, string parentName, string filter, int? top, RequestContext context)
         {
             RawRequestUriBuilder uri = new RawRequestUriBuilder();
             uri.Reset(_endpoint);
@@ -100,7 +100,7 @@ namespace Azure.ResourceManager.EventGrid
             return message;
         }
 
-        internal HttpMessage CreateNextGetByResourceRequest(Uri nextPage, Guid subscriptionId, string resourceGroupName, string parentType, string parentName, string filter, int? top, RequestContext context)
+        internal HttpMessage CreateNextGetPrivateLinkResourcesByResourceRequest(Uri nextPage, Guid subscriptionId, string resourceGroupName, string parentType, string parentName, string filter, int? top, RequestContext context)
         {
             RawRequestUriBuilder uri = new RawRequestUriBuilder();
             if (nextPage.IsAbsoluteUri)

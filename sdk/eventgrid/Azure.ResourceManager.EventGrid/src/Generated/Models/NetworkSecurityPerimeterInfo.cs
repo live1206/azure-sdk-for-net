@@ -19,7 +19,7 @@ namespace Azure.ResourceManager.EventGrid.Models
         private protected readonly IDictionary<string, BinaryData> _additionalBinaryDataProperties;
 
         /// <summary> Initializes a new instance of <see cref="NetworkSecurityPerimeterInfo"/>. </summary>
-        public NetworkSecurityPerimeterInfo()
+        internal NetworkSecurityPerimeterInfo()
         {
         }
 
@@ -38,14 +38,14 @@ namespace Azure.ResourceManager.EventGrid.Models
 
         /// <summary> Arm id for network security perimeter. </summary>
         [WirePath("id")]
-        public string Id { get; set; }
+        public string Id { get; }
 
         /// <summary> Network security perimeter guid. </summary>
         [WirePath("perimeterGuid")]
-        public string PerimeterGuid { get; set; }
+        public string PerimeterGuid { get; }
 
         /// <summary> Network security perimeter location. </summary>
         [WirePath("location")]
-        public AzureLocation? Location { get; set; }
+        public AzureLocation? Location { get; }
     }
 }

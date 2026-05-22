@@ -19,7 +19,7 @@ namespace Azure.ResourceManager.EventGrid.Models
         private protected readonly IDictionary<string, BinaryData> _additionalBinaryDataProperties;
 
         /// <summary> Initializes a new instance of <see cref="NetworkSecurityPerimeterProfileAccessRuleProperties"/>. </summary>
-        public NetworkSecurityPerimeterProfileAccessRuleProperties()
+        internal NetworkSecurityPerimeterProfileAccessRuleProperties()
         {
             AddressPrefixes = new ChangeTrackingList<string>();
             Subscriptions = new ChangeTrackingList<WritableSubResource>();
@@ -52,7 +52,7 @@ namespace Azure.ResourceManager.EventGrid.Models
 
         /// <summary> NSP access rule direction. </summary>
         [WirePath("direction")]
-        public NetworkSecurityPerimeterProfileAccessRuleDirection? Direction { get; set; }
+        public NetworkSecurityPerimeterProfileAccessRuleDirection? Direction { get; }
 
         /// <summary> Address prefixes. </summary>
         [WirePath("addressPrefixes")]

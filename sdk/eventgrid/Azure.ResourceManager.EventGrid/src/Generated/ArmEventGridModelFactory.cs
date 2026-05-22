@@ -934,6 +934,30 @@ namespace Azure.ResourceManager.EventGrid.Models
             return new TopicRegenerateKeyContent(keyName, additionalBinaryDataProperties: null);
         }
 
+        /// <param name="id"> Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}. </param>
+        /// <param name="name"> The name of the resource. </param>
+        /// <param name="resourceType"> The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts". </param>
+        /// <param name="systemData"> Azure Resource Manager metadata containing createdBy and modifiedBy information. </param>
+        /// <param name="tags"> Resource tags. </param>
+        /// <param name="location"> The geo-location where the resource lives. </param>
+        /// <param name="partnerAuthorization"> The details of authorized partners. </param>
+        /// <param name="provisioningState"> Provisioning state of the partner configuration. </param>
+        /// <returns> A new <see cref="EventGrid.PartnerConfigurationData"/> instance for mocking. </returns>
+        public static PartnerConfigurationData PartnerConfigurationData(ResourceIdentifier id = default, string name = default, ResourceType resourceType = default, SystemData systemData = default, IDictionary<string, string> tags = default, AzureLocation location = default, PartnerAuthorization partnerAuthorization = default, PartnerConfigurationProvisioningState? provisioningState = default)
+        {
+            tags ??= new ChangeTrackingDictionary<string, string>();
+
+            return new PartnerConfigurationData(
+                id,
+                name,
+                resourceType,
+                systemData,
+                additionalBinaryDataProperties: null,
+                tags,
+                location,
+                partnerAuthorization is null && provisioningState is null ? default : new PartnerConfigurationProperties(partnerAuthorization, provisioningState, null));
+        }
+
         /// <summary> The partner authorization details. </summary>
         /// <param name="defaultMaximumExpirationTimeInDays">
         /// Time used to validate the authorization expiration time for each authorized partner. If DefaultMaximumExpirationTimeInDays is
@@ -1083,6 +1107,43 @@ namespace Azure.ResourceManager.EventGrid.Models
                     null));
         }
 
+        /// <param name="name"> Provisioning issue name. </param>
+        /// <param name="issueType"> Provisioning issue type. </param>
+        /// <param name="severity"> Provisioning issue severity. </param>
+        /// <param name="description"> Provisioning issue description. </param>
+        /// <param name="suggestedResourceIds"> ARM IDs of resources that can be associated to the same perimeter to remediate the issue. </param>
+        /// <param name="suggestedAccessRules"> Access rules that can be added to the same profile to remediate the issue. </param>
+        /// <returns> A new <see cref="Models.NetworkSecurityPerimeterConfigurationIssues"/> instance for mocking. </returns>
+        public static NetworkSecurityPerimeterConfigurationIssues NetworkSecurityPerimeterConfigurationIssues(string name = default, NetworkSecurityPerimeterConfigurationIssueType? issueType = default, NetworkSecurityPerimeterConfigurationIssueSeverity? severity = default, string description = default, IEnumerable<string> suggestedResourceIds = default, IEnumerable<string> suggestedAccessRules = default)
+        {
+            return new NetworkSecurityPerimeterConfigurationIssues(name, issueType is null && severity is null && description is null && suggestedResourceIds is null && suggestedAccessRules is null ? default : new NetworkSecurityPerimeterConfigurationIssuesProperties(
+                issueType,
+                severity,
+                description,
+                (suggestedResourceIds ?? new ChangeTrackingList<string>()).ToList(),
+                (suggestedAccessRules ?? new ChangeTrackingList<string>()).ToList(),
+                null), additionalBinaryDataProperties: null);
+        }
+
+        /// <summary> Network security perimeter info. </summary>
+        /// <param name="id"> Arm id for network security perimeter. </param>
+        /// <param name="perimeterGuid"> Network security perimeter guid. </param>
+        /// <param name="location"> Network security perimeter location. </param>
+        /// <returns> A new <see cref="Models.NetworkSecurityPerimeterInfo"/> instance for mocking. </returns>
+        public static NetworkSecurityPerimeterInfo NetworkSecurityPerimeterInfo(string id = default, string perimeterGuid = default, AzureLocation? location = default)
+        {
+            return new NetworkSecurityPerimeterInfo(id, perimeterGuid, location, additionalBinaryDataProperties: null);
+        }
+
+        /// <summary> Nsp resource association. </summary>
+        /// <param name="name"> Association name. </param>
+        /// <param name="accessMode"> Network security perimeter access mode. </param>
+        /// <returns> A new <see cref="Models.ResourceAssociation"/> instance for mocking. </returns>
+        public static ResourceAssociation ResourceAssociation(string name = default, NetworkSecurityPerimeterAssociationAccessMode? accessMode = default)
+        {
+            return new ResourceAssociation(name, accessMode, additionalBinaryDataProperties: null);
+        }
+
         /// <summary> Nsp configuration with profile information. </summary>
         /// <param name="name"> Nsp configuration profile name. </param>
         /// <param name="accessRulesVersion"> Access rules version number for nsp profile. </param>
@@ -1102,6 +1163,30 @@ namespace Azure.ResourceManager.EventGrid.Models
                 diagnosticSettingsVersion,
                 enabledLogCategories.ToList(),
                 additionalBinaryDataProperties: null);
+        }
+
+        /// <param name="fullyQualifiedArmId"> Fully Qualified Arm id for network security perimeter profile access rule. </param>
+        /// <param name="name"> Name for nsp access rule. </param>
+        /// <param name="networkSecurityPerimeterProfileAccessRuleType"> nsp access rule type. </param>
+        /// <param name="direction"> NSP access rule direction. </param>
+        /// <param name="addressPrefixes"> Address prefixes. </param>
+        /// <param name="subscriptions"> List of subscriptions. </param>
+        /// <param name="networkSecurityPerimeters"> Network security perimeters. </param>
+        /// <param name="fullyQualifiedDomainNames"> Fully qualified domain names. </param>
+        /// <param name="emailAddresses"> List of email addresses. </param>
+        /// <param name="phoneNumbers"> List of phone numbers. </param>
+        /// <returns> A new <see cref="Models.NetworkSecurityPerimeterProfileAccessRule"/> instance for mocking. </returns>
+        public static NetworkSecurityPerimeterProfileAccessRule NetworkSecurityPerimeterProfileAccessRule(string fullyQualifiedArmId = default, string name = default, string networkSecurityPerimeterProfileAccessRuleType = default, NetworkSecurityPerimeterProfileAccessRuleDirection? direction = default, IEnumerable<string> addressPrefixes = default, IEnumerable<WritableSubResource> subscriptions = default, IEnumerable<NetworkSecurityPerimeterInfo> networkSecurityPerimeters = default, IEnumerable<string> fullyQualifiedDomainNames = default, IEnumerable<string> emailAddresses = default, IEnumerable<string> phoneNumbers = default)
+        {
+            return new NetworkSecurityPerimeterProfileAccessRule(fullyQualifiedArmId, name, networkSecurityPerimeterProfileAccessRuleType, direction is null && addressPrefixes is null && subscriptions is null && networkSecurityPerimeters is null && fullyQualifiedDomainNames is null && emailAddresses is null && phoneNumbers is null ? default : new NetworkSecurityPerimeterProfileAccessRuleProperties(
+                direction,
+                (addressPrefixes ?? new ChangeTrackingList<string>()).ToList(),
+                (subscriptions ?? new ChangeTrackingList<WritableSubResource>()).ToList(),
+                (networkSecurityPerimeters ?? new ChangeTrackingList<NetworkSecurityPerimeterInfo>()).ToList(),
+                (fullyQualifiedDomainNames ?? new ChangeTrackingList<string>()).ToList(),
+                (emailAddresses ?? new ChangeTrackingList<string>()).ToList(),
+                (phoneNumbers ?? new ChangeTrackingList<string>()).ToList(),
+                null), additionalBinaryDataProperties: null);
         }
 
         /// <param name="id"> Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}. </param>
@@ -1137,17 +1222,24 @@ namespace Azure.ResourceManager.EventGrid.Models
                     null));
         }
 
+        /// <param name="id"> Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}. </param>
+        /// <param name="name"> The name of the resource. </param>
+        /// <param name="resourceType"> The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts". </param>
+        /// <param name="systemData"> Azure Resource Manager metadata containing createdBy and modifiedBy information. </param>
         /// <param name="groupId"> Gets the GroupId. </param>
         /// <param name="displayName"> Gets the DisplayName. </param>
         /// <param name="requiredMembers"> Gets the RequiredMembers. </param>
         /// <param name="requiredZoneNames"> Gets the RequiredZoneNames. </param>
-        /// <param name="id"> Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}. </param>
-        /// <param name="name"> The name of private link resource will be either topic, domain, partnerNamespace or namespace. </param>
-        /// <param name="type"> The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts". </param>
-        /// <returns> A new <see cref="EventGrid.EventGridPrivateLinkResourceData"/> instance for mocking. </returns>
-        public static EventGridPrivateLinkResourceData EventGridPrivateLinkResourceData(string groupId = default, string displayName = default, IEnumerable<string> requiredMembers = default, IEnumerable<string> requiredZoneNames = default, ResourceIdentifier id = default, string name = default, ResourceType? @type = default)
+        /// <returns> A new <see cref="Models.EventGridPrivateLinkResource"/> instance for mocking. </returns>
+        public static EventGridPrivateLinkResource EventGridPrivateLinkResource(ResourceIdentifier id = default, string name = default, ResourceType resourceType = default, SystemData systemData = default, string groupId = default, string displayName = default, IEnumerable<string> requiredMembers = default, IEnumerable<string> requiredZoneNames = default)
         {
-            return new EventGridPrivateLinkResourceData(groupId is null && displayName is null && requiredMembers is null && requiredZoneNames is null ? default : new EventGridPrivateLinkResourceProperties(groupId, displayName, (requiredMembers ?? new ChangeTrackingList<string>()).ToList(), (requiredZoneNames ?? new ChangeTrackingList<string>()).ToList(), null), id, name, @type, additionalBinaryDataProperties: null);
+            return new EventGridPrivateLinkResource(
+                id,
+                name,
+                resourceType,
+                systemData,
+                additionalBinaryDataProperties: null,
+                groupId is null && displayName is null && requiredMembers is null && requiredZoneNames is null ? default : new EventGridPrivateLinkResourceProperties(groupId, displayName, (requiredMembers ?? new ChangeTrackingList<string>()).ToList(), (requiredZoneNames ?? new ChangeTrackingList<string>()).ToList(), null));
         }
 
         /// <param name="id"> Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}. </param>
@@ -1861,31 +1953,6 @@ namespace Azure.ResourceManager.EventGrid.Models
             return EventGridTopicData(id: id, name: name, resourceType: resourceType, systemData: systemData, tags: tags, location: location, privateEndpointConnections: privateEndpointConnections, provisioningState: provisioningState, endpoint: endpoint, eventTypeInfo: eventTypeInfo, minimumTlsVersionAllowed: minimumTlsVersionAllowed, inputSchema: inputSchema, inputSchemaMapping: inputSchemaMapping, metricResourceId: metricResourceId, publicNetworkAccess: publicNetworkAccess, inboundIPRules: inboundIPRules, isLocalAuthDisabled: isLocalAuthDisabled, dataResidencyBoundary: dataResidencyBoundary, customerManagedKeyEncryption: default, platformCapabilitiesConfidentialComputeMode: default, skuName: default, identity: identity, kind: default, extendedLocation: default);
         }
 
-        /// <summary> Initializes a new instance of <see cref="EventGrid.PartnerConfigurationData"/>. </summary>
-        /// <param name="id"> The id. </param>
-        /// <param name="name"> The name. </param>
-        /// <param name="resourceType"> The resourceType. </param>
-        /// <param name="systemData"> The systemData. </param>
-        /// <param name="tags"> The tags. </param>
-        /// <param name="location"> The location. </param>
-        /// <param name="partnerAuthorization"> The details of authorized partners. </param>
-        /// <param name="provisioningState"> Provisioning state of the partner configuration. </param>
-        /// <returns> A new <see cref="EventGrid.PartnerConfigurationData"/> instance for mocking. </returns>
-        public static PartnerConfigurationData PartnerConfigurationData(ResourceIdentifier id = default, string name = default, ResourceType resourceType = default, SystemData systemData = default, IDictionary<string, string> tags = default, AzureLocation location = default, PartnerAuthorization partnerAuthorization = default, PartnerConfigurationProvisioningState? provisioningState = default)
-        {
-            tags ??= new ChangeTrackingDictionary<string, string>();
-
-            return new PartnerConfigurationData(
-                id,
-                name,
-                resourceType,
-                systemData,
-                additionalBinaryDataProperties: null,
-                location,
-                default,
-                tags);
-        }
-
         /// <summary> Initializes a new instance of <see cref="EventGrid.PartnerTopicData"/>. </summary>
         /// <param name="id"> The id. </param>
         /// <param name="name"> The name. </param>
@@ -1923,23 +1990,6 @@ namespace Azure.ResourceManager.EventGrid.Models
                 location,
                 default,
                 identity);
-        }
-
-        /// <summary> Initializes a new instance of <see cref="EventGrid.EventGridPrivateLinkResourceData"/>. </summary>
-        /// <param name="id"> The id. </param>
-        /// <param name="name"> The name. </param>
-        /// <param name="resourceType"> The resourceType. </param>
-        /// <param name="systemData"> The systemData. </param>
-        /// <param name="groupId"></param>
-        /// <param name="displayName"></param>
-        /// <param name="requiredMembers"></param>
-        /// <param name="requiredZoneNames"></param>
-        /// <returns> A new <see cref="EventGrid.EventGridPrivateLinkResourceData"/> instance for mocking. </returns>
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        public static EventGridPrivateLinkResourceData EventGridPrivateLinkResourceData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, string groupId, string displayName, IEnumerable<string> requiredMembers, IEnumerable<string> requiredZoneNames)
-        {
-
-            return new EventGridPrivateLinkResourceData(groupId is null && displayName is null && requiredMembers is null && requiredZoneNames is null ? default : new EventGridPrivateLinkResourceProperties(groupId, displayName, (requiredMembers ?? new ChangeTrackingList<string>()).ToList(), (requiredZoneNames ?? new ChangeTrackingList<string>()).ToList(), default), id, name, default, additionalBinaryDataProperties: null);
         }
 
         /// <summary> Initializes a new instance of <see cref="EventGrid.SystemTopicData"/>. </summary>

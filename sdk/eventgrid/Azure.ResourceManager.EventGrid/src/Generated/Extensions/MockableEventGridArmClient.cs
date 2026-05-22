@@ -20,6 +20,8 @@ namespace Azure.ResourceManager.EventGrid.Mocking
     /// <summary> A class to add extension methods to <see cref="ArmClient"/>. </summary>
     public partial class MockableEventGridArmClient : ArmResource
     {
+        private ClientDiagnostics _eventSubscriptionsClientDiagnostics;
+        private EventSubscriptions _eventSubscriptionsRestClient;
         private ClientDiagnostics _topicsClientDiagnostics;
         private Topics _topicsRestClient;
 
@@ -34,6 +36,10 @@ namespace Azure.ResourceManager.EventGrid.Mocking
         internal MockableEventGridArmClient(ArmClient client, ResourceIdentifier id) : base(client, id)
         {
         }
+
+        private ClientDiagnostics EventSubscriptionsClientDiagnostics => _eventSubscriptionsClientDiagnostics ??= new ClientDiagnostics("Azure.ResourceManager.EventGrid.Mocking", ProviderConstants.DefaultProviderNamespace, Diagnostics);
+
+        private EventSubscriptions EventSubscriptionsRestClient => _eventSubscriptionsRestClient ??= new EventSubscriptions(EventSubscriptionsClientDiagnostics, Pipeline, Endpoint, "2025-07-15-preview");
 
         private ClientDiagnostics TopicsClientDiagnostics => _topicsClientDiagnostics ??= new ClientDiagnostics("Azure.ResourceManager.EventGrid.Mocking", ProviderConstants.DefaultProviderNamespace, Diagnostics);
 
@@ -344,31 +350,31 @@ namespace Azure.ResourceManager.EventGrid.Mocking
             return new DomainNetworkSecurityPerimeterConfigurationResource(Client, id);
         }
 
-        /// <summary> Gets an object representing a <see cref="EventGridTopicPrivateEndpointConnectionResource"/> along with the instance operations that can be performed on it but with no data. </summary>
+        /// <summary> Gets an object representing a <see cref="TopicEventGridPrivateEndpointConnectionResource"/> along with the instance operations that can be performed on it but with no data. </summary>
         /// <param name="id"> The resource ID of the resource to get. </param>
-        /// <returns> Returns a <see cref="EventGridTopicPrivateEndpointConnectionResource"/> object. </returns>
-        public virtual EventGridTopicPrivateEndpointConnectionResource GetEventGridTopicPrivateEndpointConnectionResource(ResourceIdentifier id)
+        /// <returns> Returns a <see cref="TopicEventGridPrivateEndpointConnectionResource"/> object. </returns>
+        public virtual TopicEventGridPrivateEndpointConnectionResource GetTopicEventGridPrivateEndpointConnectionResource(ResourceIdentifier id)
         {
-            EventGridTopicPrivateEndpointConnectionResource.ValidateResourceId(id);
-            return new EventGridTopicPrivateEndpointConnectionResource(Client, id);
+            TopicEventGridPrivateEndpointConnectionResource.ValidateResourceId(id);
+            return new TopicEventGridPrivateEndpointConnectionResource(Client, id);
         }
 
-        /// <summary> Gets an object representing a <see cref="EventGridDomainPrivateEndpointConnectionResource"/> along with the instance operations that can be performed on it but with no data. </summary>
+        /// <summary> Gets an object representing a <see cref="DomainEventGridPrivateEndpointConnectionResource"/> along with the instance operations that can be performed on it but with no data. </summary>
         /// <param name="id"> The resource ID of the resource to get. </param>
-        /// <returns> Returns a <see cref="EventGridDomainPrivateEndpointConnectionResource"/> object. </returns>
-        public virtual EventGridDomainPrivateEndpointConnectionResource GetEventGridDomainPrivateEndpointConnectionResource(ResourceIdentifier id)
+        /// <returns> Returns a <see cref="DomainEventGridPrivateEndpointConnectionResource"/> object. </returns>
+        public virtual DomainEventGridPrivateEndpointConnectionResource GetDomainEventGridPrivateEndpointConnectionResource(ResourceIdentifier id)
         {
-            EventGridDomainPrivateEndpointConnectionResource.ValidateResourceId(id);
-            return new EventGridDomainPrivateEndpointConnectionResource(Client, id);
+            DomainEventGridPrivateEndpointConnectionResource.ValidateResourceId(id);
+            return new DomainEventGridPrivateEndpointConnectionResource(Client, id);
         }
 
-        /// <summary> Gets an object representing a <see cref="EventGridPartnerNamespacePrivateEndpointConnectionResource"/> along with the instance operations that can be performed on it but with no data. </summary>
+        /// <summary> Gets an object representing a <see cref="PartnerNamespaceEventGridPrivateEndpointConnectionResource"/> along with the instance operations that can be performed on it but with no data. </summary>
         /// <param name="id"> The resource ID of the resource to get. </param>
-        /// <returns> Returns a <see cref="EventGridPartnerNamespacePrivateEndpointConnectionResource"/> object. </returns>
-        public virtual EventGridPartnerNamespacePrivateEndpointConnectionResource GetEventGridPartnerNamespacePrivateEndpointConnectionResource(ResourceIdentifier id)
+        /// <returns> Returns a <see cref="PartnerNamespaceEventGridPrivateEndpointConnectionResource"/> object. </returns>
+        public virtual PartnerNamespaceEventGridPrivateEndpointConnectionResource GetPartnerNamespaceEventGridPrivateEndpointConnectionResource(ResourceIdentifier id)
         {
-            EventGridPartnerNamespacePrivateEndpointConnectionResource.ValidateResourceId(id);
-            return new EventGridPartnerNamespacePrivateEndpointConnectionResource(Client, id);
+            PartnerNamespaceEventGridPrivateEndpointConnectionResource.ValidateResourceId(id);
+            return new PartnerNamespaceEventGridPrivateEndpointConnectionResource(Client, id);
         }
 
         /// <summary> Gets an object representing a <see cref="NamespaceEventGridPrivateEndpointConnectionResource"/> along with the instance operations that can be performed on it but with no data. </summary>
@@ -380,40 +386,92 @@ namespace Azure.ResourceManager.EventGrid.Mocking
             return new NamespaceEventGridPrivateEndpointConnectionResource(Client, id);
         }
 
-        /// <summary> Gets an object representing a <see cref="EventGridTopicPrivateLinkResource"/> along with the instance operations that can be performed on it but with no data. </summary>
-        /// <param name="id"> The resource ID of the resource to get. </param>
-        /// <returns> Returns a <see cref="EventGridTopicPrivateLinkResource"/> object. </returns>
-        public virtual EventGridTopicPrivateLinkResource GetEventGridTopicPrivateLinkResource(ResourceIdentifier id)
+        /// <summary>
+        /// List all event subscriptions that have been created for a specific resource.
+        /// <list type="bullet">
+        /// <item>
+        /// <term> Request Path. </term>
+        /// <description> /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{providerNamespace}/{resourceTypeName}/{resourceName}/providers/Microsoft.EventGrid/eventSubscriptions. </description>
+        /// </item>
+        /// <item>
+        /// <term> Operation Id. </term>
+        /// <description> EventSubscriptionOperationGroup_ListByResource. </description>
+        /// </item>
+        /// <item>
+        /// <term> Default Api Version. </term>
+        /// <description> 2025-07-15-preview. </description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="scope"> The scope that the resource will apply against. </param>
+        /// <param name="filter"> The query used to filter the search results using OData syntax. Filtering is permitted on the 'name' property only and with limited number of OData operations. These operations are: the 'contains' function as well as the following logical operations: not, and, or, eq (for equal), and ne (for not equal). No arithmetic operations are supported. The following is a valid filter example: $filter=contains(namE, 'PATTERN') and name ne 'PATTERN-1'. The following is not a valid filter example: $filter=location eq 'westus'. </param>
+        /// <param name="top"> The number of results to return per page for the list operation. Valid range for top parameter is 1 to 100. If not specified, the default number of results to be returned is 20 items per page. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="scope"/> is null. </exception>
+        /// <returns> A collection of <see cref="EventGridSubscriptionData"/> that may take multiple service requests to iterate over. </returns>
+        public virtual AsyncPageable<EventGridSubscriptionData> GetByResourceAsync(ResourceIdentifier scope, string filter = default, int? top = default, CancellationToken cancellationToken = default)
         {
-            EventGridTopicPrivateLinkResource.ValidateResourceId(id);
-            return new EventGridTopicPrivateLinkResource(Client, id);
+            Argument.AssertNotNull(scope, nameof(scope));
+
+            RequestContext context = new RequestContext
+            {
+                CancellationToken = cancellationToken
+            };
+            return new EventSubscriptionsGetByResourceAsyncCollectionResultOfT(
+                EventSubscriptionsRestClient,
+                Guid.Parse(scope.SubscriptionId),
+                scope.ResourceGroupName,
+                scope.ResourceType.Namespace,
+                scope.ResourceType.Type,
+                scope.Name,
+                filter,
+                top,
+                context,
+                "MockableEventGridArmClient.GetByResource");
         }
 
-        /// <summary> Gets an object representing a <see cref="EventGridDomainPrivateLinkResource"/> along with the instance operations that can be performed on it but with no data. </summary>
-        /// <param name="id"> The resource ID of the resource to get. </param>
-        /// <returns> Returns a <see cref="EventGridDomainPrivateLinkResource"/> object. </returns>
-        public virtual EventGridDomainPrivateLinkResource GetEventGridDomainPrivateLinkResource(ResourceIdentifier id)
+        /// <summary>
+        /// List all event subscriptions that have been created for a specific resource.
+        /// <list type="bullet">
+        /// <item>
+        /// <term> Request Path. </term>
+        /// <description> /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{providerNamespace}/{resourceTypeName}/{resourceName}/providers/Microsoft.EventGrid/eventSubscriptions. </description>
+        /// </item>
+        /// <item>
+        /// <term> Operation Id. </term>
+        /// <description> EventSubscriptionOperationGroup_ListByResource. </description>
+        /// </item>
+        /// <item>
+        /// <term> Default Api Version. </term>
+        /// <description> 2025-07-15-preview. </description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="scope"> The scope that the resource will apply against. </param>
+        /// <param name="filter"> The query used to filter the search results using OData syntax. Filtering is permitted on the 'name' property only and with limited number of OData operations. These operations are: the 'contains' function as well as the following logical operations: not, and, or, eq (for equal), and ne (for not equal). No arithmetic operations are supported. The following is a valid filter example: $filter=contains(namE, 'PATTERN') and name ne 'PATTERN-1'. The following is not a valid filter example: $filter=location eq 'westus'. </param>
+        /// <param name="top"> The number of results to return per page for the list operation. Valid range for top parameter is 1 to 100. If not specified, the default number of results to be returned is 20 items per page. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="scope"/> is null. </exception>
+        /// <returns> A collection of <see cref="EventGridSubscriptionData"/> that may take multiple service requests to iterate over. </returns>
+        public virtual Pageable<EventGridSubscriptionData> GetByResource(ResourceIdentifier scope, string filter = default, int? top = default, CancellationToken cancellationToken = default)
         {
-            EventGridDomainPrivateLinkResource.ValidateResourceId(id);
-            return new EventGridDomainPrivateLinkResource(Client, id);
-        }
+            Argument.AssertNotNull(scope, nameof(scope));
 
-        /// <summary> Gets an object representing a <see cref="PartnerNamespacePrivateLinkResource"/> along with the instance operations that can be performed on it but with no data. </summary>
-        /// <param name="id"> The resource ID of the resource to get. </param>
-        /// <returns> Returns a <see cref="PartnerNamespacePrivateLinkResource"/> object. </returns>
-        public virtual PartnerNamespacePrivateLinkResource GetPartnerNamespacePrivateLinkResource(ResourceIdentifier id)
-        {
-            PartnerNamespacePrivateLinkResource.ValidateResourceId(id);
-            return new PartnerNamespacePrivateLinkResource(Client, id);
-        }
-
-        /// <summary> Gets an object representing a <see cref="NamespaceEventGridPrivateLinkResource"/> along with the instance operations that can be performed on it but with no data. </summary>
-        /// <param name="id"> The resource ID of the resource to get. </param>
-        /// <returns> Returns a <see cref="NamespaceEventGridPrivateLinkResource"/> object. </returns>
-        public virtual NamespaceEventGridPrivateLinkResource GetNamespaceEventGridPrivateLinkResource(ResourceIdentifier id)
-        {
-            NamespaceEventGridPrivateLinkResource.ValidateResourceId(id);
-            return new NamespaceEventGridPrivateLinkResource(Client, id);
+            RequestContext context = new RequestContext
+            {
+                CancellationToken = cancellationToken
+            };
+            return new EventSubscriptionsGetByResourceCollectionResultOfT(
+                EventSubscriptionsRestClient,
+                Guid.Parse(scope.SubscriptionId),
+                scope.ResourceGroupName,
+                scope.ResourceType.Namespace,
+                scope.ResourceType.Type,
+                scope.Name,
+                filter,
+                top,
+                context,
+                "MockableEventGridArmClient.GetByResource");
         }
 
         /// <summary>

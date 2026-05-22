@@ -18,7 +18,7 @@ namespace Azure.ResourceManager.EventGrid.Models
         private protected readonly IDictionary<string, BinaryData> _additionalBinaryDataProperties;
 
         /// <summary> Initializes a new instance of <see cref="NetworkSecurityPerimeterConfigurationIssuesProperties"/>. </summary>
-        public NetworkSecurityPerimeterConfigurationIssuesProperties()
+        internal NetworkSecurityPerimeterConfigurationIssuesProperties()
         {
             SuggestedResourceIds = new ChangeTrackingList<string>();
             SuggestedAccessRules = new ChangeTrackingList<string>();
@@ -43,15 +43,15 @@ namespace Azure.ResourceManager.EventGrid.Models
 
         /// <summary> Provisioning issue type. </summary>
         [WirePath("issueType")]
-        public NetworkSecurityPerimeterConfigurationIssueType? IssueType { get; set; }
+        public NetworkSecurityPerimeterConfigurationIssueType? IssueType { get; }
 
         /// <summary> Provisioning issue severity. </summary>
         [WirePath("severity")]
-        public NetworkSecurityPerimeterConfigurationIssueSeverity? Severity { get; set; }
+        public NetworkSecurityPerimeterConfigurationIssueSeverity? Severity { get; }
 
         /// <summary> Provisioning issue description. </summary>
         [WirePath("description")]
-        public string Description { get; set; }
+        public string Description { get; }
 
         /// <summary> ARM IDs of resources that can be associated to the same perimeter to remediate the issue. </summary>
         [WirePath("suggestedResourceIds")]

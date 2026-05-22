@@ -18,7 +18,7 @@ namespace Azure.ResourceManager.EventGrid.Models
         private protected readonly IDictionary<string, BinaryData> _additionalBinaryDataProperties;
 
         /// <summary> Initializes a new instance of <see cref="NetworkSecurityPerimeterConfigurationIssues"/>. </summary>
-        public NetworkSecurityPerimeterConfigurationIssues()
+        internal NetworkSecurityPerimeterConfigurationIssues()
         {
         }
 
@@ -35,11 +35,11 @@ namespace Azure.ResourceManager.EventGrid.Models
 
         /// <summary> Provisioning issue name. </summary>
         [WirePath("name")]
-        public string Name { get; set; }
+        public string Name { get; }
 
         /// <summary> Provisioning issue properties. </summary>
         [WirePath("properties")]
-        internal NetworkSecurityPerimeterConfigurationIssuesProperties Properties { get; set; }
+        internal NetworkSecurityPerimeterConfigurationIssuesProperties Properties { get; }
 
         /// <summary> Provisioning issue type. </summary>
         [WirePath("properties.issueType")]
@@ -48,14 +48,6 @@ namespace Azure.ResourceManager.EventGrid.Models
             get
             {
                 return Properties is null ? default : Properties.IssueType;
-            }
-            set
-            {
-                if (Properties is null)
-                {
-                    Properties = new NetworkSecurityPerimeterConfigurationIssuesProperties();
-                }
-                Properties.IssueType = value;
             }
         }
 
@@ -67,14 +59,6 @@ namespace Azure.ResourceManager.EventGrid.Models
             {
                 return Properties is null ? default : Properties.Severity;
             }
-            set
-            {
-                if (Properties is null)
-                {
-                    Properties = new NetworkSecurityPerimeterConfigurationIssuesProperties();
-                }
-                Properties.Severity = value;
-            }
         }
 
         /// <summary> Provisioning issue description. </summary>
@@ -85,14 +69,6 @@ namespace Azure.ResourceManager.EventGrid.Models
             {
                 return Properties is null ? default : Properties.Description;
             }
-            set
-            {
-                if (Properties is null)
-                {
-                    Properties = new NetworkSecurityPerimeterConfigurationIssuesProperties();
-                }
-                Properties.Description = value;
-            }
         }
 
         /// <summary> ARM IDs of resources that can be associated to the same perimeter to remediate the issue. </summary>
@@ -101,11 +77,7 @@ namespace Azure.ResourceManager.EventGrid.Models
         {
             get
             {
-                if (Properties is null)
-                {
-                    Properties = new NetworkSecurityPerimeterConfigurationIssuesProperties();
-                }
-                return Properties.SuggestedResourceIds;
+                return Properties is null ? default : Properties.SuggestedResourceIds;
             }
         }
 
@@ -115,11 +87,7 @@ namespace Azure.ResourceManager.EventGrid.Models
         {
             get
             {
-                if (Properties is null)
-                {
-                    Properties = new NetworkSecurityPerimeterConfigurationIssuesProperties();
-                }
-                return Properties.SuggestedAccessRules;
+                return Properties is null ? default : Properties.SuggestedAccessRules;
             }
         }
     }

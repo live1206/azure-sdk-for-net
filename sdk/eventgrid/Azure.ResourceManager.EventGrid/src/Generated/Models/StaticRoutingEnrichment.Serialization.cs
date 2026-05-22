@@ -19,6 +19,11 @@ namespace Azure.ResourceManager.EventGrid.Models
     [PersistableModelProxy(typeof(UnknownStaticRoutingEnrichment))]
     public abstract partial class StaticRoutingEnrichment : IJsonModel<StaticRoutingEnrichment>
     {
+        /// <summary> Initializes a new instance of <see cref="StaticRoutingEnrichment"/> for deserialization. </summary>
+        internal StaticRoutingEnrichment()
+        {
+        }
+
         /// <param name="data"> The data to parse. </param>
         /// <param name="options"> The client options for reading and writing models. </param>
         protected virtual StaticRoutingEnrichment PersistableModelCreateCore(BinaryData data, ModelReaderWriterOptions options)

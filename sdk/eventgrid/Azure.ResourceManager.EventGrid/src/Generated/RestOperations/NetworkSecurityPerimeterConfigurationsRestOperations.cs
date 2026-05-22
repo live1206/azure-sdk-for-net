@@ -116,34 +116,5 @@ namespace Azure.ResourceManager.EventGrid
             request.Headers.SetValue("Accept", "application/json");
             return message;
         }
-
-        internal HttpMessage CreateReconcileRequest(Guid subscriptionId, string resourceGroupName, string resourceType, string resourceName, string perimeterGuid, string associationName, RequestContext context)
-        {
-            RawRequestUriBuilder uri = new RawRequestUriBuilder();
-            uri.Reset(_endpoint);
-            uri.AppendPath("/subscriptions/", false);
-            uri.AppendPath(subscriptionId.ToString(), true);
-            uri.AppendPath("/resourceGroups/", false);
-            uri.AppendPath(resourceGroupName, true);
-            uri.AppendPath("/providers/microsoft.EventGrid/", false);
-            uri.AppendPath(resourceType, true);
-            uri.AppendPath("/", false);
-            uri.AppendPath(resourceName, true);
-            uri.AppendPath("/networkSecurityPerimeterConfigurations/", false);
-            uri.AppendPath(perimeterGuid, true);
-            uri.AppendPath(".", false);
-            uri.AppendPath(associationName, true);
-            uri.AppendPath("/reconcile", false);
-            if (_apiVersion != null)
-            {
-                uri.AppendQuery("api-version", _apiVersion, true);
-            }
-            HttpMessage message = Pipeline.CreateMessage();
-            Request request = message.Request;
-            request.Uri = uri;
-            request.Method = RequestMethod.Post;
-            request.Headers.SetValue("Accept", "application/json");
-            return message;
-        }
     }
 }

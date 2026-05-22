@@ -15,7 +15,7 @@ using Azure.ResourceManager;
 namespace Azure.ResourceManager.EventGrid
 {
     /// <summary></summary>
-    internal partial class PartnerNamespaceEventGridPrivateEndpointConnectionOperationSource : IOperationSource<EventGridPartnerNamespacePrivateEndpointConnectionResource>
+    internal partial class PartnerNamespaceEventGridPrivateEndpointConnectionOperationSource : IOperationSource<PartnerNamespaceEventGridPrivateEndpointConnectionResource>
     {
         private readonly ArmClient _client;
 
@@ -29,21 +29,21 @@ namespace Azure.ResourceManager.EventGrid
         /// <param name="response"> The response from the service. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <returns></returns>
-        EventGridPartnerNamespacePrivateEndpointConnectionResource IOperationSource<EventGridPartnerNamespacePrivateEndpointConnectionResource>.CreateResult(Response response, CancellationToken cancellationToken)
+        PartnerNamespaceEventGridPrivateEndpointConnectionResource IOperationSource<PartnerNamespaceEventGridPrivateEndpointConnectionResource>.CreateResult(Response response, CancellationToken cancellationToken)
         {
             using JsonDocument document = JsonDocument.Parse(response.ContentStream);
             EventGridPrivateEndpointConnectionData data = EventGridPrivateEndpointConnectionData.DeserializeEventGridPrivateEndpointConnectionData(document.RootElement, ModelSerializationExtensions.WireOptions);
-            return new EventGridPartnerNamespacePrivateEndpointConnectionResource(_client, data);
+            return new PartnerNamespaceEventGridPrivateEndpointConnectionResource(_client, data);
         }
 
         /// <param name="response"> The response from the service. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <returns></returns>
-        async ValueTask<EventGridPartnerNamespacePrivateEndpointConnectionResource> IOperationSource<EventGridPartnerNamespacePrivateEndpointConnectionResource>.CreateResultAsync(Response response, CancellationToken cancellationToken)
+        async ValueTask<PartnerNamespaceEventGridPrivateEndpointConnectionResource> IOperationSource<PartnerNamespaceEventGridPrivateEndpointConnectionResource>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
             using JsonDocument document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
             EventGridPrivateEndpointConnectionData data = EventGridPrivateEndpointConnectionData.DeserializeEventGridPrivateEndpointConnectionData(document.RootElement, ModelSerializationExtensions.WireOptions);
-            return new EventGridPartnerNamespacePrivateEndpointConnectionResource(_client, data);
+            return new PartnerNamespaceEventGridPrivateEndpointConnectionResource(_client, data);
         }
     }
 }

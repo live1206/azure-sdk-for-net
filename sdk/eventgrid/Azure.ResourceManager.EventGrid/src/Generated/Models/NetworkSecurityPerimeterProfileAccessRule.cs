@@ -19,7 +19,7 @@ namespace Azure.ResourceManager.EventGrid.Models
         private protected readonly IDictionary<string, BinaryData> _additionalBinaryDataProperties;
 
         /// <summary> Initializes a new instance of <see cref="NetworkSecurityPerimeterProfileAccessRule"/>. </summary>
-        public NetworkSecurityPerimeterProfileAccessRule()
+        internal NetworkSecurityPerimeterProfileAccessRule()
         {
         }
 
@@ -40,19 +40,19 @@ namespace Azure.ResourceManager.EventGrid.Models
 
         /// <summary> Fully Qualified Arm id for network security perimeter profile access rule. </summary>
         [WirePath("fullyQualifiedArmId")]
-        public string FullyQualifiedArmId { get; set; }
+        public string FullyQualifiedArmId { get; }
 
         /// <summary> Name for nsp access rule. </summary>
         [WirePath("name")]
-        public string Name { get; set; }
+        public string Name { get; }
 
         /// <summary> nsp access rule type. </summary>
         [WirePath("type")]
-        public string NetworkSecurityPerimeterProfileAccessRuleType { get; set; }
+        public string NetworkSecurityPerimeterProfileAccessRuleType { get; }
 
         /// <summary> NSP access rule properties. </summary>
         [WirePath("properties")]
-        internal NetworkSecurityPerimeterProfileAccessRuleProperties Properties { get; set; }
+        internal NetworkSecurityPerimeterProfileAccessRuleProperties Properties { get; }
 
         /// <summary> NSP access rule direction. </summary>
         [WirePath("properties.direction")]
@@ -62,14 +62,6 @@ namespace Azure.ResourceManager.EventGrid.Models
             {
                 return Properties is null ? default : Properties.Direction;
             }
-            set
-            {
-                if (Properties is null)
-                {
-                    Properties = new NetworkSecurityPerimeterProfileAccessRuleProperties();
-                }
-                Properties.Direction = value;
-            }
         }
 
         /// <summary> Address prefixes. </summary>
@@ -78,11 +70,7 @@ namespace Azure.ResourceManager.EventGrid.Models
         {
             get
             {
-                if (Properties is null)
-                {
-                    Properties = new NetworkSecurityPerimeterProfileAccessRuleProperties();
-                }
-                return Properties.AddressPrefixes;
+                return Properties is null ? default : Properties.AddressPrefixes;
             }
         }
 
@@ -92,11 +80,7 @@ namespace Azure.ResourceManager.EventGrid.Models
         {
             get
             {
-                if (Properties is null)
-                {
-                    Properties = new NetworkSecurityPerimeterProfileAccessRuleProperties();
-                }
-                return Properties.Subscriptions;
+                return Properties is null ? default : Properties.Subscriptions;
             }
         }
 
@@ -106,11 +90,7 @@ namespace Azure.ResourceManager.EventGrid.Models
         {
             get
             {
-                if (Properties is null)
-                {
-                    Properties = new NetworkSecurityPerimeterProfileAccessRuleProperties();
-                }
-                return Properties.NetworkSecurityPerimeters;
+                return Properties is null ? default : Properties.NetworkSecurityPerimeters;
             }
         }
 
@@ -120,11 +100,7 @@ namespace Azure.ResourceManager.EventGrid.Models
         {
             get
             {
-                if (Properties is null)
-                {
-                    Properties = new NetworkSecurityPerimeterProfileAccessRuleProperties();
-                }
-                return Properties.FullyQualifiedDomainNames;
+                return Properties is null ? default : Properties.FullyQualifiedDomainNames;
             }
         }
 
@@ -134,11 +110,7 @@ namespace Azure.ResourceManager.EventGrid.Models
         {
             get
             {
-                if (Properties is null)
-                {
-                    Properties = new NetworkSecurityPerimeterProfileAccessRuleProperties();
-                }
-                return Properties.EmailAddresses;
+                return Properties is null ? default : Properties.EmailAddresses;
             }
         }
 
@@ -148,11 +120,7 @@ namespace Azure.ResourceManager.EventGrid.Models
         {
             get
             {
-                if (Properties is null)
-                {
-                    Properties = new NetworkSecurityPerimeterProfileAccessRuleProperties();
-                }
-                return Properties.PhoneNumbers;
+                return Properties is null ? default : Properties.PhoneNumbers;
             }
         }
     }
