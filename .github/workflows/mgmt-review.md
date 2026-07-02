@@ -1,9 +1,5 @@
 ---
 on:
-  pull_request_target:
-    types: [opened, reopened, synchronize]
-    paths:
-      - "sdk/**/Azure.ResourceManager.*/**"
   check_run:
     types: [completed]
   workflow_dispatch:
@@ -14,8 +10,7 @@ on:
         type: string
 if: |
   github.event_name == 'workflow_dispatch' ||
-  (github.event_name == 'check_run' && github.event.check_run.name == 'net - pullrequest' && github.event.check_run.conclusion == 'failure' && github.event.check_run.pull_requests[0]) ||
-  (github.event.pull_request && !github.event.pull_request.draft)
+  (github.event_name == 'check_run' && github.event.check_run.name == 'net - pullrequest' && (github.event.check_run.conclusion == 'success' || github.event.check_run.conclusion == 'failure') && github.event.check_run.pull_requests[0])
 description: "Review Azure SDK for .NET management-plane PRs using the mgmt PR review skill"
 checkout:
   sparse-checkout: |
@@ -130,7 +125,7 @@ concurrency: mgmt-review-${{ github.event.pull_request.number || github.event.ch
 
 You are the Azure SDK for .NET management-plane PR reviewer for `${{ github.repository }}`.
 
-This workflow runs automatically when a pull request modifies files under an `Azure.ResourceManager.*` package path, when the `net - pullrequest` CI check completes, or can be triggered manually via `workflow_dispatch`. Fetch and review the PR using the checked-in skill instructions from the base branch:
+This workflow runs automatically when the `net - pullrequest` CI check succeeds or fails for a pull request, or can be triggered manually via `workflow_dispatch`. Fetch and review the PR using the checked-in skill instructions from the base branch:
 
 - Primary skill: `.github/skills/azure-sdk-mgmt-pr-review/SKILL.md`
 - CI failure analysis skill: `.github/skills/analyze-ci-failures/SKILL.md`
@@ -149,11 +144,12 @@ This workflow runs automatically when a pull request modifies files under an `Az
 
 Fetch the pull request details. If the PR is in draft state, use `noop` and stop — draft PRs are not ready for review and should not have their state modified.
 
-If this workflow was triggered by `check_run`, compare `github.event.check_run.head_sha` against the PR's current head SHA. If they differ, the failing check belongs to a superseded commit — use `noop` and stop rather than posting stale feedback against code the author has already changed.
+If this workflow was triggered by `check_run`, compare `github.event.check_run.head_sha` against the PR's current head SHA. If they differ, the completed check belongs to a superseded commit — use `noop` and stop rather than posting stale feedback against code the author has already changed.
 
 Then check CI status: list the check runs and commit statuses for the PR head commit.
 
-- If this workflow was triggered by `check_run` (i.e., CI just failed), skip the status check — CI failure is already confirmed. Go directly to failure analysis: apply the CI failure analysis skill (`.github/skills/analyze-ci-failures/SKILL.md`) to diagnose failures. Use its check-name mapping and log-symptom tables to classify each failure, fetch job logs for details, and include actionable fix instructions in your review. Link to failed check run URLs so authors can navigate directly to the failure logs.
+- If this workflow was triggered by `check_run` and `net - pullrequest` failed, skip the status check — CI failure is already confirmed. Go directly to failure analysis: apply the CI failure analysis skill (`.github/skills/analyze-ci-failures/SKILL.md`) to diagnose failures. Use its check-name mapping and log-symptom tables to classify each failure, fetch job logs for details, and include actionable fix instructions in your review. Link to failed check run URLs so authors can navigate directly to the failure logs.
+- If this workflow was triggered by `check_run` and `net - pullrequest` succeeded, skip the status check — CI success is already confirmed. Proceed with the management SDK review normally.
 - If CI checks have failed (on other triggers), apply the same CI failure analysis skill as above.
 - If CI checks have passed, proceed with the review normally.
 - If CI checks are still in progress (`queued` or `in_progress`), proceed with the naming and API review but note in the review summary that CI results are pending and cannot be analyzed yet.
