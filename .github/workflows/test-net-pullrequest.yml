@@ -1,0 +1,15 @@
+name: Test net - pullrequest
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+permissions:
+  contents: read
+
+jobs:
+  net-pullrequest:
+    name: net - pullrequest
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "synthetic net - pullrequest check for mgmt-review trigger testing"
