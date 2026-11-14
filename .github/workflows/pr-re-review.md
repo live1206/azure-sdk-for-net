@@ -15,7 +15,7 @@ on:
   # e.g. azure-sdk-automation[bot] pushing a synchronize commit to a PR branch.
   bots: ["azure-sdk", "azure-sdk-automation[bot]"]
 # Sandbox-only guard: run solely for the disposable same-repository test PR.
-if: github.event.pull_request.draft == false && github.event_name == 'pull_request' && github.repository == 'live1206/azure-sdk-for-net' && github.event.pull_request.head.repo.full_name == github.repository && github.event.pull_request.base.ref == 'test/pr64930-rereview-base-20261114' && github.event.pull_request.head.ref == 'test/pr64930-rereview-head-20261114'
+if: github.event.pull_request.draft == false && github.event_name == 'pull_request' && github.repository == 'live1206/azure-sdk-for-net' && github.event.pull_request.head.repo.full_name == github.repository && github.event.pull_request.base.ref == 'test/pr64930-claude-base-20261114' && github.event.pull_request.head.ref == 'test/pr64930-claude-head-20261114'
 description: "Verify prior review threads and catch missed issues after each new commit, using the shared code-review rules"
 imports:
   - shared/copilot-cli-version-probe-guard.md
@@ -66,6 +66,7 @@ permissions:
 engine:
   id: copilot
   version: "1.0.80"
+  model: claude-sonnet-5.5
   concurrency:
     group: "gh-aw-copilot-${{ github.workflow }}-${{ github.event.pull_request.number }}"
     queue: max
@@ -77,6 +78,9 @@ network:
     - learn.microsoft.com
 safe-outputs:
   runs-on: ubuntu-latest
+  # Keep the existing detector model while selecting the original agent model.
+  threat-detection:
+    model: detection
   report-failure-as-issue: false
   create-pull-request-review-comment:
     max: 100
