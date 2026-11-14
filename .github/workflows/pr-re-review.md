@@ -14,7 +14,8 @@ on:
   # default [admin, maintainer, write] role check even though they're trusted automation —
   # e.g. azure-sdk-automation[bot] pushing a synchronize commit to a PR branch.
   bots: ["azure-sdk", "azure-sdk-automation[bot]"]
-if: github.event.pull_request.draft == false && (github.event_name == 'pull_request' || github.event.pull_request.head.repo.id != github.repository_id)
+# Sandbox-only guard: run solely for the disposable same-repository test PR.
+if: github.event.pull_request.draft == false && github.event_name == 'pull_request' && github.repository == 'live1206/azure-sdk-for-net' && github.event.pull_request.head.repo.full_name == github.repository && github.event.pull_request.base.ref == 'test/pr64930-rereview-base-20261114' && github.event.pull_request.head.ref == 'test/pr64930-rereview-head-20261114'
 description: "Verify prior review threads and catch missed issues after each new commit, using the shared code-review rules"
 imports:
   - shared/copilot-cli-version-probe-guard.md
@@ -59,7 +60,6 @@ pre-agent-steps:
     run: rm -rf "${RUNNER_TEMP}/pr-re-review-input"
 inlined-imports: true
 permissions:
-  copilot-requests: write
   contents: read
   pull-requests: read
   issues: read
