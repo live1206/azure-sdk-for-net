@@ -169,6 +169,31 @@ function Assert-PrReReviewOutput {
     return "Re-review coverage is complete: $line"
 }
 
+function ConvertFrom-PrReReviewNumberedView {
+    param([string]$Text)
+
+    # Only decode successful, correlated view results, and validate every line.
+    $Text = $Text.Replace("`r`n", "`n")
+    $decoded = [System.Text.StringBuilder]::new()
+    $offset = 0
+    [long]$previous = 0
+    while ($offset -lt $Text.Length) {
+        $end = $Text.IndexOf([char]"`n", $offset)
+        if ($end -lt 0) { $end = $Text.Length }
+        $dot = $Text.IndexOf([char]'.', $offset, $end - $offset)
+        if ($dot -le $offset -or $dot + 1 -ge $end -or $Text[$dot + 1] -ne [char]' ') { return $null }
+        [long]$number = 0
+        if (![long]::TryParse($Text.Substring($offset, $dot - $offset), [System.Globalization.NumberStyles]::None, [System.Globalization.CultureInfo]::InvariantCulture, [ref]$number) -or $number -le 0) { return $null }
+        if ($previous -ne 0 -and ($previous -eq [long]::MaxValue -or $number -ne $previous + 1)) { return $null }
+        $previous = $number
+        [void]$decoded.Append($Text, $dot + 2, $end - $dot - 2)
+        if ($end -lt $Text.Length) { [void]$decoded.Append([char]"`n") }
+        $offset = $end + 1
+    }
+    if ($previous -eq 0) { return $null }
+    return $decoded.ToString()
+}
+
 function Assert-PrReReviewReadCoverage {
     param(
         [AllowNull()]$AgentOutput,
@@ -182,8 +207,18 @@ function Assert-PrReReviewReadCoverage {
     if (!$MarkersPath -or ![IO.File]::Exists($MarkersPath)) {
         throw "The guard cannot verify read coverage without the exported-patch markers at '$MarkersPath'."
     }
-    if (!$SessionLogPath -or ![IO.File]::Exists($SessionLogPath)) {
-        throw "The guard cannot verify read coverage without the agent's tool log at '$SessionLogPath'."
+    $sessionLogs = @(
+        if ($SessionLogPath -and [IO.File]::Exists($SessionLogPath)) {
+            $SessionLogPath
+        } elseif ($SessionLogPath -and [IO.Directory]::Exists($SessionLogPath)) {
+            foreach ($session in [IO.Directory]::EnumerateDirectories($SessionLogPath)) {
+                $eventLog = [IO.Path]::Combine($session, 'events.jsonl')
+                if ([IO.File]::Exists($eventLog)) { $eventLog }
+            }
+        }
+    )
+    if ($sessionLogs.Count -eq 0) {
+        throw "The guard cannot verify read coverage without the agent's tool log or session event logs at '$SessionLogPath'."
     }
 
     $files = @((ConvertFrom-PrReReviewJson ([IO.File]::ReadAllText($MarkersPath))).files)
@@ -201,22 +236,48 @@ function Assert-PrReReviewReadCoverage {
     # Check for ordinary missed or truncated reads. The agent can influence its session log,
     # so these matches are not tamper-proof evidence and cannot establish comprehension.
     # Each complete chunk must appear in one successful tool result.
-    $results = [System.Collections.Generic.List[string]]::new()
-    foreach ($line in [IO.File]::ReadLines($SessionLogPath)) {
-        if (!$line.Contains('"tool.execution_complete"', [StringComparison]::Ordinal)) { continue }
-        try { $event = ConvertFrom-PrReReviewJson $line } catch { continue }
-        if ($event -isnot [System.Collections.IDictionary] -or $event.type -cne 'tool.execution_complete' -or $event.data.success -eq $false) { continue }
-        $content = $event.data.result.content
-        if ($null -eq $content) { continue }
-        $text = if ($content -is [string]) { $content } else { ConvertTo-Json -InputObject $content -Depth 20 -Compress }
-        $results.Add($text)
+    $results = [System.Collections.Generic.List[object]]::new()
+    foreach ($sessionLog in $sessionLogs) {
+        # Call IDs are scoped to one session; reused IDs must not qualify a view.
+        $starts = [System.Collections.Generic.Dictionary[string,string]]::new([StringComparer]::Ordinal)
+        $seen = [System.Collections.Generic.HashSet[string]]::new([StringComparer]::Ordinal)
+        foreach ($line in [IO.File]::ReadLines($sessionLog)) {
+            if (!$line.Contains('"tool.execution_start"', [StringComparison]::Ordinal) -and !$line.Contains('"tool.execution_complete"', [StringComparison]::Ordinal)) { continue }
+            try { $event = ConvertFrom-PrReReviewJson $line } catch { continue }
+            if ($event -isnot [System.Collections.IDictionary] -or $event.data -isnot [System.Collections.IDictionary]) { continue }
+            $id = $event.data.toolCallId
+            if ($event.type -ceq 'tool.execution_start') {
+                if ($id -is [string] -and $id.Length -gt 0) {
+                    if ($seen.Add($id)) { $starts[$id] = [string]$event.data.toolName } else { [void]$starts.Remove($id) }
+                }
+                continue
+            }
+            if ($event.type -cne 'tool.execution_complete') { continue }
+            $isView = $false
+            if ($id -is [string] -and $id.Length -gt 0) {
+                if ($starts.ContainsKey($id)) {
+                    $isView = $starts[$id] -ceq 'view' -and $event.data.success -is [bool] -and $event.data.success
+                    [void]$starts.Remove($id)
+                } else { [void]$seen.Add($id) }
+            }
+            if ($event.data.success -eq $false) { continue }
+            $content = $event.data.result.content
+            if ($null -eq $content) { continue }
+            $text = if ($content -is [string]) { $content } else { ConvertTo-Json -InputObject $content -Depth 20 -Compress }
+            $decoded = if ($isView) { ConvertFrom-PrReReviewNumberedView -Text $text } else { $null }
+            $results.Add(@{ text = $text; decoded = $decoded })
+        }
     }
 
     $unread = @(
         foreach ($file in $files) {
             foreach ($chunk in $file.chunks) {
                 $expected = $chunk.content.TrimEnd([char[]]"`r`n")
-                if (!@($results | Where-Object { $_.Contains($expected, [StringComparison]::Ordinal) }).Count) {
+                $normalized = $expected.Replace("`r`n", "`n")
+                if (!$expected -or !@($results | Where-Object {
+                    $_.text.Contains($expected, [StringComparison]::Ordinal) -or
+                    ($null -ne $_.decoded -and $_.decoded.Contains($normalized, [StringComparison]::Ordinal))
+                }).Count) {
                     [string]$file.path
                     break
                 }

@@ -793,10 +793,12 @@ Describe 'Re-review prompt' {
         $script:PromptBody | Should -Match '(?i)cannot.*single successful tool result.*report_incomplete'
     }
 
-    It 'tells the agent to read parts whole in small batches, never through a filter' {
+    It 'tells the agent to view complete parts individually, never through a filter' {
         $step3 = [regex]::Match($script:PromptBody, '(?ms)^## Step 3\b.*?(?=^## |\z)').Value
-        $step3 | Should -Match '(?i)plain `cat`, at most four parts per command'
-        $step3 | Should -Match '(?i)never pipe them through `grep`, `cut`, `tail`, or any other filter'
+        $step3 | Should -Match '(?i)native `view` on each.*`readFiles` part separately'
+        $step3 | Should -Match '(?i)never filter a patch through `grep`, `cut`, `tail`, or any other filter'
+        $step3 | Should -Match '(?i)never truncate a read'
+        $step3 | Should -Match '(?i)never skip a file by name, path, or type'
         $step3 | Should -Match '(?i)generated files such as compiled `\*\.lock\.yml`'
     }
 

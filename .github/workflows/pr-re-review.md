@@ -14,7 +14,8 @@ on:
   # default [admin, maintainer, write] role check even though they're trusted automation —
   # e.g. azure-sdk-automation[bot] pushing a synchronize commit to a PR branch.
   bots: ["azure-sdk", "azure-sdk-automation[bot]"]
-if: github.event.pull_request.draft == false && (github.event_name == 'pull_request' || github.event.pull_request.head.repo.id != github.repository_id)
+# Sandbox-only guard: run solely for the disposable same-repository test PR.
+if: github.event.pull_request.draft == false && github.event_name == 'pull_request' && github.repository == 'live1206/azure-sdk-for-net' && github.event.pull_request.head.repo.full_name == github.repository && github.event.pull_request.base.ref == 'test/pr64930-view-base-20261115' && github.event.pull_request.head.ref == 'test/pr64930-view-head-20261115'
 description: "Verify prior review threads and catch missed issues after each new commit, using the shared code-review rules"
 imports:
   - shared/copilot-cli-version-probe-guard.md
@@ -53,7 +54,6 @@ pre-agent-steps:
     run: rm -rf "${RUNNER_TEMP}/pr-re-review-input"
 inlined-imports: true
 permissions:
-  copilot-requests: write
   contents: read
   pull-requests: read
   issues: read
@@ -406,7 +406,7 @@ For each thread that **is resolved**:
 
 Independently review every changed file listed in `files.json`, one file at a time, using the shared rules, exactly as a first-pass review would, to catch anything missed by earlier passes (including commits pushed after the native reviewer's last pass). This overrides the shared skill's guidance to focus a re-review on commits since the previous review: every changed file is in scope, whether or not it changed since then.
 
-A file counts as reviewed only when you have read every file in its `readFiles` array in full, in order, as plain text with no line numbers or filtering. Read them with plain `cat`, at most four parts per command, and never pipe them through `grep`, `cut`, `tail`, or any other filter, including for generated files such as compiled `*.lock.yml` workflows. Never truncate a read (no character or line limits, slicing, or `head`) and never skip a file by name, path, or type. Large patches are split into bounded parts; `patchFile` also contains the complete patch for context. If a tool saves a response to a file, reread each affected part individually so its complete text appears in a single successful tool result. If you cannot obtain the complete part in a single successful tool result, call `report_incomplete` rather than submitting a review.
+A file counts as reviewed only when you have read every file in its `readFiles` array in full and in order. Use the native `view` on each `readFiles` part separately; line numbers displayed by `view` are presentation, not a substitute for the complete text. Never filter a patch through `grep`, `cut`, `tail`, or any other filter, including for generated files such as compiled `*.lock.yml` workflows. Never truncate a read (no character or line limits, slicing, or `head`) and never skip a file by name, path, or type. Large patches are split into bounded parts; `patchFile` also contains the complete patch for context. If a result is truncated or saved to a file, reread each affected part individually, using `forceReadLargeFiles` when needed, so its complete text appears in a single successful tool result. If you cannot obtain the complete part in a single successful tool result, call `report_incomplete` rather than submitting a review.
 
 Before posting any new finding, confirm it is not already covered by an existing open thread (Step 2) or another reviewer's comment.
 
