@@ -317,6 +317,7 @@ tools:
   github:
     toolsets: [context, repos, pull_requests, issues]
   bash: true
+max-ai-credits: 2000
 max-turns: 1000
 timeout-minutes: 50
 concurrency:
