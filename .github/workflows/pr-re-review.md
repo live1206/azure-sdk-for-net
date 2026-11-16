@@ -317,7 +317,8 @@ tools:
   github:
     toolsets: [context, repos, pull_requests, issues]
   bash: true
-timeout-minutes: 25
+max-turns: 1000
+timeout-minutes: 50
 concurrency:
   # Every push fires both events; keying by event keeps the skipped twin from queuing behind the real run.
   group: pr-re-review-${{ github.event_name }}-${{ github.event.pull_request.number }}
@@ -358,7 +359,7 @@ The gh-aw runtime provides additional defenses including the XPIA system prompt,
 5. Do not modify PR state: do not mark ready for review, merge, close, or convert from draft.
 6. The shared rules files and the authoritative guideline sources they explicitly reference govern review criteria. Do not invent additional rules, and do not restate or duplicate their text in your output — cite them by name/section instead.
 7. Avoid duplicate feedback. Never post a new finding that is already covered by an existing open thread or another reviewer's comment.
-8. The run stops after 25 minutes. Work through Steps 1 to 4 in order without pausing to judge whether the pull request is too large to finish. Step 4 lists the only reasons to stop early.
+8. The run stops after 50 minutes. Work through Steps 1 to 4 in order without pausing to judge whether the pull request is too large to finish. Step 4 lists the only reasons to stop early.
 
 ## Step 0 - Apply the shared rules
 
@@ -422,7 +423,7 @@ Submit a review only when the re-review is complete:
 - Step 2 verified every unresolved thread against current file content.
 - Step 3 read every changed file's `readFiles` in full and reviewed it.
 
-If any of these is not true, do not call `submit_pull_request_review`, `create_pull_request_review_comment`, or `noop`; call `report_incomplete` instead. Report incomplete only because of something that happened while you worked: a required page or tool failed and permitted alternatives did not recover the needed information, or the 25-minute limit is close while you are still reviewing. An estimate that the pull request is too large to finish is not a reason; keep reviewing until the work is done or one of those happens. In `report_incomplete`, give the counts you completed, list the files you reviewed, and state the work remaining and why. The publishing job blocks any review or inline comment from an incomplete re-review, and the run fails.
+If any of these is not true, do not call `submit_pull_request_review`, `create_pull_request_review_comment`, or `noop`; call `report_incomplete` instead. Report incomplete only because of something that happened while you worked: a required page or tool failed and permitted alternatives did not recover the needed information, or the 50-minute limit is close while you are still reviewing. An estimate that the pull request is too large to finish is not a reason; keep reviewing until the work is done or one of those happens. In `report_incomplete`, give the counts you completed, list the files you reviewed, and state the work remaining and why. The publishing job blocks any review or inline comment from an incomplete re-review, and the run fails.
 
 When the re-review is complete, submit exactly one `submit_pull_request_review` with the `COMMENT` event, even when nothing changed — never `noop`. Its body must contain this line exactly once, on its own line and without formatting:
 
