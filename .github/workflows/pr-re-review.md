@@ -14,7 +14,7 @@ on:
   # default [admin, maintainer, write] role check even though they're trusted automation —
   # e.g. azure-sdk-automation[bot] pushing a synchronize commit to a PR branch.
   bots: ["azure-sdk", "azure-sdk-automation[bot]"]
-if: github.event.pull_request.draft == false && (github.event_name == 'pull_request' || github.event.pull_request.head.repo.id != github.repository_id)
+if: github.repository == 'live1206/azure-sdk-for-net' && github.event.pull_request.base.ref == 'test/pr64533-base-20261116' && github.event.pull_request.head.ref == 'test/pr64533-head-20261116' && github.event.pull_request.head.repo.full_name == github.repository && github.event.pull_request.draft == false && (github.event_name == 'pull_request' || github.event.pull_request.head.repo.id != github.repository_id)
 description: "Verify prior review threads and catch missed issues after each new commit, using the shared code-review rules"
 imports:
   - shared/copilot-cli-version-probe-guard.md
@@ -41,6 +41,7 @@ pre-agent-steps:
       if (!(Test-Path -PathType Leaf './.github/workflows/pr-re-review/Invoke-PrReReviewInputExport.ps1')) {
         throw 'The trusted base branch does not contain the re-review exporter. Deploy the helpers to the base branch before enabling this workflow; do not run the PR version.'
       }
+      throw 'Sandbox exporter availability check passed; intentionally stopping before export and model execution.'
       ./.github/workflows/pr-re-review/Invoke-PrReReviewInputExport.ps1
   - name: Upload exported-patch markers
     uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
@@ -53,7 +54,6 @@ pre-agent-steps:
     run: rm -rf "${RUNNER_TEMP}/pr-re-review-input"
 inlined-imports: true
 permissions:
-  copilot-requests: write
   contents: read
   pull-requests: read
   issues: read
