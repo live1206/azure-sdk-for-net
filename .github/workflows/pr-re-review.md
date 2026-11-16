@@ -59,7 +59,6 @@ permissions:
 engine:
   id: copilot
   version: "1.0.80"
-  model: gpt-6.1-terra
   concurrency:
     group: "gh-aw-copilot-${{ github.workflow }}-${{ github.event.pull_request.number }}"
     queue: max
@@ -71,11 +70,6 @@ network:
     - learn.microsoft.com
 safe-outputs:
   runs-on: ubuntu-latest
-  threat-detection:
-    engine:
-      id: copilot
-      version: "1.0.80"
-      model: detection
   report-failure-as-issue: false
   create-pull-request-review-comment:
     max: 100
