@@ -318,7 +318,7 @@ tools:
     toolsets: [context, repos, pull_requests, issues]
   bash: true
 max-ai-credits: 2000
-max-turns: 1000
+max-turns: 2000
 timeout-minutes: 50
 concurrency:
   # Every push fires both events; keying by event keeps the skipped twin from queuing behind the real run.
