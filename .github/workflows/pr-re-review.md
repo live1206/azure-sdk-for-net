@@ -375,6 +375,16 @@ For the Azure SDK guidelines explicitly referenced by the shared rules, use GitH
 
 If a retrieval attempt fails, try permitted alternatives before calling `missing_tool` or `report_incomplete`. A failed individual tool call does not make the review incomplete if a permitted alternative recovers the required information. If a required guideline source remains unavailable after permitted alternatives, call `report_incomplete` and do not submit a review or inline comments. After calling `missing_tool`, do not call `submit_pull_request_review` or `create_pull_request_review_comment`; an incomplete review must not be published.
 
+## Delegation
+
+If you use subagents, include all of the following instructions in every subagent task and its follow-ups:
+
+- Use GitHub MCP `get_file_contents` for GitHub source files at the appropriate reviewed or guideline ref; do not use `curl`, `wget`, or `gh` to retrieve GitHub files. A saved MCP source response is a successful retrieval, not missing data: inspect the saved response with read-only tools to extract the relevant source text, including from a JSON tool envelope. Try permitted alternatives before reporting an actual blocker to the parent.
+- Source context may be inspected in excerpts, but required `readFiles` patch parts must be read fully without filtering or truncation, as in Step 3.
+- Subagents must not call any safe-output tools, including `missing_tool`, `report_incomplete`, review/comment, or thread actions. Report any blocker and attempted recoveries to the parent instead. The parent must assess unresolved required data and call `report_incomplete` or `missing_tool` as appropriate; never hide an actual blocker.
+
+The parent must wait for all subagents and verify their results, resolve or report actual blockers, and falsify candidate findings before queuing any review or inline comment. Safe-output review and comment intents are write-once; do not queue them until the review is final. All existing incomplete-work and publication guards still apply.
+
 ## Step 1 - Gather review history
 
 Every changed file's patch is already exported to `/tmp/gh-aw/pr-review-input/`. `files.json` lists each changed file with its status, line counts, and patch files under `patches/`; where GitHub omitted a patch, the exporter provides a fallback diff, content, or explanation. The local checkout contains only `.github`, so read surrounding code with `get_file_contents` at the target head commit.
