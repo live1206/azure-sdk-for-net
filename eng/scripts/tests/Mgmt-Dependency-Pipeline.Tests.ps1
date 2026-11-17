@@ -186,13 +186,16 @@ function New-GitHubPullRequest { throw 'GitHub unavailable' }
         $engCi.extends.parameters.CustomTestSteps[0].pwsh | Should -Match 'Emitter_Version_Dashboard.ps1.*-ValidateOnly'
     }
 
-    It 'runs provisioning CI for changes to the shared generator pins without publishing on main' {
-        $ci = Get-Content (Join-Path $repo 'eng' 'packages' 'http-client-csharp-provisioning' 'ci.yml') -Raw | ConvertFrom-Yaml
+    It 'runs <Name> CI for changes to the shared generator pins without publishing on main' -ForEach @(
+        @{ Name = 'management'; Package = 'http-client-csharp-mgmt' },
+        @{ Name = 'provisioning'; Package = 'http-client-csharp-provisioning' }
+    ) {
+        $ci = Get-Content (Join-Path $repo 'eng' 'packages' $Package 'ci.yml') -Raw | ConvertFrom-Yaml
         $props = 'eng/centralpackagemanagement/Directory.Generation.Packages.props'
         $ci.pr.paths.include | Should -Contain $props
         $ci.trigger.paths.include | Should -Not -Contain $props
         $engCi = Get-Content (Join-Path $repo 'eng' 'scripts' 'ci.yml') -Raw | ConvertFrom-Yaml
-        $engCi.pr.paths.include | Should -Contain 'eng/packages/http-client-csharp-provisioning/ci.yml'
+        $engCi.pr.paths.include | Should -Contain "eng/packages/$Package/ci.yml"
         $ci.extends.parameters.TestMatrix.All.TestArguments | Should -Match '-UnitTests'
         $ci.extends.parameters.TestMatrix.All.TestArguments | Should -Match '-GenerationChecks'
     }
