@@ -47,6 +47,15 @@ Describe 'Management generator dependency update' -Tag 'UnitTest' {
         $manifest.dependencies['@typespec/http-client-csharp'] | Should -BeExactly '1.0.0-alpha.20261116.2'
     }
 
+    It 'can align only the central pin when the management npm pins are already current' {
+        $manifestPath = Join-Path $mgmt 'package.json'
+        $manifest = (Get-Content $manifestPath -Raw).Replace('20261023.4', '20261117.1').Replace('20261023.3', '20261116.2')
+        Set-Content -Path $manifestPath -Value $manifest -NoNewline
+        & $scriptPath -RepoRoot $repo -PublishedPackageJson $published -Version '1.0.0-alpha.20261117.1'
+        (Get-Content $manifestPath -Raw) | Should -BeExactly $manifest
+        (Get-Content $props -Raw) | Should -Match '<AzureGeneratorVersion>1\.0\.0-alpha\.20261117\.1</AzureGeneratorVersion>'
+    }
+
     It 'does not downgrade when a newer branded generator is already on main' {
         $before = Get-Content $props -Raw
         (Get-Content $published -Raw).Replace('20261117.1', '20261001.1') | Set-Content -Path $published -NoNewline

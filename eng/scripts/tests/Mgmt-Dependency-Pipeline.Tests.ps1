@@ -176,9 +176,14 @@ function New-GitHubPullRequest { throw 'GitHub unavailable' }
 
     It 'checks the approved descriptor in management CI for generated PRs' {
         $template = Get-Content $templatePath -Raw
-        $template | Should -Match "eq\(parameters\.EmitterPackagePath, 'eng/packages/http-client-csharp-mgmt'\)"
+        $template | Should -Match "or\(parameters.UpdateMgmtGeneratorDependency, eq\(parameters.EmitterPackagePath, 'eng/packages/http-client-csharp-mgmt'\)\)"
         $template | Should -Match 'git sparse-checkout add .*/doc/GeneratorVersions/Emitter_Version_Dashboard.ps1'
         $template | Should -Match 'Emitter_Version_Dashboard.ps1.*-ValidateOnly'
+        $engCi = Get-Content (Join-Path $repo 'eng' 'scripts' 'ci.yml') -Raw | ConvertFrom-Yaml
+        $engCi.pr.paths.include | Should -Contain 'eng/centralpackagemanagement/Directory.Generation.Packages.props'
+        $engCi.pr.paths.include | Should -Contain 'eng/azure-typespec-http-client-csharp-emitter-package.json'
+        $engCi.pr.paths.include | Should -Contain 'doc/GeneratorVersions/Emitter_Version_Dashboard.ps1'
+        $engCi.extends.parameters.CustomTestSteps[0].pwsh | Should -Match 'Emitter_Version_Dashboard.ps1.*-ValidateOnly'
     }
 
     It 'runs the management CI gate on the sparse PR checkout' {
@@ -215,12 +220,19 @@ function New-GitHubPullRequest { throw 'GitHub unavailable' }
         $template = Get-Content $templatePath -Raw | ConvertFrom-Yaml
         $stageKey = '${{ if ne(length(parameters.TestMatrix), 0) }}'
         $conditionalStage = @($template.extends.parameters.stages | Where-Object { $_ -is [System.Collections.IDictionary] -and $_.Contains($stageKey) })[0][$stageKey][0]
+        $includeKey = '${{ if or(parameters.UpdateMgmtGeneratorDependency, eq(parameters.EmitterPackagePath, ''eng/packages/http-client-csharp-mgmt'')) }}'
+        $include = @($conditionalStage.jobs[0].steps | Where-Object { $_ -is [System.Collections.IDictionary] -and $_.Contains($includeKey) })[0][$includeKey][0]
         $stepKey = '${{ if eq(parameters.EmitterPackagePath, ''eng/packages/http-client-csharp-mgmt'') }}'
         $step = @($conditionalStage.jobs[0].steps | Where-Object { $_ -is [System.Collections.IDictionary] -and $_.Contains($stepKey) })[0][$stepKey][0]
+        $includeCommand = $include.pwsh + "`nexit `$LASTEXITCODE"
+        $includeEncoded = [Convert]::ToBase64String([Text.Encoding]::Unicode.GetBytes($includeCommand))
         $command = $step.pwsh.Replace('$(Build.SourcesDirectory)', $checkout) + "`nexit `$LASTEXITCODE"
         $encoded = [Convert]::ToBase64String([Text.Encoding]::Unicode.GetBytes($command))
         Push-Location $checkout
         try {
+            & pwsh -NoLogo -NoProfile -EncodedCommand $includeEncoded 2>&1 | Out-Null
+            $LASTEXITCODE | Should -Be 0
+            Test-Path (Join-Path $checkout 'doc' 'GeneratorVersions' 'Emitter_Version_Dashboard.ps1') | Should -BeTrue
             $output = & pwsh -NoLogo -NoProfile -EncodedCommand $encoded 2>&1 | Out-String
             $LASTEXITCODE | Should -Not -Be 0
             $output | Should -Match 'Management emitter dependency version'
