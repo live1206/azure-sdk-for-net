@@ -1,0 +1,215 @@
+name: Fork-only management dependency smoke test
+
+# This file exists only on the fork's smoke branch. An explicit empty commit with
+# the exact message below starts the test; ordinary branch pushes do not.
+on:
+  push:
+    branches:
+      - smoke/mgmt-bump-base
+
+permissions:
+  contents: read
+
+jobs:
+  generate:
+    if: >-
+      github.repository == 'live1206/azure-sdk-for-net' &&
+      github.ref == 'refs/heads/smoke/mgmt-bump-base' &&
+      github.event.head_commit.message == 'Run fork-only mgmt bump smoke'
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+          ref: ${{ github.sha }}
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: '22.23.4'
+      - uses: actions/setup-dotnet@9a946fdbd5fb07b82b2f5a4466058b876ab72bb2 # v5.3.0
+        with:
+          dotnet-version: |
+            8.0.x
+            9.0.x
+            10.0.401
+
+      # No fork write token is exposed to npm, generated code, or build tools.
+      - name: Update dependencies and regenerate all local management fixtures
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = 'Stop'
+          $version = '1.0.0-alpha.20261024.1'
+          $manifestPath = './eng/packages/http-client-csharp-mgmt/package.json'
+          $lockPath = './eng/packages/http-client-csharp-mgmt/package-lock.json'
+          $propsPath = './eng/centralpackagemanagement/Directory.Generation.Packages.props'
+          $before = Get-Content -LiteralPath $manifestPath -Raw | ConvertFrom-Json -AsHashtable
+          [xml]$beforeProps = Get-Content -LiteralPath $propsPath -Raw
+          $targetVersion = [System.Management.Automation.SemanticVersion]::Parse($version)
+          if ([System.Management.Automation.SemanticVersion]::Parse($before.dependencies['@azure-typespec/http-client-csharp']) -ge $targetVersion -or [System.Management.Automation.SemanticVersion]::Parse($beforeProps.Project.PropertyGroup.AzureGeneratorVersion) -ge $targetVersion) {
+            throw 'Expected an older branded pin in both the management manifest and central props.'
+          }
+          $metadataPath = Join-Path $env:RUNNER_TEMP 'branded-package.json'
+          $metadata = npm view "@azure-typespec/http-client-csharp@$version" name version dependencies --json --registry=https://pkgs.dev.azure.com/azure-sdk/public/_packaging/azure-sdk-for-js/npm/registry/
+          if ($LASTEXITCODE -ne 0) { throw 'Could not read the public npm package metadata.' }
+          [IO.File]::WriteAllText($metadataPath, ($metadata -join "`n"), [Text.UTF8Encoding]::new($false))
+          $package = Get-Content -LiteralPath $metadataPath -Raw | ConvertFrom-Json -AsHashtable
+          if ($package.name -cne '@azure-typespec/http-client-csharp' -or $package.version -cne $version -or $package.dependencies['@typespec/http-client-csharp'] -cne '1.0.0-alpha.20261023.3') {
+            throw 'The public npm package does not match the pinned smoke-test pair.'
+          }
+          $nuget = Invoke-RestMethod -Uri 'https://pkgs.dev.azure.com/azure-sdk/29ec6040-b234-4e31-b139-33dc4287b756/_packaging/fa8c16a3-dbe0-4de2-a297-03065ec1ba3f/nuget/v3/flat2/azure.generator/index.json'
+          if ($version -notin $nuget.versions) { throw 'The matching public Azure.Generator NuGet package is unavailable.' }
+          & pwsh -NoLogo -NoProfile -File ./eng/scripts/typespec/Update-MgmtGeneratorDependency.ps1 -RepoRoot $env:GITHUB_WORKSPACE -PublishedPackageJson $metadataPath -Version $version
+          if ($LASTEXITCODE -ne 0) { throw 'Dependency update failed; no PR will be created.' }
+          $after = Get-Content -LiteralPath $manifestPath -Raw | ConvertFrom-Json -AsHashtable
+          $lock = Get-Content -LiteralPath $lockPath -Raw | ConvertFrom-Json -AsHashtable
+          [xml]$afterProps = Get-Content -LiteralPath $propsPath -Raw
+          if ($after.dependencies['@azure-typespec/http-client-csharp'] -cne $version -or $after.dependencies['@typespec/http-client-csharp'] -cne '1.0.0-alpha.20261023.3' -or $afterProps.Project.PropertyGroup.AzureGeneratorVersion -cne $version -or $lock.packages[''].dependencies['@azure-typespec/http-client-csharp'] -cne $version -or $lock.packages['node_modules/@azure-typespec/http-client-csharp'].version -cne $version) {
+            throw 'The updated manifest, central props, or lockfile does not match the published pair.'
+          }
+          Push-Location ./eng/packages/http-client-csharp-mgmt
+          try {
+            npm ci
+            if ($LASTEXITCODE -ne 0) { throw 'Lockfile install failed; no PR will be created.' }
+            & pwsh -NoLogo -NoProfile -Command '$ErrorActionPreference = "Stop"; $global:LASTEXITCODE = 0; & ./eng/scripts/Generate.ps1; if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }'
+            if ($LASTEXITCODE -ne 0) { throw 'Full management regeneration failed; no PR will be created.' }
+          } finally { Pop-Location }
+
+          git add -A -- eng/packages/http-client-csharp-mgmt eng/centralpackagemanagement/Directory.Generation.Packages.props
+          if ($LASTEXITCODE -ne 0) { throw 'Could not stage generated output.' }
+          $paths = @(git diff --cached --no-renames --name-only)
+          if ($LASTEXITCODE -ne 0 -or $paths.Count -eq 0) { throw 'The smoke update did not produce a staged diff.' }
+          foreach ($path in $paths) {
+            if ($path -cne 'eng/centralpackagemanagement/Directory.Generation.Packages.props' -and -not $path.StartsWith('eng/packages/http-client-csharp-mgmt/', [StringComparison]::Ordinal)) {
+              throw "Unexpected staged path: $path"
+            }
+          }
+          git diff --cached --binary --output (Join-Path $env:RUNNER_TEMP 'mgmt-bump.patch')
+          if ($LASTEXITCODE -ne 0) { throw 'Could not save the validated update patch.' }
+          $global:LASTEXITCODE = 0
+
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: mgmt-bump-smoke-patch
+          path: ${{ runner.temp }}/mgmt-bump.patch
+          if-no-files-found: error
+          retention-days: 3
+
+  publish-fork-pr:
+    needs: generate
+    if: >-
+      github.repository == 'live1206/azure-sdk-for-net' &&
+      github.ref == 'refs/heads/smoke/mgmt-bump-base' &&
+      github.event.head_commit.message == 'Run fork-only mgmt bump smoke'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      GIT_CONFIG_NOSYSTEM: '1'
+      GIT_CONFIG_GLOBAL: /dev/null
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+          ref: ${{ github.sha }}
+      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
+        with:
+          name: mgmt-bump-smoke-patch
+          path: ${{ runner.temp }}/mgmt-bump-smoke
+
+      # Apply untrusted generated output before introducing the fork-only token.
+      - name: Apply and validate the generated patch
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = 'Stop'
+          if ($env:GITHUB_REPOSITORY -cne 'live1206/azure-sdk-for-net' -or $env:GITHUB_REF -cne 'refs/heads/smoke/mgmt-bump-base') { throw 'Fork-only context check failed.' }
+          $head = git rev-parse HEAD
+          if ($LASTEXITCODE -ne 0 -or $head -cne $env:GITHUB_SHA) { throw 'Checkout does not match the triggering commit.' }
+          $patch = Join-Path $env:RUNNER_TEMP 'mgmt-bump-smoke' 'mgmt-bump.patch'
+          git apply --index --check -- $patch
+          if ($LASTEXITCODE -ne 0) { throw 'Generated patch does not apply cleanly.' }
+          git apply --index -- $patch
+          if ($LASTEXITCODE -ne 0) { throw 'Could not apply generated patch.' }
+          $paths = @(git diff --cached --no-renames --name-only)
+          if ($LASTEXITCODE -ne 0 -or $paths.Count -eq 0) { throw 'Generated patch is empty.' }
+          foreach ($path in $paths) {
+            if ($path -cne 'eng/centralpackagemanagement/Directory.Generation.Packages.props' -and -not $path.StartsWith('eng/packages/http-client-csharp-mgmt/', [StringComparison]::Ordinal)) {
+              throw "Generated patch contains an unexpected path: $path"
+            }
+          }
+          $pushScript = './eng/scripts/typespec/Push-MgmtDependencyBranch.ps1'
+          if ((Get-FileHash -LiteralPath $pushScript -Algorithm SHA256).Hash -cne '6711657492090BE33DCEFB928E3A9C8353E4E86824705A60EFBC903E28EEEDC7') { throw 'Production push helper differs from the reviewed PR commit.' }
+          $global:LASTEXITCODE = 0
+
+      - name: Push to the fork and create a draft smoke PR
+        shell: pwsh
+        env:
+          SMOKE_GITHUB_TOKEN: ${{ secrets.MGMT_BUMP_SMOKE_TOKEN }}
+        run: |
+          $ErrorActionPreference = 'Stop'
+          $PSNativeCommandUseErrorActionPreference = $false
+          if ($env:GITHUB_REPOSITORY -cne 'live1206/azure-sdk-for-net' -or $env:GITHUB_REF -cne 'refs/heads/smoke/mgmt-bump-base') { throw 'Fork-only context check failed.' }
+          if ([string]::IsNullOrWhiteSpace($env:SMOKE_GITHUB_TOKEN)) { throw 'Set the fork-restricted MGMT_BUMP_SMOKE_TOKEN secret first.' }
+          if ($env:GITHUB_RUN_ID -notmatch '^\d+$') { throw 'Invalid run ID.' }
+          $rewrites = @(git config --get-regexp '^url\..*\.insteadof$' 2>$null)
+          if ($LASTEXITCODE -eq 0 -or $rewrites.Count -gt 0) { throw 'Git URL rewrites are not permitted.' }
+          if ($LASTEXITCODE -ne 1) { throw 'Could not inspect Git URL rewrites.' }
+          $global:LASTEXITCODE = 0
+          $branch = "smoke/mgmt-bump-update-$($env:GITHUB_RUN_ID)"
+          $baseBranch = "smoke/mgmt-bump-base-$($env:GITHUB_RUN_ID)"
+          $gitUrl = 'https://github.com/live1206/azure-sdk-for-net.git'
+          $api = 'https://api.github.com/repos/live1206/azure-sdk-for-net'
+          $headers = @{ Authorization = "Bearer $($env:SMOKE_GITHUB_TOKEN)"; Accept = 'application/vnd.github+json'; 'X-GitHub-Api-Version' = '2022-11-28' }
+
+          # A new base for each run avoids targeting a branch someone can move
+          # while the full regeneration is running. Never update an existing ref.
+          $remoteHead = @(git ls-remote --heads $gitUrl "refs/heads/$branch")
+          if ($LASTEXITCODE -ne 0) { throw 'Could not inspect the smoke update branch.' }
+          if ($remoteHead.Count -ne 0) { throw 'A smoke update branch already exists; refusing to reuse a colliding smoke branch.' }
+          $baseRefUrl = "$api/git/ref/heads/$baseBranch"
+          $basePayload = @{ ref = "refs/heads/$baseBranch"; sha = $env:GITHUB_SHA } | ConvertTo-Json
+          try {
+            $baseRef = Invoke-RestMethod -Method Post -Uri "$api/git/refs" -Headers $headers -ContentType 'application/json' -Body $basePayload
+          } catch {
+            $baseCreationError = $_
+            try { $baseRef = Invoke-RestMethod -Uri $baseRefUrl -Headers $headers } catch { throw $baseCreationError }
+          }
+          if ($baseRef.object.sha -cne $env:GITHUB_SHA) { throw 'The isolated smoke base already exists at an unexpected commit.' }
+
+          $pushLog = @(& ./eng/scripts/typespec/Push-MgmtDependencyBranch.ps1 -RepoRoot $env:GITHUB_WORKSPACE -Branch $branch -Version '1.0.0-alpha.20261024.1' -GitUrl $gitUrl -Failed:$false -AuthToken $env:SMOKE_GITHUB_TOKEN *>&1)
+          $pushLog | ForEach-Object { Write-Host $_ }
+          if (($pushLog | Out-String) -match 'variable=ReuseExistingDependencyPR\]true') { throw 'A concurrent run created the update branch; refusing to reuse a colliding smoke branch.' }
+          $createdHead = git rev-parse HEAD
+          if ($LASTEXITCODE -ne 0) { throw 'Could not inspect the generated commit.' }
+          $remoteHead = @(git ls-remote --heads $gitUrl "refs/heads/$branch")
+          if ($LASTEXITCODE -ne 0 -or $remoteHead.Count -ne 1 -or $remoteHead[0] -notmatch "^$createdHead\s+refs/heads/$branch$") { throw 'The remote smoke update branch differs from the validated commit.' }
+          $baseRef = Invoke-RestMethod -Uri $baseRefUrl -Headers $headers
+          if ($baseRef.object.sha -cne $env:GITHUB_SHA) { throw 'The isolated smoke base moved before PR creation.' }
+
+          $head = [Uri]::EscapeDataString("live1206:$branch")
+          $base = [Uri]::EscapeDataString($baseBranch)
+          $query = "$api/pulls?state=all&head=$head&base=$base"
+          $existing = @(Invoke-RestMethod -Uri $query -Headers $headers)
+          $pr = $existing | Where-Object state -eq 'open' | Select-Object -First 1
+          if (-not $pr -and ($existing | Where-Object state -eq 'closed')) { throw 'The smoke PR was already closed; refusing to recreate it.' }
+          if (-not $pr) {
+            $body = @{
+              title = '[SMOKE TEST] Management generator dependency update'
+              head = "live1206:$branch"
+              base = $baseBranch
+              draft = $true
+              body = "Fork-only smoke test of PR #65022. No packages were published. Do not merge this PR. Run: $($env:GITHUB_SERVER_URL)/$($env:GITHUB_REPOSITORY)/actions/runs/$($env:GITHUB_RUN_ID)"
+            } | ConvertTo-Json
+            try {
+              $pr = Invoke-RestMethod -Method Post -Uri "$api/pulls" -Headers $headers -ContentType 'application/json' -Body $body
+            } catch {
+              $creationError = $_
+              $pr = @(Invoke-RestMethod -Uri $query -Headers $headers) | Where-Object state -eq 'open' | Select-Object -First 1
+              if (-not $pr) { throw $creationError }
+            }
+          }
+          if ($pr.base.repo.full_name -cne 'live1206/azure-sdk-for-net' -or $pr.head.repo.full_name -cne 'live1206/azure-sdk-for-net' -or $pr.base.ref -cne $baseBranch -or $pr.head.ref -cne $branch -or $pr.base.sha -cne $env:GITHUB_SHA -or $pr.head.sha -cne $createdHead) { throw 'The returned PR did not match the validated fork-only commits.' }
+          $baseRef = Invoke-RestMethod -Uri $baseRefUrl -Headers $headers
+          $remoteHead = @(git ls-remote --heads $gitUrl "refs/heads/$branch")
+          if ($LASTEXITCODE -ne 0 -or $baseRef.object.sha -cne $env:GITHUB_SHA -or $remoteHead.Count -ne 1 -or $remoteHead[0] -notmatch "^$createdHead\s+refs/heads/$branch$") { throw 'A smoke branch moved during PR creation; inspect the fork before retrying.' }
+          Write-Host "Fork-only draft PR: $($pr.html_url)"
+          "Fork-only draft PR: $($pr.html_url)" >> $env:GITHUB_STEP_SUMMARY
+          $global:LASTEXITCODE = 0
