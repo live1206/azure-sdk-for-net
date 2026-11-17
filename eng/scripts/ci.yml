@@ -12,6 +12,7 @@ trigger:
     include:
       - eng/scripts/*
       - eng/packages/http-client-csharp-mgmt/ci.yml
+      - eng/packages/http-client-csharp-provisioning/ci.yml
       - eng/pipelines/templates/archetype-typespec-emitter.yml
       - eng/pipelines/templates/stages/update-mgmt-generator-dependency.yml
       - .github/workflows/close-stale-generator-upgrade-prs.yml
@@ -29,6 +30,7 @@ pr:
     include:
       - eng/scripts/*
       - eng/packages/http-client-csharp-mgmt/ci.yml
+      - eng/packages/http-client-csharp-provisioning/ci.yml
       - eng/pipelines/templates/archetype-typespec-emitter.yml
       - eng/pipelines/templates/stages/update-mgmt-generator-dependency.yml
       - .github/workflows/close-stale-generator-upgrade-prs.yml

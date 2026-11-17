@@ -186,6 +186,17 @@ function New-GitHubPullRequest { throw 'GitHub unavailable' }
         $engCi.extends.parameters.CustomTestSteps[0].pwsh | Should -Match 'Emitter_Version_Dashboard.ps1.*-ValidateOnly'
     }
 
+    It 'runs provisioning CI for changes to the shared generator pins without publishing on main' {
+        $ci = Get-Content (Join-Path $repo 'eng' 'packages' 'http-client-csharp-provisioning' 'ci.yml') -Raw | ConvertFrom-Yaml
+        $props = 'eng/centralpackagemanagement/Directory.Generation.Packages.props'
+        $ci.pr.paths.include | Should -Contain $props
+        $ci.trigger.paths.include | Should -Not -Contain $props
+        $engCi = Get-Content (Join-Path $repo 'eng' 'scripts' 'ci.yml') -Raw | ConvertFrom-Yaml
+        $engCi.pr.paths.include | Should -Contain 'eng/packages/http-client-csharp-provisioning/ci.yml'
+        $ci.extends.parameters.TestMatrix.All.TestArguments | Should -Match '-UnitTests'
+        $ci.extends.parameters.TestMatrix.All.TestArguments | Should -Match '-GenerationChecks'
+    }
+
     It 'runs the management CI gate on the sparse PR checkout' {
         $fixture = Join-Path $TestDrive ([guid]::NewGuid().ToString())
         $source = Join-Path $fixture 'source'
