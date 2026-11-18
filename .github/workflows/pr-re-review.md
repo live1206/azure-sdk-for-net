@@ -76,6 +76,7 @@ permissions:
   contents: read
   pull-requests: read
   issues: read
+model: gpt-6.1-terra
 engine:
   id: copilot
   version: "1.0.80"
