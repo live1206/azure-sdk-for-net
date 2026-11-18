@@ -14,7 +14,7 @@ on:
   # default [admin, maintainer, write] role check even though they're trusted automation —
   # e.g. azure-sdk-automation[bot] pushing a synchronize commit to a PR branch.
   bots: ["azure-sdk", "azure-sdk-automation[bot]"]
-if: github.repository == 'live1206/azure-sdk-for-net' && github.event.pull_request.base.ref == 'test/review-lab-9b60e5be-base' && github.event.pull_request.head.repo.full_name == 'live1206/azure-sdk-for-net' && github.event.pull_request.head.ref == 'test/review-lab-9b60e5be-head' && github.event.pull_request.draft == false && (github.event_name == 'pull_request' || github.event.pull_request.head.repo.id != github.repository_id)
+if: github.repository == 'live1206/azure-sdk-for-net' && github.event.pull_request.base.ref == 'test/review-lab-d3-20261118-base' && github.event.pull_request.head.repo.full_name == 'live1206/azure-sdk-for-net' && github.event.pull_request.head.ref == 'test/review-lab-d3-20261118-head' && github.event.pull_request.draft == false && (github.event_name == 'pull_request' || github.event.pull_request.head.repo.id != github.repository_id)
 description: "Verify prior review threads and catch missed issues after each new commit, using the shared code-review rules"
 imports:
   - shared/copilot-cli-version-probe-guard.md
