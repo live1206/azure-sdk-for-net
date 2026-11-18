@@ -710,6 +710,16 @@ Describe 'Compiled re-review publication guard' {
     }
 }
 
+Describe 'Re-review invocation budget' {
+    It 'sets the agent invocation cap to 1000 in both source and compiled workflow' {
+        $source = [IO.File]::ReadAllText((Join-Path $script:RepoRoot '.github/workflows/pr-re-review.md'))
+        $compiled = [IO.File]::ReadAllText((Join-Path $script:RepoRoot '.github/workflows/pr-re-review.lock.yml'))
+        $source | Should -Match '(?m)^max-turns: 1000\s*$'
+        $compiled | Should -Match '\\"maxRuns\\":1000'
+        $compiled | Should -Match '(?m)^\s+GH_AW_MAX_TURNS: 1000\s*$'
+    }
+}
+
 Describe 'Compiled re-review input export' {
     BeforeAll {
         $script:AgentSteps = Get-CompiledSteps 'agent'
@@ -754,6 +764,7 @@ Describe 'Compiled re-review input export' {
         Get-StepProperty $export 'run' | Should -BeExactly '|'
         $run = $export.Lines -join "`n"
         $run | Should -Match 'base branch does not contain the re-review exporter'
+        $run | Should -Match 'trusted base branch does not yet support the local Git review exporter'
         $run | Should -Match '\./\.pr-re-review-helpers/\.github/workflows/pr-re-review/Invoke-PrReReviewInputExport\.ps1'
         $run | Should -Not -Match '(?m)^\s+\./\.github/workflows/pr-re-review/Invoke-PrReReviewInputExport\.ps1$'
         $run | Should -Match 'rev-parse HEAD:\.github/workflows/pr-re-review'
@@ -765,6 +776,7 @@ Describe 'Compiled re-review input export' {
         $environment['PR_BASE_SHA'] | Should -BeExactly '${{ github.event.pull_request.base.sha }}'
         $environment['REVIEW_INPUT_DIR'] | Should -BeExactly '/tmp/gh-aw/pr-review-input'
         $environment['REVIEW_INPUT_MARKERS'] | Should -BeExactly '${{ runner.temp }}/pr-re-review-input/markers.json'
+        $environment['REVIEW_INPUT_SOURCE'] | Should -BeExactly 'git'
 
         $upload = Get-AgentStep 'Upload exported-patch markers'
         Get-StepProperty $upload 'uses' | Should -BeExactly 'actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2'
@@ -805,64 +817,22 @@ Describe 'Re-review prompt' {
         Import-Module (Join-Path $PSScriptRoot 'PrReReviewGuard.psm1') -Force
         $script:Frontmatter, $script:PromptBody = ([IO.File]::ReadAllText((Join-Path $script:GuardDirectory '..' 'pr-re-review.md')) -split '(?m)^---\s*$', 3)[1, 2]
         $script:Step0 = [regex]::Match($script:PromptBody, '(?ms)^## Step 0\b.*?(?=^## |\z)').Value
-        $script:Delegation = [regex]::Match($script:PromptBody, '(?ms)^## Delegation\b.*?(?=^## |\z)').Value
         $script:Step4 = [regex]::Match($script:PromptBody, '(?ms)^## Step 4\b.*?(?=^## |\z)').Value
     }
 
-    It 'recovers frozen instructions through bounded forward reads of the original same-session message' {
-        $script:Step0 | Should -Match '(?i)compaction.*not.*reason to stop'
-        $script:Step0 | Should -Match '(?i)current session.*original workflow message'
-        $script:Step0 | Should -Match '(?i)`session_store_sql`.*`source: local`'
-        $script:Step0 | Should -Match 'length\(user_message\)'
-        $script:Step0 | Should -Match 'substr\(user_message, 1, 6000\)'
-        $script:Step0 | Should -Match '(?i)6001, 12001.*until.*entire message'
-        $script:Step0 | Should -Match '(?i)do not retrieve only.*tail'
-        $script:Step0 | Should -Match '(?i)saved.*disk.*read.*complete'
-        $script:Step0 | Should -Match '(?i)do not substitute.*PR checkout.*artifact'
+    It 'asks for the exact coverage line the guard enforces' {
+        $prompt = [IO.File]::ReadAllText((Join-Path $script:GuardDirectory '..' 'pr-re-review.md'))
+        $prompt.Contains((Get-PrReReviewCoverageTemplate), [StringComparison]::Ordinal) | Should -BeTrue
     }
 
-    It 'retains a navigation checkpoint without inferring review completion' {
-        $script:Step0 | Should -Match '(?i)checkpoint.*session.*message.*next unread.*blockers.*safe-output'
-        $script:Step0 | Should -Match '(?i)retain.*recovery procedure.*compaction summary'
-        $script:Step0 | Should -Match '(?i)checkpoint.*not.*proof.*coverage'
-        $script:Step0 | Should -Match '(?i)finish any unfinished analysis of already-read files'
-        $script:Step4 | Should -Match '(?i)instruction recovery.*failed after.*permitted.*attempts'
+    It 'accepts that coverage line once every placeholder is a matching count' {
+        $line = (Get-PrReReviewCoverageTemplate) -replace '<fetched>|<total>', '7' -replace '<verified>|<unresolved>', '3' -replace '<reviewed>|<changed>', '12'
+        { Assert-PrReReviewOutput (New-AgentOutput @(New-Review "Done.`n`n$line")) } | Should -Not -Throw
     }
 
-    It 'passes frozen rules and recovery instructions and requires explicit child signal status' {
-        $script:Delegation | Should -Match '(?i)pass the frozen review rules.*safety.*coverage.*context-recovery'
-        $script:Delegation | Should -Match '(?is)owner `Azure`.*repo `azure-sdk`.*`docs/dotnet/introduction\.md`'
-        $script:Delegation | Should -Match '(?is)owner `dotnet`.*repo `runtime`.*`docs/coding-guidelines/breaking-change-rules\.md`'
-        $script:Delegation | Should -Match '(?i)status: complete\|blocked'
-        $script:Delegation | Should -Match '(?i)safe_output_signals: none\|'
-        $script:Step4 | Should -Match '(?i)missing or ambiguous child status.*incomplete'
-        $script:Step4 | Should -Match '(?i)do not discard queued failure signals or bypass the publication guard'
-    }
-
-    It 'defers thread actions until coverage and delegated results are reconciled' {
-        $step2 = [regex]::Match($script:PromptBody, '(?ms)^## Step 2\b.*?(?=^## |\z)').Value
-        $step2 | Should -Match '(?i)record proposed thread actions.*do not call.*until Step 4'
-        $step2 | Should -Not -Match '(?i)if addressed: reply briefly'
-        $script:Step4 | Should -Match '(?i)only after.*reconciliation.*queue.*recorded thread actions'
-    }
-
-    It 'passes saved MCP source recovery and MCP-only GitHub reads to every subagent' {
-        $script:Delegation | Should -Match '(?i)every subagent task'
-        $script:Delegation | Should -Match '(?i)saved.*source.*successful retrieval'
-        $script:Delegation | Should -Match '(?i)inspect.*saved.*(?:read-only|read only)'
-        $script:Delegation | Should -Match '(?i)do not use `curl`, `wget`, or `gh`.*GitHub'
-    }
-
-    It 'reserves safe-output signaling for the parent and preserves blockers' {
-        $script:Delegation | Should -Match '(?i)subagents must not call.*safe-output'
-        $script:Delegation | Should -Match '(?i)report.*blocker.*parent'
-        $script:Delegation | Should -Match '(?i)parent.*(?:unrecoverable|unresolved).*report_incomplete'
-    }
-
-    It 'finalizes all worker findings before write-once review outputs' {
-        $script:Delegation | Should -Match '(?i)wait for all subagents'
-        $script:Delegation | Should -Match '(?i)falsif(?:y|ication).*before.*(?:review|comment)'
-        $script:Delegation | Should -Match '(?i)(?:patch parts|readFiles).*without.*(?:filter|truncat)'
+    It 'reads GitHub through the MCP tools, not the unauthenticated gh CLI' {
+        $script:PromptBody | Should -Not -Match '\bgh\s+(?:pr\s+(?:diff|view)|api\s+graphql)\b'
+        $script:PromptBody | Should -Match '\bpull_request_read\b'
     }
 
     It 'retrieves the authoritative Azure SDK guidelines through GitHub MCP rather than curl' {
@@ -879,19 +849,54 @@ Describe 'Re-review prompt' {
         $script:Step0 | Should -Match '(?i)if a required guideline source remains unavailable after permitted alternatives, call `report_incomplete`'
     }
 
-    It 'asks for the exact coverage line the guard enforces' {
-        $prompt = [IO.File]::ReadAllText((Join-Path $script:GuardDirectory '..' 'pr-re-review.md'))
-        $prompt.Contains((Get-PrReReviewCoverageTemplate), [StringComparison]::Ordinal) | Should -BeTrue
+    It 'recovers the original frozen instructions after compaction with bounded forward reads' {
+        $recovery = [regex]::Match($script:Step0, '(?ms)^### Context recovery\b.*?(?=^### |\z)').Value
+        $recovery | Should -Not -BeNullOrEmpty
+        $recovery | Should -Match '(?i)compaction.*not.*reason to stop'
+        $recovery | Should -Match '(?i)current session.*original workflow message'
+        $recovery | Should -Match '(?i)`session_store_sql`.*`source: local`'
+        $recovery | Should -Match 'length\(user_message\)'
+        $recovery | Should -Match 'substr\(user_message, 1, 6000\)'
+        $recovery | Should -Match '(?i)6001, 12001.*until.*entire message'
+        $recovery | Should -Match '(?i)do not retrieve only.*tail'
+        $recovery | Should -Match '(?i)saved.*disk.*read.*complete'
+        $recovery | Should -Match '(?i)do not substitute.*PR checkout.*artifact'
     }
 
-    It 'accepts that coverage line once every placeholder is a matching count' {
-        $line = (Get-PrReReviewCoverageTemplate) -replace '<fetched>|<total>', '7' -replace '<verified>|<unresolved>', '3' -replace '<reviewed>|<changed>', '12'
-        { Assert-PrReReviewOutput (New-AgentOutput @(New-Review "Done.`n`n$line")) } | Should -Not -Throw
+    It 'retains a recovery checkpoint without treating it as review coverage evidence' {
+        $script:Step0 | Should -Match '(?i)checkpoint.*session.*message.*next unread.*blockers.*safe-output'
+        $script:Step0 | Should -Match '(?i)retain.*recovery procedure.*compaction summary'
+        $script:Step0 | Should -Match '(?i)checkpoint.*not.*proof.*coverage'
+        $script:Step0 | Should -Match '(?i)resume.*next unread.*without skipping'
+        $script:Step4 | Should -Match '(?i)instruction recovery.*failed after.*permitted.*attempts'
     }
 
-    It 'reads GitHub through the MCP tools, not the unauthenticated gh CLI' {
-        $script:PromptBody | Should -Not -Match '\bgh\s+(?:pr\s+(?:diff|view)|api\s+graphql)\b'
-        $script:PromptBody | Should -Match '\bpull_request_read\b'
+    It 'passes a complete read-only delegation contract rather than assuming children inherit the workflow prompt' {
+        $contract = [regex]::Match($script:Step0, '(?s)<!-- BEGIN DELEGATED REVIEW CONTRACT -->(.*?)<!-- END DELEGATED REVIEW CONTRACT -->').Groups[1].Value
+        $contract | Should -Not -BeNullOrEmpty
+        $script:Step0 | Should -Match '(?i)include the contract below verbatim in every delegated task'
+        $script:Step0 | Should -Match '(?i)pass the frozen review rules.*safety.*coverage'
+        $contract | Should -Match '(?is)get_file_contents.*owner `Azure`.*repo `azure-sdk`.*ref `refs/heads/main`.*`docs/dotnet/introduction\.md`'
+        $contract | Should -Match '(?is)owner `dotnet`.*repo `runtime`.*`docs/coding-guidelines/breaking-change-rules\.md`'
+        $contract | Should -Match '(?i)do not use `curl`, `wget`, or other shell HTTP clients'
+        $contract | Should -Match '(?i)try permitted alternatives before declaring.*unavailable'
+        $contract | Should -Match '(?i)do not call any safe-output tools'
+        $contract | Should -Match '(?i)status: complete\|blocked'
+        $contract | Should -Match '(?i)safe_output_signals: none\|.*'
+    }
+
+    It 'reconciles child blockers and failure signals before queuing any publication' {
+        $script:Step4 | Should -Match '(?i)before queuing any publication.*collect every delegated result'
+        $script:Step4 | Should -Match '(?i)missing or ambiguous child status.*incomplete'
+        $script:Step4 | Should -Match '(?i)child.*emitted.*`missing_tool`.*do not.*publication'
+        $script:Step4 | Should -Match '(?i)do not discard.*signals.*or bypass.*guard'
+    }
+
+    It 'defers Step 2 thread actions until Step 4 reconciles delegated results' {
+        $step2 = [regex]::Match($script:PromptBody, '(?ms)^## Step 2\b.*?(?=^## |\z)').Value
+        $step2 | Should -Match '(?i)record proposed thread actions.*do not call.*until Step 4'
+        $step2 | Should -Not -Match '(?i)if addressed: reply briefly'
+        $script:Step4 | Should -Match '(?i)only after.*reconciliation.*queue.*recorded thread actions'
     }
 
     It 'points the agent at the patches the export step writes instead of get_files' {
