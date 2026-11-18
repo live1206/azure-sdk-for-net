@@ -14,7 +14,7 @@ on:
   # default [admin, maintainer, write] role check even though they're trusted automation —
   # e.g. azure-sdk-automation[bot] pushing a synchronize commit to a PR branch.
   bots: ["azure-sdk", "azure-sdk-automation[bot]"]
-if: github.event.pull_request.draft == false && (github.event_name == 'pull_request' || github.event.pull_request.head.repo.id != github.repository_id)
+if: github.repository == 'live1206/azure-sdk-for-net' && github.event.pull_request.base.ref == 'test/review-lab-3ce6dc31-base' && github.event.pull_request.head.repo.full_name == 'live1206/azure-sdk-for-net' && github.event.pull_request.head.ref == 'test/review-lab-3ce6dc31-head' && github.event.pull_request.draft == false && (github.event_name == 'pull_request' || github.event.pull_request.head.repo.id != github.repository_id)
 description: "Verify prior review threads and catch missed issues after each new commit, using the shared code-review rules"
 imports:
   - shared/copilot-cli-version-probe-guard.md
@@ -71,6 +71,7 @@ permissions:
   contents: read
   pull-requests: read
   issues: read
+model: gpt-6.1-terra
 engine:
   id: copilot
   version: "1.0.80"
@@ -339,7 +340,8 @@ tools:
   github:
     toolsets: [context, repos, pull_requests, issues]
   bash: true
-timeout-minutes: 25
+timeout-minutes: 50
+max-turns: 1000
 concurrency:
   # Every push fires both events; keying by event keeps the skipped twin from queuing behind the real run.
   group: pr-re-review-${{ github.event_name }}-${{ github.event.pull_request.number }}
@@ -380,7 +382,7 @@ The gh-aw runtime provides additional defenses including the XPIA system prompt,
 5. Do not modify PR state: do not mark ready for review, merge, close, or convert from draft.
 6. The shared rules files are the only source of review criteria. Do not invent additional rules, and do not restate or duplicate their text in your output — cite them by name/section instead.
 7. Avoid duplicate feedback. Never post a new finding that is already covered by an existing open thread or another reviewer's comment.
-8. The run stops after 25 minutes. Work through Steps 1 to 4 in order without pausing to judge whether the pull request is too large to finish. Step 4 lists the only reasons to stop early.
+8. The run stops after 50 minutes. Work through Steps 1 to 4 in order without pausing to judge whether the pull request is too large to finish. Step 4 lists the only reasons to stop early.
 
 ## Step 0 - Apply the shared rules
 
@@ -393,6 +395,10 @@ own review criteria.
 
 Apply them exactly as the `code-review` skill would. This workflow only adds the re-review procedure below
 on top of that shared foundation.
+
+### Measured review time
+
+At the outset, before retrieving review history or patches, record a UTC clock observation using a permitted read-only command such as `date -u +%s`. It is only an approximate lower bound on elapsed time: the workflow and execution may have started before this observation. Before claiming that the 50-minute execution limit is approaching, check a fresh clock reading against the recorded observation or use an actual runtime timeout warning. Do not infer imminent timeout merely from patch size, compaction, or unfinished work. Reserve a conservative margin for time before the observation and for final checks; a clock observation is not a guarantee of remaining time. If the clock or initial observation is unavailable, state that uncertainty rather than inventing elapsed or remaining time. Always honor real runtime timeout warnings, and never publish an incomplete review.
 
 ## Step 1 - Gather review history
 
@@ -440,7 +446,7 @@ Submit a review only when the re-review is complete:
 - Step 2 verified every unresolved thread against current file content.
 - Step 3 read every changed file's `readFiles` in full and reviewed it.
 
-If any of these is not true, do not call `submit_pull_request_review`, `create_pull_request_review_comment`, or `noop`; call `report_incomplete` instead. Report incomplete only because of something that happened while you worked: a page failed to load, a tool was unavailable or returned an error, or the 25-minute limit is close while you are still reviewing. An estimate that the pull request is too large to finish is not a reason; keep reviewing until the work is done or one of those happens. In `report_incomplete`, give the counts you completed, list the files you reviewed, and state the work remaining and why. The publishing job blocks any review or inline comment from an incomplete re-review, and the run fails.
+If any of these is not true, do not call `submit_pull_request_review`, `create_pull_request_review_comment`, or `noop`; call `report_incomplete` instead. Report incomplete only because of something that happened while you worked: a page failed to load, a tool was unavailable or returned an error, or the 50-minute limit is close while you are still reviewing. An estimate that the pull request is too large to finish is not a reason; keep reviewing until the work is done or one of those happens. In `report_incomplete`, give the counts you completed, list the files you reviewed, and state the work remaining and why. The publishing job blocks any review or inline comment from an incomplete re-review, and the run fails.
 
 When the re-review is complete, submit exactly one `submit_pull_request_review` with the `COMMENT` event, even when nothing changed — never `noop`. Its body must contain this line exactly once, on its own line and without formatting:
 
